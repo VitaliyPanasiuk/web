@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="{%  static  'shop/css/style.css'  %}">
     <link rel="stylesheet"  href="{%  static  'shop/css/productInfo/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,15 +16,19 @@
     <title>LuxonSport</title>
 </head>
 <body>
-    <p>gijrifjkwrekfwe</p>
     {% block content %}
     {% include 'productInfo/includes/navbar.html' %}
 
-    <div class='mainImage'>
-        <img src='{{ продукт.ссылка_изображения }}'>
+    <div class='main'>
+        <div class='mainImage'>
+            <img src='{{ продукт.ссылка_изображения }}'>
+        </div>
+        <div class='productLabel'>
+            <h2>
+                {{ продукт.название_позиции }}
+            </h2>
+        </div>
     </div>
-    <div class='text'>{{ продукт.название_позиции }}</div>
-
 
     {% include 'productInfo/includes/footer.html' %}
     {% endblock %}

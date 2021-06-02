@@ -1,0 +1,7 @@
+.main{
+    display: flex;
+}
+.productLabel{
+    color: black;
+    margin-top: 50px;
+}
