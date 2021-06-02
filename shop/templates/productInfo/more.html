@@ -20,7 +20,9 @@
     {% block content %}
     {% include 'productInfo/includes/navbar.html' %}
 
-    <div class='mainImage'></div>
+    <div class='mainImage'>
+        <img src='{{ продукт.ссылка_изображения }}'>
+    </div>
     <div class='text'>{{ продукт.название_позиции }}</div>
 
 
