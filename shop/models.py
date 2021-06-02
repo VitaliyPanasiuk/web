@@ -15,6 +15,10 @@ PAYMENT_STATUS = (
     ('p', 'Оплачено'),
     ('np', 'Не оплачено'),
 )
+AVAILABLE_STATUS = (
+    ('a', 'Есть в наличии'),
+    ('ua', 'Нет в наличии'),
+)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -147,7 +151,7 @@ class Продукт(models.Model):
     оптовая_цена = models.DecimalField(db_column='Оптовая_цена', max_digits=11, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
     минимальный_заказ_опт = models.DecimalField(db_column='Минимальный_заказ_опт', max_digits=9, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
     ссылка_изображения = models.CharField(db_column='Ссылка_изображения', max_length=828, blank=True, null=True)  # Field name made lowercase.
-    наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True)  # Field name made lowercase.
+    наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True, default='np', choices=AVAILABLE_STATUS)  # Field name made lowercase.
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.
     номер_группы = models.IntegerField(db_column='Номер_группы', blank=True, null=True)  # Field name made lowercase.
     название_группы = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)  # Field name made lowercase.
@@ -172,6 +176,7 @@ class Продукт(models.Model):
         verbose_name_plural = "Продукты"
 
 class Заказ(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     фамилия = models.CharField(max_length=45)
     имя = models.CharField(max_length=45)
     отчество = models.CharField(max_length=45, blank=True, null=True)
@@ -180,8 +185,8 @@ class Заказ(models.Model):
     заказ = models.CharField(max_length=45)
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
-    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
-    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS)
+    Статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
+    Статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS)
     адрес_заказа = models.CharField(max_length=90)
     дата_заказа = models.DateTimeField(blank=True, null=True)
 
@@ -189,3 +194,18 @@ class Заказ(models.Model):
         managed = False
         db_table = 'shop_order'
         verbose_name_plural = 'Заказы'
+
+class Клиент(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
+    имя = models.CharField(db_column='имя', max_length=90, null=False)
+    фамилия = models.CharField(db_column='фамилия', max_length=90, null=False)
+    отчество = models.CharField(db_column='отчество', max_length=90)
+    телефон = models.CharField(db_column='телефон', max_length=45)
+    почта = models.CharField(db_column='почта', max_length=254, null=False)
+    пароль = models.CharField(db_column='пароль', max_length=150, null=False, default='12345')
+    адрес = models.CharField(db_column='адресс', max_length=150)
+
+    class Meta:
+        managed = False
+        db_table = 'shop_client'
+        verbose_name_plural = 'Клиенты'

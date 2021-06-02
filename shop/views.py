@@ -1,7 +1,12 @@
+from django import forms
 from django.db import models
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from .models import Продукт
+from django.contrib.auth import authenticate, login
+from .forms import LoginForm
+from django.http import HttpResponse
+
 
 продукты = Продукт.objects.all()
 

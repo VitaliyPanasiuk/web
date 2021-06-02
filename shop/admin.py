@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import Продукт, Заказ
+from .models import Продукт, Заказ, Клиент
 from random import randint
 
 def make_order_done(modeladmin, request, queryset):
@@ -10,6 +10,7 @@ make_order_done.short_description = "Заказ выполнен"
 def make_order_undone(modeladmin, request, queryset):
     queryset.update(статус_заказа='nd')
 make_order_undone.short_description = "Отменить выполнение заказа"
+
 
 admin.site.site_header = 'Luxon'
 admin.site.site_title = 'Luxon Admin'
@@ -22,9 +23,16 @@ class productAdmin(admin.ModelAdmin):
     readonly_fields  = ('id',)
 
 @admin.register(Заказ)
-class clientAdmin(admin.ModelAdmin):
+class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
-    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
-    list_filter = ('статус_заказа', 'статус_оплаты', )
+    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'Статус_заказа', 'Статус_оплаты', 'дата_заказа')
+    list_filter = ('Статус_заказа', 'Статус_оплаты', )
     readonly_fields  = ('id',)
     actions = [make_order_done, make_order_undone]
+
+@admin.register(Клиент)
+class clientAdmin(admin.ModelAdmin):
+    search_fields = ('фамилия', 'имя')
+    list_display = ('id', 'имя' , 'фамилия', 'почта', 'адрес')
+    readonly_fields  = ('id',)
+    exclude = ('пароль',)
