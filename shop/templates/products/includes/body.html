@@ -15,97 +15,16 @@
     <title>LuxonSport</title>
 </head>
 <body>
-    
-    <div class="intro_conADD">
-        <div class="conteiner">
-            <div class="intro_inner">
-                <h1 class="intro_tittle"><i> Products Page</i></h1>
-            </div>
-        </div>
-    </div>
-    
-    
-        <!--<div class='prod'>
-            <h3>{{ продукт.название_позиции }}</h3>
-            <br>
-        </div>
-    -->
-
-    <div class="store_nav">
-        <nav class="store_navv">
-            <div class="store_link_block1">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </nav>
-        <div class="footer_media_store">
-            <p class="footer_media_store_text">
-                Мы в социальных сетях
-            </p>
-            <div class="footer_media_item_store">
-                <a class="inst" href= "https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <p>instagram</p>
-            </div>
-            <div class="footer_media_item_store">
-                <a class="face" href= "https://uk-ua.facebook.com/" target="_blank"><i class="fab fa-facebook-square"></i> </a>
-                <p>facebook</p>
-            </div>
-            <div class="footer_media_item_store">
-                <a class="you" href= "https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-                <p>youtube</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="content_products">
-        {% for продукт in продукты %}
-            <div class="line">
-                <div class="line_item item1">
-                    <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ продукт.ссылка_изображения }}" alt=""></div></a> 
-                    <p class="line_item_text item_info">
-                        {{ продукт.название_позиции }}
-                    </p>
-                    <p class="line_item_price item_info">
-                        {{ продукт.цена }}
-                    </p>
-                    <div class="line_item_button">
-                        <a class="line_item_but " href='/products/{{ продукт.id }}/'>
-                            подробнее
-                        </a>
-                    </div>
+    <div class="conteiner">
+        <div class="intro_conADD">
+            <div class="conteiner">
+                <div class="intro_inner">
+                    <h1 class="intro_tittle"><i> Products Page</i></h1>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-       
-
-
-<!--
-    <div class="store_main">
-        <div class="conteiner">
-            <div class="store_area">
-
-            
+        </div>
+        
+        <div class="body_inf">
                 <div class="store_nav">
                     <nav class="store_navv">
                         <div class="store_link_block1">
@@ -150,106 +69,31 @@
                             <p>youtube</p>
                         </div>
                     </div>
-                </div>
-            
-        
+            </div>
 
-                <div class="line_conteiner">
+            <div class="content_products">
+                {% for продукт in продукты %}
                     <div class="line">
                         <div class="line_item item1">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
+                            <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ продукт.ссылка_изображения }}" alt=""></div></a> 
                             <p class="line_item_text item_info">
-                                {{название_позиции}}
+                                {{ продукт.название_позиции }}
                             </p>
                             <p class="line_item_price item_info">
-                                {{ цена }}
+                                {{ продукт.цена }}
                             </p>
                             <div class="line_item_button">
-                                <button class="line_item_but ">
+                                <a class="line_item_but " href='/products/{{ продукт.id }}/'>
                                     подробнее
-                                </button>
-                            </div>
-                        </div>
-                        <div class="line_item item2">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
-                            <p class="line_item_text item_info">
-                                название
-                            </p>
-                            <p class="line_item_price item_info">
-                                260000
-                            </p>
-                            <div class="line_item_button">
-                                <button class="line_item_but ">
-                                    подробнее
-                                </button>
-                            </div>
-                        </div>
-                        <div class="line_item item3">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
-                            <p class="line_item_text item_info">
-                                название
-                            </p>
-                            <p class="line_item_price item_info">
-                                260000
-                            </p>
-                            <div class="line_item_button">
-                                <button class="line_item_but ">
-                                    подробнее
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
-
-                    <div class="line">
-                        <div class="line_item item1">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
-                            <p class="line_item_text item_info">
-                                название
-                            </p>
-                            <p class="line_item_price item_info">
-                                260000
-                            </p>
-                            <div class="line_item_button">
-                                <button class="line_item_but ">
-                                    подробнее
-                                </button>
-                            </div>
-                        </div>
-                        <div class="line_item item2">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
-                            <p class="line_item_text item_info">
-                                название
-                            </p>
-                            <p class="line_item_price item_info">
-                                260000
-                            </p>
-                            <div class="line_item_button">
-                                <button class="line_item_but ">
-                                    подробнее
-                                </button>
-                            </div>
-                        </div>
-                        <div class="line_item item3">
-                            <div class="line_item_img"><img src="{%  static  'shop/img/ex.png'  %}" alt=""></div>  
-                            <p class="line_item_text item_info">
-                                название
-                            </p>
-                            <p class="line_item_price item_info">
-                                260000
-                            </p>
-                            <div class="line_item_button">
-                                <button class="line_item_but ">
-                                    подробнее
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
--->
+
     
-</div>
 </body>
 </html>
