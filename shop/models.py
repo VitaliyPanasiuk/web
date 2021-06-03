@@ -195,17 +195,3 @@ class Заказ(models.Model):
         db_table = 'shop_order'
         verbose_name_plural = 'Заказы'
 
-class Клиент(models.Model):
-    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
-    имя = models.CharField(db_column='имя', max_length=90, null=False)
-    фамилия = models.CharField(db_column='фамилия', max_length=90, null=False)
-    отчество = models.CharField(db_column='отчество', max_length=90)
-    телефон = models.CharField(db_column='телефон', max_length=45)
-    почта = models.CharField(db_column='почта', max_length=254, null=False)
-    пароль = models.CharField(db_column='пароль', max_length=150, null=False, default='12345')
-    адрес = models.CharField(db_column='адресс', max_length=150)
-
-    class Meta:
-        managed = False
-        db_table = 'shop_client'
-        verbose_name_plural = 'Клиенты'

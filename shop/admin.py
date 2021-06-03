@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
-from .models import Продукт, Заказ, Клиент
+from .models import Продукт, Заказ
 from random import randint
 
 def make_order_done(modeladmin, request, queryset):
@@ -30,9 +30,4 @@ class orderAdmin(admin.ModelAdmin):
     readonly_fields  = ('id',)
     actions = [make_order_done, make_order_undone]
 
-@admin.register(Клиент)
-class clientAdmin(admin.ModelAdmin):
-    search_fields = ('фамилия', 'имя')
-    list_display = ('id', 'имя' , 'фамилия', 'почта', 'адрес')
-    readonly_fields  = ('id',)
-    exclude = ('пароль',)
+

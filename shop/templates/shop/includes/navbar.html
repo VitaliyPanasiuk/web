@@ -15,6 +15,9 @@
                         <a href="/achievements" class="nav_link">achievements</a>
                         <a href="" class="nav_link">contact</a>
                     </nav>
+                    {% if user.is_authenticated %}
+                    <div class="nav_link" style="color: white">Welcome, {{ user.username }}</div>
+                    {% endif %}
                     <div class="header_but">
                         <a href="/admin" class="headerbut_log">
                             Admin
