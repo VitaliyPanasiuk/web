@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 ]
 
+SITE_ID = 1
+
 LOGIN_REDIRECT_URL = '/'
 
 #CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -71,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.contrib.auth.context_processors.auth"
             ],
         },
     },
@@ -147,4 +150,11 @@ STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
