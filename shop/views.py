@@ -36,7 +36,7 @@ def loginPage(request):
 
 def aboutProductPage(request, id):
     context = {
-        'продукт': продукты[id],
+        'продукт': продукты[id-1],
     }
     template = 'productInfo/more.html'
     return render(request, template, context)
