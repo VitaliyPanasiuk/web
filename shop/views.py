@@ -8,6 +8,8 @@ from .forms import LoginForm
 from django.http import HttpResponse
 
 продукты = Продукт.objects.all()
+x = 0
+y = 4
 
 def homePage(request):
     return render(request, 'shop/index.html')
@@ -15,7 +17,7 @@ def homePage(request):
 
 def productsPage(request):
     context = {
-        'продукты': продукты[0:21:],
+        'продукты': продукты[0:4:],
             }
     template = 'products/index.html'
     return render(request, template, context)
