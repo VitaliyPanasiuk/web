@@ -1,5 +1,6 @@
 .body_inf {
   width: 1200px;
+  max-width: 1200px;
   height: 3000px;
   /* overflow: hidden; */
 }
