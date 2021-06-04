@@ -61,7 +61,7 @@ def userOrders(request, uid):
 def userCart(request, uid):
     productId = accounts[request.user.id-1].cart 
     context = {
-        'item': products[int(productId)],
+        'item': products[int(productId)-1],
     }
     template = 'accounts/profilePage/cart.html'
     return render(request, template, context)
