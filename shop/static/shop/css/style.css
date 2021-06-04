@@ -228,7 +228,7 @@ header {
   color: #000;
   font-family: monospace;
 }
- .store_nav {
+.store_nav {
   width: 200px;
   height: auto;
 }
@@ -240,22 +240,22 @@ header {
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
 }
- .store_navv .store_link_block {
+.store_navv .store_link_block {
   display: block;
   padding-top: 15px;
 }
- .store_navv .store_link_block i {
+.store_navv .store_link_block i {
   color: #000;
   font-size: 16px;
 }
- .store_navv .store_link_block1 i {
+.store_navv .store_link_block1 i {
   color: #000;
   font-size: 16px;
 }
 .store_navv .store_link {
   padding-top: 15px;
 }
- .footer_media_store {
+.footer_media_store {
   display: block;
   justify-content: space-between;
   padding-top: 10px;
@@ -263,11 +263,11 @@ header {
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
 }
- .footer_media_store .footer_media_item_store {
+.footer_media_store .footer_media_item_store {
   padding-top: 10px;
   display: flex;
 }
- .footer_media_store .footer_media_item_store p {
+.footer_media_store .footer_media_item_store p {
   padding-left: 15px;
 }
 
@@ -556,83 +556,7 @@ header {
   font-size: 40px;
 }
 
-
-
-.line {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  margin: 0 auto;
-  display: inline-block;
-  align-items: center;
-  padding-top: 0px;
-  padding-bottom: 50px;
-}
-.line_item {
-  display: inline-block;
-  width: 250px;
-  height: 430px;
-  border: 2px solid #c6c6c6;
-  padding: 10px;
-  transition: transform 0.5s;
-}
-.line_item:hover {
-  transform: scale(1.1);
-  z-index: 1;
-  transition: transform 0.5s;
-}
-.line .line_item .line_item_img {
-  text-align: center;
-}
-.line .line_item img {
-  width: 200px;
-  height: 250px;
-  padding-top: 10px;
-}
-.line .line_item .item_info {
-  padding-left: 7px;
-  font-family: monospace;
-  margin: 0 auto;
-  padding-top: 12px;
-}
-.line .line_item .line_item_text {
-  font-size: 17px;
-}
-.line .line_item .line_item_price {
-  font-size: 20px;
-}
-.line .line_item {
-  padding: 0;
-  margin-left: 7px;
-  margin-top: 18px;
-  font-size: 16px;
-}
-.line_item_but {
-  cursor: pointer;
-  padding: 5px 10px;
-  font-size: 16px;
-  margin-left: 7px;
-  margin-top: 25px;
-  background-color: #cc0000;
-  color: white;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #cc0000;
-  user-select:none
-}
-.line_item_but:hover {
-  color: #000;
-  border-color: #000;
-}
-.line_conteiner {
-  width: 80%;
-  padding-left: 70px;
-}
+/*удалил от сюда цсс продуктов*/
 
 body {
   font-size: 15px;
