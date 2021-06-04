@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
@@ -15,4 +18,4 @@ class AuthUser(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user'
-# Create your models here.
+

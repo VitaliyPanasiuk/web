@@ -1,29 +1,25 @@
 from django.shortcuts import redirect, render
-from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
 from django.contrib import auth
 from django.template.context_processors import csrf
 from .models import AuthUser
-
-from .forms import UserCreationForm
+from .forms import SignUpForm
 
 
 accounts = AuthUser.objects.all()
 
 def register(request):
-    args={}
-    args.update(csrf(request))
-    args['form'] = UserCreationForm()
-    if request.POST:
-        newuser_form = UserCreationForm(request.POST)
-        if newuser_form.is_valid():
-            newuser_form.save()
-            newuser = auth.authenticate(username = newuser_form.cleaned_data['username'], password = newuser_form.cleaned_data['password2'])
-            auth.login(request, newuser)
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = auth.authenticate(username=username, password=raw_password)
+            auth.login(request, user)
             return redirect('/')
-        else:
-            args['form'] = newuser_form
-    return render(request, 'accounts/auth/register.html', args)
+    else:
+        form = SignUpForm()
+    return render(request, 'accounts/auth/register.html', {'form': form})
 
 
 
