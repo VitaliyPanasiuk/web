@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.http import HttpResponse
 
-
 продукты = Продукт.objects.all()
 
 def homePage(request):

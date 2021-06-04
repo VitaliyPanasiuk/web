@@ -1,6 +1,5 @@
 from django.db import models
 from random import randint
-from django import forms
 
 #functions
 def random_string():

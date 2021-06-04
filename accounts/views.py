@@ -2,33 +2,13 @@ from django.shortcuts import redirect, render
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 from django.contrib import auth
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.template.context_processors import csrf
+from .models import AuthUser
 
-'''class LoginFormView(FormView):
-    form_class = AuthenticationForm
-    success_url = '/products/34'
-    template_name = 'accounts/login.html'
-    
-    def for_valid(self, form):
-        form.save()
-        if request.user.is_authenticated:
-            return render(request, self.template_name)
-        else:
-            return render(request, self.template_name)'''
-'''
-class RegisterFormView(TemplateView):
-    form_class = UserCreationForm
-    success_url = '/products/34'
+from .forms import UserCreationForm
 
-    template_name = 'accounts/register.html'
 
-    def form_valid(self, form):
-        form.save()
-        return super(RegisterFormView, self).form_valid(form)
-    
-    def form_invalid(self, form):
-        return super(RegisterFormView, self).form_invalid(form)'''
+accounts = AuthUser.objects.all()
 
 def register(request):
     args={}
@@ -43,7 +23,9 @@ def register(request):
             return redirect('/')
         else:
             args['form'] = newuser_form
-    return render(request, 'accounts/register.html', args)
+    return render(request, 'accounts/auth/register.html', args)
+
+
 
 def login(request):
     args={}
@@ -56,12 +38,19 @@ def login(request):
             auth.login(request, user)
             return redirect('/')
         else:
-            args['login_error'] = 'unknown user'
-            return render(request, 'accounts/failed.html', args)
+            args['login_error'] = 'Wrong username or password!'
+            return render(request, 'accounts/auth/failed.html', args)
     
     else:
-        return render(request, 'accounts/login.html', args)
+        return render(request, 'accounts/auth/login.html', args)
     
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def userProfilePage(request, uid):
+    context = {
+        'userId': request.user.id,
+    }
+    template = 'accounts/profilePage/profilePage.html'
+    return render(request, template, context)

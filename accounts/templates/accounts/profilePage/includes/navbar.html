@@ -9,22 +9,12 @@
                 </div> -->
                 <div class="header_link">
                     <nav class="navv">
-                        <a href='/' class='nav_link_current'>home</a>
+                        <a href='/' class='nav_link'>home</a>
                         <a href="/about" class="nav_link">about Us</a>
-                        <a href="/products" class="nav_link">products</a>
+                        <a href="/products" class="nav_link_current">products</a>
                         <a href="/achievements" class="nav_link">achievements</a>
                         <a href="" class="nav_link">contact</a>
                     </nav>
-                    {% if user.is_authenticated %}
-                    <div class="nav_link" style="color: white">Welcome, <a class="nav_link" href='accounts/{{ user.id }}/'>{{ user.username }}<a></div>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                    <div class="header_but">
-                        <a href="/admin" class="headerbut_log">
-                            Admin
-                        </a>
-                    </div>
-                    {% endif %}
                     {% if not user.is_authenticated %}
                     <div class="header_but">
                         <a href="/accounts/login" class="headerbut_log">
