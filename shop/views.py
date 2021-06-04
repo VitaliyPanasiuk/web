@@ -17,7 +17,7 @@ def homePage(request):
 
 def productsPage(request):
     context = {
-        'продукты': продукты[0:4:],
+        'продукты': продукты[0:20:],
             }
     template = 'products/index.html'
     return render(request, template, context)
