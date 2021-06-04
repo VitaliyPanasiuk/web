@@ -11,10 +11,20 @@
 <body>
     {% block content %}
     {% include 'productInfo/includes/navbar.html' %}
-
-        <p>Name: {{ user.first_name }}</p>
-        <p>Last name: {{ user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
+        {% if user.first_name %}
+            <p>Имя: {{ user.first_name }}</p>
+        {% else %}
+            <p>Имя: не введено</p>
+        {% endif %}
+        {% if user.last_name %}    
+            <p>Фамилия: {{ user.last_name }}</p>
+        {% else %}
+            <p>Фамилия: не введена</p>
+        {% endif %}
+            <p>Email: {{ user.email }}</p>
+        <a href='orders'>Мои заказы</a>
+        <a href='favourites'>Избранное</a>
+        <a href='cart'>Моя корзина</a>
 
 
     {% include 'productInfo/includes/footer.html' %}

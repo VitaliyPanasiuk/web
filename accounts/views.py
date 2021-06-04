@@ -50,3 +50,24 @@ def userProfilePage(request, uid):
     }
     template = 'accounts/profilePage/profilePage.html'
     return render(request, template, context)
+
+def userOrders(request, uid):
+    context = {
+        'userId': request.user.id,
+    }
+    template = 'accounts/profilePage/orders.html'
+    return render(request, template, context)
+
+def userCart(request, uid):
+    context = {
+        'userId': request.user.id,
+    }
+    template = 'accounts/profilePage/cart.html'
+    return render(request, template, context)
+
+def userFavourites(request, uid):
+    context = {
+        'userId': request.user.id,
+    }
+    template = 'accounts/profilePage/favourites.html'
+    return render(request, template, context)
