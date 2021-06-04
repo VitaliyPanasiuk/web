@@ -1,11 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.template.context_processors import csrf
-from .models import AuthUser
+from .models import AuthUser, Продукт
 from .forms import SignUpForm
 
-
 accounts = AuthUser.objects.all()
+products = Продукт.objects.all()
 
 def register(request):
     if request.method == 'POST':
@@ -59,8 +59,9 @@ def userOrders(request, uid):
     return render(request, template, context)
 
 def userCart(request, uid):
+    productId = accounts[request.user.id-1].cart 
     context = {
-        'userId': request.user.id,
+        'item': products[int(productId)],
     }
     template = 'accounts/profilePage/cart.html'
     return render(request, template, context)
