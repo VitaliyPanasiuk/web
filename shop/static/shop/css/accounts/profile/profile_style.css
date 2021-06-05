@@ -34,6 +34,8 @@ p {
 .user {
   display: flex;
   border-bottom: 1px solid #c6c6c6;
+  width: 300px;
+  margin-left: -55px;
 }
 a {
   text-decoration: none;
@@ -91,6 +93,7 @@ a {
   display: block;
   width: 30px;
   height: 30px;
+  
 }
 .favourite img {
   display: block;
@@ -105,8 +108,14 @@ a {
 }
 .cart {
   margin-bottom: 15px;
+  margin-left: -55px;
 }
-
+.order{
+  margin-left: -55px;
+}
+.favourite{
+  margin-left: -55px;
+}
 .intro_page {
   display: flex;
 }
