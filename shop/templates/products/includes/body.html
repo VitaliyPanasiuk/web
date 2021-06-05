@@ -32,9 +32,11 @@
                                 <div class="line_item item1">
                                     <div class="line_item_info">
                                         <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ продукт.ссылка_изображения }}" alt=""></div></a> 
-                                        <p class="line_item_text item_info">
-                                            {{ продукт.название_позиции }}
-                                        </p>
+                                        <div class="protuct_tit">
+                                            <p class="line_item_text item_info">
+                                                {{ продукт.название_позиции }}
+                                            </p>
+                                        </div>    
                                         <p class="line_item_price item_info">
                                             {{ продукт.цена }}
                                         </p>
