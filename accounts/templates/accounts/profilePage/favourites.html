@@ -1,7 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,6 +15,75 @@
     <title>Document</title>
 </head>
 <body>
-    favourites
+    {% block content %}
+    {% include 'accounts/profilePage/includes/navbar.html' %}
+        <div class="body_inf">
+            <div class="conteiner">
+                <div class="intro_page">
+                    <div class="user_page">
+                        <div class="user" onclick="location.href='profilePage2';">
+                            <div class="user_img">
+                                <img src="{%  static  'shop/img/user.png'  %}" alt="">    
+                            </div>
+                            <div class="user_inf ">
+                                <div class="user_inf_top">
+                                    {% if user.first_name %}
+                                        <p class="first_name">{{ user.first_name }}</p>
+                                    {% else %}
+                                        <p class="first_name">не введено</p>
+                                    {% endif %}
+                                    {% if user.last_name %}    
+                                        <p class="last_name">{{ user.last_name }}</p>
+                                    {% else %}
+                                        <p class="last_name">не введена</p>
+                                    {% endif %}
+                                </div>
+                                <div class="user_inf_bot">
+                                    <p class="user_email">{{ user.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                                <a href='orders'>Мои заказы</a>
+                            </div>
+                        </div>
+                        <div class="favourite user_bl active_item">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
+                             </div>
+                             <div class="user_bl_text">
+                                <a href='favourites'>Избранное</a>
+                            </div>
+                        </div>
+                        <div class="cart user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                               <a href='cart'>Моя корзина</a> 
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="user_redact">
+                        favourite
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    <div class="footer">
+        {% include 'productInfo/includes/footer.html' %}
+    </div>
+    
+    {% endblock %}
+
 </body>
 </html>
+
+

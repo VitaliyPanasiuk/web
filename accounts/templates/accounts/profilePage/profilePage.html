@@ -19,62 +19,63 @@
     {% include 'accounts/profilePage/includes/navbar.html' %}
         <div class="body_inf">
             <div class="conteiner">
-                <div class="user_page">
-                    <div class="user">
-                        <div class="user_img">
-                            <img src="{%  static  'shop/img/user.png'  %}" alt="">    
-                        </div>
-                        <div class="user_inf">
-                            <div class="user_inf_top">
-                                {% if user.first_name %}
-                                    <p class="first_name">{{ user.first_name }}</p>
-                                {% else %}
-                                    <p class="first_name">не введено</p>
-                                {% endif %}
-                                {% if user.last_name %}    
-                                    <p class="last_name">{{ user.last_name }}</p>
-                                {% else %}
-                                    <p class="last_name">не введена</p>
-                                {% endif %}
+                <div class="intro_page">
+                    <div class="user_page" >
+                        <div class="user active_item" onclick="location.href='profilePage';">
+                            <div class="user_img">
+                                <img src="{%  static  'shop/img/user.png'  %}" alt="">    
                             </div>
-                            <div class="user_inf_bot">
-                                <p class="user_email">{{ user.email }}</p>
+                            <div class="user_inf ">
+                                <div class="user_inf_top">
+                                    {% if user.first_name %}
+                                        <p class="first_name">{{ user.first_name }}</p>
+                                    {% else %}
+                                        <p class="first_name">не введено</p>
+                                    {% endif %}
+                                    {% if user.last_name %}    
+                                        <p class="last_name">{{ user.last_name }}</p>
+                                    {% else %}
+                                        <p class="last_name">не введена</p>
+                                    {% endif %}
+                                </div>
+                                <div class="user_inf_bot">
+                                    <p class="user_email">{{ user.email }}</p>
+                                </div>
                             </div>
                         </div>
+                        <div class="order user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                                <a href='orders'>Мои заказы</a>
+                            </div>
+                        </div>
+                        <div class="favourite user_bl ">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
+                             </div>
+                             <div class="user_bl_text">
+                                <a href='favourites'>Избранное</a>
+                            </div>
+                        </div>
+                        <div class="cart user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                               <a href='cart'>Моя корзина</a> 
+                            </div>
+                            
+                        </div>
                     </div>
-                    <div class="order user_bl">
-                        <img src="{%  static  'shop/img/list.png'  %}" alt="">
-                        <a href='orders'>Мои заказы</a>
-                    </div>
-                    <div class="favourite user_bl">
-                        <img src="{%  static  'shop/img/heart.png'  %}" alt="">
-                        <a href='favourites'>Избранное</a>
-                    </div>
-                    <div class="cart user_bl">
-                        <img src="{%  static  'shop/img/cart.png'  %}" alt="">
-                        <a href='cart'>Моя корзина</a>
+
+                    <div class="user_redact">
+                        user
                     </div>
                 </div>
-                
-                
-                
-                
-                <!-- {% if user.first_name %}
-                    <p>Имя: {{ user.first_name }}</p>
-                {% else %}
-                    <p>Имя: не введено</p>
-                {% endif %}
-                {% if user.last_name %}    
-                    <p>Фамилия: {{ user.last_name }}</p>
-                {% else %}
-                    <p>Фамилия: не введена</p>
-                {% endif %}
-                    <p>Email: {{ user.email }}</p>
-                <a href='orders'>Мои заказы</a>
-                <a href='favourites'>Избранное</a>
-                <a href='cart'>Моя корзина</a> -->
+               
             </div>
-            
         </div>
     <div class="footer">
         {% include 'productInfo/includes/footer.html' %}
