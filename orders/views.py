@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import ShopOrder, ShopProduct
+from .models import ShopProduct
 from django.template.context_processors import csrf
 from .models import AuthUser
+
 
 продукты = ShopProduct.objects.all()
 

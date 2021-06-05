@@ -28,7 +28,12 @@
                 {{ продукт.название_позиции }}
             </h2>
         </div>
-        <a href='/orders/buy{{ продукт.id }}/'>Add it To Cart!</a>
+        <form action="" method='post'>
+            {% csrf_token %}
+            <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
+            <input type='submit' value='Add it To Cart!'>
+        </form>
+
     </div>
 
     {% include 'productInfo/includes/footer.html' %}

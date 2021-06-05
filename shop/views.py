@@ -1,10 +1,7 @@
-from django import forms
-from django.db import models
-from django.shortcuts import render
-from django.views.generic.list import ListView
+from django.shortcuts import render, redirect
 from .models import Продукт
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from django.template.context_processors import csrf
+import json
 from django.http import HttpResponse
 
 продукты = Продукт.objects.all()
@@ -38,5 +35,22 @@ def aboutProductPage(request, id):
     context = {
         'продукт': продукты[id-1],
     }
+    jsonData = {}
+    jsonData['cart'] = []
     template = 'productInfo/more.html'
-    return render(request, template, context)
+    context.update(csrf(request))
+    if request.POST:
+        itemToAdd = request.POST.get('add', '')
+        if itemToAdd:
+            jsonData['cart'].append({
+            'userId': request.user.id,
+            'item': itemToAdd,
+            })
+            with open('data.json', 'w') as outfile:
+                outfile.write(json.dumps(jsonData))
+            return render(request, template, context)
+        else:
+            return HttpResponse('bad')
+    
+    else:
+        return render(request, template, context)
