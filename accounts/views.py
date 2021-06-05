@@ -1,12 +1,15 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.template.context_processors import csrf
-from .models import AuthUser, ShopCart, Продукт
+from .models import AuthUser, Продукт
 from .forms import SignUpForm
+import time
 
+
+products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
-carts = ShopCart.objects.all()
-productList = Продукт.objects.all()
+    
+    
 
 def register(request):
     if request.method == 'POST':
@@ -58,27 +61,46 @@ def userOrders(request, uid):
     }
     template = 'accounts/profilePage/orders.html'
     return render(request, template, context)
-
+from django.db import models
 def userCart(request, uid):
-    cartItems = carts[0:len(carts):]
-    a = []
-    product_ids = []
-    for cartItem in cartItems:
-        if str(cartItem.user_id) == str(request.user.id):
-            a.append(cartItem.item)
-            print(a)
-    for i in a:
-        product_ids.append(i)
-        print(product_ids)
-    products = productList[int(product_ids[0])-1:int(product_ids[1])-1:]
-    print(products)
-    print(productList)
-    context = {
-        'items': a,
-        'products': products
-    }
+
     template = 'accounts/profilePage/cart.html'
-    return render(request, template, context)
+
+    #ADD TO CART
+    class ShopCarty(models.Model):
+        user_id = models.CharField(max_length=45)
+        item = models.CharField(max_length=45, blank=True, null=True)
+        cart_id = models.AutoField(primary_key=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_cart'
+
+    
+    
+    #DELETE FROM CART
+    if request.POST:
+        itemToDelete = request.POST.get('delete', '')
+        ShopCarty.objects.filter(item=itemToDelete).delete()
+        return redirect('/accounts/' + str(request.user.id) + '/cart')
+    else:
+        carts = ShopCarty.objects.all()
+        cartItems = carts[0:len(carts):]
+
+        a = []
+        mainProducts = []
+        for cartItem in cartItems:
+            if str(cartItem.user_id) == str(request.user.id):
+                a.append(cartItem.item)
+        for i in a:
+            mainProducts.append(products[int(i)-1])
+        context = {
+            'a': a,
+            'items': mainProducts
+        }
+        context.update(csrf(request))
+        return render(request, template, context)
+    
 
 def userFavourites(request, uid):
     context = {

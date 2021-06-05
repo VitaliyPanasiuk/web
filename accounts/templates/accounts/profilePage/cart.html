@@ -71,7 +71,17 @@
                     </div>
 
                     <div class="user_redact">
-                        cart
+                        {% for item in items %}
+                            <a href='/products/{{ item.id }}'>
+                                <p>{{ item.название_позиции }}</p>
+                            </a>
+                            <form action='' method="POST">
+                                {% csrf_token %}
+                                <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.id }}'></div>
+                                <input type='submit' value='Delete'>
+                            </form>
+                        {% endfor %}
+                        
                     </div>
                 </div>
                
@@ -85,9 +95,3 @@
 
 </body>
 </html>
-
-<!-- <p>Ваша корзина: 
-    {% for product in products %}
-        {{ product.название_позиции }}
-    {% endfor %}
-</p> -->
