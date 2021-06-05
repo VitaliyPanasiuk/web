@@ -19,7 +19,47 @@
     {% include 'productInfo/includes/navbar.html' %}
         <div class="body_inf">
             <div class="conteiner">
-                {% if user.first_name %}
+                <div class="user_page">
+                    <div class="user">
+                        <div class="user_img">
+                            <img src="{%  static  'shop/img/user.png'  %}" alt="">    
+                        </div>
+                        <div class="user_inf">
+                            <div class="user_inf_top">
+                                {% if user.first_name %}
+                                    <p class="first_name">{{ user.first_name }}</p>
+                                {% else %}
+                                    <p class="first_name">не введено</p>
+                                {% endif %}
+                                {% if user.last_name %}    
+                                    <p class="last_name">{{ user.last_name }}</p>
+                                {% else %}
+                                    <p class="last_name">не введена</p>
+                                {% endif %}
+                            </div>
+                            <div class="user_inf_bot">
+                                <p class="user_email">{{ user.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order user_bl">
+                        <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                        <a href='orders'>Мои заказы</a>
+                    </div>
+                    <div class="favourite user_bl">
+                        <img src="{%  static  'shop/img/heart.png'  %}" alt="">
+                        <a href='favourites'>Избранное</a>
+                    </div>
+                    <div class="cart user_bl">
+                        <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                        <a href='cart'>Моя корзина</a>
+                    </div>
+                </div>
+                
+                
+                
+                
+                <!-- {% if user.first_name %}
                     <p>Имя: {{ user.first_name }}</p>
                 {% else %}
                     <p>Имя: не введено</p>
@@ -32,7 +72,7 @@
                     <p>Email: {{ user.email }}</p>
                 <a href='orders'>Мои заказы</a>
                 <a href='favourites'>Избранное</a>
-                <a href='cart'>Моя корзина</a>
+                <a href='cart'>Моя корзина</a> -->
             </div>
             
         </div>

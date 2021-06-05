@@ -1,4 +1,85 @@
+p {
+  font-family: "Roboto", sans-serif;
+}
 .body_inf {
   width: 100%;
   height: 72vh;
+}
+.user_page {
+  width: 250px;
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+.user_img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+}
+.user_img img {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.user {
+  display: flex;
+  border-bottom: 1px solid #c6c6c6;
+}
+a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #000;
+  font-family: monospace;
+}
+.user_inf {
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.user_inf_top {
+  display: flex;
+  margin-top: 5px;
+}
+.first_name {
+  margin-left: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.last_name {
+  margin-left: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.user_email {
+  margin-left: 0px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.user_bl {
+  display: flex;
+  margin-top: 15px;
+}
+.user_bl a {
+  margin: auto;
+}
+.order img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.favourite img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.cart img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.cart {
+  margin-bottom: 15px;
 }
