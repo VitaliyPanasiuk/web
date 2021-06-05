@@ -403,13 +403,13 @@ header {
 .footer {
   font-size: 22px;
   width: 100%;
-  height: 25vh;
+  height: 20vh;
   background-color: #3ba3d0;
 }
 .footer_login {
   font-size: 22px;
   width: 100%;
-  height: 25vh;
+  height: 20vh;
   background-color: #3ba3d0;
   vertical-align: bottom;
 }
@@ -428,7 +428,7 @@ header {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  height: 25vh;
+  height: 20vh;
 }
 
 .footer_items::before {

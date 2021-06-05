@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,23 +17,29 @@
 <body>
     {% block content %}
     {% include 'productInfo/includes/navbar.html' %}
-        {% if user.first_name %}
-            <p>Имя: {{ user.first_name }}</p>
-        {% else %}
-            <p>Имя: не введено</p>
-        {% endif %}
-        {% if user.last_name %}    
-            <p>Фамилия: {{ user.last_name }}</p>
-        {% else %}
-            <p>Фамилия: не введена</p>
-        {% endif %}
-            <p>Email: {{ user.email }}</p>
-        <a href='orders'>Мои заказы</a>
-        <a href='favourites'>Избранное</a>
-        <a href='cart'>Моя корзина</a>
-
-
-    {% include 'productInfo/includes/footer.html' %}
+        <div class="body_inf">
+            <div class="conteiner">
+                {% if user.first_name %}
+                    <p>Имя: {{ user.first_name }}</p>
+                {% else %}
+                    <p>Имя: не введено</p>
+                {% endif %}
+                {% if user.last_name %}    
+                    <p>Фамилия: {{ user.last_name }}</p>
+                {% else %}
+                    <p>Фамилия: не введена</p>
+                {% endif %}
+                    <p>Email: {{ user.email }}</p>
+                <a href='orders'>Мои заказы</a>
+                <a href='favourites'>Избранное</a>
+                <a href='cart'>Моя корзина</a>
+            </div>
+            
+        </div>
+    <div class="footer">
+        {% include 'productInfo/includes/footer.html' %}
+    </div>
+    
     {% endblock %}
 
 </body>
