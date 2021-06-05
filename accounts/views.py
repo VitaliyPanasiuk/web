@@ -5,7 +5,6 @@ from .models import AuthUser, Продукт
 from .forms import SignUpForm
 
 accounts = AuthUser.objects.all()
-products = Продукт.objects.all()
 
 def register(request):
     if request.method == 'POST':
@@ -59,9 +58,8 @@ def userOrders(request, uid):
     return render(request, template, context)
 
 def userCart(request, uid):
-    productId = accounts[request.user.id-1].cart 
     context = {
-        'item': products[int(productId)-1],
+        'item': '1',
     }
     template = 'accounts/profilePage/cart.html'
     return render(request, template, context)

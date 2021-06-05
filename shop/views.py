@@ -3,6 +3,7 @@ from .models import Продукт
 from django.template.context_processors import csrf
 import json
 from django.http import HttpResponse
+from .models import ShopCart
 
 продукты = Продукт.objects.all()
 x = 0
@@ -36,19 +37,14 @@ def aboutProductPage(request, id):
         'продукт': продукты[id-1],
     }
     jsonData = {}
-    jsonData['cart'] = []
     template = 'productInfo/more.html'
     context.update(csrf(request))
     if request.POST:
         itemToAdd = request.POST.get('add', '')
         if itemToAdd:
-            jsonData['cart'].append({
-            'userId': request.user.id,
-            'item': itemToAdd,
-            })
-            with open('data.json', 'w') as outfile:
-                outfile.write(json.dumps(jsonData))
-            return render(request, template, context)
+            ToSave = ShopCart(user_id=request.user.id, item=itemToAdd)
+            ToSave.save()
+            return redirect('/products')
         else:
             return HttpResponse('bad')
     
