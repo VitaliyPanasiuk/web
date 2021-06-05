@@ -21,25 +21,36 @@
             <div class="conteiner">
                 <div class="intro_page">
                     <div class="user_page">
-                        <div class="user">
+                        <div class="user" >
                             <div class="user_img">
-                                <img src="{%  static  'shop/img/user.png'  %}" alt="">    
+                                <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
+                                </a>
                             </div>
                             <div class="user_inf ">
                                 <div class="user_inf_top">
-                                    {% if user.first_name %}
-                                        <p class="first_name">{{ user.first_name }}</p>
-                                    {% else %}
-                                        <p class="first_name">не введено</p>
-                                    {% endif %}
-                                    {% if user.last_name %}    
-                                        <p class="last_name">{{ user.last_name }}</p>
-                                    {% else %}
+                                    <!-- {% if user.first_name %} -->
+                                    <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                        {{ user.first_name }}
+                                    </a>
+                                        <!-- <a href=""><p class="first_name">{{ user.first_name }}</p></a> -->
+                                    <!-- {% else %}
+                                        <p class="first_name">не введено</p> -->
+                                    <!-- {% endif %} -->
+                                    {% if user.last_name %} 
+                                    <a class="last_name" href='/accounts/{{ user.id }}/'>
+                                        {{ user.last_name }}
+                                    </a>   
+                                        <!-- <p class="last_name">{{ user.last_name }}</p> -->
+                                    <!-- {% else %}
                                         <p class="last_name">не введена</p>
-                                    {% endif %}
+                                    {% endif %} -->
                                 </div>
                                 <div class="user_inf_bot">
-                                    <p class="user_email">{{ user.email }}</p>
+                                    <a class="user_email" href='/accounts/{{ user.id }}/'>
+                                        {{ user.email }}
+                                    </a>  
+                                    <!-- <p class="user_email">{{ user.email }}</p> -->
                                 </div>
                             </div>
                         </div>

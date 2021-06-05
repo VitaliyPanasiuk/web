@@ -28,6 +28,7 @@ class AuthUser(models.Model):
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
     cart = models.CharField(max_length=255, blank=True, null=True)
+    phone_number = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
