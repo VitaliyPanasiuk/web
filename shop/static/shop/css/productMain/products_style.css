@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   /* overflow: hidden; */
+  padding-bottom: 50px;
 }
 .content_products {
   width: 100%;
@@ -70,7 +71,10 @@
   margin-top: 18px;
   font-size: 16px;
 }
-.line_item_button {
+.protuct_tit {
+  width: 200px;
+  height: 95px;
+  overflow: hidden;
 }
 .line_item_but {
   padding: 5px 10px;
