@@ -12,6 +12,10 @@
     <title>Document</title>
 </head>
 <body>
-    Ваша корзина: {{ item.название_позиции }}
+    <p>Ваша корзина: 
+        {% for product in products %}
+            {{ product.название_позиции }}
+        {% endfor %}
+    </p>
 </body>
 </html>

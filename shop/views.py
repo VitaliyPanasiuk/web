@@ -36,7 +36,6 @@ def aboutProductPage(request, id):
     context = {
         'продукт': продукты[id-1],
     }
-    jsonData = {}
     template = 'productInfo/more.html'
     context.update(csrf(request))
     if request.POST:
