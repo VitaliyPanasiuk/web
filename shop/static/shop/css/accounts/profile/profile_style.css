@@ -8,6 +8,7 @@ p {
 .user_page {
   padding-top: 25px;
   width: 250px;
+  height: 320px;
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
 }
@@ -38,7 +39,7 @@ a {
   text-decoration: none;
   font-size: 20px;
   color: #000;
-  font-family: monospace;
+  font-family: "Roboto", sans-serif;
 }
 .user_inf {
   margin-left: 15px;
@@ -62,6 +63,7 @@ a {
   margin-right: 0;
 }
 .user_email {
+  font-size: 14px;
   margin-left: 0px;
   margin-top: 2px;
   margin-bottom: 0;
@@ -111,4 +113,102 @@ a {
 .active_item {
   background-color: rgb(255, 0, 0, 0.4);
   border-radius: 25px;
+}
+
+.user_redact {
+  width: 950px;
+}
+.person_icon {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+}
+.person_icon img {
+  width: 50px;
+  height: 50px;
+}
+.person_icon_let {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 35px;
+}
+.person_icon_let img {
+  width: 50px;
+  height: 35px;
+}
+.personality {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.contacts {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.person_top {
+  display: flex;
+  width: 900px;
+}
+.person_text {
+  display: flex;
+  width: 900px;
+}
+.person_text p {
+  font-size: 16px;
+}
+.person_tit {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_redact {
+  width: auto;
+  margin-right: 30px;
+  margin-left: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_info {
+  display: flex;
+}
+.person_last_name {
+  margin-right: auto;
+  margin-left: 80px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_firs_name {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_num {
+  margin-right: auto;
+  margin-left: 80px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_emeil {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_subname {
+  color: #c6c6c6;
+  font-size: 14px;
+}
+.person_name {
+  font-size: 16px;
 }
