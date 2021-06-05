@@ -194,3 +194,11 @@ class Заказ(models.Model):
         db_table = 'shop_order'
         verbose_name_plural = 'Заказы'
 
+class ShopCart(models.Model):
+    user_id = models.CharField(max_length=45)
+    item = models.CharField(max_length=45, blank=True, null=True)
+    cart_id = models.AutoField(primary_key=True)
+
+    class Meta:
+        managed = False
+        db_table = 'shop_cart'

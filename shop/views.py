@@ -1,11 +1,9 @@
-from django import forms
-from django.db import models
-from django.shortcuts import render
-from django.views.generic.list import ListView
+from django.shortcuts import render, redirect
 from .models import Продукт
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from django.template.context_processors import csrf
+import json
 from django.http import HttpResponse
+from .models import ShopCart
 
 продукты = Продукт.objects.all()
 x = 0
@@ -39,4 +37,15 @@ def aboutProductPage(request, id):
         'продукт': продукты[id-1],
     }
     template = 'productInfo/more.html'
-    return render(request, template, context)
+    context.update(csrf(request))
+    if request.POST:
+        itemToAdd = request.POST.get('add', '')
+        if itemToAdd:
+            ToSave = ShopCart(user_id=request.user.id, item=itemToAdd)
+            ToSave.save()
+            return redirect('/products')
+        else:
+            return HttpResponse('bad')
+    
+    else:
+        return render(request, template, context)
