@@ -15,7 +15,7 @@ body {
 }
 .reg_body {
   width: 100%;
-  height: 67vh;
+  height: 72vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,9 +47,4 @@ label {
 .formbl {
   margin: 0 auto;
   width: 300px;
-}
-.footer {
-  position: absolute;
-  bottom: 0px;
-  left: 0;
 }
