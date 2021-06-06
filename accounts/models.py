@@ -23,12 +23,12 @@ class AuthUser(models.Model):
     username = models.CharField(unique=True, max_length=150)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
+    phone_number = models.CharField(max_length=30, blank=True, null=True)
     email = models.CharField(max_length=254)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
-    cart = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.CharField(max_length=30, blank=True, null=True)
+    
 
     class Meta:
         managed = False

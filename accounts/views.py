@@ -47,9 +47,10 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-def userProfilePage(request, uid):
+def userProfilePage(request, uid):   
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/profilePage.html'
     return render(request, template, context)
@@ -105,6 +106,7 @@ def userCart(request, uid):
         context = {
             'items': cartItems,
             'amounts': b,
+            'userId': str(request.user.id),
         }
         context.update(csrf(request))
         return render(request, template, context)

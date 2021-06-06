@@ -60,6 +60,7 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
+    phone_number = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
