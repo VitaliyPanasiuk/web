@@ -57,7 +57,8 @@ def userProfilePage(request, uid):
 
 def userOrders(request, uid):
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/orders.html'
     return render(request, template, context)
@@ -107,6 +108,7 @@ def userCart(request, uid):
             'items': cartItems,
             'amounts': b,
             'userId': str(request.user.id),
+            'account': str(uid),
         }
         context.update(csrf(request))
         return render(request, template, context)
@@ -114,7 +116,8 @@ def userCart(request, uid):
 
 def userFavourites(request, uid):
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/favourites.html'
     return render(request, template, context)
