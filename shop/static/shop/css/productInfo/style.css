@@ -1,8 +1,50 @@
-.main{
-    display: flex;
+.main {
+  display: flex;
+  background-color: #cccccc;
 }
-.productLabel{
-    color: black;
-    margin-top: 50px;
-    margin-left: 25px;
+.productLabel {
+  color: black;
+  margin-top: 50px;
+  margin-left: 25px;
+}
+.main_all {
+  display: block;
+  width: 100%;
+  height: 130vh;
+}
+.main_all_top {
+  display: flex;
+  width: 100%;
+  height: 580px;
+}
+.main_all_bot {
+  display: block;
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+}
+.main_r {
+  width: 58%;
+  background-color: #fff;
+  height: 100%;
+  margin-left: 2%;
+}
+.main_l {
+  width: 40%;
+  background-color: #fff;
+  height: 100%;
+}
+.mainImage {
+  width: 400px;
+  height: 400px;
+  background-color: #fff;
+}
+.mainImage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
 }

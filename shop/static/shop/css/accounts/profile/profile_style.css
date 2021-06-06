@@ -93,7 +93,6 @@ a {
   display: block;
   width: 30px;
   height: 30px;
-  
 }
 .favourite img {
   display: block;
@@ -110,10 +109,10 @@ a {
   margin-bottom: 15px;
   margin-left: -55px;
 }
-.order{
+.order {
   margin-left: -55px;
 }
-.favourite{
+.favourite {
   margin-left: -55px;
 }
 .intro_page {
@@ -149,6 +148,17 @@ a {
   width: 50px;
   height: 35px;
 }
+.adres_icon_ad {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 35px;
+}
+.adres_icon_ad img {
+  width: 50px;
+  height: 35px;
+}
 .personality {
   display: block;
   width: 900px;
@@ -162,6 +172,16 @@ a {
   margin-left: 50px;
   margin-top: 50px;
   border: 1px solid #c6c6c6;
+}
+.adres {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.adres_top {
+  display: flex;
 }
 .person_top {
   display: flex;

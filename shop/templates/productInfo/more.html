@@ -20,20 +20,35 @@
     {% include 'productInfo/includes/navbar.html' %}
 
     <div class='main'>
-        <div class='mainImage'>
-            <img src='{{ продукт.ссылка_изображения }}'>
+        <div class="conteiner">
+            <div class="main_all">
+                <div class="main_all_top">
+                    <div class="main_l">
+                        <div class='mainImage'>
+                            <img src='{{ продукт.ссылка_изображения }}'>
+                        </div> 
+                    </div>
+                    <div class="main_r">
+                        <div class='productLabel'>
+                            <h2>
+                                {{ продукт.название_позиции }}
+                            </h2>
+                        </div>
+                        <form action="" method='post'>
+                            {% csrf_token %}
+                            <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
+                            <input type='submit' value='Add it To Cart!'>
+                        </form>  
+                    </div>
+                </div>
+                <div class="main_all_bot">
+                    <div class="description">
+                        <p>Описание</p>
+                        <p>{{ продукт.описание }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class='productLabel'>
-            <h2>
-                {{ продукт.название_позиции }}
-            </h2>
-        </div>
-        <form action="" method='post'>
-            {% csrf_token %}
-            <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
-            <input type='submit' value='Add it To Cart!'>
-        </form>
-
     </div>
 
     {% include 'productInfo/includes/footer.html' %}
