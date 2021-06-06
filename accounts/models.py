@@ -80,6 +80,10 @@ class ShopCart(models.Model):
     user_id = models.CharField(max_length=45)
     item = models.CharField(max_length=45, blank=True, null=True)
     cart_id = models.AutoField(primary_key=True)
+    amount = models.IntegerField(blank=True, null=True, default=1)
+    name = models.CharField(max_length=300, blank=True, null=True)
+    price = models.CharField(max_length=30, blank=True, null=True)
+    currency = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False

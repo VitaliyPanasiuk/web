@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.http import HttpResponse
-from .models import ShopCart, Продукт
+from .models import Продукт
+from django.db import models
 
 продукты = Продукт.objects.all()
 
@@ -32,6 +33,22 @@ def loginPage(request):
     return render(request, 'login/index.html')
 
 def aboutProductPage(request, id):
+
+    class ShopCarty(models.Model):
+        user_id = models.CharField(max_length=45)
+        item = models.CharField(max_length=45, blank=True, null=True)
+        cart_id = models.AutoField(primary_key=True)
+        amount = models.IntegerField(blank=True, null=True, default=1)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=30, blank=True, null=True)
+        currency = models.CharField(max_length=30, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_cart'
+
+    carts = ShopCarty.objects.all()
+
     context = {
         'продукт': продукты[id-1],
         'user_id': request.user.id,
@@ -39,11 +56,27 @@ def aboutProductPage(request, id):
     template = 'productInfo/more.html'
     context.update(csrf(request))
     if request.POST:
-        itemToAdd = request.POST.get('add', '')
-        if itemToAdd:
-            ToSave = ShopCart(user_id=request.user.id, item=itemToAdd)
+        item_id = request.POST.get('add_id', '')
+        item_name = request.POST.get('add_name', '')
+        item_price = request.POST.get('add_price', '')
+        item_currency = request.POST.get('add_currency', '')
+        howMuchToAdd = request.POST.get('how_much_to_add', '')
+        if item_id:
+            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=item_price, currency=item_currency)
             ToSave.save()
-            return redirect('/products')
+            cart_item = ShopCarty.objects.all()
+            for i in cart_item:
+                if i.amount:
+                    ToSave.amount = i.amount + int(howMuchToAdd) - 1
+                else:
+                    ToSave.amount = i.amount + int(howMuchToAdd)
+            for i in carts:
+                if i.amount != ToSave.amount and i.item == ToSave.item:
+                    ShopCarty.objects.filter(item = ToSave.item).delete()
+                elif i.amount == ToSave.amount and i.item == ToSave.item: 
+                    ShopCarty.objects.filter(item = ToSave.item).delete()           
+            ToSave.save()
+            return redirect('/accounts/'+ str(request.user.id) +'/cart')
         else:
             return HttpResponse('bad')
     

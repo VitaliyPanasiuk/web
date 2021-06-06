@@ -85,12 +85,14 @@
                     <div class="user_redact">
                         {% for item in items %}
                             <a href='/products/{{ item.id }}'>
-                                <p>{{ item.название_позиции }}</p>
+                                <p>{{ item.name }}</p>
                             </a>
-                            <p>Количество: 1</p>
+                            
+                            <p>Количество: {{ item.amount }}</p>
+                                  
                             <form action='' method="POST">
                                 {% csrf_token %}
-                                <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.id }}'></div>
+                                <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
                                 <input type='submit' value='&#10060;'>
                             </form>
                         {% endfor %}

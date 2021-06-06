@@ -48,13 +48,18 @@
                         <div class="inp_cart">
                             <form action="" method='post' >
                                 {% csrf_token %}
-                                <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
-                                <input type='submit' class="input_icon" value=''>
+                                <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                                <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                                <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                <!--<input type='submit' class="input_icon" value=''>-->
+                                <input type='submit' value='Add it To Cart!'>
                             </form>  
                         </div>
                         {% else %}
                         <div class="inp_cart">
-                            <p>Ввойдите в аккаунт или зарегестрируйтесь для покупки
+                            <p><a style='color: blue !important;' href='/accounts/login'>Ввойдите</a> в аккаунт или <a style='color: blue !important;' href='/accounts/register'>зарегестрируйтесь</a> для покупки
                             </p> 
                         </div>
                         {% endif %}
