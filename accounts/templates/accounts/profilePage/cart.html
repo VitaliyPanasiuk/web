@@ -89,7 +89,7 @@
                             <form action='' method="POST">
                                 {% csrf_token %}
                                 <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.id }}'></div>
-                                <input type='submit' value='Delete'>
+                                <input type='submit' value='&#10060;'>
                             </form>
                         {% endfor %}
                         
