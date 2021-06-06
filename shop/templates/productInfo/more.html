@@ -41,18 +41,24 @@
                         </form>  
                     </div>
                 </div>
-                <div class="main_all_bot">
-                    <div class="description">
-                        <p>Описание</p>
-                        <p>{{ продукт.описание }}</p>
-                    </div>
+                <div class="main_all_bot" id="description">
+                    <p>Описание</p>
+                    <p>{{ продукт.описание }}</p>
                 </div>
+                <button class="desc_but" class="but" onclick="myFunction()">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </button>
             </div>
         </div>
     </div>
 
     {% include 'productInfo/includes/footer.html' %}
     {% endblock %}
-</div>
+    </div>
+    <script>
+        function myFunction() {
+        document.getElementById("description").classList.toggle("all_description");
+}
+    </script>
 </body>
 </html>

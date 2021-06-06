@@ -11,6 +11,7 @@
   display: block;
   width: 100%;
   height: 130vh;
+  margin-top: 30px;
 }
 .main_all_top {
   display: flex;
@@ -47,4 +48,24 @@
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
+}
+.main_all_bot {
+  width: 100%;
+  height: 145px;
+  max-height: 550px;
+  overflow: hidden;
+  margin-top: 30px;
+}
+.main_all_bot p {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 24px;
+  font-family: monospace;
+}
+.desc_but {
+  width: 100%;
+  height: 30px;
+}
+.all_description {
+  height: auto;
 }
