@@ -30,15 +30,28 @@
                     </div>
                     <div class="main_r">
                         <div class='productLabel'>
-                            <h2>
+                            <p>
                                 {{ продукт.название_позиции }}
-                            </h2>
+                            </p>
                         </div>
-                        <form action="" method='post'>
-                            {% csrf_token %}
-                            <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
-                            <input type='submit' value='Add it To Cart!'>
-                        </form>  
+                        <div class="product_price">
+                            <p>
+                                {{ продукт.цена }}
+                            </p>
+                        </div>
+                        <div class="availability">
+                            <p>
+                                {{ продукт.наличие }}
+                            </p>
+                        </div>   
+                        <div class="inp_cart">
+                            <form action="" method='post' >
+                                {% csrf_token %}
+                                <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
+                                <input type='submit' class="input_icon" value=' '>
+                            </form>  
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="main_all_bot" id="description">
