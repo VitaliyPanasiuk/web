@@ -3,8 +3,7 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from .models import AuthUser, Продукт
 from .forms import SignUpForm
-import time
-
+from django.db import models
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
@@ -61,7 +60,7 @@ def userOrders(request, uid):
     }
     template = 'accounts/profilePage/orders.html'
     return render(request, template, context)
-from django.db import models
+
 def userCart(request, uid):
 
     template = 'accounts/profilePage/cart.html'

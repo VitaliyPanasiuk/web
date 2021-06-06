@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Cart</title>
+</head>
 </head>
 <body>
     {% block content %}
@@ -86,6 +87,7 @@
                             <a href='/products/{{ item.id }}'>
                                 <p>{{ item.название_позиции }}</p>
                             </a>
+                            <p>Количество: 1</p>
                             <form action='' method="POST">
                                 {% csrf_token %}
                                 <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.id }}'></div>

@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
-from .models import Продукт
 from django.template.context_processors import csrf
-import json
 from django.http import HttpResponse
-from .models import ShopCart
+from .models import ShopCart, Продукт
 
 продукты = Продукт.objects.all()
+
 x = 0
 y = 4
 
@@ -35,6 +34,7 @@ def loginPage(request):
 def aboutProductPage(request, id):
     context = {
         'продукт': продукты[id-1],
+        'user_id': request.user.id,
     }
     template = 'productInfo/more.html'
     context.update(csrf(request))

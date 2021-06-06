@@ -43,14 +43,21 @@
                             <p>
                                 {{ продукт.наличие }}
                             </p>
-                        </div>   
+                        </div>  
+                        {% if user_id %} 
                         <div class="inp_cart">
                             <form action="" method='post' >
                                 {% csrf_token %}
                                 <div style='display: none;'><input type='text' name='add' id='add' value='{{ продукт.id }}'></div>
-                                <input type='submit' class="input_icon" value=' '>
+                                <input type='submit' class="input_icon" value=''>
                             </form>  
                         </div>
+                        {% else %}
+                        <div class="inp_cart">
+                            <p>Ввойдите в аккаунт или зарегестрируйтесь для покупки
+                            </p> 
+                        </div>
+                        {% endif %}
                         
                     </div>
                 </div>
@@ -58,7 +65,7 @@
                     <p>Описание</p>
                     <p>{{ продукт.описание }}</p>
                 </div>
-                <button class="desc_but" class="but" onclick="myFunction()">
+                <button class="desc_but" class="but" onclick="getMore()">
                     &#8597;
                 </button>
             </div>
@@ -69,7 +76,7 @@
     {% endblock %}
     </div>
     <script>
-        function myFunction() {
+        function getMore() {
         document.getElementById("description").classList.toggle("all_description");
 }
     </script>
