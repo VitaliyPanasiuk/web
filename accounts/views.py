@@ -3,8 +3,7 @@ from django.contrib import auth
 from django.template.context_processors import csrf
 from .models import AuthUser, Продукт
 from .forms import SignUpForm
-import time
-
+from django.db import models
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
@@ -48,20 +47,22 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
-def userProfilePage(request, uid):
+def userProfilePage(request, uid):   
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/profilePage.html'
     return render(request, template, context)
 
 def userOrders(request, uid):
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/orders.html'
     return render(request, template, context)
-from django.db import models
+
 def userCart(request, uid):
 
     template = 'accounts/profilePage/cart.html'
@@ -71,6 +72,10 @@ def userCart(request, uid):
         user_id = models.CharField(max_length=45)
         item = models.CharField(max_length=45, blank=True, null=True)
         cart_id = models.AutoField(primary_key=True)
+        amount = models.IntegerField(blank=True, null=True, default=1)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=30, blank=True, null=True)
+        currency = models.CharField(max_length=30, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -84,19 +89,26 @@ def userCart(request, uid):
         ShopCarty.objects.filter(item=itemToDelete).delete()
         return redirect('/accounts/' + str(request.user.id) + '/cart')
     else:
+        '''carts = ShopCarty.objects.all()
+        productName = []
+        productAmount = []
+        for i in carts:
+            productName.append(i.itemz)
+            productAmount.append(i.amount)
+        print(productName)'''
         carts = ShopCarty.objects.all()
         cartItems = carts[0:len(carts):]
-
         a = []
-        mainProducts = []
+        b = []
         for cartItem in cartItems:
             if str(cartItem.user_id) == str(request.user.id):
-                a.append(cartItem.item)
-        for i in a:
-            mainProducts.append(products[int(i)-1])
+                a.append(cartItem.name)
+                b.append(cartItem.amount)
         context = {
-            'a': a,
-            'items': mainProducts
+            'items': cartItems,
+            'amounts': b,
+            'userId': str(request.user.id),
+            'account': str(uid),
         }
         context.update(csrf(request))
         return render(request, template, context)
@@ -104,7 +116,8 @@ def userCart(request, uid):
 
 def userFavourites(request, uid):
     context = {
-        'userId': request.user.id,
+        'userId': str(request.user.id),
+        'account': str(uid),
     }
     template = 'accounts/profilePage/favourites.html'
     return render(request, template, context)

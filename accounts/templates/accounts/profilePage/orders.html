@@ -17,6 +17,7 @@
 <body>
     {% block content %}
     {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% if account == userId %}
         <div class="body_inf">
             <div class="conteiner">
                 <div class="intro_page">
@@ -81,19 +82,47 @@
                         </div>
                     </div>
 
-                    <div class="user_redact">
-                        orders
+                    <div class="order_inf">
+                        <div class="order_descr">
+                            <div class="status_bl">
+
+                            </div>
+                            <div class="status">
+                                <div class="stat_data">
+                                    data order
+                                </div>
+                                <div class="stat">
+                                    status
+                                </div>
+                            </div>
+                            <div class="order_price">
+                                <div class="order_price_tit">
+                                    сумма заказа
+                                </div>
+                                <div class="order_price_text">
+                                    25000
+                                </div>
+                            </div>
+                            <div class="order_img">
+                                картинка)
+                            </div>
+                        </div>
                     </div>
                 </div>
                
             </div>
         </div>
-    <div class="footer">
-        {% include 'productInfo/includes/footer.html' %}
-    </div>
-    
-    {% endblock %}
 
+
+    {% else %}
+        <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    {% endif %}
+        <div class="footer">
+            {% include 'productInfo/includes/footer.html' %}
+        </div>
+        
+    {% endblock %}
+    
 </body>
 </html>
 

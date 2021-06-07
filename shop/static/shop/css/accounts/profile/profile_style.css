@@ -7,7 +7,7 @@ p {
 }
 .user_page {
   padding-top: 25px;
-  width: 250px;
+  width: 340px;
   height: 320px;
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
@@ -34,8 +34,8 @@ p {
 .user {
   display: flex;
   border-bottom: 1px solid #c6c6c6;
-  width: 300px;
-  margin-left: -55px;
+  width: 340px;
+  /* margin-left: -55px; */
 }
 a {
   text-decoration: none;
@@ -107,16 +107,12 @@ a {
 }
 .cart {
   margin-bottom: 15px;
-  margin-left: -55px;
+  /* margin-left: -55px; */
 }
-.order {
-  margin-left: -55px;
-}
-.favourite {
-  margin-left: -55px;
-}
+
 .intro_page {
   display: flex;
+  width: 100%;
 }
 .active_item {
   background-color: rgb(255, 0, 0, 0.4);
@@ -240,4 +236,48 @@ a {
 }
 .person_name {
   font-size: 16px;
+}
+
+/* order*/
+.order_descr {
+  display: flex;
+  width: 80%;
+  border: 1px solid #c6c6c6;
+  height: 75px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+  margin-bottom: auto;
+  border-radius: 5px;
+}
+.order_inf {
+  width: calc(100% - 340px);
+}
+.status_bl {
+  width: 15px;
+  height: 80%;
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #66cc00;
+  border-radius: 30px;
+}
+.status {
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.order_price {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.order_img {
+  margin-right: 5px;
+  margin-left: 0;
+  margin-top: auto;
+  margin-bottom: auto;
 }

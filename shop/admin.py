@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
 from .models import Продукт, Заказ
 from random import randint
 

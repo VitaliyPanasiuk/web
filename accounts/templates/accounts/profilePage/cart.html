@@ -12,11 +12,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Cart</title>
+</head>
 </head>
 <body>
     {% block content %}
     {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% if account == userId %}
         <div class="body_inf">
             <div class="conteiner">
                 <div class="intro_page">
@@ -80,24 +82,30 @@
                             
                         </div>
                     </div>
-
                     <div class="user_redact">
                         {% for item in items %}
-                            <a href='/products/{{ item.id }}'>
-                                <p>{{ item.название_позиции }}</p>
-                            </a>
-                            <form action='' method="POST">
-                                {% csrf_token %}
-                                <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.id }}'></div>
-                                <input type='submit' value='Delete'>
-                            </form>
-                        {% endfor %}
-                        
+                            {% if userId == item.user_id %}
+                                <a href='/products/{{ item.id }}'>
+                                    <p>{{ item.name }}</p>
+                                </a>
+                                
+                                <p>Количество: {{ item.amount }}</p>
+                                    
+                                <form action='' method="POST">
+                                    {% csrf_token %}
+                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
+                                    <input type='submit' value='&#10060;'>
+                                </form>
+                            {% endif %}
+                        {% endfor %} 
                     </div>
                 </div>
                
             </div>
         </div>
+        {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    {% endif %}
     <div class="footer">
         {% include 'productInfo/includes/footer.html' %}
     </div>
