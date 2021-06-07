@@ -86,16 +86,11 @@ def userCart(request, uid):
     #DELETE FROM CART
     if request.POST:
         itemToDelete = request.POST.get('delete', '')
+        addOneMore = request.POST.get('add', '')
+        removeOneMore = request.POST.get('remove', '')
         ShopCarty.objects.filter(item=itemToDelete).delete()
         return redirect('/accounts/' + str(request.user.id) + '/cart')
     else:
-        '''carts = ShopCarty.objects.all()
-        productName = []
-        productAmount = []
-        for i in carts:
-            productName.append(i.itemz)
-            productAmount.append(i.amount)
-        print(productName)'''
         carts = ShopCarty.objects.all()
         cartItems = carts[0:len(carts):]
         a = []
