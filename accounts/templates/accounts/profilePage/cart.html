@@ -85,17 +85,40 @@
                     <div class="user_redact">
                         {% for item in items %}
                             {% if userId == item.user_id %}
-                                <a href='/products/{{ item.id }}'>
-                                    <p>{{ item.name }}</p>
-                                </a>
-                                
-                                <p>Количество: {{ item.amount }}</p>
+                                <div class="cart_inf">
+                                    <div class="cart_bl">
+                                        <div class="cart_descr">
+                                            <div class="cart_name">
+                                                <a href='/products/{{ item.id }}'>
+                                                    <p>{{ item.name }}</p>
+                                                    <!-- <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur nostrum consequuntur nihil hic possimus dolorum deserunt ab ex commodi corrupti, non ipsa dignissimos reiciendis aspernatur temporibus voluptatibus illo consequatur blanditiis.</p> -->
+                                                </a>
+                                            </div>
+                                            <div class="cart_price">
+                                                <div class="cart_price_text">
+                                                    <p>25000</p>
+                                                    <p>Количество: {{ item.amount }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cart_action">
+                                            <div class="cart_act">
+                                                    <div class="cart_del">
+                                                    <form action='' method="POST">
+                                                        {% csrf_token %}
+                                                        <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
+                                                        <input type='submit' value='&#10060;'>
+                                                    </form>
+                                                </div>
+                                                <div class="cart_buy">
+                                                    <p>buy</p>
+                                                </div>
+                                            </div>
+                                            
+                                        </div> 
+                                    </div>
                                     
-                                <form action='' method="POST">
-                                    {% csrf_token %}
-                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
-                                    <input type='submit' value='&#10060;'>
-                                </form>
+                                </div>
                             {% endif %}
                         {% endfor %} 
                     </div>
