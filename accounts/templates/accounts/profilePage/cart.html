@@ -85,23 +85,34 @@
                     <div class="user_redact">
                         {% for item in items %}
                             {% if userId == item.user_id %}
+                            <div class='name_and_delete'>
                                 <a href='/products/{{ item.id }}'>
                                     <p>{{ item.name }}</p>
                                 </a>
-                                
-                                <p>Количество: {{ item.amount }}</p>
-                                <form action='' method="POST">
-                                    {% csrf_token %}
-                                    <input type='button' name='add' id='add' value='+'>
-                                    <input type='button' name='remove' id='remove' value='-'>
-                                    <input type='submit' value='Сохранить'>
-                                </form>
-                                    
                                 <form action='' method="POST">
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
                                     <input type='submit' value='&#10060;'>
                                 </form>
+                            </div>
+                                
+                                <p>Количество: {{ item.amount }}</p>
+                                <div class='forms'>
+                                    <form action='' method="POST">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='item_plus' id='item_plus' value='{{ item.item }}'></div>
+                                        <input type='hidden' name='plus' id='plus' value='plus'>
+                                        <input type='submit' value='+'>
+                                    </form>
+
+                                    <form action='' method="POST">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
+                                        <input type='hidden' name='minus' id='minus' value='minus'>
+                                        <input type='submit' value='-'>
+                                    </form>  
+                                </div>
+                                <hr>
                             {% endif %}
                         {% endfor %} 
                     </div>
