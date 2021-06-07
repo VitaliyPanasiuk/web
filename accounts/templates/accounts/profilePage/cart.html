@@ -90,6 +90,12 @@
                                 </a>
                                 
                                 <p>Количество: {{ item.amount }}</p>
+                                <form action='' method="POST">
+                                    {% csrf_token %}
+                                    <input type='button' name='add' id='add' value='+'>
+                                    <input type='button' name='remove' id='remove' value='-'>
+                                    <input type='submit' value='Сохранить'>
+                                </form>
                                     
                                 <form action='' method="POST">
                                     {% csrf_token %}
