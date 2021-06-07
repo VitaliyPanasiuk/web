@@ -34,36 +34,53 @@
                                 {{ продукт.название_позиции }}
                             </p>
                         </div>
-                        <div class="product_price">
-                            <p>
-                                {{ продукт.цена }}
-                            </p>
+                        <div class='small_block'>
+                            <div class="product_price">
+                                {% if  продукт.цена == None %}
+                                    <p>
+                                        Цена формируется
+                                    </p>
+                                {% else %}
+                                    <h3>
+                                        {{ продукт.цена }} {{ продукт.валюта }}
+                                    </h3>
+                                {% endif %}
+                            </div>
+                            <div class="availability">
+                                {% if  продукт.наличие == '+' %}
+                                    <p>
+                                        Есть в наличии
+                                    </p>
+                                {% else %}
+                                    <p>
+                                        Нет в наличии
+                                    </p>
+                                {% endif %}
+                            </div>  
+                            {% if user_id %} 
+                            {% if  продукт.цена == None %}
+                                <h3>Ожидается поставка</h3>
+                            {% else %}
+                            <div class="inp_cart">
+                                <form action="" method='post' >
+                                    {% csrf_token %}
+                                    <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                                    <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                                    <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                    <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                    <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                    <!--<input type='submit' class="input_icon" value=''>-->
+                                    <input class='inp_button' type='submit' value='Add it To Cart!'>
+                                </form>  
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="inp_cart">
+                                <p><a style='color: blue !important;' href='/accounts/login'>Ввойдите</a> в аккаунт или <a style='color: blue !important;' href='/accounts/register'>зарегестрируйтесь</a> для покупки
+                                </p> 
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="availability">
-                            <p>
-                                {{ продукт.наличие }}
-                            </p>
-                        </div>  
-                        {% if user_id %} 
-                        <div class="inp_cart">
-                            <form action="" method='post' >
-                                {% csrf_token %}
-                                <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
-                                <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
-                                <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                                <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
-                                <!--<input type='submit' class="input_icon" value=''>-->
-                                <input type='submit' value='Add it To Cart!'>
-                            </form>  
-                        </div>
-                        {% else %}
-                        <div class="inp_cart">
-                            <p><a style='color: blue !important;' href='/accounts/login'>Ввойдите</a> в аккаунт или <a style='color: blue !important;' href='/accounts/register'>зарегестрируйтесь</a> для покупки
-                            </p> 
-                        </div>
-                        {% endif %}
-                        
                     </div>
                 </div>
                 <div class="main_all_bot" id="description">
