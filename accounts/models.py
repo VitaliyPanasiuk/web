@@ -88,3 +88,4 @@ class ShopCart(models.Model):
     class Meta:
         managed = False
         db_table = 'shop_cart'
+    

@@ -123,9 +123,31 @@ def userCart(request, uid):
     
 
 def userFavourites(request, uid):
-    context = {
-        'userId': str(request.user.id),
-        'account': str(uid),
-    }
     template = 'accounts/profilePage/favourites.html'
-    return render(request, template, context)
+    class ShopFavourite(models.Model):
+        favourite_id = models.AutoField(primary_key=True)
+        user_id = models.CharField(max_length=45)
+        favourite_item = models.CharField(max_length=45, blank=True, null=True)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=45, blank=True, null=True)
+        currency = models.CharField(max_length=45, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_favourite'
+            
+    if request.POST:
+        itemToDelete = request.POST.get('delete', '')
+        if itemToDelete:
+            ShopFavourite.objects.filter(favourite_item=itemToDelete).delete()    
+        return redirect('/accounts/' + str(request.user.id) + '/favourites')
+    else:
+        favourites = ShopFavourite.objects.all()
+        favouriteItems = favourites[0:len(favourites):]
+        context = {
+            'favourites': favouriteItems
+            #'userId': str(request.user.id),
+            #'account': str(uid),
+        }
+        context.update(csrf(request))
+        return render(request, template, context)

@@ -69,8 +69,8 @@
                                     <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                     <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
                                     <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
-                                    <!--<input type='submit' class="input_icon" value=''>-->
-                                    <input class='inp_button' type='submit' value='Add it To Cart!'>
+                                    <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
+                                    <input class='inp_button' type='submit' value='Добавить в корзину!'>
                                 </form>  
                             </div>
                             {% endif %}
@@ -80,6 +80,15 @@
                                 </p> 
                             </div>
                             {% endif %}
+                            <form action="" method='post' >
+                                {% csrf_token %}
+                                <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_name' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
+                                <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
+                                <input class='favourite_inp_button' type='submit' value='Добавить в избранное!'>
+                            </form>
                         </div>
                     </div>
                 </div>

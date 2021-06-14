@@ -86,7 +86,7 @@
                         {% for item in items %}
                             {% if userId == item.user_id %}
                             <div class='name_and_delete'>
-                                <a href='/products/{{ item.id }}'>
+                                <a href='/products/{{ item.item }}'>
                                     <p>{{ item.name }}</p>
                                 </a>
                                 <form action='' method="POST">

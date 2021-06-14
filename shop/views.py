@@ -49,6 +49,20 @@ def aboutProductPage(request, id):
 
     carts = ShopCarty.objects.all()
 
+    class ShopFavourite(models.Model):
+        favourite_id = models.AutoField(primary_key=True)
+        user_id = models.CharField(max_length=45)
+        favourite_item = models.CharField(max_length=45, blank=True, null=True)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=45, blank=True, null=True)
+        currency = models.CharField(max_length=45, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_favourite'
+        
+    favourites = ShopFavourite.objects.all()
+
     context = {
         'продукт': продукты[id-1],
         'user_id': request.user.id,
@@ -56,12 +70,17 @@ def aboutProductPage(request, id):
     template = 'productInfo/more.html'
     context.update(csrf(request))
     if request.POST:
-        item_id = request.POST.get('add_id', '')
-        item_name = request.POST.get('add_name', '')
-        item_price = request.POST.get('add_price', '')
-        item_currency = request.POST.get('add_currency', '')
-        howMuchToAdd = request.POST.get('how_much_to_add', '')
-        if item_id:
+        cart_add = request.POST.get('add_to_cart', '')
+        favourite_add = request.POST.get('add_to_favourite', '')
+        print(favourite_add)
+        print(cart_add)
+
+        if cart_add:
+            item_id = request.POST.get('add_id', '')
+            item_name = request.POST.get('add_name', '')
+            item_price = request.POST.get('add_price', '')
+            item_currency = request.POST.get('add_currency', '')
+            howMuchToAdd = request.POST.get('how_much_to_add', '')
             ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=item_price, currency=item_currency)
             ToSave.save()
             cart_item = ShopCarty.objects.all()
@@ -77,6 +96,19 @@ def aboutProductPage(request, id):
                     ShopCarty.objects.filter(item = ToSave.item).delete()           
             ToSave.save()
             return redirect('/accounts/'+ str(request.user.id) +'/cart')
+        elif favourite_add:
+            favourite_item_id = request.POST.get('favourite_add_id', '')
+            favourite_item_name = request.POST.get('favourite_add_name', '')
+            favourite_item_price = request.POST.get('favourite_add_price', '')
+            favourite_item_currency = request.POST.get('favourite_add_currency', '')
+            favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=favourite_item_price, currency=favourite_item_currency)
+            favouriteToSave.save()
+            favourite_item = ShopFavourite.objects.all()
+            for i in favourite_item:
+                if i.favourite_item == favourite_item_id:
+                    ShopFavourite.objects.filter(favourite_item = favourite_item_id).delete()    
+            favouriteToSave.save()             
+            return redirect('/accounts/'+ str(request.user.id) +'/favourites')
         else:
             return HttpResponse('bad')
     
