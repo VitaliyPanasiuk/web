@@ -24,8 +24,9 @@
                     {% endif %}
                     {% if user.is_authenticated %}
                         <div style="color: aliceblue;">
-                            Welcome,  
+                              
                             <a class="headerbut_log" href='accounts/{{ user.id }}/'>
+                                Welcome:
                                 {{ user.username }}
                             </a>
                         </div>

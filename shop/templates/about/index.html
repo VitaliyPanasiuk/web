@@ -30,7 +30,23 @@
                     <a href="/achievements" class="nav_link">achievements</a>
                     <a href="" class="nav_link">contact</a>
                 </nav>
-                {% if not user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <div class="header_but">
+                        <a href="/admin" class="headerbut_log">
+                            Admin
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                        <div style="color: aliceblue;">
+                              
+                            <a class="headerbut_log" href='accounts/{{ user.id }}/'>
+                                Welcome:
+                                {{ user.username }}
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if not user.is_authenticated %}
                     <div class="header_but">
                         <a href="/accounts/login" class="headerbut_log">
                             Log In
