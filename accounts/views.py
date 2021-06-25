@@ -1,3 +1,4 @@
+import bs4
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.template.context_processors import csrf
@@ -6,6 +7,9 @@ from .forms import SignUpForm
 from django.db import models
 from django.db.models import F
 from django.contrib import messages
+import requests
+from bs4 import BeautifulSoup as bs
+import datetime
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
@@ -65,9 +69,24 @@ def userOrders(request, uid):
     template = 'accounts/profilePage/orders.html'
     return render(request, template, context)
 
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'}
+url = 'https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D0%B5&ei=-JLVYJXzAcXUrgTlmouIAQ&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D0%B5&gs_lcp=Cgdnd3Mtd2l6EAMyCggAELEDEEYQggIyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAMgUIABDJAzICCAA6BwgAEEcQsAM6BwgAELADEEM6BQgAELEDSgQIQRgAUKQkWM4uYPwwaAFwAngAgAHtAYgBrQeSAQUwLjYuMZgBAKABAaoBB2d3cy13aXrIAQrAAQE&sclient=gws-wiz&ved=0ahUKEwiVz8SOrrLxAhVFqosKHWXNAhEQ4dUDCA4&uact=5'
+'''def parse(url):
+    full_page = requests.get(url, headers=headers)
+    soup = bs(full_page.content, 'html.parser')
+    convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+    return convert[0].text'''
+
+usd_to_uah = ''
+now = datetime.datetime.now()
+
+'''if int(now.hour) == 11 and int(now.minute)==49: 
+   print('gg')'''#?????????
+
 def userCart(request, uid):
 
     template = 'accounts/profilePage/cart.html'
+
 
     #ADD TO CART
     class ShopCarty(models.Model):
@@ -108,6 +127,7 @@ def userCart(request, uid):
             ShopCarty.objects.filter(item=itemToDelete).delete()
         return redirect('/accounts/' + str(request.user.id) + '/cart')
     else:
+        #print(parse(url))
         carts = ShopCarty.objects.all()
         cartItems = carts[0:len(carts):]
         a = []
