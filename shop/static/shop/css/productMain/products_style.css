@@ -37,13 +37,16 @@
   padding: 10px;
   transition: transform 0.5s;
 }
+.line_item_info {
+  height: 85%;
+}
 .line_item:hover {
   transform: scale(1.1);
   z-index: 1;
   transition: transform 0.5s;
 }
 .line_item_button {
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 .line .line_item .line_item_img {
   text-align: center;
@@ -53,11 +56,10 @@
   height: 250px;
   padding-top: 10px;
 }
-.line .line_item .item_info {
+.item_info {
   padding-left: 7px;
   font-family: monospace;
-  margin: 30px auto;
-  padding-top: 12px;
+  margin: 10px auto;
 }
 .line_item_text {
   font-size: 22px;
@@ -73,7 +75,7 @@
 }
 .protuct_tit {
   width: 200px;
-  height: 95px;
+  height: 82px;
   overflow: hidden;
 }
 .line_item_but {
