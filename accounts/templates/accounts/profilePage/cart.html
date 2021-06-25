@@ -96,7 +96,7 @@
                                 </form>
                             </div>
                                 <p>Цена: {{ item.price  }} {{ item.currency }} </p>
-                                <p>Количество: {{ item.amount }}</p>
+                                <p>Количество: {{ item.amount }} шт.</p>
                                 <div class='forms'>
                                     <form action='' method="POST">
                                         {% csrf_token %}
@@ -110,12 +110,20 @@
                                         <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
                                         <input type='hidden' name='minus' id='minus' value='minus'>
                                         <input type='submit' value='-'>
-                                    </form>  
+                                    </form>
                                 </div>
-                                Итого {% widthratio item.price 1 item.amount  %}
                                 <hr>
                             {% endif %}
                         {% endfor %} 
+                        <p>Итого: {{ sum }} UAH</p>
+                        {% if messages %}
+                                {% for message in messages %}
+                                    <p class="{{ message.tags }}">
+                                        {{ message|safe }}
+                                        <a href="" class="close">✖</a>
+                                    </p>
+                                {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                

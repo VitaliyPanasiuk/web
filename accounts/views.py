@@ -5,6 +5,7 @@ from .models import AuthUser, Продукт
 from .forms import SignUpForm
 from django.db import models
 from django.db.models import F
+from django.contrib import messages
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
@@ -99,7 +100,10 @@ def userCart(request, uid):
             item = request.POST.get('item_minus', '')
             carts = ShopCarty.objects.get(item=item)
             carts.amount -= 1
-            carts.save()
+            if carts.amount == 0:
+                messages.error(request, 'Количество товара не может быть меньше 1')
+            else:
+                carts.save()
         elif itemToDelete:
             ShopCarty.objects.filter(item=itemToDelete).delete()
         return redirect('/accounts/' + str(request.user.id) + '/cart')
@@ -108,15 +112,21 @@ def userCart(request, uid):
         cartItems = carts[0:len(carts):]
         a = []
         b = []
+        sum = 0
         for cartItem in cartItems:
             if str(cartItem.user_id) == str(request.user.id):
                 a.append(cartItem.name)
                 b.append(cartItem.amount)
+        for i in carts:
+            if int(i.user_id) == request.user.id:
+                local_sum = int(i.price) * int(i.amount)
+                sum += local_sum
         context = {
             'items': cartItems,
             'amounts': b,
             'userId': str(request.user.id),
             'account': str(uid),
+            'sum': str(sum),
         }
         context.update(csrf(request))
         return render(request, template, context)
