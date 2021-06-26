@@ -97,9 +97,10 @@
                                     <img src="{%  static  'shop/img/user.png'  %}" alt="">
                                 </div>
                                 <div class="person_text">
-                                    <p class="person_tit">Личные данные</p>
+                                    <p class="person_tit">Личные Данные</p>
                                     <div class="person_redact">
-                                        <a href='/accounts/{{ user.id }}/edit' style='color: blue !important; text-decoration: underline;'>Редактировать</a>
+                                        <a href='/accounts/{{ user.id }}/edit' style='color: blue !important; text-decoration: underline;'>Редактировать профиль</a>
+                                        <a href='/accounts/{{ user.id }}/change-password' style='color: blue !important; text-decoration: underline;'>Изменить пароль</a>
                                     </div>
                                 </div>
                                 
@@ -127,7 +128,7 @@
                             </div>
                             <div class="person_info">
                                 <div class="person_num">
-                                    <p class="person_subname">номер телефона</p>
+                                    <p class="person_subname">Номер Телефона</p>
                                     <p class="person_name">{{ currentUser.phone_number }}</p>
                                 </div>
                                 <div class="person_emeil">

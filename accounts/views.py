@@ -237,3 +237,7 @@ def editProfilePage(request, uid):
         }
         context.update(csrf(request))
         return render(request, template, context)
+
+def editPasswordPage(request, uid):
+    template = 'accounts/editProfile/editPassword.html'
+    return render(request, template)
