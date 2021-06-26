@@ -40,7 +40,7 @@
                     {% if user.is_authenticated %}
                         <div style="color: aliceblue;">
                              Welcome: 
-                            <a class="headerbut_log special" href='accounts/{{ user.id }}/'>
+                            <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
                                 {% if user.first_name %}
                                     {{ user.first_name }}
                                 {% else %}
