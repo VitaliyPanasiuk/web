@@ -11,7 +11,7 @@ from django.contrib import messages
 import requests
 from bs4 import BeautifulSoup as bs
 import datetime
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
@@ -239,5 +239,33 @@ def editProfilePage(request, uid):
         return render(request, template, context)
 
 def editPasswordPage(request, uid):
+    old_pwd = request.POST.get('old_pwd', '')
+    new_pwd = request.POST.get('new_pwd', '')
+    repeat_new_pwd = request.POST.get('repeat_new_pwd', '')
+    userProfile = AuthUser.objects.get(id=request.user.id)
     template = 'accounts/editProfile/editPassword.html'
-    return render(request, template)
+    if request.POST:
+        if check_password(password=old_pwd , encoded=userProfile.password) == True:
+            if new_pwd == repeat_new_pwd:
+                username = userProfile.username
+                hashed_pwd = make_password(repeat_new_pwd, salt=None, hasher='default')
+                userProfile.password = hashed_pwd
+                userProfile.save()
+                user = auth.authenticate(username=username, password=repeat_new_pwd)
+                auth.login(request, user)
+                return redirect('/accounts/'+ str(uid))
+            else:
+                error_code = 'Новые пароли не совпадают. Повторите попытку'
+                context = {
+                'error_message': error_code,
+            }
+            return render(request, template, context)
+        else:
+            error_code = 'Неверный старый пароль. Попробуйте снова'
+            context = {
+                'error_message': error_code,
+            }
+            return render(request, template, context)
+    else:
+        template = 'accounts/editProfile/editPassword.html'
+        return render(request, template)
