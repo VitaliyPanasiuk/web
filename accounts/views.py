@@ -1,22 +1,34 @@
 import bs4
 from django.shortcuts import redirect, render
 from django.contrib import auth
+from django.contrib.auth import login, authenticate
+from .forms import UserCreationForm
 from django.template.context_processors import csrf
 from .models import AuthUser, Продукт
-from .forms import SignUpForm
 from django.db import models
 from django.db.models import F
 from django.contrib import messages
 import requests
 from bs4 import BeautifulSoup as bs
 import datetime
+from django.contrib.auth.hashers import check_password
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
 
 
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'accounts/auth/register.html', {'form': form})
+    '''if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -27,7 +39,7 @@ def register(request):
             return redirect("/")
     else:
         form = SignUpForm()
-    return render(request, "accounts/auth/register.html", {"form": form})
+    return render(request, "accounts/auth/register.html", {"form": form})'''
 
 
 def login(request):
@@ -57,6 +69,7 @@ def userProfilePage(request, uid):
     context = {
         "userId": str(request.user.id),
         "account": str(uid),
+        'currentUser': AuthUser.objects.get(id=request.user.id)
     }
     template = "accounts/profilePage/profilePage.html"
     return render(request, template, context)
@@ -186,6 +199,41 @@ def userFavourites(request, uid):
             "favourites": favouriteItems
             #'userId': str(request.user.id),
             #'account': str(uid),
+        }
+        context.update(csrf(request))
+        return render(request, template, context)
+
+
+def editProfilePage(request, uid):
+
+    new_name = request.POST.get('new_name', '')
+    new_last_name = request.POST.get('new_last_name', '')
+    new_email = request.POST.get('new_email', '')
+    new_phonenumber = request.POST.get('new_phonenumber', '')
+    new_address = request.POST.get('new_address', '')
+    password = request.POST.get('password', '')
+    if request.POST:
+        userProfile = AuthUser.objects.get(id=uid)
+        userProfile.first_name = new_name
+        userProfile.last_name = new_last_name
+        userProfile.email = new_email
+        userProfile.phone_number = new_phonenumber
+        userProfile.address = new_address
+        if check_password(password=password, encoded=userProfile.password) == True:
+            userProfile.save()
+            return redirect('/accounts/'+ str(uid))
+        else:
+            template = 'accounts/editProfile/edit.html'
+            context = {
+                'error_message': 'Неправильный пароль',
+            }
+            context.update(csrf(request))
+            return render(request, template, context)  
+    else:
+        userProfile = AuthUser.objects.get(id=uid)
+        template = 'accounts/editProfile/edit.html'
+        context = {
+            'userProfile': userProfile,
         }
         context.update(csrf(request))
         return render(request, template, context)

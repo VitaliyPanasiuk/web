@@ -31,14 +31,14 @@
                     <div class="user_page" >
                         <div class="user active_item" onclick="location.href='profilePage';">
                             <div class="user_img">
-                                <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                <a class="first_name" href='/accounts/{{ currentUser.id }}/'>
                                     <img src="{%  static  'shop/img/user.png'  %}" alt="">
                                 </a>
                             </div>
                             <div class="user_inf ">
                                 <div class="user_inf_top">
                                     <!-- {% if user.first_name %} -->
-                                    <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                    <a class="first_name" href='/accounts/{{ currentUser.id }}/'>
                                         {{ user.first_name }}
                                     </a>
                                         <!-- <a href=""><p class="first_name">{{ user.first_name }}</p></a> -->
@@ -46,18 +46,18 @@
                                         <p class="first_name">не введено</p> -->
                                     <!-- {% endif %} -->
                                     {% if user.last_name %} 
-                                    <a class="last_name" href='/accounts/{{ user.id }}/'>
-                                        {{ user.last_name }}
+                                    <a class="last_name" href='/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.last_name }}
                                     </a> 
                                     {% else %}
-                                    <a class="last_name" href='/accounts/{{ user.id }}/'>
-                                        {{ user.username }}
+                                    <a class="last_name" href='/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.username }}
                                     </a> 
                                     {% endif %} 
                                 </div>
                                 <div class="user_inf_bot">
-                                    <a class="user_email" href='/accounts/{{ user.id }}/'>
-                                        {{ user.email }}
+                                    <a class="user_email" href='/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.email }}
                                     </a>  
                                     <!-- <p class="user_email">{{ user.email }}</p> -->
                                 </div>
@@ -99,7 +99,7 @@
                                 <div class="person_text">
                                     <p class="person_tit">Личные данные</p>
                                     <div class="person_redact">
-                                        <p>редактировать</p>
+                                        <a href='/accounts/{{ user.id }}/edit' style='color: blue !important; text-decoration: underline;'>Редактировать</a>
                                     </div>
                                 </div>
                                 
@@ -107,11 +107,11 @@
                             <div class="person_info">
                                 <div class="person_last_name">
                                     <p class="person_subname">Фамилия</p>
-                                    <p class="person_name">{{ user.last_name }}</p>
+                                    <p class="person_name">{{ currentUser.last_name }}</p>
                                 </div>
                                 <div class="person_firs_name">
                                     <p class="person_subname">Имя</p>
-                                    <p class="person_name">{{ user.first_name }}</p>
+                                    <p class="person_name">{{ currentUser.first_name }}</p>
                                 </div>
                             </div>
                             
@@ -123,19 +123,16 @@
                                 </div>
                                 <div class="person_text">
                                     <p class="person_tit">Контакты</p>
-                                    <div class="person_redact">
-                                        <p>редактировать</p>
-                                    </div>
                                 </div>
                             </div>
                             <div class="person_info">
                                 <div class="person_num">
                                     <p class="person_subname">номер телефона</p>
-                                    <p class="person_name">{{ user.phone_number }}</p>
+                                    <p class="person_name">{{ currentUser.phone_number }}</p>
                                 </div>
                                 <div class="person_emeil">
                                     <p class="person_subname">Электронная почта</p>
-                                    <p class="person_name">{{ user.email }}</p>
+                                    <p class="person_name">{{ currentUser.email }}</p>
                                 </div>
                             </div>
                         </div>
@@ -145,16 +142,13 @@
                                     <img src="{%  static  'shop/img/letter.png'  %}" alt="">
                                 </div>
                                 <div class="person_text">
-                                    <p class="person_tit">адрес доставки</p>
-                                    <div class="person_redact">
-                                        <p>редактировать</p>
-                                    </div>
+                                    <p class="person_tit">Адрес Доставки</p>
                                 </div>
                             </div>
                             <div class="person_info">
                                 <div class="person_num">
-                                    <p class="person_subname">ваш адрес</p>
-                                    <p class="person_name"></p>
+                                    <p class="person_subname">Ваш Адрес</p>
+                                    <p class="person_name">{{ currentUser.address }}</p>
                                 </div>
                             </div>
                         </div>

@@ -25,6 +25,7 @@ class AuthUser(models.Model):
     last_name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
     email = models.CharField(max_length=254)
+    address = models.CharField(max_length=150, blank=True, null=True)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()

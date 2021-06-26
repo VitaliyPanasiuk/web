@@ -1,7 +1,9 @@
 header {
   background-color: #000;
 }
-
+.special {
+  margin-left: 5px;
+}
 .intro_header {
   display: -webkit-box;
   display: -ms-flexbox;
