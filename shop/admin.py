@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Продукт, Заказ
-from random import randint
+from .models import Продукт, Заказ, AuthUser
+from django.contrib.auth.admin import UserAdmin
+
 
 def make_order_done(modeladmin, request, queryset):
     queryset.update(статус_заказа='d')
@@ -28,5 +29,4 @@ class orderAdmin(admin.ModelAdmin):
     list_filter = ('Статус_заказа', 'Статус_оплаты', )
     readonly_fields  = ('id',)
     actions = [make_order_done, make_order_undone]
-
 
