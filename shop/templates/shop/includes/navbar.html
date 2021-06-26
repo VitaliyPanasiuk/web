@@ -26,7 +26,11 @@
                         <div style="color: aliceblue;">
                              Welcome: 
                             <a class="headerbut_log special" href='accounts/{{ user.id }}/'>
-                                {{ user.username }}
+                                {% if user.first_name %}
+                                    {{ user.first_name }}
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
                             </a>
                         </div>
                     {% endif %}

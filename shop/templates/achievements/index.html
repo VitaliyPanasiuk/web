@@ -39,10 +39,13 @@
                     {% endif %}
                     {% if user.is_authenticated %}
                         <div style="color: aliceblue;">
-                              
-                            <a class="headerbut_log" href='accounts/{{ user.id }}/'>
-                                Welcome:
-                                {{ user.username }}
+                             Welcome: 
+                            <a class="headerbut_log special" href='accounts/{{ user.id }}/'>
+                                {% if user.first_name %}
+                                    {{ user.first_name }}
+                                {% else %}
+                                    {{ user.username }}
+                                {% endif %}
                             </a>
                         </div>
                     {% endif %}
