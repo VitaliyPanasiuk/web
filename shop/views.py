@@ -72,9 +72,6 @@ def aboutProductPage(request, id):
     if request.POST:
         cart_add = request.POST.get('add_to_cart', '')
         favourite_add = request.POST.get('add_to_favourite', '')
-        print(favourite_add)
-        print(cart_add)
-
         if cart_add:
             item_id = request.POST.get('add_id', '')
             item_name = request.POST.get('add_name', '')

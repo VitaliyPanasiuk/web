@@ -28,24 +28,22 @@
                                     <img src="{%  static  'shop/img/user.png'  %}" alt="">
                                 </a>
                             </div>
-                            <div class="user_inf ">
+                             <div class="user_inf ">
                                 <div class="user_inf_top">
-                                    <!-- {% if user.first_name %} -->
+                                    {% if user.first_name %}
                                     <a class="first_name" href='/accounts/{{ user.id }}/'>
                                         {{ user.first_name }}
                                     </a>
-                                        <!-- <a href=""><p class="first_name">{{ user.first_name }}</p></a> -->
-                                    <!-- {% else %}
-                                        <p class="first_name">не введено</p> -->
-                                    <!-- {% endif %} -->
+                                    {% else %}
+                                        <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                            {{ user.username }}
+                                        </a>
+                                    {% endif %}
                                     {% if user.last_name %} 
                                     <a class="last_name" href='/accounts/{{ user.id }}/'>
                                         {{ user.last_name }}
-                                    </a>   
-                                        <!-- <p class="last_name">{{ user.last_name }}</p> -->
-                                    <!-- {% else %}
-                                        <p class="last_name">не введена</p>
-                                    {% endif %} -->
+                                    </a>
+                                    {% endif %}
                                 </div>
                                 <div class="user_inf_bot">
                                     <a class="user_email" href='/accounts/{{ user.id }}/'>

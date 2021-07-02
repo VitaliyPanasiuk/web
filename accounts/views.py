@@ -238,9 +238,12 @@ def userFavourites(request, uid):
         return redirect("/accounts/" + str(request.user.id) + "/favourites")
     else:
         favourites = ShopFavourite.objects.all()
-        favouriteItems = favourites[0 : len(favourites) :]
+        a = []
+        for i in favourites:
+            if str(i.user_id) == str(request.user.id):
+                a.append(i)
         context = {
-            "favourites": favouriteItems
+            "favourites": a
             #'userId': str(request.user.id),
             #'account': str(uid),
         }
