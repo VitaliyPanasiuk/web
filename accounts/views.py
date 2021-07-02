@@ -173,6 +173,7 @@ def userCart(request, uid):
             userAccount = AuthUser.objects.get(id=request.user.id)
             userCarts = ShopCarty.objects.all()
             a = []
+            d = datetime.datetime.now()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     b += 1
@@ -182,7 +183,7 @@ def userCart(request, uid):
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
                         a.append(i.name)
-                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, сумма_заказа=sum, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, сумма_заказа=sum, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
