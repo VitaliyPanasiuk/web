@@ -49,8 +49,7 @@
                                 <div class="user_inf_bot">
                                     <a class="user_email" href='/accounts/{{ user.id }}/'>
                                         {{ user.email }}
-                                    </a>  
-                                    <!-- <p class="user_email">{{ user.email }}</p> -->
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -128,20 +127,23 @@
                             {% endif %}
                         {% endfor %} 
 
-
-                        <p>Итого: {{ sum }} UAH</p>
-                        {% if messages %}
-                                {% for message in messages %}
-                                    <p class="{{ message.tags }}">
-                                        {{ message|safe }}
-                                        <a href="" class="close">✖</a>
-                                    </p>
-                                {% endfor %}
+                        {% if items %}
+                            <p>Итого: {{ sum }} UAH</p>
+                            {% if messages %}
+                                    {% for message in messages %}
+                                        <p class="{{ message.tags }}">
+                                            {{ message|safe }}
+                                            <a href="" class="close">✖</a>
+                                        </p>
+                                    {% endfor %}
+                            {% endif %}
+                            <form method='POST' action=''>
+                                {% csrf_token %}
+                                <input type='submit' name = 'makeorder' value='Оформить заказ'>
+                            </form>
+                        {% else %}
+                            Корзина пустая
                         {% endif %}
-                    <form method='POST' action=''>
-                        {% csrf_token %}
-                        <input type='submit' name = 'makeorder' value='Оформить заказ'>
-                    </form>
                     </div>
                 </div>
                
