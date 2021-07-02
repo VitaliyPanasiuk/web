@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 import bs4
 from django.shortcuts import redirect, render
 from django.contrib import auth
@@ -110,6 +111,24 @@ def userCart(request, uid):
     # print(parse(url))
     template = "accounts/profilePage/cart.html"
 
+    class ShopOrdery(models.Model):
+        фамилия = models.CharField(max_length=45)
+        имя = models.CharField(max_length=45)
+        отчество = models.CharField(max_length=45, blank=True, null=True)
+        телефон = models.CharField(max_length=45, blank=True, null=True)
+        почта = models.CharField(max_length=60)
+        заказ = models.CharField(max_length=45)
+        сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
+        валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
+        статус_оплаты = models.CharField(max_length=45)
+        статус_заказа = models.CharField(max_length=45)
+        адрес_заказа = models.CharField(max_length=90)
+        дата_заказа = models.DateTimeField(blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_order'
+
     # ADD TO CART
     class ShopCarty(models.Model):
         user_id = models.CharField(max_length=45)
@@ -123,43 +142,68 @@ def userCart(request, uid):
         class Meta:
             managed = False
             db_table = "shop_cart"
-
+    sum = 0
     # DELETE FROM CART
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
         addOneMore = request.POST.get("plus", "")
         removeOneMore = request.POST.get("minus", "")
-        # carts = ShopCarty.objects.all()
+        makeorder = request.POST.get('makeorder', '')
         if addOneMore:
             item = request.POST.get("item_plus", "")
             carts = ShopCarty.objects.get(item=item)
             carts.amount += 1
             carts.save()
+            return redirect("/accounts/" + str(request.user.id) + "/cart")
         elif removeOneMore:
             item = request.POST.get("item_minus", "")
             carts = ShopCarty.objects.get(item=item)
             carts.amount -= 1
             if carts.amount == 0:
                 messages.error(request, "Количество товара не может быть меньше 1")
+                return redirect("/accounts/" + str(request.user.id) + "/cart")
             else:
                 carts.save()
+                return redirect("/accounts/" + str(request.user.id) + "/cart")
         elif itemToDelete:
             ShopCarty.objects.filter(item=itemToDelete).delete()
-        return redirect("/accounts/" + str(request.user.id) + "/cart")
+            return redirect("/accounts/" + str(request.user.id) + "/cart")
+        elif makeorder:
+            b = 0
+            userAccount = AuthUser.objects.get(id=request.user.id)
+            userCarts = ShopCarty.objects.all()
+            a = []
+            for i in userCarts:
+                if str(i.user_id) == str(request.user.id):
+                    b += 1
+            if b == 0:
+                return HttpResponse('your cart is empty!')#Have to add speial error message for this situation
+            else:
+                for i in userCarts:
+                    if str(i.user_id) == str(request.user.id):
+                        a.append(i.name)
+                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, сумма_заказа=sum, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                order.save()
+                for i in userCarts:
+                    if str(i.user_id) == str(request.user.id):
+                        i.delete()
+                return redirect('/accounts/'+str(request.user.id))
     else:
         # print(parse(url))
         carts = ShopCarty.objects.all()
         cartItems = carts[0 : len(carts) :]
         a = []
         b = []
-        sum = 0
         for cartItem in cartItems:
             if str(cartItem.user_id) == str(request.user.id):
                 a.append(cartItem.name)
                 b.append(cartItem.amount)
         for i in carts:
             if int(i.user_id) == request.user.id:
-                local_sum = int(i.price) * int(i.amount)
+                if i.currency == 'UAH':
+                    local_sum = int(i.price) * int(i.amount)
+                elif i.currency == 'USD':
+                    local_sum = int(i.price) * int(i.amount) * 27
                 sum += local_sum
         context = {
             "items": cartItems,

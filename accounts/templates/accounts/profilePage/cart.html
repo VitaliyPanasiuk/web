@@ -102,6 +102,9 @@
                                     </div>
                                     <div class="price_and_other">
                                         <p>Цена: {{ item.price  }} {{ item.currency }} </p>
+                                        {% if item.currency == 'USD' %}
+                                           <p>({% widthratio item.price 1 27 %} UAH)</p>
+                                        {% endif %}
                                         <div class="quantity">
                                             <p>Количество: {{ item.amount }} шт.</p>
                                         <div class='forms'>
@@ -137,6 +140,10 @@
                                     </p>
                                 {% endfor %}
                         {% endif %}
+                    <form method='POST' action=''>
+                        {% csrf_token %}
+                        <input type='submit' name = 'makeorder' value='Оформить заказ'>
+                    </form>
                     </div>
                 </div>
                

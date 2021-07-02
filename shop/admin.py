@@ -25,8 +25,9 @@ class productAdmin(admin.ModelAdmin):
 @admin.register(Заказ)
 class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
-    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'Статус_заказа', 'Статус_оплаты', 'дата_заказа')
-    list_filter = ('Статус_заказа', 'Статус_оплаты', )
+    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
+    #filter_horizontal = ('заказ',)
+    list_filter = ('статус_заказа', 'статус_оплаты', )
     readonly_fields  = ('id',)
     actions = [make_order_done, make_order_undone]
 
