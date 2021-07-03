@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ, AuthUser
-from django.contrib.auth.admin import UserAdmin
+from .models import Продукт, Заказ
 
 
 def make_order_done(modeladmin, request, queryset):

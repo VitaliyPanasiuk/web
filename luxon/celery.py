@@ -20,7 +20,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'add_new_currency': {
         'task': 'accounts.tasks.add_currency',
-        'schedule': crontab(),
+        'schedule': crontab(hour='15', minute='00')
     }
 }
-'''hour=7, minute=30'''

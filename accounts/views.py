@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth import login, authenticate
 from .forms import UserCreationForm
 from django.template.context_processors import csrf
-from .models import AuthUser, Продукт
+from .models import AuthUser, Продукт, ShopCurrency
 from django.db import models
 from django.db.models import F
 from django.contrib import messages
@@ -88,11 +88,10 @@ def userOrders(request, uid):
 
 
 
-usd_to_uah = ""
+
 now = datetime.datetime.now()
 
 def userCart(request, uid):
-    print(parse(url))
     template = "accounts/profilePage/cart.html"
 
     class ShopOrdery(models.Model):
@@ -126,6 +125,7 @@ def userCart(request, uid):
         class Meta:
             managed = False
             db_table = "shop_cart"
+
     summary = 0
     # DELETE FROM CART
     if request.POST:
@@ -156,6 +156,9 @@ def userCart(request, uid):
             b = 0
             userAccount = AuthUser.objects.get(id=request.user.id)
             userCarts = ShopCarty.objects.all()
+            currencys = ShopCurrency.objects.all()
+            needed = currencys[len(currencys) - 1]
+            currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
             a = []
             bob = []
             d = datetime.datetime.now(timezone)
@@ -173,7 +176,7 @@ def userCart(request, uid):
                     if local.currency == 'UAH':
                         bob.append(int(local.price) * int(local.amount))
                     else:
-                        bob.append(int(local.price) * 27 * int(local.amount))
+                        bob.append(int(local.price) * currency * int(local.amount))
                 intbob = [int(elem) for elem in bob]
                 order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
@@ -183,6 +186,9 @@ def userCart(request, uid):
                 return redirect('/accounts/'+str(request.user.id))
     else:
         # print(parse(url))
+        currencys = ShopCurrency.objects.all()
+        needed = currencys[len(currencys) - 1]
+        currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
         carts = ShopCarty.objects.all()
         cartItems = carts[0 : len(carts):]
         a = []
@@ -196,7 +202,7 @@ def userCart(request, uid):
                 if i.currency == 'UAH':
                     local_sum = int(i.price) * int(i.amount)
                 elif i.currency == 'USD':
-                    local_sum = int(i.price) * int(i.amount) * 27
+                    local_sum = round(int(i.price) * int(i.amount) * currency, 2)
                 summary += local_sum
         context = {
             "items": cartItems,

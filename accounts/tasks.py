@@ -4,7 +4,7 @@ import datetime
 import requests
 from bs4 import BeautifulSoup as bs
 
-now = datetime.datetime.now()
+
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
@@ -19,10 +19,11 @@ def parse(url):
     convert = soup.findAll(
         "span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2}
     )
+    
     return convert[0].text
 
 @shared_task
 def add_currency():
     result = parse(url)
-    new_object = ShopCurrency.objects.create(usd_to_uah=result, date=now)
+    new_object = ShopCurrency.objects.create(usd_to_uah=result, date=datetime.datetime.now())
     return new_object.usd_to_uah
