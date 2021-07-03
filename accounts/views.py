@@ -10,13 +10,14 @@ from django.db import models
 from django.db.models import F
 from django.contrib import messages
 import requests
+import pytz
 from bs4 import BeautifulSoup as bs
 import datetime
 from django.contrib.auth.hashers import check_password, make_password
 
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
-
+timezone = pytz.timezone('Europe/Kiev')
 
 def register(request):
     if request.method == 'POST':
@@ -142,7 +143,7 @@ def userCart(request, uid):
         class Meta:
             managed = False
             db_table = "shop_cart"
-    sum = 0
+    summary = 0
     # DELETE FROM CART
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
@@ -173,7 +174,8 @@ def userCart(request, uid):
             userAccount = AuthUser.objects.get(id=request.user.id)
             userCarts = ShopCarty.objects.all()
             a = []
-            d = datetime.datetime.now()
+            bob = []
+            d = datetime.datetime.now(timezone)
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     b += 1
@@ -183,7 +185,14 @@ def userCart(request, uid):
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
                         a.append(i.name)
-                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, сумма_заказа=sum, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                for i in a:
+                    local = ShopCarty.objects.get(name=i)
+                    if local.currency == 'UAH':
+                        bob.append(int(local.price) * int(local.amount))
+                    else:
+                        bob.append(int(local.price) * 27 * int(local.amount))
+                intbob = [int(elem) for elem in bob]
+                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
@@ -192,7 +201,7 @@ def userCart(request, uid):
     else:
         # print(parse(url))
         carts = ShopCarty.objects.all()
-        cartItems = carts[0 : len(carts) :]
+        cartItems = carts[0 : len(carts):]
         a = []
         b = []
         for cartItem in cartItems:
@@ -205,13 +214,13 @@ def userCart(request, uid):
                     local_sum = int(i.price) * int(i.amount)
                 elif i.currency == 'USD':
                     local_sum = int(i.price) * int(i.amount) * 27
-                sum += local_sum
+                summary += local_sum
         context = {
             "items": cartItems,
             "amounts": b,
             "userId": str(request.user.id),
             "account": str(uid),
-            "sum": str(sum),
+            "sum": str(summary),
         }
         context.update(csrf(request))
         return render(request, template, context)
