@@ -78,7 +78,7 @@ def aboutProductPage(request, id):
             item_price = request.POST.get('add_price', '')
             item_currency = request.POST.get('add_currency', '')
             howMuchToAdd = request.POST.get('how_much_to_add', '')
-            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=item_price, currency=item_currency)
+            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency)
             ToSave.save()
             cart_item = ShopCarty.objects.all()
             for i in cart_item:

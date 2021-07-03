@@ -100,7 +100,7 @@
                                     <div class="price_and_other">
                                         <p>Цена: {{ item.price  }} {{ item.currency }} </p>
                                         {% if item.currency == 'USD' %}
-                                           <p>({% widthratio item.price 1 27 %} UAH)</p>
+                                           <p> ({{ small_sum }} UAH)</p>
                                         {% endif %}
                                         <div class="quantity">
                                             <p>Количество: {{ item.amount }} шт.</p>

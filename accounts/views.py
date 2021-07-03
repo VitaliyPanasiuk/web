@@ -174,10 +174,10 @@ def userCart(request, uid):
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
-                        bob.append(int(local.price) * int(local.amount))
+                        bob.append(round(float(local.price) * float(local.amount), 2))
                     else:
-                        bob.append(int(local.price) * currency * int(local.amount))
-                intbob = [int(elem) for elem in bob]
+                        bob.append(round(float(local.price) * currency * float(local.amount), 2))
+                intbob = [float(elem) for elem in bob]
                 order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
                 for i in userCarts:
@@ -203,13 +203,16 @@ def userCart(request, uid):
                     local_sum = int(i.price) * int(i.amount)
                 elif i.currency == 'USD':
                     local_sum = round(int(i.price) * int(i.amount) * currency, 2)
+                    small_sum = round(int(i.price) * currency, 2)
                 summary += local_sum
         context = {
             "items": cartItems,
             "amounts": b,
             "userId": str(request.user.id),
             "account": str(uid),
-            "sum": str(summary),
+            "sum": summary,
+            'currency': currency,
+            'small_sum': small_sum,
         }
         context.update(csrf(request))
         return render(request, template, context)
