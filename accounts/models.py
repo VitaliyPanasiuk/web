@@ -90,3 +90,10 @@ class ShopCart(models.Model):
         managed = False
         db_table = 'shop_cart'
     
+class ShopCurrency(models.Model):
+    date = models.DateTimeField(blank=True, null=True)
+    usd_to_uah = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'shop_currency'
