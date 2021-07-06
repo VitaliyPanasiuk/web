@@ -14,6 +14,8 @@ def homePage(request):
 
 
 def productsPage(request):
+    if request.POST:
+        redirect('/products/')
     context = {
         'продукты': продукты[len(продукты)-20:len(продукты):],
             }
