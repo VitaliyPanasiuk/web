@@ -318,3 +318,7 @@ def editPasswordPage(request, uid):
     else:
         template = 'accounts/editProfile/editPassword.html'
         return render(request, template)
+
+def makeOrder(request, uid):
+    template = 'accounts/profilePage/makingOrder.html'
+    return render(request, template)
