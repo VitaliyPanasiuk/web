@@ -205,14 +205,24 @@ def userCart(request, uid):
                     local_sum = round(int(i.price) * int(i.amount) * currency, 2)
                     small_sum = round(int(i.price) * currency, 2)
                 summary += local_sum
-        context = {
+        try:
+            context = {
+                "items": cartItems,
+                "amounts": b,
+                "userId": str(request.user.id),
+                "account": str(uid),
+                "sum": summary,
+                'currency': currency,
+                'small_sum': small_sum,
+            }
+        except UnboundLocalError:
+            context = {
             "items": cartItems,
             "amounts": b,
             "userId": str(request.user.id),
             "account": str(uid),
             "sum": summary,
             'currency': currency,
-            'small_sum': small_sum,
         }
         context.update(csrf(request))
         return render(request, template, context)
