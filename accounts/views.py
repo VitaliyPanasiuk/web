@@ -1,5 +1,4 @@
 from django.http.response import HttpResponse
-import bs4
 from django.shortcuts import redirect, render
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
@@ -161,7 +160,7 @@ def userCart(request, uid):
             currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
             a = []
             bob = []
-            d = datetime.datetime.now(timezone)
+            d = datetime.datetime.now()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     b += 1

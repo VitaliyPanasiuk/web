@@ -100,7 +100,11 @@ def aboutProductPage(request, id):
             favourite_item_name = request.POST.get('favourite_add_name', '')
             favourite_item_price = request.POST.get('favourite_add_price', '')
             favourite_item_currency = request.POST.get('favourite_add_currency', '')
-            favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=favourite_item_price, currency=favourite_item_currency)
+            if favourite_item_price == 'None':
+                favourite_item_price = 0
+                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=favourite_item_price, currency=favourite_item_currency)
+            else:
+                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=max(float(i) for i in favourite_item_price.replace(',','.').split()), currency=favourite_item_currency)
             favouriteToSave.save()
             favourite_item = ShopFavourite.objects.all()
             for i in favourite_item:
