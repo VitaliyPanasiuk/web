@@ -79,18 +79,17 @@
                             
                         </div>
                     </div>
-
+                    <ul>
+                    {% for order in orders %}
+                    <li>
                     <div class="order_inf">
-                        {% for order in orders %}
-                            <p>{{ order.заказ }}</p>
-                        {% endfor %}
                         <div class="order_descr">
                             <div class="status_bl">
 
                             </div>
                             <div class="status">
                                 <div class="stat_data">
-                                    data order
+                                    {{ order.заказ }}
                                 </div>
                                 <div class="stat">
                                     status
@@ -98,17 +97,17 @@
                             </div>
                             <div class="order_price">
                                 <div class="order_price_tit">
-                                    сумма заказа
+                                    Сумма Заказа
                                 </div>
                                 <div class="order_price_text">
-                                    25000
+                                    {{ order.сумма_заказа }} UAH
                                 </div>
-                            </div>
-                            <div class="order_img">
-                                картинка)
                             </div>
                         </div>
                     </div>
+                    </li>
+                    {% endfor %}
+                    </ul>
                 </div>
                
             </div>
