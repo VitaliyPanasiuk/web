@@ -76,9 +76,33 @@ def userProfilePage(request, uid):
 
 
 def userOrders(request, uid):
+    class ShopOrdery(models.Model):
+        user_id = models.CharField(max_length=10000, blank=True, null=True)
+        фамилия = models.CharField(max_length=45)
+        имя = models.CharField(max_length=45)
+        отчество = models.CharField(max_length=45, blank=True, null=True)
+        телефон = models.CharField(max_length=45, blank=True, null=True)
+        почта = models.CharField(max_length=60)
+        заказ = models.CharField(max_length=1000, blank=True, null=True)
+        сумма_заказа = models.FloatField(blank=True, null=True)
+        валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
+        статус_оплаты = models.CharField(max_length=45)
+        статус_заказа = models.CharField(max_length=45)
+        адрес_заказа = models.CharField(max_length=90)
+        дата_заказа = models.DateTimeField(blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_order'
+    a = ShopOrdery.objects.all()
+    orders=[]
+    for i in a:
+        if str(i.user_id) == str(request.user.id):
+            orders.append(i)
     context = {
         "userId": str(request.user.id),
         "account": str(uid),
+        "orders": orders,
     }
     template = "accounts/profilePage/orders.html"
     return render(request, template, context)
@@ -94,6 +118,7 @@ def userCart(request, uid):
     template = "accounts/profilePage/cart.html"
 
     class ShopOrdery(models.Model):
+        user_id = models.CharField(max_length=10000, blank=True, null=True)
         фамилия = models.CharField(max_length=45)
         имя = models.CharField(max_length=45)
         отчество = models.CharField(max_length=45, blank=True, null=True)
@@ -177,14 +202,13 @@ def userCart(request, uid):
                     else:
                         bob.append(round(float(local.price) * currency * float(local.amount), 2))
                 intbob = [float(elem) for elem in bob]
-                order = ShopOrdery(имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
                         i.delete()
                 return redirect('/accounts/'+str(request.user.id))
     else:
-        # print(parse(url))
         currencys = ShopCurrency.objects.all()
         needed = currencys[len(currencys) - 1]
         currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())

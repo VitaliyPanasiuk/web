@@ -14,10 +14,22 @@ def homePage(request):
 
 
 def productsPage(request):
+    counter = 20
     if request.POST:
-        redirect('/products/')
+        twenty = request.POST.get('plus20', '')
+        fifty = request.POST.get('plus50', '')
+        hundred = request.POST.get('plus100', '')
+        if twenty:
+            counter = int(twenty)
+            redirect('/products/')
+        elif fifty:
+            counter = int(fifty)
+            redirect('/products/')
+        elif hundred:
+            counter = int(hundred)
+            redirect('/products/')
     context = {
-        'продукты': продукты[len(продукты)-20:len(продукты):],
+        'продукты': продукты[0:counter:],
             }
     template = 'products/index.html'
     return render(request, template, context)

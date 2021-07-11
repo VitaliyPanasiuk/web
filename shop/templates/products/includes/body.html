@@ -24,7 +24,13 @@
                 </div>
             </div>
         </div>
-        
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label>Отображать по:</label>
+            <input type="submit" value='20'  name='plus20' id='plus20'>
+            <input type="submit" value='50' name='plus50' id='plus50'>
+            <input type='submit' value='100' name='plus100' id='plus100'>
+        </form>
         <div class="body_inf">     
             <div class="content_products">
                         {% for продукт in продукты %}

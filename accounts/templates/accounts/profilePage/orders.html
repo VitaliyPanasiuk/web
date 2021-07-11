@@ -81,6 +81,9 @@
                     </div>
 
                     <div class="order_inf">
+                        {% for order in orders %}
+                            <p>{{ order.заказ }}</p>
+                        {% endfor %}
                         <div class="order_descr">
                             <div class="status_bl">
 
