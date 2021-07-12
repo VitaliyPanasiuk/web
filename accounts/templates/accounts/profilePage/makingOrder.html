@@ -33,7 +33,7 @@
 </head>
 <body>
     {% include 'accounts/profilePage/includes/navbar.html' %}
-    {% if user.id == account %}
+    {% if userId == account %}
     <div>
         <form method="POST" action="">
             {% csrf_token %}

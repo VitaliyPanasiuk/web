@@ -287,7 +287,7 @@ def userFavourites(request, uid):
                 a.append(i)
         context = {
             "favourites": a,
-            #'userId': str(request.user.id),
+            'userId': str(request.user.id),
             'account': str(uid),
         }
         context.update(csrf(request))
@@ -457,6 +457,7 @@ def makeOrder(request, uid):
             'user': user,
             'userCart': a,
             'price': price,
+            'userId': str(request.user.id),
             'account': str(uid),
         }
         return render(request, template, context)
