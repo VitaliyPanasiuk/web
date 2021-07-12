@@ -25,11 +25,8 @@
             </div>
         </div>
         <div class='search'>
-            <form method='POST' action=''>
-                {% csrf_token %}
-                <input type='search' name='searchtext'>
-                <input type='submit' name='search' value='Поиск'>
-            </form>
+            <input type='search' name='searchtext'>
+            <input type='submit' name='search' value='Поиск'>
         </div> 
         <div class="body_inf">    
             <div class="content_products">
@@ -70,22 +67,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        {% if page != 1 %}
-                        <form method='POST' action=''>
-                            {% csrf_token %}
-                            <input type='submit' name='previousPage' value='Previous Page'>
-                        </form>
-                        {% endif %}
-                        <form method='POST' action='' id='next'>
-                            {% csrf_token %}
-                            <input type='submit' name='nextPage' value='Next Page'>
-                        </form>
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <label>Перейти на страницу:</label>
-                            <input type='number' name='goto'>
-                            <input type='submit' value='Перейти' name='go'>
-                        </form>
+                        
             </div>
         </div>
     </div>

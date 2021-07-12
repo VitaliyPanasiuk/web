@@ -25,6 +25,9 @@ def productsPage(request):
         previousPage = request.POST.get('previousPage', '')
         go = request.POST.get('go', '')
         gototext = request.POST.get('goto', '')
+        search = request.POST.get('search', '')
+        searchTextRaw = request.POST.get('searchtext', '')
+        searchText = searchTextRaw.replace(" ", "-")
         if nextPage:
             intPage = int(page) + 1
             return redirect('/products/?page=' + str(intPage))
@@ -32,9 +35,24 @@ def productsPage(request):
             intPage = int(page) - 1
             return redirect('/products/?page=' + str(intPage))
         elif go:
-            intPage = int(gototext)
-            return redirect('/products/?page=' + str(intPage))
-
+            try:
+                intPage = int(gototext)
+                return redirect('/products/?page=' + str(intPage))
+            except ValueError:
+                return redirect('/products/?page=' + page)
+        elif search:
+            return redirect('/products/search/?q=' + searchText)
+            '''template = 'products/search/index.html'
+            a = []
+            searchStr = searchText.split(" ")
+            for i in продукты:
+                if len(set(searchStr).intersection(i.название_позиции.split(' '))) >= 1:
+                    a.append(i)
+            context = {
+                'продукты': a[0:len(a):],
+                'page': int(page),
+                }
+            return render(request, template, context)'''
     if  int(page) == 1:
         context = {
             'продукты': продукты[0:counter:],
@@ -47,6 +65,28 @@ def productsPage(request):
                 }
     template = 'products/index.html'
     return render(request, template, context)
+
+def searchPage(request):
+    q = request.GET.get('q').replace("-", " ")
+    if request.POST:
+        search = request.POST.get('search', '')
+        searchTextRaw = request.POST.get('searchtext', '')
+        searchText = searchTextRaw.replace(" ", "-")
+        if search:
+            return redirect('/products/search/?q=' + searchText)
+    else:
+        template = 'products/search/index.html'
+        a = []
+        #searchStr = searchText.split(" ")
+        for i in продукты:
+            if len((set(q.split(" ")).intersection(i.название_позиции.split(' ')))) >= len(q.split(" ")):
+                a.append(i)
+        context = {
+            'продукты': a[0:len(a):],
+            #'page': int(page),
+            }
+        return render(request, template, context)
+    #return HttpResponse(q.replace("-", " "))
 
 def error404(request, exception):
     return render(request, '404.html')

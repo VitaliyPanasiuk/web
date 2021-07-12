@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import homePage, productsPage, achievementsPage, aboutUsPage, aboutProductPage
+from .views import homePage, productsPage, achievementsPage, aboutUsPage, aboutProductPage, searchPage
 
 urlpatterns = [
     path('', homePage),
@@ -8,7 +8,7 @@ urlpatterns = [
     path('about/', aboutUsPage),
     path('products/<int:id>/', aboutProductPage),
     path('products/<int:id>/buy<int:productId>/', aboutProductPage),
-    
+    path('products/search/', searchPage),
 ]
 
 handler404 = 'shop.views.error404'
