@@ -24,13 +24,6 @@
                 </div>
             </div>
         </div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <label>Отображать по:</label>
-            <input type="submit" value='20'  name='plus20' id='plus20'>
-            <input type="submit" value='50' name='plus50' id='plus50'>
-            <input type='submit' value='100' name='plus100' id='plus100'>
-        </form>
         <div class="body_inf">     
             <div class="content_products">
                         {% for продукт in продукты %}
@@ -70,6 +63,16 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        <form method='POST' action=''>
+                            {% csrf_token %}
+                            <input type='submit' name='nextPage' value='Next Page'>
+                        </form>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <label>Перейти на страницу:</label>
+                            <input type='number' name='goto'>
+                            <input type='submit' value='Перейти' name='go'>
+                        </form>
             </div>
         </div>
     </div>
