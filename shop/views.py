@@ -15,6 +15,10 @@ def homePage(request):
 
 def productsPage(request):
     page = request.GET.get('page')
+    if page == None:
+        return redirect('/products/?page=1')
+    if int(page) <= 0:
+        return redirect('/products/?page=1')
     counter = 20
     if request.POST:
         nextPage = request.POST.get('nextPage', '')
@@ -30,11 +34,17 @@ def productsPage(request):
         elif go:
             intPage = int(gototext)
             return redirect('/products/?page=' + str(intPage))
-        #fix AssertionError on the last page
-    context = {
-        #'продукты': продукты[0*int(page):counter*int(page):],
-        'продукты': продукты[len(продукты)-counter*int(page):len(продукты)-counter*(int(page)-1):],
-            }
+
+    if  int(page) == 1:
+        context = {
+            'продукты': продукты[0:counter:],
+            'page': int(page),
+                }
+    else:
+        context = {
+            'продукты': продукты[counter*(int(page)-1):counter*int(page):],
+            'page': int(page),
+                }
     template = 'products/index.html'
     return render(request, template, context)
 

@@ -8,6 +8,7 @@ urlpatterns = [
     path('about/', aboutUsPage),
     path('products/<int:id>/', aboutProductPage),
     path('products/<int:id>/buy<int:productId>/', aboutProductPage),
+    
 ]
 
 handler404 = 'shop.views.error404'
