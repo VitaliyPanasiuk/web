@@ -13,8 +13,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <title>Создать заказ</title>
+    <script>
+        function show(){
+            document.getElementById('address').style.display ='none';
+        }
+        function hide(){
+            document.getElementById('address').style.display ='block';
+        }
+    </script>
 </head>
 <body>
     {% include 'accounts/profilePage/includes/navbar.html' %}
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label>Имя: </label><input type='text' value='{{ user.first_name }}' required>
+            <label>Фамилия: </label><input type='text' value='{{ user.last_name }}' required>
+            <label>Почта: </label><input type='text' value='{{ user.email }}'>
+            <label>Телефон: </label><input type='text' value='{{ user.phone_number }}' required>
+            <label>Заказ: </label>
+            {% for i in userCart %}
+                <p>{{ i }}</p>
+            {% endfor %}
+            <p>Тип доставки: </p>
+            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="show();">                
+            <label>Самовывоз</label>
+            <br>
+            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='hide();'>
+            <label>Нова Пошта</label>
+            <br>
+            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='hide();'>
+            <label>Укрпошта</label>
+            <br>
+            <p>Тип оплаты: </p>
+            <input type="radio" name='typeOfPayment' value='Наличный'>
+            <label>Наличный</label>
+            <br>
+            <input type="radio" name='typeOfPayment' value='Безналичный'>
+            <label>Безналичный</label>
+            <div id='address' style='display: none;'>
+                <p>Адрес</p>
+                <label>Город: </label><input type='text' value='{{ user.city }}'>
+                <label>Улица: </label><input type='text' value='{{ user.street }}'>
+                <label>Дом: </label><input type='text' value='{{ user.house }}'>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -107,11 +107,6 @@ def userOrders(request, uid):
     template = "accounts/profilePage/orders.html"
     return render(request, template, context)
 
-
-
-
-
-
 now = datetime.datetime.now()
 
 def userCart(request, uid):
@@ -177,7 +172,7 @@ def userCart(request, uid):
             ShopCarty.objects.filter(item=itemToDelete).delete()
             return redirect("/accounts/" + str(request.user.id) + "/cart")
         elif makeorder:
-            b = 0
+            '''b = 0
             userAccount = AuthUser.objects.get(id=request.user.id)
             userCarts = ShopCarty.objects.all()
             currencys = ShopCurrency.objects.all()
@@ -206,8 +201,8 @@ def userCart(request, uid):
                 order.save()
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
-                        i.delete()
-                return redirect('/accounts/'+str(request.user.id))
+                        i.delete()'''
+            return redirect('/accounts/' + str(request.user.id) + '/make-order')
     else:
         currencys = ShopCurrency.objects.all()
         needed = currencys[len(currencys) - 1]
@@ -353,5 +348,31 @@ def editPasswordPage(request, uid):
         return render(request, template)
 
 def makeOrder(request, uid):
+
+    class ShopCarty(models.Model):
+        user_id = models.CharField(max_length=45)
+        item = models.CharField(max_length=45, blank=True, null=True)
+        cart_id = models.AutoField(primary_key=True)
+        amount = models.IntegerField(blank=True, null=True, default=1)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=30, blank=True, null=True)
+        currency = models.CharField(max_length=30, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = "shop_cart"
+
     template = 'accounts/profilePage/makingOrder.html'
-    return render(request, template)
+    user = AuthUser.objects.get(id=str(request.user.id))
+    cart = ShopCarty.objects.all()
+    a = []
+    for i in cart:
+        if str(i.user_id) == str(request.user.id):
+            a.append(i.name)
+    '''b = max(a)
+    newUser = ShopCarty.objects.get(cart_id=b)'''
+    context = {
+        'user': user,
+        'userCart': a,
+    }
+    return render(request, template, context)
