@@ -47,7 +47,7 @@
                                 {% endif %}
                             </div>
                             <div class="availability">
-                                {% if  продукт.наличие == '+' %}
+                                {% if  продукт.наличие != '-' %}
                                     <p>
                                         Есть в наличии
                                     </p>
@@ -58,10 +58,11 @@
                                 {% endif %}
                             </div>  
                             {% if user_id %} 
-                            {% if  продукт.цена == None %}
+                            {% if  продукт.цена == None  %}                         
                                 <h3>Ожидается поставка</h3>
                             {% else %}
                                 <div class="inp_cart">
+                                {% if  продукт.наличие != '-'  %}
                                     <form action="" method='post' >
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
@@ -72,6 +73,7 @@
                                         <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
                                         <input class='inp_button' type='submit' value='Добавить в корзину!'>
                                     </form>  
+                                    {% endif %}
                                 </div>
                             {% endif %}
                             {% else %}

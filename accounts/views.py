@@ -286,9 +286,9 @@ def userFavourites(request, uid):
             if str(i.user_id) == str(request.user.id):
                 a.append(i)
         context = {
-            "favourites": a
+            "favourites": a,
             #'userId': str(request.user.id),
-            #'account': str(uid),
+            'account': str(uid),
         }
         context.update(csrf(request))
         return render(request, template, context)
@@ -426,6 +426,8 @@ def makeOrder(request, uid):
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
         normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
+        if orderFromHtml == None:
+            return redirect('/')
         if go:
             d = datetime.datetime.now()
             userCarts = ShopCarty.objects.all()
@@ -455,5 +457,6 @@ def makeOrder(request, uid):
             'user': user,
             'userCart': a,
             'price': price,
+            'account': str(uid),
         }
         return render(request, template, context)
