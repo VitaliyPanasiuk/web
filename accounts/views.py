@@ -77,19 +77,25 @@ def userProfilePage(request, uid):
 
 def userOrders(request, uid):
     class ShopOrdery(models.Model):
-        user_id = models.CharField(max_length=10000, blank=True, null=True)
         фамилия = models.CharField(max_length=45)
         имя = models.CharField(max_length=45)
         отчество = models.CharField(max_length=45, blank=True, null=True)
         телефон = models.CharField(max_length=45, blank=True, null=True)
         почта = models.CharField(max_length=60)
-        заказ = models.CharField(max_length=1000, blank=True, null=True)
+        заказ = models.CharField(max_length=10000, blank=True, null=True)
         сумма_заказа = models.FloatField(blank=True, null=True)
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
         статус_оплаты = models.CharField(max_length=45)
         статус_заказа = models.CharField(max_length=45)
-        адрес_заказа = models.CharField(max_length=90)
         дата_заказа = models.DateTimeField(blank=True, null=True)
+        user_id = models.CharField(max_length=1000, blank=True, null=True)
+        city = models.CharField(max_length=50, blank=True, null=True)
+        street = models.CharField(max_length=50, blank=True, null=True)
+        house = models.CharField(max_length=50, blank=True, null=True)
+        payment_type = models.CharField(max_length=20, blank=True, null=True)
+        delivery_type = models.CharField(max_length=20, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -124,8 +130,15 @@ def userCart(request, uid):
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
         статус_оплаты = models.CharField(max_length=45)
         статус_заказа = models.CharField(max_length=45)
-        адрес_заказа = models.CharField(max_length=90)
         дата_заказа = models.DateTimeField(blank=True, null=True)
+        user_id = models.CharField(max_length=1000, blank=True, null=True)
+        city = models.CharField(max_length=50, blank=True, null=True)
+        street = models.CharField(max_length=50, blank=True, null=True)
+        house = models.CharField(max_length=50, blank=True, null=True)
+        payment_type = models.CharField(max_length=20, blank=True, null=True)
+        delivery_type = models.CharField(max_length=20, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -287,7 +300,9 @@ def editProfilePage(request, uid):
     new_last_name = request.POST.get('new_last_name', '')
     new_email = request.POST.get('new_email', '')
     new_phonenumber = request.POST.get('new_phonenumber', '')
-    new_address = request.POST.get('new_address', '')
+    new_city = request.POST.get('new_city', '')
+    new_street = request.POST.get('new_street', '')
+    new_house = request.POST.get('new_house', '')
     password = request.POST.get('password', '')
     if request.POST:
         userProfile = AuthUser.objects.get(id=uid)
@@ -295,7 +310,9 @@ def editProfilePage(request, uid):
         userProfile.last_name = new_last_name
         userProfile.email = new_email
         userProfile.phone_number = new_phonenumber
-        userProfile.address = new_address
+        userProfile.city = new_city
+        userProfile.street = new_street
+        userProfile.house = new_house
         if check_password(password=password, encoded=userProfile.password) == True:
             userProfile.save()
             return redirect('/accounts/'+ str(uid))
@@ -349,6 +366,32 @@ def editPasswordPage(request, uid):
 
 def makeOrder(request, uid):
 
+    class ShopOrdery(models.Model):
+        user_id = models.CharField(max_length=10000, blank=True, null=True)
+        фамилия = models.CharField(max_length=45)
+        имя = models.CharField(max_length=45)
+        отчество = models.CharField(max_length=45, blank=True, null=True)
+        телефон = models.CharField(max_length=45, blank=True, null=True)
+        почта = models.CharField(max_length=60)
+        заказ = models.CharField(max_length=45)
+        сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
+        валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
+        статус_оплаты = models.CharField(max_length=45)
+        статус_заказа = models.CharField(max_length=45)
+        дата_заказа = models.DateTimeField(blank=True, null=True)
+        user_id = models.CharField(max_length=1000, blank=True, null=True)
+        city = models.CharField(max_length=50, blank=True, null=True)
+        street = models.CharField(max_length=50, blank=True, null=True)
+        house = models.CharField(max_length=50, blank=True, null=True)
+        payment_type = models.CharField(max_length=20, blank=True, null=True)
+        delivery_type = models.CharField(max_length=20, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_order'
+
     class ShopCarty(models.Model):
         user_id = models.CharField(max_length=45)
         item = models.CharField(max_length=45, blank=True, null=True)
@@ -366,13 +409,51 @@ def makeOrder(request, uid):
     user = AuthUser.objects.get(id=str(request.user.id))
     cart = ShopCarty.objects.all()
     a = []
-    for i in cart:
-        if str(i.user_id) == str(request.user.id):
-            a.append(i.name)
-    '''b = max(a)
-    newUser = ShopCarty.objects.get(cart_id=b)'''
-    context = {
-        'user': user,
-        'userCart': a,
-    }
-    return render(request, template, context)
+    price = 0
+    if request.POST:
+        go = request.POST.get('go', '')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        phone_number = request.POST.get('phone_number', '')
+        email = request.POST.get('email', '')
+        orderFromHtml = request.POST.get('order', '')
+        priceFromHtml = request.POST.get('price', '')
+        typeOfDelivery = request.POST.get('typeOfDelivery', '')
+        typeOfPayment = request.POST.get('typeOfPayment', '')
+        city = request.POST.get('city', '')
+        street = request.POST.get('street', '')
+        house = request.POST.get('house', '')
+        ukr_pochta = request.POST.get('ukr_pochta', '')
+        nova_pochta = request.POST.get('nova_pochta', '')
+        normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
+        if go:
+            d = datetime.datetime.now()
+            userCarts = ShopCarty.objects.all()
+            currencys = ShopCurrency.objects.all()
+            needed = currencys[len(currencys) - 1]
+            currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
+            order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, дата_заказа=d, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', заказ=orderFromHtml, статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
+            order.save()
+            for i in userCarts:
+                if str(i.user_id) == str(request.user.id):
+                    i.delete()
+            return redirect('/')
+    else:
+        for i in cart:
+            if str(i.user_id) == str(request.user.id):
+                a.append(i.name)
+                if i.currency == 'UAH':
+                    price += int(i.price) * int(i.amount)
+                else:
+                    currencys = ShopCurrency.objects.all()
+                    needed = currencys[len(currencys) - 1]
+                    currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
+                    price += int(i.price) * currency * int(i.amount)
+        '''b = max(a)
+        newUser = ShopCarty.objects.get(cart_id=b)'''
+        context = {
+            'user': user,
+            'userCart': a,
+            'price': price,
+        }
+        return render(request, template, context)

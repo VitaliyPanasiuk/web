@@ -28,8 +28,10 @@
         <label>Номер телефона: </label>
         <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
         <br>
-        <label>Адрес Доставки: </label>
-        <input type='text' name='new_address' id='new_address' value='{{ userProfile.address }}'>
+        <p>Адрес Доставки: </p>
+        <label>Город: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
+        <label>Улица: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
+        <label>Дом: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
         <label>Подтвердите пароль</label>
         <input type="password" name='password' id='password' required >
         <input type="submit" value='Сохранить'>

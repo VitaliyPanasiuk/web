@@ -14,11 +14,20 @@
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <title>Создать заказ</title>
     <script>
-        function show(){
+        function pickup(){
             document.getElementById('address').style.display ='none';
+            document.getElementById('np').style.display ='none';
+            document.getElementById('up').style.display ='none';
         }
-        function hide(){
+        function novapochta(){
             document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='block';
+            document.getElementById('ukr').style.display ='none';
+        }
+        function ukrpochta(){
+            document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='none';
+            document.getElementById('ukr').style.display ='block';
         }
     </script>
 </head>
@@ -27,37 +36,50 @@
     <div>
         <form method="POST" action="">
             {% csrf_token %}
-            <label>Имя: </label><input type='text' value='{{ user.first_name }}' required>
-            <label>Фамилия: </label><input type='text' value='{{ user.last_name }}' required>
-            <label>Почта: </label><input type='text' value='{{ user.email }}'>
-            <label>Телефон: </label><input type='text' value='{{ user.phone_number }}' required>
+            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' required>
+            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' required>
+            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'>
+            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' required>
             <label>Заказ: </label>
+            <div style='display: none;'>
+                <input type="hidden" value='{{userCart}}' name='order'>
+            </div>
             {% for i in userCart %}
                 <p>{{ i }}</p>
             {% endfor %}
+            <a href='/accounts/{{ user.id }}/cart' style='color: blue !important; text-decoration: underline;'>Редактировать заказ</a>
+            <div style='display: none;'>
+                <input type="hidden" value='{{ price }}' name='price'>
+            </div>
+            <p>К оплате: {{ price }} UAH</p>
             <p>Тип доставки: </p>
-            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="show();">                
+            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
             <label>Самовывоз</label>
             <br>
-            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='hide();'>
+            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
             <label>Нова Пошта</label>
             <br>
-            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='hide();'>
+            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
             <label>Укрпошта</label>
             <br>
             <p>Тип оплаты: </p>
             <input type="radio" name='typeOfPayment' value='Наличный'>
             <label>Наличный</label>
             <br>
-            <input type="radio" name='typeOfPayment' value='Безналичный'>
+            <input type="radio" name='typeOfPayment' value='Безналичный' checked>
             <label>Безналичный</label>
             <div id='address' style='display: none;'>
                 <p>Адрес</p>
-                <label>Город: </label><input type='text' value='{{ user.city }}'>
-                <label>Улица: </label><input type='text' value='{{ user.street }}'>
-                <label>Дом: </label><input type='text' value='{{ user.house }}'>
+                <div id='nova' style='display: none;'><label>Отделение Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                <div id='ukr' style='display: none;'><label>Почтовый индекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
+                <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
+                <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
+                <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
             </div>
+            <br>
+            <input type="submit" name='go' value="Создать Заказ!">
         </form>
     </div>
+    {% include 'accounts/profilePage/includes/footer.html' %}
 </body>
 </html>

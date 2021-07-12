@@ -27,6 +27,6 @@ class orderAdmin(admin.ModelAdmin):
     list_display = ('id', 'имя' , 'фамилия', 'заказ', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
     #filter_horizontal = ('заказ',)
     list_filter = ('статус_заказа', 'статус_оплаты', )
-    readonly_fields  = ('id',)
+    readonly_fields  = ('id', 'user_id')
     actions = [make_order_done, make_order_undone]
 

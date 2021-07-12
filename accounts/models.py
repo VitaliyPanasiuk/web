@@ -25,10 +25,14 @@ class AuthUser(models.Model):
     last_name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=30, blank=True, null=True)
     email = models.CharField(max_length=254)
-    address = models.CharField(max_length=150, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    street = models.CharField(max_length=50, blank=True, null=True)
+    house = models.CharField(max_length=50, blank=True, null=True)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
+    nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
     
 
     class Meta:

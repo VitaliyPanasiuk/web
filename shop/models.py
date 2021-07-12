@@ -62,6 +62,11 @@ class AuthUser(models.Model):
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
     phone_number = models.CharField(max_length=30, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    street = models.CharField(max_length=50, blank=True, null=True)
+    house = models.CharField(max_length=50, blank=True, null=True)
+    nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -188,8 +193,15 @@ class Заказ(models.Model):
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
     статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
     статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS)
-    адрес_заказа = models.CharField(max_length=90)
     дата_заказа = models.DateTimeField(blank=True, null=True)
+    user_id = models.CharField(max_length=1000, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    street = models.CharField(max_length=50, blank=True, null=True)
+    house = models.CharField(max_length=50, blank=True, null=True)
+    payment_type = models.CharField(max_length=20, blank=True, null=True)
+    delivery_type = models.CharField(max_length=20, blank=True, null=True)
+    nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
 
     class Meta:
         managed = False
