@@ -66,6 +66,8 @@ def logout(request):
 
 
 def userProfilePage(request, uid):
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
     context = {
         "userId": str(request.user.id),
         "account": str(uid),
@@ -224,10 +226,12 @@ def userCart(request, uid):
         cartItems = carts[0 : len(carts):]
         a = []
         b = []
+        c = []
         for cartItem in cartItems:
             if str(cartItem.user_id) == str(request.user.id):
                 a.append(cartItem.name)
                 b.append(cartItem.amount)
+                c.append(cartItem)
         for i in carts:
             if int(i.user_id) == request.user.id:
                 if i.currency == 'UAH':
@@ -238,7 +242,7 @@ def userCart(request, uid):
                 summary += local_sum
         try:
             context = {
-                "items": cartItems,
+                "items": c,
                 "amounts": b,
                 "userId": str(request.user.id),
                 "account": str(uid),
@@ -295,7 +299,8 @@ def userFavourites(request, uid):
 
 
 def editProfilePage(request, uid):
-
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
     new_name = request.POST.get('new_name', '')
     new_last_name = request.POST.get('new_last_name', '')
     new_email = request.POST.get('new_email', '')
@@ -333,6 +338,8 @@ def editProfilePage(request, uid):
         return render(request, template, context)
 
 def editPasswordPage(request, uid):
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
     old_pwd = request.POST.get('old_pwd', '')
     new_pwd = request.POST.get('new_pwd', '')
     repeat_new_pwd = request.POST.get('repeat_new_pwd', '')
@@ -365,7 +372,11 @@ def editPasswordPage(request, uid):
         return render(request, template)
 
 def makeOrder(request, uid):
-
+    if request.user.is_authenticated == False:
+        auth_status = 'failed'
+        return HttpResponse('404')
+    else: 
+        auth_status = 'success'
     class ShopOrdery(models.Model):
         user_id = models.CharField(max_length=10000, blank=True, null=True)
         фамилия = models.CharField(max_length=45)
@@ -405,8 +416,13 @@ def makeOrder(request, uid):
             managed = False
             db_table = "shop_cart"
 
+    if request.user.is_anonymous:
+        anon = True
     template = 'accounts/profilePage/makingOrder.html'
-    user = AuthUser.objects.get(id=str(request.user.id))
+    try:
+        user = AuthUser.objects.get(id=str(request.user.id))
+    except ValueError:
+        user = AuthUser.objects.get(id=str(1))
     cart = ShopCarty.objects.all()
     a = []
     price = 0
@@ -454,6 +470,7 @@ def makeOrder(request, uid):
         '''b = max(a)
         newUser = ShopCarty.objects.get(cart_id=b)'''
         context = {
+            'auth_status': auth_status,
             'user': user,
             'userCart': a,
             'price': price,
