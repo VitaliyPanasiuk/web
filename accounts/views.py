@@ -123,6 +123,7 @@ def userOrders(request, uid):
         телефон = models.CharField(max_length=45, blank=True, null=True)
         почта = models.CharField(max_length=60)
         заказ = models.CharField(max_length=10000, blank=True, null=True)
+        #order = models.ManyToManyField(Продукт)
         сумма_заказа = models.FloatField(blank=True, null=True)
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
         статус_оплаты = models.CharField(max_length=45)
@@ -496,6 +497,10 @@ def makeOrder(request, uid):
             d = datetime.datetime.now()
             userCarts = ShopCarty.objects.all()
             currencys = ShopCurrency.objects.all()
+            a={}
+            '''for i in orderFromHtml:
+                a.update({'name': 
+                })'''
             needed = currencys[len(currencys) - 1]
             currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
             order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, дата_заказа=d, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', заказ=orderFromHtml, статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
@@ -507,7 +512,7 @@ def makeOrder(request, uid):
     else:
         for i in cart:
             if str(i.user_id) == str(request.user.id):
-                a.append(i.name)
+                a.append(i)
                 if i.currency == 'UAH':
                     price += int(i.price) * int(i.amount)
                 else:

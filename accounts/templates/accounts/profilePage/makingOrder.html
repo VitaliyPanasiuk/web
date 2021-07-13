@@ -43,10 +43,14 @@
             <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' required>
             <label>Заказ: </label>
             <div style='display: none;'>
-                <input type="hidden" value='{{userCart}}' name='order'>
+                <input type="hidden" value='{{ userCart }}' name='order'>
             </div>
             {% for i in userCart %}
-                <p>{{ i }}</p>
+            {% if i.currency == 'UAH' %}
+                <p>{{ i.name }} Цена: {{ i.price}}UAH</p>
+            {% else %}
+                <p>{{ i.name }} Цена: {% widthratio i.price 1 27.34 %}UAH</p>   
+            {% endif %}
             {% endfor %}
             <a href='/accounts/{{ user.id }}/cart' style='color: blue !important; text-decoration: underline;'>Редактировать заказ</a>
             <div style='display: none;'>

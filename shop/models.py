@@ -1,5 +1,6 @@
 from django.db import models
 from random import randint
+from django.conf import settings
 
 #functions
 def random_string():
@@ -50,6 +51,7 @@ class AuthPermission(models.Model):
 
 
 class AuthUser(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
     is_superuser = models.IntegerField()
@@ -57,7 +59,6 @@ class AuthUser(models.Model):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
-    address = models.CharField(max_length=150, blank=True, null=True)
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
@@ -72,6 +73,8 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
+    def __str__(self):          
+        return f"{self.first_name} {self.last_name} "
 
 class AuthUserGroups(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -141,9 +144,9 @@ class DjangoSession(models.Model):
 
 
 class Продукт(models.Model):
+    название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     код_товара = models.CharField(db_column='Код_товара', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     название_позиции_укр = models.CharField(db_column='Название_позиции_укр', max_length=90, blank=True, null=True)  # Field name made lowercase.
     поисковые_запросы = models.CharField(db_column='Поисковые_запросы', max_length=171, blank=True, null=True)  # Field name made lowercase.
     поисковые_запросы_укр = models.CharField(db_column='Поисковые_запросы_укр', max_length=169, blank=True, null=True)  # Field name made lowercase.
@@ -180,6 +183,22 @@ class Продукт(models.Model):
         managed = False
         db_table = 'shop_product'
         verbose_name_plural = "Продукты"
+    def __str__(self):
+        return self.название_позиции
+
+class orderItems(models.Model):
+    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, verbose_name="Пользователь")
+    item = models.ForeignKey(Продукт, on_delete=models.CASCADE, verbose_name="Продукт")
+    price = models.CharField(max_length=90, null=True, blank=True, verbose_name='Цена')
+    quantity = models.IntegerField(default=1, verbose_name='Количество')
+
+    class Meta:
+        managed = False
+        db_table = 'shop_orderitem'
+        verbose_name_plural = 'Заказ'
+
+    def __str__(self):
+        return f"{self.item.название_позиции} {self.quantity} шт. для {AuthUser.objects.get(id=int(self.user_id))} "
 
 class Заказ(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -188,20 +207,21 @@ class Заказ(models.Model):
     отчество = models.CharField(max_length=45, blank=True, null=True)
     телефон = models.CharField(max_length=45, blank=True, null=True)
     почта = models.CharField(unique=True, max_length=60)
-    заказ = models.CharField(max_length=45)
+    заказ = models.JSONField(max_length=45)
+    #заказ = models.ManyToManyField(orderItems, verbose_name='Заказ')
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
     статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
     статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS)
     дата_заказа = models.DateTimeField(blank=True, null=True)
-    user_id = models.CharField(max_length=1000, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    street = models.CharField(max_length=50, blank=True, null=True)
-    house = models.CharField(max_length=50, blank=True, null=True)
-    payment_type = models.CharField(max_length=20, blank=True, null=True)
-    delivery_type = models.CharField(max_length=20, blank=True, null=True)
-    nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
-    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
+    city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
+    street = models.CharField(max_length=50, blank=True, null=True, verbose_name='Улица')
+    house = models.CharField(max_length=50, blank=True, null=True, verbose_name='Дом')
+    payment_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип оплаты')
+    delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
+    nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
+    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
 
     class Meta:
         managed = False

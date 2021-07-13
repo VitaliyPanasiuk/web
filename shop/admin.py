@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ
+from .models import Продукт, Заказ, orderItems
 
 
 def make_order_done(modeladmin, request, queryset):
@@ -21,10 +21,19 @@ class productAdmin(admin.ModelAdmin):
     list_filter = ('наличие', 'страна_производитель', )
     readonly_fields  = ('id',)
 
+@admin.register(orderItems)
+class orderItemAdmin(admin.ModelAdmin):'''
+    search_fields = ('фамилия', 'имя')
+    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
+    #filter_horizontal = ('заказ',)
+    list_filter = ('статус_заказа', 'статус_оплаты', )
+    readonly_fields  = ('id', 'user_id')
+    actions = [make_order_done, make_order_undone]'''
+
 @admin.register(Заказ)
 class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
-    list_display = ('id', 'имя' , 'фамилия', 'заказ', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
+    list_display = ('id', 'имя' , 'фамилия', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
     #filter_horizontal = ('заказ',)
     list_filter = ('статус_заказа', 'статус_оплаты', )
     readonly_fields  = ('id', 'user_id')
