@@ -9,6 +9,7 @@ from django.db import models
 from django.db.models import F
 from django.contrib import messages
 import requests
+from django.db.utils import IntegrityError
 import pytz
 from bs4 import BeautifulSoup as bs
 import datetime
@@ -18,7 +19,50 @@ accounts = AuthUser.objects.all()
 timezone = pytz.timezone('Europe/Kiev')
 
 def register(request):
-    if request.method == 'POST':
+    args = {}
+    args.update(csrf(request))
+    if request.POST:
+        username = request.POST.get("username", "")
+        email = request.POST.get('email', '')
+        password1 = request.POST.get("password1", "")
+        password2 = request.POST.get("password2", "")
+        d = datetime.datetime.now()
+        upper_case = 0
+        lower_case = 0
+        number = 0
+
+        for i in password2:
+            if i.isupper():
+                upper_case += 1
+            elif i.islower():
+                lower_case += 1
+            elif i.isdigit():
+                number += 1
+        if password1 == password2:
+            if len(password2) >= 8:
+                if number > 0 and upper_case > 0:
+                            try:
+                                user = AuthUser(username=username, password=make_password(password2, salt=None, hasher='default'), email=email, last_login=d, date_joined=d, is_superuser=0, is_staff=0, is_active=1)
+                                user.save()
+                                usery = auth.authenticate(username=username, password=password2)
+                                auth.login(request, usery)
+                                return redirect("/accounts/"+str(user.id))
+                            except IntegrityError:
+                                error_code = 'Пользователь с таким именем уже существует'
+                                return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+                else:
+                    error_code = 'Пароль должен содержать по крайней мере одну заглавную букву и одну цифру'
+                    return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+            else:
+                error_code = 'Ваш пароль слишком короткий'
+                return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+        else:
+            error_code = 'Пароли не совпадают'
+            return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+
+    else:
+        return render(request, "accounts/auth/register.html", args)
+    '''if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
@@ -27,21 +71,8 @@ def register(request):
             return redirect('/')
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/auth/register.html', {'form': form})
-    '''if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            raw_password = form.cleaned_data.get("password1")
-            user = auth.authenticate(username=username, password=raw_password)
-            auth.login(request, user)
-            return redirect("/")
-    else:
-        form = SignUpForm()
-    return render(request, "accounts/auth/register.html", {"form": form})'''
-
-
+    return render(request, 'accounts/auth/register.html', {'form': form})'''
+    
 def login(request):
     args = {}
     args.update(csrf(request))
@@ -68,7 +99,10 @@ def logout(request):
 def userProfilePage(request, uid):
     if request.user.is_authenticated == False:
         return HttpResponse('404')
+    else:
+        auth_status = 'success'
     context = {
+        'auth_status': auth_status,
         "userId": str(request.user.id),
         "account": str(uid),
         'currentUser': AuthUser.objects.get(id=request.user.id)
@@ -78,6 +112,10 @@ def userProfilePage(request, uid):
 
 
 def userOrders(request, uid):
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
+    else:
+        auth_status = 'success'
     class ShopOrdery(models.Model):
         фамилия = models.CharField(max_length=45)
         имя = models.CharField(max_length=45)
@@ -108,6 +146,7 @@ def userOrders(request, uid):
         if str(i.user_id) == str(request.user.id):
             orders.append(i)
     context = {
+        'auth_status': auth_status,
         "userId": str(request.user.id),
         "account": str(uid),
         "orders": orders,
@@ -119,7 +158,10 @@ now = datetime.datetime.now()
 
 def userCart(request, uid):
     template = "accounts/profilePage/cart.html"
-
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
+    else:
+        auth_status = 'success'
     class ShopOrdery(models.Model):
         user_id = models.CharField(max_length=10000, blank=True, null=True)
         фамилия = models.CharField(max_length=45)
@@ -242,6 +284,7 @@ def userCart(request, uid):
                 summary += local_sum
         try:
             context = {
+                'auth_status': auth_status,
                 "items": c,
                 "amounts": b,
                 "userId": str(request.user.id),
@@ -252,6 +295,7 @@ def userCart(request, uid):
             }
         except UnboundLocalError:
             context = {
+            'auth_status': auth_status,
             "items": cartItems,
             "amounts": b,
             "userId": str(request.user.id),
@@ -265,7 +309,10 @@ def userCart(request, uid):
 
 def userFavourites(request, uid):
     template = "accounts/profilePage/favourites.html"
-
+    if request.user.is_authenticated == False:
+        return HttpResponse('404')
+    else:
+        auth_status = 'success'
     class ShopFavourite(models.Model):
         favourite_id = models.AutoField(primary_key=True)
         user_id = models.CharField(max_length=45)
@@ -290,6 +337,7 @@ def userFavourites(request, uid):
             if str(i.user_id) == str(request.user.id):
                 a.append(i)
         context = {
+            'auth_status': auth_status,
             "favourites": a,
             'userId': str(request.user.id),
             'account': str(uid),

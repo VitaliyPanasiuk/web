@@ -15,10 +15,16 @@
     
     {% block content %}
     <h2>Регистрация</h2>
-  <form method="post">
+  <form method="post" action="">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
+    <label>Имя пользователя: </label><input type='text' name='username' required>
+    <label>Email: </label><input type='email' name='email' required>
+    <br>
+    <p>Минимально 8 символов.</p>
+    <label>Пароль: </label><input type='password' name='password1' required>
+    <label>Повторите пароль: </label><input type='password' name='password2' required>
+    <p>{{ error_code }}</p>
+    <input type="submit" name='register' value='Зарегистрироваться'>
   </form>
     {% endblock %}
 
