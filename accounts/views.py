@@ -170,7 +170,7 @@ def userCart(request, uid):
         отчество = models.CharField(max_length=45, blank=True, null=True)
         телефон = models.CharField(max_length=45, blank=True, null=True)
         почта = models.CharField(max_length=60)
-        заказ = models.CharField(max_length=45)
+        заказ = models.CharField(max_length=10000, blank=True, null=True)
         сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
         статус_оплаты = models.CharField(max_length=45)
@@ -230,7 +230,7 @@ def userCart(request, uid):
             ShopCarty.objects.filter(item=itemToDelete).delete()
             return redirect("/accounts/" + str(request.user.id) + "/cart")
         elif makeorder:
-            '''b = 0
+            b = 0
             userAccount = AuthUser.objects.get(id=request.user.id)
             userCarts = ShopCarty.objects.all()
             currencys = ShopCurrency.objects.all()
@@ -255,11 +255,11 @@ def userCart(request, uid):
                     else:
                         bob.append(round(float(local.price) * currency * float(local.amount), 2))
                 intbob = [float(elem) for elem in bob]
-                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, адрес_заказа=userAccount.address, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
                 order.save()
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
-                        i.delete()'''
+                        i.delete()
             return redirect('/accounts/' + str(request.user.id) + '/make-order')
     else:
         currencys = ShopCurrency.objects.all()
@@ -433,7 +433,7 @@ def makeOrder(request, uid):
         отчество = models.CharField(max_length=45, blank=True, null=True)
         телефон = models.CharField(max_length=45, blank=True, null=True)
         почта = models.CharField(max_length=60)
-        заказ = models.CharField(max_length=45)
+        заказ = models.CharField(max_length=10000, blank=True, null=True)
         сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
         статус_оплаты = models.CharField(max_length=45)
@@ -497,13 +497,13 @@ def makeOrder(request, uid):
             d = datetime.datetime.now()
             userCarts = ShopCarty.objects.all()
             currencys = ShopCurrency.objects.all()
-            a={}
-            '''for i in orderFromHtml:
-                a.update({'name': 
-                })'''
+            '''items=[]
+            for i in orderFromHtml:
+                items.append(i)
+            print(items)'''
             needed = currencys[len(currencys) - 1]
             currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-            order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, дата_заказа=d, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', заказ=orderFromHtml, статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
+            order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, дата_заказа=d, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
             order.save()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):

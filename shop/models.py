@@ -192,23 +192,14 @@ class orderItems(models.Model):
     price = models.CharField(max_length=90, null=True, blank=True, verbose_name='Цена')
     quantity = models.IntegerField(default=1, verbose_name='Количество')
 
-    class Meta:
-        managed = False
-        db_table = 'shop_orderitem'
-        verbose_name_plural = 'Заказ'
-
-    def __str__(self):
-        return f"{self.item.название_позиции} {self.quantity} шт. для {AuthUser.objects.get(id=int(self.user_id))} "
-
 class Заказ(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     фамилия = models.CharField(max_length=45)
     имя = models.CharField(max_length=45)
     отчество = models.CharField(max_length=45, blank=True, null=True)
     телефон = models.CharField(max_length=45, blank=True, null=True)
-    почта = models.CharField(unique=True, max_length=60)
-    заказ = models.JSONField(max_length=45)
-    #заказ = models.ManyToManyField(orderItems, verbose_name='Заказ')
+    почта = models.CharField(max_length=60)
+    заказ = models.TextField(max_length=10000, blank=True, null=True)
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
     статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
@@ -227,6 +218,13 @@ class Заказ(models.Model):
         managed = False
         db_table = 'shop_order'
         verbose_name_plural = 'Заказы'
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+    def __str__(self):
+        return 'Заказ пользователя' + ' ' + str(self.фамилия) + ' '  + str(self.имя)
 
 class ShopCart(models.Model):
     user_id = models.CharField(max_length=45)
