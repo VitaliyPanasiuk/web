@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'orders',
     'django_celery_beat',
     'django_celery_results',
+    'mathfilters',
 ]
 #CELERY SETTINGS
 CELERY_TIMEZONE = "Europe/Kiev"

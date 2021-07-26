@@ -1,4 +1,5 @@
 {% load static %}
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +51,7 @@
             {% if i.currency == 'UAH' %}
                 <p>{{ i.name }} Цена: {{ i.price}}UAH</p>
             {% else %}
-                <p>{{ i.name }} Цена: {% widthratio i.price 1 currency %}UAH</p>   
+                <p>{{ i.name }} Цена: {{ i.price|mul:currency }}UAH</p>   
             {% endif %}
             {% endfor %}
             <form method='POST' action="">
