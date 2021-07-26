@@ -53,7 +53,10 @@
                 <p>{{ i.name }} Цена: {% widthratio i.price 1 currency %}UAH</p>   
             {% endif %}
             {% endfor %}
-            <a href='/accounts/{{ user.id }}/cart' style='color: blue !important; text-decoration: underline;'>Редактировать заказ</a>
+            <form method='POST' action="">
+                {% csrf_token %}
+                <input type="submit" name='edit' id='edit' value='Редактировать заказ'>
+            </form>
             <div style='display: none;'>
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>

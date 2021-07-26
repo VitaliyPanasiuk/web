@@ -527,7 +527,8 @@ def makeOrder(request, uid):
         house = request.POST.get('house', '')
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
-        normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
+        edit = request.POST.get('edit', '')
+        #normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
         if orderFromHtml == None:
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
@@ -593,8 +594,6 @@ def makeOrder(request, uid):
             specorder.ukr_pochta = ukr_pochta
             specorder.confirm = 'c'
             specorder.save()
-            #order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
-            #order.save()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     i.delete()
@@ -602,6 +601,10 @@ def makeOrder(request, uid):
                 return redirect('/')
             else:
                 return redirect('/payment')
+        elif edit:
+            toDelete = ShopOrdery.objects.last()
+            toDelete.delete()
+            return redirect('/accounts/' + str(request.user.id) + '/cart')
     else:
         for i in cart:
             if str(i.user_id) == str(request.user.id):
