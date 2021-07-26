@@ -111,6 +111,11 @@
                             </div>
                         </div>
                     </div>
+                    <form action='' method="POST" class="form_del">
+                        {% csrf_token %}
+                        <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ order.id }}'></div>
+                        <input type='submit' value='&#10060;'>
+                    </form>
                     </li>
                     {% endfor %}
                     </ul>

@@ -27,7 +27,7 @@ def parse(url):
 @shared_task
 def add_currency():
     result = parse(url)
-    new_object = ShopCurrency.objects.create(usd_to_uah=result, date=datetime.datetime.now())
+    new_object = ShopCurrency.objects.create(usd_to_uah=result, date=datetime.now())
     return new_object.usd_to_uah
 @shared_task
 def check_confirmation():

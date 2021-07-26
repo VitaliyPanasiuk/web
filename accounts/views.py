@@ -144,19 +144,25 @@ def userOrders(request, uid):
         class Meta:
             managed = False
             db_table = 'shop_order'
-    a = ShopOrdery.objects.all()
-    orders=[]
-    for i in a:
-        if str(i.user_id) == str(request.user.id):
-            orders.append(i)
-    context = {
-        'auth_status': auth_status,
-        "userId": str(request.user.id),
-        "account": str(uid),
-        "orders": orders,
-    }
-    template = "accounts/profilePage/orders.html"
-    return render(request, template, context)
+    if request.POST:
+        itemToDelete = request.POST.get("delete", "")
+        if itemToDelete:
+            ShopOrdery.objects.filter(id=int(itemToDelete)).delete()
+            return redirect('/accounts/' + str(request.user.id) + '/orders')
+    else:
+        a = ShopOrdery.objects.all()
+        orders=[]
+        for i in a:
+            if str(i.user_id) == str(request.user.id):
+                orders.append(i)
+        context = {
+            'auth_status': auth_status,
+            "userId": str(request.user.id),
+            "account": str(uid),
+            "orders": orders,
+        }
+        template = "accounts/profilePage/orders.html"
+        return render(request, template, context)
 
 now = datetime.now(pytz.timezone('Europe/Kiev'))
 
@@ -254,9 +260,9 @@ def userCart(request, uid):
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
-                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + ',  Цена: '  + str(int(i.price) * int(i.amount)) +  'UAH,' + '\n\n')
+                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(int(i.price) * int(i.amount)) +  'UAH' + '\n\n')
                         else:
-                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + ',  Цена: '  + str(int(i.price) * currency * int(i.amount)) +  'UAH,' + '\n\n')
+                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(int(i.price) * currency * int(i.amount)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
@@ -503,6 +509,9 @@ def makeOrder(request, uid):
     orders= ShopOrdery.objects.all()
     a = []
     price = 0
+    currencys = ShopCurrency.objects.all()
+    needed = currencys[len(currencys) - 1]
+    currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
     if request.POST:
         go = request.POST.get('go', '')
         first_name = request.POST.get('first_name', '')
@@ -520,13 +529,56 @@ def makeOrder(request, uid):
         nova_pochta = request.POST.get('nova_pochta', '')
         normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
         if orderFromHtml == None:
-            return redirect('/')
+            for i in cart:
+                if str(i.user_id) == str(request.user.id):
+                    a.append(i)
+                    if i.currency == 'UAH':
+                        price += int(i.price) * int(i.amount)
+                    else:
+                        currencys = ShopCurrency.objects.all()
+                        needed = currencys[len(currencys) - 1]
+                        currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
+                        price += int(i.price) * currency * int(i.amount)
+            '''b = max(a)
+            newUser = ShopCarty.objects.get(cart_id=b)'''
+            error_message = 'Ошибка: Пустой заказ'
+            context = {
+                'auth_status': auth_status,
+                'user': user,
+                'userCart': a,
+                'price': price,
+                'userId': str(request.user.id),
+                'account': str(uid),
+                'error_message': error_message
+            }
+            return render(request, template, context)
+        if street or house or house == 'None':
+            for i in cart:
+                if str(i.user_id) == str(request.user.id):
+                    a.append(i)
+                    if i.currency == 'UAH':
+                        price += int(i.price) * int(i.amount)
+                    else:
+                        currencys = ShopCurrency.objects.all()
+                        needed = currencys[len(currencys) - 1]
+                        currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
+                        price += int(i.price) * currency * int(i.amount)
+            '''b = max(a)
+            newUser = ShopCarty.objects.get(cart_id=b)'''
+            error_message = 'Ошибка: Введите корректный адрес'
+            context = {
+                'auth_status': auth_status,
+                'user': user,
+                'userCart': a,
+                'price': price,
+                'userId': str(request.user.id),
+                'account': str(uid),
+                'error_message': error_message,
+            }
+            return render(request, template, context)
         if go:
             d = datetime.now(pytz.timezone('Europe/Kiev'))
             userCarts = ShopCarty.objects.all()
-            currencys = ShopCurrency.objects.all()
-            needed = currencys[len(currencys) - 1]
-            currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
             specorder = ShopOrdery.objects.last()
             specorder.имя = first_name
             specorder.фамилия = last_name
@@ -546,7 +598,10 @@ def makeOrder(request, uid):
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     i.delete()
-            return redirect('/')
+            if typeOfPayment == 'Наличный':
+                return redirect('/')
+            else:
+                return redirect('/payment')
     else:
         for i in cart:
             if str(i.user_id) == str(request.user.id):
@@ -567,10 +622,54 @@ def makeOrder(request, uid):
             'price': price,
             'userId': str(request.user.id),
             'account': str(uid),
+            'currency': currency
         }
         return render(request, template, context)
 
 def editOrder(request, oid, uid):
+
+    class ShopOrdery(models.Model):
+        id = models.IntegerField(db_column='id', primary_key=True, null=False,)
+        фамилия = models.CharField(max_length=45)
+        имя = models.CharField(max_length=45)
+        отчество = models.CharField(max_length=45, blank=True, null=True)
+        телефон = models.CharField(max_length=45, blank=True, null=True)
+        почта = models.CharField(max_length=60)
+        заказ = models.CharField(max_length=10000, blank=True, null=True)
+        сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
+        валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
+        статус_оплаты = models.CharField(max_length=45)
+        статус_заказа = models.CharField(max_length=45)
+        дата_заказа = models.DateTimeField(blank=True, null=True)
+        user_id = models.CharField(max_length=1000, blank=True, null=True)
+        city = models.CharField(max_length=50, blank=True, null=True)
+        street = models.CharField(max_length=50, blank=True, null=True)
+        house = models.CharField(max_length=50, blank=True, null=True)
+        payment_type = models.CharField(max_length=20, blank=True, null=True)
+        delivery_type = models.CharField(max_length=20, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        confirm = models.CharField(max_length=500, blank=True, null=True)
+        raworder = models.CharField(max_length=2000, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_order'
+
+    class ShopCarty(models.Model):
+        user_id = models.CharField(max_length=45)
+        item = models.CharField(max_length=45, blank=True, null=True)
+        cart_id = models.AutoField(primary_key=True)
+        amount = models.IntegerField(blank=True, null=True, default=1)
+        name = models.CharField(max_length=300, blank=True, null=True)
+        price = models.CharField(max_length=30, blank=True, null=True)
+        currency = models.CharField(max_length=30, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = "shop_cart"
+
+
     if request.user.is_authenticated == False:
         auth_status = 'failed'
         return HttpResponse('404')
@@ -581,8 +680,17 @@ def editOrder(request, oid, uid):
     except ValueError:
         user = AuthUser.objects.get(id=str(1))
     template = 'accounts/editOrder/editOrder.html'
+    cart = ShopCarty.objects.all()
+    orders = ShopOrdery.objects.all()
+    a = []
+    price = 0
+    order = ShopOrdery.objects.get(id=str(oid))
+    needed = ShopCurrency.objects.last()
+    currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
     context = {
+        'order': order,
         'user': user,
         'auth_status': auth_status,
-    }
+        'currency': currency,
+        }
     return render(request, template, context)

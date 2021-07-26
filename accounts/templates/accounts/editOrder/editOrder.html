@@ -37,52 +37,31 @@
     <div>
         <form method="POST" action="">
             {% csrf_token %}
-            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' required>
-            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' required>
-            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'>
-            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' required>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+            <p>Почта: {{ user.email }}</p>
+            <p>Телефон: {{ user.phone_number }}</p>
             <label>Заказ: </label>
-            <div style='display: none;'>
-                <input type="hidden" value='{{ userCart.name }}' name='order'>
-            </div>
-            {% for i in userCart %}
-            {% if i.currency == 'UAH' %}
-                <p>{{ i.name }} Цена: {{ i.price}}UAH</p>
-            {% else %}
-                <p>{{ i.name }} Цена: {% widthratio i.price 1 27.34 %}UAH</p>   
+            <p>{{ order.заказ }}</p>
+            <p>К оплате: {{ order.сумма_заказа }} UAH</p>
+            {% if order.confirm == 'nc' %}
+            <p>Статус заказа: Не подтвержден пользователем</p>
+            {% elif order.confirm == 'c' %}
+            <p>Статус заказа: Подтвержден пользователем</p>
             {% endif %}
-            {% endfor %}
-            <a href='/accounts/{{ user.id }}/cart' style='color: blue !important; text-decoration: underline;'>Редактировать заказ</a>
-            <div style='display: none;'>
-                <input type="hidden" value='{{ price }}' name='price'>
-            </div>
-            <p>К оплате: {{ price }} UAH</p>
-            <p>Тип доставки: </p>
-            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>Самовывоз</label>
-            <br>
-            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-            <label>Нова Пошта</label>
-            <br>
-            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-            <label>Укрпошта</label>
-            <br>
-            <p>Тип оплаты: </p>
-            <input type="radio" name='typeOfPayment' value='Наличный'>
-            <label>Наличный</label>
-            <br>
-            <input type="radio" name='typeOfPayment' value='Безналичный' checked>
-            <label>Безналичный</label>
-            <div id='address' style='display: none;'>
-                <p>Адрес</p>
-                <div id='nova' style='display: none;'><label>Отделение Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
-                <div id='ukr' style='display: none;'><label>Почтовый индекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
-                <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
-                <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
-                <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
-            </div>
-            <br>
-            <input type="submit" name='go' value="Создать Заказ!">
+            <p>Тип доставки: {{ order.delivery_type }}</p>
+            <p>Тип оплаты: {{ order.payment_type }}</p>
+            {% if order.delivery_type == 'Нова пошта' %}
+            <p>Отделение Новой Почты: {{ order.nova_pochta }}</p>
+            <p>Город: {{ order.city }}</p>
+            <p>Улица: {{ order.street }}</p>
+            <p>Дом: {{ order.house }}</p>
+            {% elif order.delivery_type == 'Укрпошта' %}
+            <p>Почтовый индекс: {{ order.ukr_pochta }}</p>
+            <p>Город: {{ order.city }}</p>
+            <p>Улица: {{ order.street }}</p>
+            <p>Дом: {{ order.house }}</p>
+            {% endif %}
         </form>
     </div>
     {% else %}

@@ -34,6 +34,7 @@
 <body>
     {% include 'accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
+    {{ error_message }}
     <div>
         <form method="POST" action="">
             {% csrf_token %}
@@ -49,7 +50,7 @@
             {% if i.currency == 'UAH' %}
                 <p>{{ i.name }} Цена: {{ i.price}}UAH</p>
             {% else %}
-                <p>{{ i.name }} Цена: {% widthratio i.price 1 27.34 %}UAH</p>   
+                <p>{{ i.name }} Цена: {% widthratio i.price 1 currency %}UAH</p>   
             {% endif %}
             {% endfor %}
             <a href='/accounts/{{ user.id }}/cart' style='color: blue !important; text-decoration: underline;'>Редактировать заказ</a>
@@ -57,6 +58,7 @@
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>
             <p>К оплате: {{ price }} UAH</p>
+            <p style='color: red !important; text-decoration: underline;'>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
             <p>Тип доставки: </p>
             <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
             <label>Самовывоз</label>
