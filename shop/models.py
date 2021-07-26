@@ -202,8 +202,8 @@ class Заказ(models.Model):
     заказ = models.TextField(max_length=10000, blank=True, null=True)
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
-    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
-    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS)
+    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS, verbose_name='Статус Оплаты')
+    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус Заказа')
     дата_заказа = models.DateTimeField(blank=True, null=True)
     user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
@@ -213,6 +213,8 @@ class Заказ(models.Model):
     delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
+    confirm = models.CharField(max_length=500, blank=True, null=True)
+    raworder = models.CharField(max_length=2000, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -224,7 +226,7 @@ class Заказ(models.Model):
             del actions['delete_selected']
         return actions
     def __str__(self):
-        return 'Заказ пользователя' + ' ' + str(self.фамилия) + ' '  + str(self.имя)
+        return 'Заказ №' + str(self.id)
 
 class ShopCart(models.Model):
     user_id = models.CharField(max_length=45)

@@ -1,8 +1,10 @@
 from celery import shared_task
-from .models import ShopCurrency
-import datetime 
+from .models import ShopCart, ShopCurrency, Заказ
+
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup as bs
+import pytz
 
 
 
@@ -27,3 +29,16 @@ def add_currency():
     result = parse(url)
     new_object = ShopCurrency.objects.create(usd_to_uah=result, date=datetime.datetime.now())
     return new_object.usd_to_uah
+@shared_task
+def check_confirmation():
+    orders = Заказ.objects.all()
+    for order in orders:
+        creationTime = order.дата_заказа
+            #print(creationTime)
+            #print(datetime.now(pytz.timezone('Europe/Kiev')))
+        difference = datetime.now(pytz.timezone('Europe/Kiev')) - creationTime
+        res = list(str(difference))
+        if str(res[0]) != '0' and order.confirm != 'c':
+            order.delete()
+            print('something deleted')
+    

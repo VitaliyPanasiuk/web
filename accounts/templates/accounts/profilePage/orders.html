@@ -89,18 +89,24 @@
                             </div>
                             <div class="status">
                                 <div class="stat_data">
-                                    {{ order.заказ }}
+                                    <a href='order/{{ order.id }}'>
+                                        Заказ №{{ order.id }}
+                                    </a>  
                                 </div>
-                                <div class="stat">
-                                    status
-                                </div>
+                                
                             </div>
+                            {% if order.confirm == 'c' %}
+                            <div class="stat">
+                                Статус: Подтвержденно
+                            </div>
+                            {% else %}
+                            <div class="stat">
+                                Статус: Не подтвержденно
+                            </div>
+                            {% endif %}
                             <div class="order_price">
                                 <div class="order_price_tit">
-                                    Сумма Заказа
-                                </div>
-                                <div class="order_price_text">
-                                    {{ order.сумма_заказа }} UAH
+                                    Сумма Заказа: {{ order.сумма_заказа }} UAH
                                 </div>
                             </div>
                         </div>

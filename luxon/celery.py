@@ -21,5 +21,9 @@ app.conf.beat_schedule = {
     'add_new_currency': {
         'task': 'accounts.tasks.add_currency',
         'schedule': crontab(hour='15', minute='00')
+    },
+    'check_confirmation': {
+        'task': 'accounts.tasks.check_confirmation',
+        'schedule': crontab(minute='*/30')
     }
 }

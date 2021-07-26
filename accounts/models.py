@@ -101,3 +101,38 @@ class ShopCurrency(models.Model):
         class Meta:
             managed = False
             db_table = 'shop_currency'
+
+class Заказ(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
+    фамилия = models.CharField(max_length=45)
+    имя = models.CharField(max_length=45)
+    отчество = models.CharField(max_length=45, blank=True, null=True)
+    телефон = models.CharField(max_length=45, blank=True, null=True)
+    почта = models.CharField(max_length=60)
+    заказ = models.TextField(max_length=10000, blank=True, null=True)
+    сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
+    валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
+    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
+    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус Заказа')
+    дата_заказа = models.DateTimeField(blank=True, null=True)
+    user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
+    city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
+    street = models.CharField(max_length=50, blank=True, null=True, verbose_name='Улица')
+    house = models.CharField(max_length=50, blank=True, null=True, verbose_name='Дом')
+    payment_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип оплаты')
+    delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
+    nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
+    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
+    confirm = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'shop_order'
+        verbose_name_plural = 'Заказы'
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+    def __str__(self):
+        return 'Заказ №' + str(self.id)

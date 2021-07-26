@@ -11,9 +11,9 @@ def make_order_undone(modeladmin, request, queryset):
     queryset.update(статус_заказа='nd')
 make_order_undone.short_description = "Отменить выполнение заказа"
 
-def deleteit(modeladmin, request, queryset):
+'''def deleteit(modeladmin, request, queryset):
     queryset.delete()
-deleteit.short_description = 'Удалить'
+deleteit.short_description = 'Удалить'''
 
 
 admin.site.site_header = 'Luxon'
@@ -31,7 +31,8 @@ class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
     list_display = ('id', 'имя' , 'фамилия', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
     #filter_horizontal = ('заказ',)
-    list_filter = ('статус_заказа', 'заказ', 'статус_оплаты', )
+    list_filter = ('статус_заказа', 'статус_оплаты', )
     readonly_fields  = ('id', 'user_id')
-    actions = [make_order_done, make_order_undone, deleteit, 'delete_selected']
+    actions = [make_order_done, make_order_undone, 'delete_selected']
+    exclude = ('raworder', )
     model = Заказ

@@ -14,9 +14,10 @@ import pytz
 from bs4 import BeautifulSoup as bs
 import datetime
 from django.contrib.auth.hashers import check_password, make_password
+from datetime import datetime, timezone
 products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
-timezone = pytz.timezone('Europe/Kiev')
+timezona = pytz.timezone('Europe/Kiev')
 
 def register(request):
     args = {}
@@ -26,7 +27,7 @@ def register(request):
         email = request.POST.get('email', '')
         password1 = request.POST.get("password1", "")
         password2 = request.POST.get("password2", "")
-        d = datetime.datetime.now()
+        d = datetime.now(pytz.timezone('Europe/Kiev'))
         upper_case = 0
         lower_case = 0
         number = 0
@@ -137,6 +138,8 @@ def userOrders(request, uid):
         delivery_type = models.CharField(max_length=20, blank=True, null=True)
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        confirm = models.CharField(max_length=500, blank=True, null=True)
+        raworder = models.CharField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -155,7 +158,7 @@ def userOrders(request, uid):
     template = "accounts/profilePage/orders.html"
     return render(request, template, context)
 
-now = datetime.datetime.now()
+now = datetime.now(pytz.timezone('Europe/Kiev'))
 
 def userCart(request, uid):
     template = "accounts/profilePage/cart.html"
@@ -184,6 +187,8 @@ def userCart(request, uid):
         delivery_type = models.CharField(max_length=20, blank=True, null=True)
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        confirm = models.CharField(max_length=500, blank=True, null=True)
+        raworder = models.CharField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -202,7 +207,6 @@ def userCart(request, uid):
         class Meta:
             managed = False
             db_table = "shop_cart"
-
     summary = 0
     # DELETE FROM CART
     if request.POST:
@@ -238,16 +242,21 @@ def userCart(request, uid):
             currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
             a = []
             bob = []
-            d = datetime.datetime.now()
+            c=[]
+            d = datetime.now(pytz.timezone('Europe/Kiev'))
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     b += 1
             if b == 0:
-                return HttpResponse('your cart is empty!')#Have to add speial error message for this situation
+                return HttpResponse('Корзина пуста!')#Have to add speial error message for this situation
             else:
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
-                        a.append(i.name)
+                        a.append(str(i.name))
+                        if i.currency == 'UAH':
+                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + ',  Цена: '  + str(int(i.price) * int(i.amount)) +  'UAH,' + '\n\n')
+                        else:
+                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + ',  Цена: '  + str(int(i.price) * currency * int(i.amount)) +  'UAH,' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
@@ -255,13 +264,29 @@ def userCart(request, uid):
                     else:
                         bob.append(round(float(local.price) * currency * float(local.amount), 2))
                 intbob = [float(elem) for elem in bob]
-                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, почта=userAccount.email, сумма_заказа=sum(intbob), дата_заказа=d, телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=a, статус_оплаты='np', статус_заказа='nd')
+                ordery = " ".join(str(x) for x in c)
+                newa = str(a)
+                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='nc', raworder=newa[1:-1])
                 order.save()
-                for i in userCarts:
+                '''for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
-                        i.delete()
+                        i.delete()'''
             return redirect('/accounts/' + str(request.user.id) + '/make-order')
     else:
+
+
+        '''orders = ShopOrdery.objects.all()
+        for order in orders:
+            creationTime = order.дата_заказа
+                #print(creationTime)
+                #print(datetime.now(pytz.timezone('Europe/Kiev')))
+            difference = datetime.now(pytz.timezone('Europe/Kiev')) - creationTime
+            res = list(str(difference))
+            print(res)
+            if str(res[0]) != '0' and order.confirm != 'c':
+                order.delete()'''
+
+
         currencys = ShopCurrency.objects.all()
         needed = currencys[len(currencys) - 1]
         currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
@@ -447,6 +472,8 @@ def makeOrder(request, uid):
         delivery_type = models.CharField(max_length=20, blank=True, null=True)
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        confirm = models.CharField(max_length=500, blank=True, null=True)
+        raworder = models.CharField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -473,6 +500,7 @@ def makeOrder(request, uid):
     except ValueError:
         user = AuthUser.objects.get(id=str(1))
     cart = ShopCarty.objects.all()
+    orders= ShopOrdery.objects.all()
     a = []
     price = 0
     if request.POST:
@@ -494,17 +522,27 @@ def makeOrder(request, uid):
         if orderFromHtml == None:
             return redirect('/')
         if go:
-            d = datetime.datetime.now()
+            d = datetime.now(pytz.timezone('Europe/Kiev'))
             userCarts = ShopCarty.objects.all()
             currencys = ShopCurrency.objects.all()
-            '''items=[]
-            for i in orderFromHtml:
-                items.append(i)
-            print(items)'''
             needed = currencys[len(currencys) - 1]
             currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-            order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, дата_заказа=d, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
-            order.save()
+            specorder = ShopOrdery.objects.last()
+            specorder.имя = first_name
+            specorder.фамилия = last_name
+            specorder.почта = email
+            specorder.телефон = phone_number
+            specorder.city = city
+            specorder.street = street
+            specorder.house = house
+            specorder.delivery_type = typeOfDelivery
+            specorder.payment_type = typeOfPayment
+            specorder.nova_pochta = nova_pochta
+            specorder.ukr_pochta = ukr_pochta
+            specorder.confirm = 'c'
+            specorder.save()
+            #order = ShopOrdery(user_id=request.user.id, имя=first_name, фамилия=last_name, почта=email, сумма_заказа=normalPrice, телефон=phone_number, city=city, street=street, house=house, валюта_заказа='UAH', статус_оплаты='np', статус_заказа='nd', delivery_type=typeOfDelivery, payment_type=typeOfPayment, nova_pochta=nova_pochta, ukr_pochta=ukr_pochta)
+            #order.save()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     i.delete()
@@ -531,3 +569,20 @@ def makeOrder(request, uid):
             'account': str(uid),
         }
         return render(request, template, context)
+
+def editOrder(request, oid, uid):
+    if request.user.is_authenticated == False:
+        auth_status = 'failed'
+        return HttpResponse('404')
+    else: 
+        auth_status = 'success'
+    try:
+        user = AuthUser.objects.get(id=str(request.user.id))
+    except ValueError:
+        user = AuthUser.objects.get(id=str(1))
+    template = 'accounts/editOrder/editOrder.html'
+    context = {
+        'user': user,
+        'auth_status': auth_status,
+    }
+    return render(request, template, context)
