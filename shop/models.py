@@ -19,6 +19,10 @@ AVAILABLE_STATUS = (
     ('a', 'Есть в наличии'),
     ('ua', 'Нет в наличии'),
 )
+CONFIRM_STATUS = (
+    ('c', 'Заказ подтвержден'),
+    ('nc', 'Заказ не подтвержден'),
+)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -202,8 +206,8 @@ class Заказ(models.Model):
     заказ = models.TextField(max_length=10000, blank=True, null=True)
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
-    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS, verbose_name='Статус Оплаты')
-    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус Заказа')
+    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS, verbose_name='Статус оплаты заказа')
+    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус выполнения заказа')
     дата_заказа = models.DateTimeField(blank=True, null=True)
     user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
@@ -213,7 +217,7 @@ class Заказ(models.Model):
     delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
-    confirm = models.CharField(max_length=500, blank=True, null=True)
+    confirm = models.CharField(max_length=500, blank=True, null=True, choices=CONFIRM_STATUS, verbose_name='Статус подтверждения заказа')
     raworder = models.CharField(max_length=2000, blank=True, null=True)
 
     class Meta:

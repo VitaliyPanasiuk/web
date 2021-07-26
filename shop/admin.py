@@ -11,6 +11,7 @@ def make_order_undone(modeladmin, request, queryset):
     queryset.update(статус_заказа='nd')
 make_order_undone.short_description = "Отменить выполнение заказа"
 
+
 '''def deleteit(modeladmin, request, queryset):
     queryset.delete()
 deleteit.short_description = 'Удалить'''

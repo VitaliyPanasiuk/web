@@ -54,10 +54,7 @@
                 <p>{{ i.name }} Цена: {{ i.price|mul:currency }}UAH</p>   
             {% endif %}
             {% endfor %}
-            <form method='POST' action="">
-                {% csrf_token %}
-                <input type="submit" name='edit' id='edit' value='Редактировать заказ'>
-            </form>
+            <input type="submit" name='edit' id='edit' value='Редактировать заказ'>
             <div style='display: none;'>
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>

@@ -544,6 +544,7 @@ def makeOrder(request, uid):
             newUser = ShopCarty.objects.get(cart_id=b)'''
             error_message = 'Ошибка: Пустой заказ'
             context = {
+                'currency': currency,
                 'auth_status': auth_status,
                 'user': user,
                 'userCart': a,
@@ -553,7 +554,7 @@ def makeOrder(request, uid):
                 'error_message': error_message
             }
             return render(request, template, context)
-        if street or house or house == 'None':
+        if street == 'None'or house == 'None' or city == 'None' and typeOfDelivery != 'Самовывоз':
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
                     a.append(i)
@@ -568,6 +569,7 @@ def makeOrder(request, uid):
             newUser = ShopCarty.objects.get(cart_id=b)'''
             error_message = 'Ошибка: Введите корректный адрес'
             context = {
+                'currency': currency,
                 'auth_status': auth_status,
                 'user': user,
                 'userCart': a,

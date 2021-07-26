@@ -38,7 +38,7 @@ def check_confirmation():
             #print(datetime.now(pytz.timezone('Europe/Kiev')))
         difference = datetime.now(pytz.timezone('Europe/Kiev')) - creationTime
         res = list(str(difference))
-        if str(res[0]) != '0' and order.confirm != 'c':
+        if str(res[0]) != '0' and order.confirm == 'nc':
             order.delete()
             print('something deleted')
     
