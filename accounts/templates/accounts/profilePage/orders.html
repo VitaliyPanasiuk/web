@@ -79,7 +79,7 @@
                             
                         </div>
                     </div>
-                    <ul>
+                    <ul class="ul_desc">
                     {% for order in orders %}
                     <li>
                     <div class="order_inf">
@@ -97,7 +97,13 @@
                             </div>
                             {% if order.confirm == 'c' %}
                             <div class="stat">
-                                Статус: Подтвержденно
+                                <div class="stat_tit">
+                                    Статус: 
+                                </div>
+                                <div class="stat_inf">
+                                    Подтвержденно
+                                </div>
+                                
                             </div>
                             {% else %}
                             <div class="stat">
@@ -109,13 +115,15 @@
                                     Сумма Заказа: {{ order.сумма_заказа }} UAH
                                 </div>
                             </div>
+                            <form action='' method="POST" class="form_del">
+                                {% csrf_token %}
+                                <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ order.id }}'></div>
+                                <input type='submit' value='&#10060;'>
+                            </form>
                         </div>
+                       
                     </div>
-                    <form action='' method="POST" class="form_del">
-                        {% csrf_token %}
-                        <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ order.id }}'></div>
-                        <input type='submit' value='&#10060;'>
-                    </form>
+                    
                     </li>
                     {% endfor %}
                     </ul>

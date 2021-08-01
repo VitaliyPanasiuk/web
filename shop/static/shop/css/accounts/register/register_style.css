@@ -1,4 +1,4 @@
-body {
+/* body {
   height: 100vh;
 }
 #username {
@@ -47,4 +47,111 @@ label {
 .formbl {
   margin: 0 auto;
   width: 300px;
+} */
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.loginform {
+  border: 3px solid #f1f1f1;
+}
+.loginbutton {
+  background-color: #3ba3d0;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.loginbutton:hover {
+  opacity: 0.8;
+}
+.containerlogin {
+  padding: 16px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+}
+.logintext {
+  text-align: center;
+  margin: 10px auto;
+}
+.reg_body {
+}
+.reg-tit {
+  margin: auto;
+  width: 150px;
+}
+h2 {
+  text-align: center;
+}
+.reg_name_bl {
+  width: 100%;
+}
+.reg_name {
+  /* display: inline-block; */
+  width: max-content;
+  margin: 0 auto;
+}
+.reg_name input {
+  width: 200px;
+}
+.reg_forms {
+  display: block;
+}
+
+.reg_em_bl {
+  width: 100%;
+}
+.reg_em {
+  /* display: inline-block; */
+  width: max-content;
+  margin: 0 auto;
+}
+.reg_em input {
+  width: 200px;
+}
+.reg_forms {
+  display: block;
+}
+
+.reg_warn {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.reg_password_bl {
+  width: 100%;
+}
+.reg_password {
+  /* display: inline-block; */
+  width: max-content;
+  margin: 0 auto;
+}
+.reg_password input {
+  width: 300px;
+}
+.reg_forms {
+  display: block;
+}
+.reg_but {
+  width: max-content;
+  margin: 0 auto;
 }
