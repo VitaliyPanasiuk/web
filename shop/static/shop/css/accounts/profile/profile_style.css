@@ -277,7 +277,7 @@ a {
   width: 85%;
   margin: 0;
 }
-.status_bl {
+.status_bl_green {
   width: 15px;
   height: 80%;
   margin-right: 0;
@@ -285,6 +285,16 @@ a {
   margin-top: auto;
   margin-bottom: auto;
   background-color: #66cc00;
+  border-radius: 30px;
+}
+.status_bl_red {
+  width: 15px;
+  height: 80%;
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: red;
   border-radius: 30px;
 }
 .status {

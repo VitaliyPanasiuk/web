@@ -6,8 +6,7 @@ urlpatterns = [
     path('products/', productsPage),
     path('achievements/', achievementsPage),
     path('about/', aboutUsPage),
-    path('products/<int:id>/', aboutProductPage),
-    path('products/<int:id>/buy<int:productId>/', aboutProductPage),
+    path('product/<int:id>/', aboutProductPage),
     path('products/search/', searchPage),
 ]
 

@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Заказы</title>
 </head>
 <body>
     {% block content %}
@@ -84,9 +84,15 @@
                     <li>
                     <div class="order_inf">
                         <div class="order_descr">
-                            <div class="status_bl">
+                            {% if order.confirm == 'c' %}
+                            <div class="status_bl_green">
 
                             </div>
+                            {% elif order.confirm == 'nc' %}
+                            <div class="status_bl_red">
+
+                            </div>
+                            {% endif %}
                             <div class="status">
                                 <div class="stat_data">
                                     <a href='order/{{ order.id }}'>
@@ -101,13 +107,13 @@
                                     Статус: 
                                 </div>
                                 <div class="stat_inf">
-                                    Подтвержденно
+                                    Подтверждено
                                 </div>
                                 
                             </div>
                             {% else %}
                             <div class="stat">
-                                Статус: Не подтвержденно
+                                Статус: Не подтверждено
                             </div>
                             {% endif %}
                             <div class="order_price">
@@ -115,11 +121,13 @@
                                     Сумма Заказа: {{ order.сумма_заказа }} UAH
                                 </div>
                             </div>
+                            {% if order.confirm == 'nc' %}
                             <form action='' method="POST" class="form_del">
                                 {% csrf_token %}
                                 <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ order.id }}'></div>
                                 <input type='submit' value='&#10060;'>
                             </form>
+                            {% endif %}
                         </div>
                        
                     </div>
