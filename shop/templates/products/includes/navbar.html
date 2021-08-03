@@ -24,7 +24,7 @@
                     {% endif %}
                     {% if user.is_authenticated %}
                         <div style="color: aliceblue;">
-                             Welcome: 
+                            Welcome:
                             <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
                                 {% if user.first_name %}
                                     {{ user.first_name }}
@@ -33,6 +33,11 @@
                                 {% endif %}
                             </a>
                         </div>
+                        <a class="headerbut_log special" href='/accounts/{{ user.id }}/cart'>
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                        </a>
                     {% endif %}
                     {% if not user.is_authenticated %}
                     <div class="header_but">

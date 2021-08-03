@@ -59,6 +59,13 @@ def productsPage(request):
             'page': int(page),
                 }
     else:
+        '''for i in продукты:
+            if i.наличие == '+':
+                продукты.remove(i)
+                продукты.append(i)
+            elif i.наличие == '-':
+                продукты.remove(i)
+                продукты.append(i)'''
         context = {
             'продукты': продукты[counter*(int(page)-1):counter*int(page):],
             'page': int(page),
@@ -67,7 +74,7 @@ def productsPage(request):
     return render(request, template, context)
 
 def searchPage(request):
-    q = request.GET.get('q').replace("-", " ")
+    q = request.GET.get('q').replace("-", " ").lower()
     if request.POST:
         search = request.POST.get('search', '')
         searchTextRaw = request.POST.get('searchtext', '')
@@ -79,7 +86,7 @@ def searchPage(request):
         a = []
         #searchStr = searchText.split(" ")
         for i in продукты:
-            if len((set(q.split(" ")).intersection(i.название_позиции.split(' ')))) >= len(q.split(" ")):
+            if len((set(q.split(" ")).intersection(i.название_позиции.lower().split(' ')))) >= len(q.split(" ")):
                 a.append(i)
         context = {
             'продукты': a[0:len(a):],
@@ -160,7 +167,7 @@ def aboutProductPage(request, id):
                 elif i.amount == ToSave.amount and i.item == ToSave.item: 
                     ShopCarty.objects.filter(item = ToSave.item).delete()           
             ToSave.save()
-            return redirect('/accounts/'+ str(request.user.id) +'/cart')
+            return redirect('/products/')
         elif favourite_add:
             favourite_item_id = request.POST.get('favourite_add_id', '')
             favourite_item_name = request.POST.get('favourite_add_name', '')

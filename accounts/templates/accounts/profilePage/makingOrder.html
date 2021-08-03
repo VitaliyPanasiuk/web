@@ -58,6 +58,9 @@
             <div style='display: none;'>
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>
+            <div style='display: none;'>
+                <input type="submit" name='quit' id='quit'>
+            </div>
             <p>К оплате: {{ price }} UAH</p>
             <p style='color: red !important; text-decoration: underline;'>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
             <p>Тип доставки: </p>
@@ -92,5 +95,12 @@
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
     {% include 'accounts/profilePage/includes/footer.html' %}
+    <script>
+        window.onbeforeunload = closingCode;
+            function closingCode(){
+            document.getElementById("quit").submit();
+            return null; //<-- this prevents the dialog confirm box
+        }
+    </script>
 </body>
 </html>
