@@ -21,18 +21,36 @@
         <form action="" method='post'>
           <div class="formbl">
             {% csrf_token %}
-            <label for='username'>username</label>
-            <br>
-            <input type='text' name='username' id='username'>
-            <br>
-            <label for='password'>password</label>
-            <br>
-            <input type='password' name='password' id='password'>
+            <div class="log_inf">
+              <div class="log_lab">
+                <label for='username'>username</label>
+              </div>
+              
+              <br>
+              <div class="log_inp">
+                <input type='text' name='username' id='username'>
+              </div>
+              
+              <br>
+              <div class="log_lab">
+                <label for='password'>password</label>
+              </div>
+              
+              <br>
+              <div class="log_inp">
+                <input type='password' name='password' id='password'>
+              </div>
+              
+            </div>
+            
             <br>
             {% if login_error %}
               <label>{{ login_error }}</label>
             {% endif %}
-            <input type='submit' value='Log In'>
+            <div class="log_inp">
+              <input type='submit' value='Log In'>
+            </div>
+            
           </div>
             
         </form>
