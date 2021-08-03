@@ -41,16 +41,22 @@
                 {% csrf_token %}
                 <p>Цена</p>
                 {% if withprice == 'no' %}
-                <label>Определена</label><input type='radio' name='pricefilter' value='Цена есть'>
-                <label>Неопределена</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                {% elif withprice == 'spec' %}
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет'>
                 {% else %}
-                <label>Определена</label><input type='radio' name='pricefilter' value='Цена есть' checked>
-                <label>Неопределена</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет'>
                 {% endif %}
                 <p>Наличие</p>
                 {% if available == 'no' %}
                 <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть'>
                 <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% elif available == 'spec' %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету'>
                 {% else %}
                 <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть' checked>
                 <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету'>

@@ -91,6 +91,8 @@ def productsPage(request):
             context = {
                 'продукты': продукты[counter*(int(page)-1):counter*int(page):],
                 'page': int(page),
+                'withprice': 'spec',
+                'available': 'spec',
                     }
             template = 'products/index.html'
             return render(request, template, context)
