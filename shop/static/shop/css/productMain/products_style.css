@@ -117,9 +117,5 @@ input[type="search"] {
 }
 
 .user_bl_img img{
-  margin-left: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: auto;
-  height: 30px;
+  height: 15px;
 }
