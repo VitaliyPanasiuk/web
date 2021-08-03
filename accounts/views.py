@@ -328,7 +328,7 @@ def userCart(request, uid):
         except UnboundLocalError:
             context = {
             'auth_status': auth_status,
-            "items": cartItems,
+            "items": c,
             "amounts": b,
             "userId": str(request.user.id),
             "account": str(uid),
@@ -528,6 +528,7 @@ def makeOrder(request, uid):
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
         edit = request.POST.get('edit', '')
+        quit = request.POST.get('quit', '')
         #normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
         if orderFromHtml == None:
             for i in cart:
@@ -600,10 +601,14 @@ def makeOrder(request, uid):
                 if str(i.user_id) == str(request.user.id):
                     i.delete()
             if typeOfPayment == 'Наличный':
-                return redirect('/')
+                return redirect('/accounts/' + str(request.user.id) + '/success-order')
             else:
                 return redirect('/payment')
         elif edit:
+            toDelete = ShopOrdery.objects.last()
+            toDelete.delete()
+            return redirect('/accounts/' + str(request.user.id) + '/cart')
+        elif quit:
             toDelete = ShopOrdery.objects.last()
             toDelete.delete()
             return redirect('/accounts/' + str(request.user.id) + '/cart')
@@ -698,4 +703,16 @@ def editOrder(request, oid, uid):
         'auth_status': auth_status,
         'currency': currency,
         }
+    return render(request, template, context)
+
+def success_order(request, uid):
+    if request.user.is_authenticated == False:
+        auth_status = 'failed'
+        return HttpResponse('404')
+    else: 
+        auth_status = 'success'
+    template = 'accounts/profilePage/success.html'
+    context = {
+        'auth_status': auth_status,
+    }
     return render(request, template, context)

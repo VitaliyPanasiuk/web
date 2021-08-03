@@ -27,8 +27,12 @@
         <div class='search'>
             <form method='POST' action=''>
                 {% csrf_token %}
-                <input type='search' name='searchtext'>
-                <input type='submit' name='search' value='Поиск'>
+                <div class='searchtextdiv'>
+                    <input type='search' name='searchtext' class="searchtext">
+                </div>
+                <div class='searchbuttondiv'>
+                    <input type='submit' name='search' class='searchbutton' value='Поиск'>
+                </div>
             </form>
         </div> 
         <div class="body_inf">    
@@ -63,7 +67,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="line_item_button">
-                                        <a class="line_item_but " href='/products/{{ продукт.id }}/'>
+                                        <a class="line_item_but " href='/product/{{ продукт.id }}/'>
                                             Подробнее
                                         </a>   
                                     </div>

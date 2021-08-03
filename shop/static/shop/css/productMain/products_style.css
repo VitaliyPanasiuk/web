@@ -100,3 +100,24 @@
   color: #000;
   border-color: #000;
 }
+.search{
+  width: 60%;
+  margin: 0 auto;
+
+}
+input[type="search"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.user_bl_img img{
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  height: 30px;
+}
