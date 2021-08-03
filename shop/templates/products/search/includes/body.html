@@ -30,7 +30,7 @@
                 <input type='search' name='searchtext'>
                 <input type='submit' name='search' value='Поиск'>
             </form>
-        </div> 
+        </div>
         <div class="body_inf">    
             <div class="content_products">
                         {% for продукт in продукты %}
@@ -73,5 +73,6 @@
             </div>
         </div>
     </div>
+    <div class='error'><h2>{{ error_message }}</h2></div>
 </body>
 </html>

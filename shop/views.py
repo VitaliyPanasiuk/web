@@ -28,6 +28,8 @@ def productsPage(request):
         search = request.POST.get('search', '')
         searchTextRaw = request.POST.get('searchtext', '')
         searchText = searchTextRaw.replace(" ", "-")
+        applyfilters = request.POST.get('applyfilters', '')
+        nofilters = request.POST.get('nofilters', '')
         if nextPage:
             intPage = int(page) + 1
             return redirect('/products/?page=' + str(intPage))
@@ -42,34 +44,62 @@ def productsPage(request):
                 return redirect('/products/?page=' + page)
         elif search:
             return redirect('/products/search/?q=' + searchText)
-            '''template = 'products/search/index.html'
-            a = []
-            searchStr = searchText.split(" ")
-            for i in продукты:
-                if len(set(searchStr).intersection(i.название_позиции.split(' '))) >= 1:
-                    a.append(i)
+        elif applyfilters:
+            pricefilter = request.POST.get('pricefilter', '')
+            availablefilter = request.POST.get('availablefilter', '')
+            if pricefilter == 'Цена есть' and availablefilter == 'Есть':
+                filteredProducts = Продукт.objects.exclude(цена=None).exclude(наличие='-')#| Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+                context = {
+                    'продукты': filteredProducts[counter*(int(page)-1):counter*int(page):],
+                    'page': int(page),
+                    'withprice': 'yes',
+                    'available': 'yes',
+                        }
+                template = 'products/index.html'
+                return render(request, template, context)
+            elif pricefilter == 'Цена есть' and availablefilter == 'Нету':
+                filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие='-')
+                context = {
+                    'продукты': filteredProducts[counter*(int(page)-1):counter*int(page):],
+                    'page': int(page),
+                    'withprice': 'yes',
+                    'available': 'no',
+                        }
+                template = 'products/index.html'
+                return render(request, template, context)
+            elif pricefilter == 'Цены нет' and availablefilter == 'Нету':
+                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие='-')
+                context = {
+                    'продукты': filteredProducts[counter*(int(page)-1):counter*int(page):],
+                    'page': int(page),
+                    'withprice': 'no',
+                    'available': 'no',
+                        }
+                template = 'products/index.html'
+                return render(request, template, context)
+            elif pricefilter == 'Цены нет' and availablefilter == 'Есть':
+                filteredProducts = Продукт.objects.exclude(наличие='-').filter(цена=None)
+                context = {
+                    'продукты': filteredProducts[counter*(int(page)-1):counter*int(page):],
+                    'page': int(page),
+                    'withprice': 'no',
+                    'available': 'yes',
+                        }
+                template = 'products/index.html'
+                return render(request, template, context)
+        elif nofilters:
             context = {
-                'продукты': a[0:len(a):],
+                'продукты': продукты[counter*(int(page)-1):counter*int(page):],
                 'page': int(page),
-                }
-            return render(request, template, context)'''
-    if  int(page) == 1:
-        context = {
-            'продукты': продукты[0:counter:],
-            'page': int(page),
-                }
-    else:
-        '''for i in продукты:
-            if i.наличие == '+':
-                продукты.remove(i)
-                продукты.append(i)
-            elif i.наличие == '-':
-                продукты.remove(i)
-                продукты.append(i)'''
-        context = {
-            'продукты': продукты[counter*(int(page)-1):counter*int(page):],
-            'page': int(page),
-                }
+                    }
+            template = 'products/index.html'
+            return render(request, template, context)
+
+    filteredProducts = Продукт.objects.exclude(наличие='-').exclude(цена=None)#| Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+    context = {
+        'продукты': filteredProducts[counter*(int(page)-1):counter*int(page):],
+        'page': int(page),
+            }
     template = 'products/index.html'
     return render(request, template, context)
 
@@ -88,11 +118,19 @@ def searchPage(request):
         for i in продукты:
             if len((set(q.split(" ")).intersection(i.название_позиции.lower().split(' ')))) >= len(q.split(" ")):
                 a.append(i)
-        context = {
-            'продукты': a[0:len(a):],
-            #'page': int(page),
-            }
-        return render(request, template, context)
+        if a == []:
+            context = {
+                'продукты': a[0:len(a):],
+                'error_message': 'По Вашему запросу ничего не найдено',
+                #'page': int(page),
+                }
+            return render(request, template, context)
+        else:
+            context = {
+                'продукты': a[0:len(a):],
+                #'page': int(page),
+                }
+            return render(request, template, context)
     #return HttpResponse(q.replace("-", " "))
 
 def error404(request, exception):

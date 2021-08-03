@@ -15,7 +15,9 @@ header {
   height: 8vh;
   margin: 0 auto;
 }
-
+.error{
+  margin: 0 auto;
+}
 .header_link {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -35,6 +35,30 @@
                 </div>
             </form>
         </div> 
+        <br>
+        <div class="filters">
+            <form method='POST' action=''>
+                {% csrf_token %}
+                <p>Цена</p>
+                {% if withprice == 'no' %}
+                <label>Определена</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Неопределена</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                {% else %}
+                <label>Определена</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Неопределена</label><input type='radio' name='pricefilter' value='Цены нет'>
+                {% endif %}
+                <p>Наличие</p>
+                {% if available == 'no' %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% else %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть' checked>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету'>
+                {% endif %}
+                <input type='submit' name='applyfilters' value='Применить фильтры'>
+                <input type='submit' name='nofilters' value='Убрать все фильтры'>
+            </form>
+        </div>
         <div class="body_inf">    
             <div class="content_products">
                         {% for продукт in продукты %}
