@@ -35,5 +35,18 @@ class orderAdmin(admin.ModelAdmin):
     list_filter = ('статус_заказа', 'статус_оплаты', )
     readonly_fields  = ('id', 'user_id')
     actions = [make_order_done, make_order_undone, 'delete_selected']
+    fieldsets = (
+        ('Информация о клиенте', {
+            'fields': ('фамилия','имя', 'отчество', 'телефон', 'почта')
+        }),
+        ('Информация о заказе', {
+            'fields': ('заказ', 'сумма_заказа', 'валюта_заказа', 'статус_оплаты', 'статус_заказа', 'дата_заказа', 'confirm')
+        }),
+        ('Адрес доставки', {
+            'fields': ('delivery_type', 'payment_type', 'city', 'street', 'house', 'nova_pochta', 'ukr_pochta' )
+        }),
+    )
+
     exclude = ('raworder', )
     model = Заказ
+    

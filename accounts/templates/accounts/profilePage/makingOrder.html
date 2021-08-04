@@ -39,29 +39,33 @@
     <div>
         <form method="POST" action="">
             {% csrf_token %}
-            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' required>
-            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' required>
-            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'>
-            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' required>
+            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите Ваше имя" required>
+            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите Вашу фамилию" required>
+            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
+            {% if user.phone_number != None %}
+            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
+            {% else %}
+            <label>Телефон: </label><input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
+            {% endif %}
             <label>Заказ: </label>
             <div style='display: none;'>
                 <input type="hidden" value='{{ userCart.name }}' name='order'>
             </div>
             {% for i in userCart %}
             {% if i.currency == 'UAH' %}
-                <p>{{ i.name }} Цена: {{ i.price}}UAH</p>
+                <p>{{ i.name }} Цена: {{ i.price|floatformat:"2" }}UAH</p>
             {% else %}
-                <p>{{ i.name }} Цена: {{ i.price|mul:currency }}UAH</p>   
+                <p>{{ i.name }} Цена: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
             {% endif %}
             {% endfor %}
-            <input type="submit" name='edit' id='edit' value='Редактировать заказ'>
+            <input type="submit" name='edit' id='edit' value='Редактировать заказ' formnovalidate>
             <div style='display: none;'>
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>
             <div style='display: none;'>
                 <input type="submit" name='quit' id='quit'>
             </div>
-            <p>К оплате: {{ price }} UAH</p>
+            <p>К оплате: {{ price|floatformat:"2" }} UAH</p>
             <p style='color: red !important; text-decoration: underline;'>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
             <p>Тип доставки: </p>
             <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                

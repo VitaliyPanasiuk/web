@@ -232,6 +232,7 @@ class Заказ(models.Model):
     def __str__(self):
         return 'Заказ №' + str(self.id)
 
+
 class ShopCart(models.Model):
     user_id = models.CharField(max_length=45)
     item = models.CharField(max_length=45, blank=True, null=True)

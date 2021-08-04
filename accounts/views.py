@@ -312,7 +312,6 @@ def userCart(request, uid):
                     local_sum = int(i.price) * int(i.amount)
                 elif i.currency == 'USD':
                     local_sum = round(int(i.price) * int(i.amount) * currency, 2)
-                    small_sum = round(int(i.price) * currency, 2)
                 summary += local_sum
         try:
             context = {
@@ -323,7 +322,6 @@ def userCart(request, uid):
                 "account": str(uid),
                 "sum": summary,
                 'currency': currency,
-                'small_sum': small_sum,
             }
         except UnboundLocalError:
             context = {
@@ -555,7 +553,7 @@ def makeOrder(request, uid):
                 'error_message': error_message
             }
             return render(request, template, context)
-        if street == 'None'or house == 'None' or city == 'None' and typeOfDelivery != 'Самовывоз':
+        if (street == 'None'or house == 'None' or city == 'None') and typeOfDelivery != 'Самовывоз':
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
                     a.append(i)
@@ -581,22 +579,40 @@ def makeOrder(request, uid):
             }
             return render(request, template, context)
         if go:
-            d = datetime.now(pytz.timezone('Europe/Kiev'))
-            userCarts = ShopCarty.objects.all()
-            specorder = ShopOrdery.objects.last()
-            specorder.имя = first_name
-            specorder.фамилия = last_name
-            specorder.почта = email
-            specorder.телефон = phone_number
-            specorder.city = city
-            specorder.street = street
-            specorder.house = house
-            specorder.delivery_type = typeOfDelivery
-            specorder.payment_type = typeOfPayment
-            specorder.nova_pochta = nova_pochta
-            specorder.ukr_pochta = ukr_pochta
-            specorder.confirm = 'c'
-            specorder.save()
+            if typeOfDelivery == 'Самовывоз':
+                d = datetime.now(pytz.timezone('Europe/Kiev'))
+                userCarts = ShopCarty.objects.all()
+                specorder = ShopOrdery.objects.last()
+                specorder.имя = first_name
+                specorder.фамилия = last_name
+                specorder.почта = email
+                specorder.телефон = phone_number
+                specorder.city = ''
+                specorder.street = ''
+                specorder.house = ''
+                specorder.delivery_type = typeOfDelivery
+                specorder.payment_type = typeOfPayment
+                specorder.nova_pochta = ''
+                specorder.ukr_pochta = ''
+                specorder.confirm = 'c'
+                specorder.save()
+            else:
+                d = datetime.now(pytz.timezone('Europe/Kiev'))
+                userCarts = ShopCarty.objects.all()
+                specorder = ShopOrdery.objects.last()
+                specorder.имя = first_name
+                specorder.фамилия = last_name
+                specorder.почта = email
+                specorder.телефон = phone_number
+                specorder.city = city
+                specorder.street = street
+                specorder.house = house
+                specorder.delivery_type = typeOfDelivery
+                specorder.payment_type = typeOfPayment
+                specorder.nova_pochta = nova_pochta
+                specorder.ukr_pochta = ukr_pochta
+                specorder.confirm = 'c'
+                specorder.save()
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     i.delete()
