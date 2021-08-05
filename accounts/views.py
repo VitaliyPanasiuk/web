@@ -580,7 +580,7 @@ def makeOrder(request, uid):
             return render(request, template, context)
         if go:
             if typeOfDelivery == 'Самовывоз':
-                d = datetime.now(pytz.timezone('Europe/Kiev'))
+                #d = datetime.now(pytz.timezone('Europe/Kiev'))
                 userCarts = ShopCarty.objects.all()
                 specorder = ShopOrdery.objects.last()
                 specorder.имя = first_name
@@ -597,7 +597,7 @@ def makeOrder(request, uid):
                 specorder.confirm = 'c'
                 specorder.save()
             else:
-                d = datetime.now(pytz.timezone('Europe/Kiev'))
+                #d = datetime.now(pytz.timezone('Europe/Kiev'))
                 userCarts = ShopCarty.objects.all()
                 specorder = ShopOrdery.objects.last()
                 specorder.имя = first_name

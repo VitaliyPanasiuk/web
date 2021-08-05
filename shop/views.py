@@ -3,6 +3,8 @@ from django.template.context_processors import csrf
 from django.http import HttpResponse
 from .models import Продукт
 from django.db import models
+import requests
+from requests.exceptions import MissingSchema
 
 продукты = Продукт.objects.all()
 
@@ -14,6 +16,19 @@ def homePage(request):
 
 
 def productsPage(request):
+    '''for i in продукты:
+        try:
+            image = i.ссылка_изображения
+            response = requests.get(image)
+            product = Продукт.objects.get(id=i.id)
+            file = open(str(i.id)+'.png', "wb")
+            file.write(response.content)
+            product.photo = file
+            product.save()
+            file.close() 
+        except MissingSchema:
+            pass'''
+
     if request.POST:
         search = request.POST.get('search', '')
         searchTextRaw = request.POST.get('searchtext', '')
