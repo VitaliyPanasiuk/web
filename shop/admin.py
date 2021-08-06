@@ -32,7 +32,7 @@ class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
     list_display = ('id', 'имя' , 'фамилия', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
     #filter_horizontal = ('заказ',)
-    list_filter = ('статус_заказа', 'статус_оплаты', )
+    list_filter = ('confirm', 'статус_оплаты', )
     readonly_fields  = ('id', 'user_id')
     actions = [make_order_done, make_order_undone, 'delete_selected']
     fieldsets = (
