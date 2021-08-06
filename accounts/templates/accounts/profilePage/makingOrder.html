@@ -58,7 +58,6 @@
                 <p>{{ i.name }} Цена: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
             {% endif %}
             {% endfor %}
-            <input type="submit" name='edit' id='edit' value='Редактировать заказ' formnovalidate>
             <div style='display: none;'>
                 <input type="hidden" value='{{ price }}' name='price'>
             </div>

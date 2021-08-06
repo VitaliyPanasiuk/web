@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Заказ</title>
+    <script>
+        function pickup(){
+            document.getElementById('address').style.display ='none';
+            document.getElementById('np').style.display ='none';
+            document.getElementById('up').style.display ='none';
+        }
+        function novapochta(){
+            document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='block';
+            document.getElementById('ukr').style.display ='none';
+        }
+        function ukrpochta(){
+            document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='none';
+            document.getElementById('ukr').style.display ='block';
+        }
+    </script>
+</head>
+<body>
+    {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% if userId == account %}
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+            <p>Почта: {{ user.email }}</p>
+            <p>Телефон: {{ user.phone_number }}</p>
+            <label>Заказ: </label>
+            <p>{{ order.заказ }}</p>
+            <p>К оплате: {{ order.сумма_заказа }} UAH</p>
+            {% if order.confirm == 'unc' %}
+            <div style="color:red; text-decoration:underline;"><p>Внимание! статус заказа: Не подтвержден пользователем. Пожалуйста, завершите оформление заказа.</p></div>
+            {% elif order.confirm == 'uc' %}
+            <p>Статус заказа: В обработке</p>
+            {% elif order.confirm == 'ac' %}
+            <p>Статус заказа: Подтвержден администратором</p>
+            {% elif order.confirm == 'done' %}
+            <p>Статус заказа: Заказ выполнен</p>
+            {% endif %}
+            {% if order.delivery_type == None %}
+            <p>Тип доставки: не выбран</p>
+            {% else %}
+            <p>Тип доставки: {{ order.delivery_type }}</p>
+            {% endif %}
+            {% if order.payment_type == None %}
+            <p>Тип оплаты: не выбран</p>
+            {% else %}
+            <p>Тип оплаты: {{ order.payment_type }}</p>
+            {% endif %}
+            {% if order.delivery_type == 'Нова пошта' %}
+            <p>Отделение Новой Почты: {{ order.nova_pochta }}</p>
+            <p>Город: {{ order.city }}</p>
+            <p>Улица: {{ order.street }}</p>
+            <p>Дом: {{ order.house }}</p>
+            {% elif order.delivery_type == 'Укрпошта' %}
+            <p>Почтовый индекс: {{ order.ukr_pochta }}</p>
+            <p>Город: {{ order.city }}</p>
+            <p>Улица: {{ order.street }}</p>
+            <p>Дом: {{ order.house }}</p>
+            {% endif %}
+            {% if order.confirm == 'unc' %}
+            <input type='hidden' name='editid' value='{{ order.id }}'>
+            <input type="submit" name='edit' value='Завершить оформление заказа'>
+            {% endif %}
+        </form>
+    </div>
+    {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    {% endif %}
+    {% include 'accounts/profilePage/includes/footer.html' %}
+</body>
+</html>

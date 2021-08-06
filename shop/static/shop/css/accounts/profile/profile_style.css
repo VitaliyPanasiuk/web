@@ -274,7 +274,7 @@ a {
 }
 .order_inf {
   /* width: calc(100% - 340px); */
-  width: 85%;
+  width: 100%;
   margin: 0;
 }
 .status_bl_green {
@@ -285,6 +285,16 @@ a {
   margin-top: auto;
   margin-bottom: auto;
   background-color: #66cc00;
+  border-radius: 30px;
+}
+.status_bl_yellow{
+  width: 15px;
+  height: 80%;
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: yellow;
   border-radius: 30px;
 }
 .status_bl_red {

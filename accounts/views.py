@@ -272,7 +272,7 @@ def userCart(request, uid):
                 intbob = [float(elem) for elem in bob]
                 ordery = " ".join(str(x) for x in c)
                 newa = str(a)
-                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='nc', raworder=newa[1:-1])
+                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
                 order.save()
                 '''for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
@@ -525,8 +525,6 @@ def makeOrder(request, uid):
         house = request.POST.get('house', '')
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
-        edit = request.POST.get('edit', '')
-        quit = request.POST.get('quit', '')
         #normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
         if orderFromHtml == None:
             for i in cart:
@@ -594,7 +592,7 @@ def makeOrder(request, uid):
                 specorder.payment_type = typeOfPayment
                 specorder.nova_pochta = ''
                 specorder.ukr_pochta = ''
-                specorder.confirm = 'c'
+                specorder.confirm = 'uc'
                 specorder.save()
             else:
                 #d = datetime.now(pytz.timezone('Europe/Kiev'))
@@ -611,23 +609,19 @@ def makeOrder(request, uid):
                 specorder.payment_type = typeOfPayment
                 specorder.nova_pochta = nova_pochta
                 specorder.ukr_pochta = ukr_pochta
-                specorder.confirm = 'c'
+                specorder.confirm = 'uc'
                 specorder.save()
-            for i in userCarts:
+            '''for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
-                    i.delete()
+                    i.delete()'''
             if typeOfPayment == 'Наличный':
+                toDelete = ShopOrdery.objects.last()
+                toDelete.delete()
                 return redirect('/accounts/' + str(request.user.id) + '/success-order')
             else:
+                toDelete = ShopOrdery.objects.last()
+                toDelete.delete()
                 return redirect('/payment')
-        elif edit:
-            toDelete = ShopOrdery.objects.last()
-            toDelete.delete()
-            return redirect('/accounts/' + str(request.user.id) + '/cart')
-        elif quit:
-            toDelete = ShopOrdery.objects.last()
-            toDelete.delete()
-            return redirect('/accounts/' + str(request.user.id) + '/cart')
     else:
         for i in cart:
             if str(i.user_id) == str(request.user.id):
@@ -652,7 +646,7 @@ def makeOrder(request, uid):
         }
         return render(request, template, context)
 
-def editOrder(request, oid, uid):
+def orderInfo(request, oid, uid):
 
     class ShopOrdery(models.Model):
         id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -695,31 +689,36 @@ def editOrder(request, oid, uid):
             managed = False
             db_table = "shop_cart"
 
-
-    if request.user.is_authenticated == False:
-        auth_status = 'failed'
-        return HttpResponse('404')
-    else: 
-        auth_status = 'success'
-    try:
-        user = AuthUser.objects.get(id=str(request.user.id))
-    except ValueError:
-        user = AuthUser.objects.get(id=str(1))
-    template = 'accounts/editOrder/editOrder.html'
-    cart = ShopCarty.objects.all()
-    orders = ShopOrdery.objects.all()
-    a = []
-    price = 0
-    order = ShopOrdery.objects.get(id=str(oid))
-    needed = ShopCurrency.objects.last()
-    currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-    context = {
-        'order': order,
-        'user': user,
-        'auth_status': auth_status,
-        'currency': currency,
-        }
-    return render(request, template, context)
+    if request.POST:
+        edit = request.POST.get('edit', '')
+        editid = request.POST.get('editid', '')
+        if edit:
+            return redirect('/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
+    else:
+        if request.user.is_authenticated == False:
+            auth_status = 'failed'
+            return HttpResponse('404')
+        else: 
+            auth_status = 'success'
+        try:
+            user = AuthUser.objects.get(id=str(request.user.id))
+        except ValueError:
+            user = AuthUser.objects.get(id=str(1))
+        template = 'accounts/orderInfo/order.html'
+        cart = ShopCarty.objects.all()
+        orders = ShopOrdery.objects.all()
+        a = []
+        price = 0
+        order = ShopOrdery.objects.get(id=str(oid))
+        needed = ShopCurrency.objects.last()
+        currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
+        context = {
+            'order': order,
+            'user': user,
+            'auth_status': auth_status,
+            'currency': currency,
+            }
+        return render(request, template, context)
 
 def success_order(request, uid):
     if request.user.is_authenticated == False:
@@ -732,3 +731,125 @@ def success_order(request, uid):
         'auth_status': auth_status,
     }
     return render(request, template, context)
+
+def edit_order_page(request, uid, oid):
+
+    class ShopOrdery(models.Model):
+        id = models.IntegerField(db_column='id', primary_key=True, null=False,)
+        фамилия = models.CharField(max_length=45)
+        имя = models.CharField(max_length=45)
+        отчество = models.CharField(max_length=45, blank=True, null=True)
+        телефон = models.CharField(max_length=45, blank=True, null=True)
+        почта = models.CharField(max_length=60)
+        заказ = models.CharField(max_length=10000, blank=True, null=True)
+        сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
+        валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
+        статус_оплаты = models.CharField(max_length=45)
+        статус_заказа = models.CharField(max_length=45)
+        дата_заказа = models.DateTimeField(blank=True, null=True)
+        user_id = models.CharField(max_length=1000, blank=True, null=True)
+        city = models.CharField(max_length=50, blank=True, null=True)
+        street = models.CharField(max_length=50, blank=True, null=True)
+        house = models.CharField(max_length=50, blank=True, null=True)
+        payment_type = models.CharField(max_length=20, blank=True, null=True)
+        delivery_type = models.CharField(max_length=20, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        confirm = models.CharField(max_length=500, blank=True, null=True)
+        raworder = models.CharField(max_length=2000, blank=True, null=True)
+
+        class Meta:
+            managed = False
+            db_table = 'shop_order'
+
+    template = 'accounts/editOrder/editOrder.html'
+    if request.user.is_authenticated == False:
+        auth_status = 'failed'
+        return HttpResponse('404')
+    else: 
+        auth_status = 'success'
+    try:
+        user = AuthUser.objects.get(id=str(request.user.id))
+    except ValueError:
+        user = AuthUser.objects.get(id=str(1))
+    if request.POST:
+        go = request.POST.get('go', '')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        phone_number = request.POST.get('phone_number', '')
+        email = request.POST.get('email', '')
+        orderFromHtml = request.POST.get('order', '')
+        priceFromHtml = request.POST.get('price', '')
+        typeOfDelivery = request.POST.get('typeOfDelivery', '')
+        typeOfPayment = request.POST.get('typeOfPayment', '')
+        city = request.POST.get('city', '')
+        street = request.POST.get('street', '')
+        house = request.POST.get('house', '')
+        ukr_pochta = request.POST.get('ukr_pochta', '')
+        nova_pochta = request.POST.get('nova_pochta', '')
+
+        if orderFromHtml == None:
+            error_message = 'Ошибка: Пустой заказ'
+            context = {
+                'auth_status': auth_status,
+                'userId': str(request.user.id),
+                'user': user,
+                'error_message': error_message
+            }
+            return render(request, template, context)
+        
+        if (street == 'None'or house == 'None' or city == 'None') and typeOfDelivery != 'Самовывоз':
+            error_message = 'Ошибка: Введите корректный адрес'
+            context = {
+                'auth_status': auth_status,
+                'user': user,
+                'userId': str(request.user.id),
+                'account': str(uid),
+                'error_message': error_message,
+            }
+            return render(request, template, context)
+        if go:
+            if typeOfDelivery == 'Самовывоз':
+                #d = datetime.now(pytz.timezone('Europe/Kiev'))
+                specorder = ShopOrdery.objects.get(id=int(oid))
+                specorder.имя = first_name
+                specorder.фамилия = last_name
+                specorder.почта = email
+                specorder.телефон = phone_number
+                specorder.city = ''
+                specorder.street = ''
+                specorder.house = ''
+                specorder.delivery_type = typeOfDelivery
+                specorder.payment_type = typeOfPayment
+                specorder.nova_pochta = ''
+                specorder.ukr_pochta = ''
+                specorder.confirm = 'uc'
+                specorder.save()
+            else:
+                #d = datetime.now(pytz.timezone('Europe/Kiev'))
+                specorder = ShopOrdery.objects.get(id=int(oid))
+                specorder.имя = first_name
+                specorder.фамилия = last_name
+                specorder.почта = email
+                specorder.телефон = phone_number
+                specorder.city = city
+                specorder.street = street
+                specorder.house = house
+                specorder.delivery_type = typeOfDelivery
+                specorder.payment_type = typeOfPayment
+                specorder.nova_pochta = nova_pochta
+                specorder.ukr_pochta = ukr_pochta
+                specorder.confirm = 'uc'
+                specorder.save()
+            if typeOfPayment == 'Наличный':
+                return redirect('/accounts/' + str(request.user.id) + '/success-order')
+            else:
+                return redirect('/payment')
+    else:
+        order = ShopOrdery.objects.get(id=int(oid))
+        context = {
+            'auth_status': auth_status,
+            'user': user,
+            'order': order,
+        }
+        return render(request, template, context)

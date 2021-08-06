@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register, login, logout, userProfilePage, userOrders, userCart, userFavourites, editProfilePage, editPasswordPage, makeOrder, editOrder, success_order
+from .views import register, login, logout, userProfilePage, userOrders, userCart, userFavourites, editProfilePage, editPasswordPage, makeOrder, edit_order_page, orderInfo, success_order
 
 urlpatterns = [
     path('register/', register),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:uid>/edit', editProfilePage),
     path('<int:uid>/change-password', editPasswordPage),
     path('<int:uid>/make-order', makeOrder),
-    path('<int:uid>/order/<int:oid>', editOrder),
+    path('<int:uid>/order/<int:oid>', orderInfo),
     path('<int:uid>/success-order', success_order),
+    path('<int:uid>/edit-order/<int:oid>', edit_order_page),
 ]
