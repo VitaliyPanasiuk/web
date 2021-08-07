@@ -846,6 +846,7 @@ def edit_order_page(request, uid, oid):
             else:
                 return redirect('/payment')
     else:
+        
         order = ShopOrdery.objects.get(id=int(oid))
         context = {
             'auth_status': auth_status,
