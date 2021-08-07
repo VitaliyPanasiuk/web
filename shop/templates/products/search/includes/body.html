@@ -70,7 +70,7 @@
                             <div class="line">
                                 <div class="line_item item1">
                                     <div class="line_item_info">
-                                        <a href='/product/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ продукт.ссылка_изображения }}" alt=""></div></a> 
+                                        <a href='/product/{{ продукт.id }}/'><div class="line_item_img"><img src="{% static '' %}shop/img/productsImages/{{ продукт.id }}.png" alt=""></div></a> 
                                         <div class="protuct_tit">
                                             <p class="line_item_text item_info">
                                                 {{ продукт.название_позиции }}
