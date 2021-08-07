@@ -1,4 +1,4 @@
-
+@import url(header_style.css);
 input[type="submit"] {
   padding: 5px 15px;
   background: #ccc;
@@ -7,6 +7,21 @@ input[type="submit"] {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
+.intro_con {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  background: #fff;
+  width: 100%;
+  height: 92vh;
+}
 .special {
   margin-left: 5px;
 }
@@ -14,14 +29,11 @@ input[type="submit"] {
   margin: 0 auto;
 }
 
-
 .prod {
   text-align: center;
   border: 1px, black solid;
   margin-top: 5 px;
 }
-
-
 
 .intro_inner {
   width: 100%;
@@ -69,7 +81,6 @@ input[type="submit"] {
   border: 3px solid #000;
   color: #fff;
 }
-
 
 /*store nav*/
 .store_main {

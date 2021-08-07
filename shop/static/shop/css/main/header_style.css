@@ -1,5 +1,7 @@
 header {
   background-color: #000;
+  color: #fff;
+  height: 15vh;
 }
 .nav_link:after {
   content: "";
@@ -15,22 +17,6 @@ header {
   -webkit-transition: opacity 0.2s linear;
   -o-transition: opacity 0.2s linear;
   transition: opacity 0.2s linear;
-}
-
-.intro_con {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  background: #fff;
-  width: 100%;
-  height: 92vh;
 }
 
 .intro_conADD {
@@ -79,6 +65,9 @@ header {
   height: 70px;
 }
 
+.navv {
+  margin: auto 0;
+}
 .navv a {
   margin-left: 20px;
   font-size: 24px;
@@ -108,8 +97,8 @@ header {
 }
 
 .header_but {
-  margin-left: 20px;
   border-radius: 50%;
+  margin: auto 20px;
 }
 
 .headerbut_log {
@@ -166,7 +155,73 @@ header {
   display: flex;
   height: 40%;
 }
-.top_img {
-  width: 250px;
-  height: 100px;
+.top_img img {
+  width: 200px;
+  height: 70px;
+}
+.header_media {
+  display: flex;
+}
+.header_media_item {
+  margin: auto 20px;
+}
+.header_media_item:hover {
+  cursor: pointer;
+}
+
+.header_media_item a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header_media_item a:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.header_media_item a:link {
+  color: #fff;
+  text-decoration: none;
+}
+.header_contact_num {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+}
+.header_link2 {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+}
+
+.fab {
+  font-size: 40px;
+}
+.header_contact {
+  display: flex;
+}
+.header_language {
+  color: #fff;
+  margin: auto;
+}
+.header_allcontact {
+  width: 75%;
+  display: flex;
+}
+.header_infuser {
+  width: 25%;
+  display: flex;
+  margin-right: 0;
+}
+.header_contact_item {
+  margin: auto 20px;
+}
+.header_user {
+  display: flex;
+}
+.header_welcome {
+  margin: auto 0px;
+}
+.header_user_but {
+  margin: auto 0px;
 }
