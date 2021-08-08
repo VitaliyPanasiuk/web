@@ -156,7 +156,7 @@ class Продукт(models.Model):
     название_позиции_укр = models.CharField(db_column='Название_позиции_укр', max_length=90, blank=True, null=True)  # Field name made lowercase.
     поисковые_запросы = models.CharField(db_column='Поисковые_запросы', max_length=171, blank=True, null=True)  # Field name made lowercase.
     поисковые_запросы_укр = models.CharField(db_column='Поисковые_запросы_укр', max_length=169, blank=True, null=True)  # Field name made lowercase.
-    описание = models.CharField(db_column='Описание', max_length=5231, blank=True, null=True)  # Field name made lowercase.
+    описание = models.TextField(db_column='Описание', max_length=5231, blank=True, null=True)  # Field name made lowercase.
     описание_укр = models.CharField(db_column='Описание_укр', max_length=6656, blank=True, null=True)  # Field name made lowercase.
     тип_товара = models.CharField(db_column='Тип_товара', max_length=1, blank=True, null=True)  # Field name made lowercase.
     цена = models.IntegerField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
