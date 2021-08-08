@@ -30,6 +30,7 @@
             document.getElementById('nova').style.display ='none';
             document.getElementById('ukr').style.display ='block';
         }
+        document.getElementById("cardpay").disabled = true;
     </script>
 </head>
 <body>
@@ -68,11 +69,11 @@
             <label>Укрпошта</label>
             <br>
             <p>Тип оплаты: </p>
-            <input type="radio" name='typeOfPayment' value='Наличный'>
+            <input type="radio" name='typeOfPayment' value='Наличный' checked>
             <label>Наличный</label>
             <br>
-            <input type="radio" name='typeOfPayment' value='Безналичный' checked>
-            <label>Безналичный</label>
+            <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
+            <label>Безналичный </label><label style="color: red;">Недоступно (в разработке)</label>
             <div id='address' style='display: none;'>
                 <p>Адрес</p>
                 <div id='nova' style='display: none;'><label>Отделение Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>

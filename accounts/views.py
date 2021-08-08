@@ -611,16 +611,16 @@ def makeOrder(request, uid):
                 specorder.ukr_pochta = ukr_pochta
                 specorder.confirm = 'uc'
                 specorder.save()
-            '''for i in userCarts:
+            for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
-                    i.delete()'''
+                    i.delete()
             if typeOfPayment == 'Наличный':
-                toDelete = ShopOrdery.objects.last()
-                toDelete.delete()
-                return redirect('/accounts/' + str(request.user.id) + '/success-order')
+                '''toDelete = ShopOrdery.objects.last()
+                toDelete.delete()'''
+                return redirect('/accounts/' + str(request.user.id) + '/orders')
             else:
-                toDelete = ShopOrdery.objects.last()
-                toDelete.delete()
+                '''toDelete = ShopOrdery.objects.last()
+                toDelete.delete()'''
                 return redirect('/payment')
     else:
         for i in cart:
