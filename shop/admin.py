@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ
+from .models import Продукт, Заказ, ShopCalls
 from django.contrib.admin import site
 site.disable_action('delete_selected')
 
@@ -50,3 +50,10 @@ class orderAdmin(admin.ModelAdmin):
     exclude = ('raworder', )
     model = Заказ
     
+
+@admin.register(ShopCalls)
+class productAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    search_fields = ('phone_number',)
+    list_display = ('id', 'phone_number', 'first_name', )
+    readonly_fields  = ('id',)

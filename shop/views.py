@@ -1,7 +1,8 @@
+from accounts.models import AuthUser
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.http import HttpResponse
-from .models import Продукт
+from .models import Продукт, ShopCalls
 from django.db import models
 import requests
 from requests.exceptions import MissingSchema
@@ -266,16 +267,31 @@ def aboutProductPage(request, id):
             db_table = 'shop_favourite'
         
     favourites = ShopFavourite.objects.all()
-
-    context = {
-        'продукт': продукты[id-1],
-        'user_id': request.user.id,
-    }
+    if request.user.is_authenticated == False:
+        auth_status = 'failed'
+        context = {
+            'продукт': продукты[id-1],
+            'user_id': request.user.id,
+            'auth_status': auth_status,
+        }
+    else: 
+        user = AuthUser.objects.get(id=request.user.id)
+        auth_status = 'success'
+        context = {
+            'продукт': продукты[id-1],
+            'user_id': request.user.id,
+            'user': user,
+            'auth_status': auth_status,
+        }
     template = 'productInfo/more.html'
     context.update(csrf(request))
     if request.POST:
         cart_add = request.POST.get('add_to_cart', '')
         favourite_add = request.POST.get('add_to_favourite', '')
+        first_name = request.POST.get('callme_first_name', '')
+        last_name = request.POST.get('callme_last_name', '')
+        phone_number = request.POST.get('callme_phone_number')
+        callme = request.POST.get('callme_inp_button', '')
         if cart_add:
             item_id = request.POST.get('add_id', '')
             item_name = request.POST.get('add_name', '')
@@ -314,6 +330,10 @@ def aboutProductPage(request, id):
                     ShopFavourite.objects.filter(favourite_item = favourite_item_id).delete()    
             favouriteToSave.save()             
             return redirect('/accounts/'+ str(request.user.id) +'/favourites')
+        elif callme:
+            call = ShopCalls(first_name=first_name, last_name=last_name, phone_number=phone_number)
+            call.save()
+            return redirect('/products')
         else:
             return HttpResponse('bad')
     

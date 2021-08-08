@@ -97,11 +97,27 @@
                                 <input class='favourite_inp_button' type='submit' value='Добавить в избранное!'>
                             </form>
                             {% endif %}
+                            <label>Или</label>
+                            <form action="" method='post' >
+                                {% csrf_token %}
+                                {% if auth_status == 'success' and user.first_name %}
+                                <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
+                                <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
+                                {% else %}
+                                <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
+                                {% endif %}
+                                {% if auth_status == 'success' and user.phone_number %}
+                                <input type='tel' name='callme_phone_number' id='callme_phone_number' value='{{ user.phone_number }}'>
+                                {% else %}
+                                <input type='tel' name='callme_phone_number' id='callme_phone_number'>
+                                {% endif %}
+                                <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Перезвоните мне!'>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <div class="main_all_bot" id="description">
-                    <p>Описание</p>
+                    <p>Описание и характеристики</p>
                     <span style="white-space: pre-line">{{ продукт.описание }}</span>
                 </div>
                 <button class="desc_but" class="but" onclick="getMore()">

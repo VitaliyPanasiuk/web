@@ -148,6 +148,17 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+class ShopCalls(models.Model):
+    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
+    first_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Имя')
+    last_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Фамилия')
+    phone_number = models.CharField(max_length=100, blank=True, null=True, verbose_name='Номер телефона')
+
+    class Meta:
+        managed = False
+        db_table = 'shop_calls'
+        verbose_name_plural = "Звонки"
+        verbose_name = "Звонок"
 
 class Продукт(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
