@@ -176,7 +176,7 @@ class Продукт(models.Model):
     описание = models.TextField(db_column='Описание', max_length=5231, blank=True, null=True)  # Field name made lowercase.
     описание_укр = models.CharField(db_column='Описание_укр', max_length=6656, blank=True, null=True)  # Field name made lowercase.
     тип_товара = models.CharField(db_column='Тип_товара', max_length=1, blank=True, null=True)  # Field name made lowercase.
-    цена = models.IntegerField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
+    цена = models.FloatField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
     валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True, choices=CURRENCIES)  # Field name made lowercase.
     единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True)  # Field name made lowercase.
     минимальный_объем_заказа = models.DecimalField(db_column='Минимальный_объем_заказа', max_digits=5, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
