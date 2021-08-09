@@ -1,5 +1,5 @@
 {% load static %}
-
+{% get_media_prefix as MEDIA_URL %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,8 +71,8 @@
                             <div class="line">
                                 <div class="line_item item1">
                                     <div class="line_item_info">
-                                            <a href='/product/{{ продукт.id }}/'><div class="line_item_img"><img alt="" src="{% static '' %}shop/img/productsImages/{{ продукт.id }}.png"></div></a> 
-                                        <div class="protuct_tit">
+                                            <a href='/product/{{ продукт.id }}/'><div class="line_item_img"><img alt="" src="{{ MEDIA_URL }}{{ продукт.image }}"></div></a>
+                                            <div class="protuct_tit">
                                             <p class="line_item_text item_info">
                                                 {{ продукт.название_позиции }}
                                             </p>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        {% if page != 1 %}
+                        <!--{% if page != 1 %}
                         <form method='POST' action=''>
                             {% csrf_token %}
                             <input type='submit' name='previousPage' value='Previous Page'>
@@ -119,7 +119,7 @@
                             <label>Перейти на страницу:</label>
                             <input type='number' name='goto'>
                             <input type='submit' value='Перейти' name='go'>
-                        </form>
+                        </form>-->
             </div>
         </div>
     </div>

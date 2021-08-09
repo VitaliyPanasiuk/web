@@ -6,6 +6,7 @@ from .models import Продукт, ShopCalls
 from django.db import models
 import requests
 from requests.exceptions import MissingSchema
+from datetime import datetime
 
 продукты = Продукт.objects.all()
 
@@ -24,11 +25,28 @@ def productsPage(request):
             product = Продукт.objects.get(id=i.id)
             file = open(str(i.id)+'.png', "wb")
             file.write(response.content)
-            product.photo = file
+            product.image = file
             product.save()
+            import os
             file.close() 
+            if os.path.exists(str(i.id)+".png"):
+                os.remove(str(i.id)+".png")
         except MissingSchema:
             pass'''
+    '''for i in продукты:
+        import os
+        from pathlib import Path
+        try:
+            images_path = 'shop/media/products/'
+            product = Продукт.objects.get(id=i.id) 
+            #images = open(images_path+str(i.id)+'.png', 'wb')
+            #print(images.name) 
+            tosave = 'products/'+str(i.id) +'.png'
+            product.image = tosave
+            product.save() 
+            #images.close() 
+        except MissingSchema:
+            pass'''      
 
     if request.POST:
         search = request.POST.get('search', '')
@@ -269,16 +287,18 @@ def aboutProductPage(request, id):
     favourites = ShopFavourite.objects.all()
     if request.user.is_authenticated == False:
         auth_status = 'failed'
+        target = Продукт.objects.get(id=int(id))
         context = {
-            'продукт': продукты[id-1],
+            'продукт': target,
             'user_id': request.user.id,
             'auth_status': auth_status,
         }
     else: 
         user = AuthUser.objects.get(id=request.user.id)
         auth_status = 'success'
+        target = Продукт.objects.get(id=int(id))
         context = {
-            'продукт': продукты[id-1],
+            'продукт': target,
             'user_id': request.user.id,
             'user': user,
             'auth_status': auth_status,
@@ -331,11 +351,8 @@ def aboutProductPage(request, id):
             favouriteToSave.save()             
             return redirect('/accounts/'+ str(request.user.id) +'/favourites')
         elif callme:
-            call = ShopCalls(first_name=first_name, last_name=last_name, phone_number=phone_number)
+            call = ShopCalls(first_name=first_name, last_name=last_name, phone_number=phone_number, timedate=datetime.now())
             call.save()
-            return redirect('/products')
-        else:
-            return HttpResponse('bad')
-    
+            return redirect('/products')  
     else:
         return render(request, template, context)

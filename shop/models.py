@@ -25,6 +25,10 @@ CONFIRM_STATUS = (
     ('ac', 'Заказ подтвержден администратором'),
     ('done', 'Заказ выполнен'),
 )
+CURRENCIES = (
+    ('USD', 'USD'),
+    ('UAH', 'UAH'),
+)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -153,12 +157,14 @@ class ShopCalls(models.Model):
     first_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Имя')
     last_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Фамилия')
     phone_number = models.CharField(max_length=100, blank=True, null=True, verbose_name='Номер телефона')
+    timedate = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания запроса')
 
     class Meta:
-        managed = False
         db_table = 'shop_calls'
-        verbose_name_plural = "Звонки"
-        verbose_name = "Звонок"
+        verbose_name_plural = "Запросы звонков"
+        verbose_name = "Запрос звонка"
+    def __str__(self):
+        return 'Запрос от номера ' + str(self.phone_number)
 
 class Продукт(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
@@ -171,7 +177,7 @@ class Продукт(models.Model):
     описание_укр = models.CharField(db_column='Описание_укр', max_length=6656, blank=True, null=True)  # Field name made lowercase.
     тип_товара = models.CharField(db_column='Тип_товара', max_length=1, blank=True, null=True)  # Field name made lowercase.
     цена = models.IntegerField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
-    валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True)  # Field name made lowercase.
+    валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True, choices=CURRENCIES)  # Field name made lowercase.
     единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True)  # Field name made lowercase.
     минимальный_объем_заказа = models.DecimalField(db_column='Минимальный_объем_заказа', max_digits=5, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
     оптовая_цена = models.DecimalField(db_column='Оптовая_цена', max_digits=11, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
@@ -195,19 +201,14 @@ class Продукт(models.Model):
     личные_заметки = models.CharField(db_column='Личные_заметки', max_length=30, blank=True, null=True)  # Field name made lowercase.
     cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
     cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
-
+    image = models.FileField(upload_to='products/', blank=True, null=True)
+    
     class Meta:
-        managed = False
         db_table = 'shop_product'
         verbose_name_plural = "Продукты"
     def __str__(self):
         return self.название_позиции
 
-class orderItems(models.Model):
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE, verbose_name="Пользователь")
-    item = models.ForeignKey(Продукт, on_delete=models.CASCADE, verbose_name="Продукт")
-    price = models.CharField(max_length=90, null=True, blank=True, verbose_name='Цена')
-    quantity = models.IntegerField(default=1, verbose_name='Количество')
 
 class Заказ(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -234,7 +235,6 @@ class Заказ(models.Model):
     raworder = models.CharField(max_length=2000, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'shop_order'
         verbose_name_plural = 'Заказы'
     def get_actions(self, request):
@@ -256,5 +256,4 @@ class ShopCart(models.Model):
     currency = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'shop_cart'

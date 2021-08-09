@@ -46,7 +46,6 @@ class orderAdmin(admin.ModelAdmin):
             'fields': ('delivery_type', 'payment_type', 'city', 'street', 'house', 'nova_pochta', 'ukr_pochta' )
         }),
     )
-
     exclude = ('raworder', )
     model = Заказ
     
@@ -55,5 +54,5 @@ class orderAdmin(admin.ModelAdmin):
 class productAdmin(admin.ModelAdmin):
     actions = ['delete_selected']
     search_fields = ('phone_number',)
-    list_display = ('id', 'phone_number', 'first_name', )
+    list_display = ('phone_number', 'first_name', 'timedate')
     readonly_fields  = ('id',)

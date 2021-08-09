@@ -82,7 +82,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "django.contrib.auth.context_processors.auth"
+                "django.contrib.auth.context_processors.auth",
+                 'django.contrib.messages.context_processors.messages',
+		        'django.template.context_processors.media',
             ],
         },
     },
@@ -169,3 +171,6 @@ PASSWORD_HASHERS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MEDIA_ROOT= os.path.join(BASE_DIR, 'shop/media')
+MEDIA_URL= "shop/media/"

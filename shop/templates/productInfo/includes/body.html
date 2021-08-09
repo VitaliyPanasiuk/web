@@ -81,7 +81,7 @@
         {% for продукт in продукты %}
             <div class="line">
                 <div class="line_item item1">
-                    <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ продукт.ссылка_изображения }}" alt=""></div></a> 
+                    <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ MEDIA_URL }}products/{{ продукт.id }}.png" alt=""></div></a> 
                     <p class="line_item_text item_info">
                         {{ продукт.название_позиции }}
                     </p>
