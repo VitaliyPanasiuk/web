@@ -260,9 +260,9 @@ def userCart(request, uid):
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
-                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(int(i.price) * int(i.amount)) +  'UAH' + '\n\n')
+                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
                         else:
-                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(int(i.price) * currency * int(i.amount)) +  'UAH' + '\n\n')
+                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
