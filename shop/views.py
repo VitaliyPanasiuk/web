@@ -285,26 +285,6 @@ def aboutProductPage(request, id):
             db_table = 'shop_favourite'
         
     favourites = ShopFavourite.objects.all()
-    if request.user.is_authenticated == False:
-        auth_status = 'failed'
-        target = Продукт.objects.get(id=int(id))
-        context = {
-            'продукт': target,
-            'user_id': request.user.id,
-            'auth_status': auth_status,
-        }
-    else: 
-        user = AuthUser.objects.get(id=request.user.id)
-        auth_status = 'success'
-        target = Продукт.objects.get(id=int(id))
-        context = {
-            'продукт': target,
-            'user_id': request.user.id,
-            'user': user,
-            'auth_status': auth_status,
-        }
-    template = 'productInfo/more.html'
-    context.update(csrf(request))
     if request.POST:
         cart_add = request.POST.get('add_to_cart', '')
         favourite_add = request.POST.get('add_to_favourite', '')
@@ -355,4 +335,27 @@ def aboutProductPage(request, id):
             call.save()
             return redirect('/products')  
     else:
+        if request.user.is_authenticated == False:
+            auth_status = 'failed'
+            product = Продукт.objects.get(id=int(id))
+            context = {
+                'продукт': product,
+                'user_id': request.user.id,
+                'auth_status': auth_status,
+            }
+        else: 
+            user = AuthUser.objects.get(id=request.user.id)
+            auth_status = 'success'
+            product = Продукт.objects.get(id=int(id))
+            images = product.images.all()
+            print(images)
+            context = {
+                'продукт': product,
+                'user_id': request.user.id,
+                'user': user,
+                'auth_status': auth_status,
+                'images': images,
+            }
+        template = 'productInfo/more.html'
+        context.update(csrf(request))
         return render(request, template, context)

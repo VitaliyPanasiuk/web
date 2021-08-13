@@ -29,6 +29,9 @@ CURRENCIES = (
     ('USD', 'USD'),
     ('UAH', 'UAH'),
 )
+AMOUNT = (
+    ('шт.', 'шт.'),
+)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -178,7 +181,7 @@ class Продукт(models.Model):
     тип_товара = models.CharField(db_column='Тип_товара', max_length=1, blank=True, null=True)  # Field name made lowercase.
     цена = models.FloatField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
     валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True, choices=CURRENCIES)  # Field name made lowercase.
-    единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True)  # Field name made lowercase.
+    единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True, choices=AMOUNT)  # Field name made lowercase.
     минимальный_объем_заказа = models.DecimalField(db_column='Минимальный_объем_заказа', max_digits=5, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
     оптовая_цена = models.DecimalField(db_column='Оптовая_цена', max_digits=11, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
     минимальный_заказ_опт = models.DecimalField(db_column='Минимальный_заказ_опт', max_digits=9, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
@@ -210,7 +213,7 @@ class Продукт(models.Model):
         return self.название_позиции
 
 class Image(models.Model):
-    image = models.ImageField(verbose_name='Изображение')
+    image = models.ImageField(upload_to='productInfo/', verbose_name='Изображение')
     product = models.ForeignKey(Продукт, default=None, related_name='images',on_delete=models.PROTECT)
     class Meta:
         verbose_name_plural = 'Изображения'

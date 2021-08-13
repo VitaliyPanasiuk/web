@@ -130,7 +130,9 @@
             </div>
         </div>
     </div>
-
+    {% for image in images %}
+    <img src='{{ MEDIA_URL }}{{ image.image }}'>
+    {% endfor %}
     {% include 'productInfo/includes/footer.html' %}
     {% endblock %}
     </div>
