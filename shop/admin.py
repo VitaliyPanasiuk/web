@@ -29,6 +29,7 @@ class productAdmin(admin.ModelAdmin):
     list_display = ('название_позиции', 'цена', 'валюта', 'количество',)
     list_filter = ('наличие', 'страна_производитель', )
     readonly_fields  = ('id',)
+    actions = ['delete_selected']
     inlines = [ProductImage]
 
 @admin.register(Заказ)
