@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ, ShopCalls
+from .models import Продукт, Заказ, ShopCalls, Image
 from django.contrib.admin import site
 site.disable_action('delete_selected')
 
@@ -20,12 +20,16 @@ deleteit.short_description = 'Удалить'''
 admin.site.site_header = 'Luxon'
 admin.site.site_title = 'Luxon Admin'
 
+class ProductImage(admin.TabularInline):
+    model = Image
+
 @admin.register(Продукт)
 class productAdmin(admin.ModelAdmin):
     search_fields = ('название_позиции',)
     list_display = ('название_позиции', 'цена', 'валюта', 'количество',)
     list_filter = ('наличие', 'страна_производитель', )
     readonly_fields  = ('id',)
+    inlines = [ProductImage]
 
 @admin.register(Заказ)
 class orderAdmin(admin.ModelAdmin):

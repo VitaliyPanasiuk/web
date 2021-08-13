@@ -201,7 +201,7 @@ class Продукт(models.Model):
     личные_заметки = models.CharField(db_column='Личные_заметки', max_length=30, blank=True, null=True)  # Field name made lowercase.
     cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
     cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    image = models.FileField(upload_to='products/', blank=True, null=True, verbose_name='Изображение')
+    image = models.FileField(upload_to='products/', blank=True, null=True, verbose_name='Главное изображение')
     
     class Meta:
         db_table = 'shop_product'
@@ -209,6 +209,12 @@ class Продукт(models.Model):
     def __str__(self):
         return self.название_позиции
 
+class Image(models.Model):
+    image = models.ImageField(verbose_name='Изображение')
+    product = models.ForeignKey(Продукт, default=None, related_name='images',on_delete=models.PROTECT)
+    class Meta:
+        verbose_name_plural = 'Изображения'
+        verbose_name = 'Изображение'
 
 class Заказ(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
