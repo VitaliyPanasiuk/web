@@ -110,6 +110,7 @@ class Заказ(models.Model):
     телефон = models.CharField(max_length=45, blank=True, null=True)
     почта = models.CharField(max_length=60)
     заказ = models.TextField(max_length=10000, blank=True, null=True)
+    user_order = models.CharField(max_length=10000, blank=True, null=True)
     сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
     валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
     статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)

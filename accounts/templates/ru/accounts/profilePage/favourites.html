@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
+    {% if account == userId %}
+        <div class="body_inf">
+            <div class="conteiner">
+                <div class="intro_page">
+                    <div class="user_page">
+                        <div class="user" >
+                            <div class="user_img">
+                                <a class="first_name" href='/ru/accounts/{{ user.id }}/'>
+                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
+                                </a>
+                            </div>
+                             <div class="user_inf ">
+                                <div class="user_inf_top">
+                                    {% if user.first_name %}
+                                    <a class="first_name" href='/ru/accounts/{{ user.id }}/'>
+                                        {{ user.first_name }}
+                                    </a>
+                                    {% else %}
+                                        <a class="first_name" href='/ru/accounts/{{ user.id }}/'>
+                                            {{ user.username }}
+                                        </a>
+                                    {% endif %}
+                                    {% if user.last_name %} 
+                                    <a class="last_name" href='/ru/accounts/{{ user.id }}/'>
+                                        {{ user.last_name }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="user_inf_bot">
+                                    <a class="user_email" href='/ru/accounts/{{ user.id }}/'>
+                                        {{ user.email }}
+                                    </a>  
+                                    <!-- <p class="user_email">{{ user.email }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                                <a href='orders'>Мои заказы</a>
+                            </div>
+                        </div>
+                        <div class="favourite user_bl active_item">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
+                             </div>
+                             <div class="user_bl_text">
+                                <a href='favourites'>Избранное</a>
+                            </div>
+                        </div>
+                        <div class="cart user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                               <a href='cart'>Моя корзина</a> 
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="user_redact">
+                            {% for favourite in favourites %}
+                                <form action='' method="POST">
+                                    {% csrf_token %}
+                                    <a href='/ru/product/{{ favourite.favourite_item }}'>{{ favourite.name }}</a>
+                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
+                                    <input type='submit' value='&#10060;'>
+                                </form>
+                            {% endfor %}
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
+    {% endif %}
+    <div class="footer">
+        {% include 'ru/productInfo/includes/footer.html' %}
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>
+
+

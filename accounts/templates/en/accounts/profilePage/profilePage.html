@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>
+        {% if user.first_name %}
+        {{ user.first_name }}'s Profile
+        {% else %}
+        {{ user.username }}'s Profile
+        {% endif %}
+
+    </title>
+</head>
+<body>
+    {% block content %}
+    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% if account == userId %}
+        <div class="body_inf">
+            <div class="conteiner">
+                <div class="intro_page">
+                    <div class="user_page" >
+                        <div class="user active_item" onclick="location.href='profilePage';">
+                            <div class="user_img">
+                                <a class="first_name" href='/en/accounts/{{ currentUser.id }}/'>
+                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
+                                </a>
+                            </div>
+                            <div class="user_inf ">
+                                <div class="user_inf_top">
+                                    <!-- {% if user.first_name %} -->
+                                    <a class="first_name" href='/en/accounts/{{ currentUser.id }}/'>
+                                        {{ user.first_name }}
+                                    </a>
+                                        <!-- <a href=""><p class="first_name">{{ user.first_name }}</p></a> -->
+                                    <!-- {% else %}
+                                        <p class="first_name">не введено</p> -->
+                                    <!-- {% endif %} -->
+                                    {% if user.last_name %} 
+                                    <a class="last_name" href='/en/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.last_name }}
+                                    </a> 
+                                    {% else %}
+                                    <a class="last_name" href='/en/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.username }}
+                                    </a> 
+                                    {% endif %} 
+                                </div>
+                                <div class="user_inf_bot">
+                                    <a class="user_email" href='/en/accounts/{{ currentUser.id }}/'>
+                                        {{ currentUser.email }}
+                                    </a>  
+                                    <!-- <p class="user_email">{{ user.email }}</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                                <a href='orders'>My orders</a>
+                            </div>
+                        </div>
+                        <div class="favourite user_bl ">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
+                             </div>
+                             <div class="user_bl_text">
+                                <a href='favourites'>My favourite</a>
+                            </div>
+                        </div>
+                        <div class="cart user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                               <a href='cart'>My cart</a> 
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="user_redact">
+                        <div class="personality">
+                            <div class="person_top">
+                                <div class="person_icon">
+                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
+                                </div>
+                                <div class="person_text">
+                                    <p class="person_tit">Personal Data</p>
+                                    <div class="person_redact">
+                                        <a href='/en/accounts/{{ user.id }}/edit' style='color: blue !important; text-decoration: underline;'>Change personal data</a>
+                                        <a href='/en/accounts/{{ user.id }}/change-password' style='color: blue !important; text-decoration: underline;'>Change password</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="person_info">
+                                <div class="person_last_name">
+                                    <p class="person_subname">Last name</p>
+                                    <p class="person_name">{{ currentUser.last_name }}</p>
+                                </div>
+                                <div class="person_firs_name">
+                                    <p class="person_subname">First name</p>
+                                    <p class="person_name">{{ currentUser.first_name }}</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="contacts">
+                            <div class="person_top">
+                                <div class="person_icon_let">
+                                    <img src="{%  static  'shop/img/letter.png'  %}" alt="">
+                                </div>
+                                <div class="person_text">
+                                    <p class="person_tit">Contacts</p>
+                                </div>
+                            </div>
+                            <div class="person_info">
+                                <div class="person_num">
+                                    <p class="person_subname">Phone number</p>
+                                    <p class="person_name">{{ currentUser.phone_number }}</p>
+                                </div>
+                                <div class="person_emeil">
+                                    <p class="person_subname">Email</p>
+                                    <p class="person_name">{{ currentUser.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="adres">
+                            <div class="adres_top">
+                                <div class="adres_icon_ad">
+                                    <img src="{%  static  'shop/img/letter.png'  %}" alt="">
+                                </div>
+                                <div class="person_text">
+                                    <p class="person_tit">Shipping address</p>
+                                </div>
+                            </div>
+                            <div class="person_info">
+                                <div class="person_num">
+                                    <p class="person_subname">City</p>
+                                    <p class="person_name">{{ currentUser.city }}</p>
+                                </div>
+                                <div class="person_num">
+                                    <p class="person_subname">Street</p>
+                                    <p class="person_name">{{ currentUser.street }}</p>
+                                </div>
+                                <div class="person_num">
+                                    <p class="person_subname">House</p>
+                                    <p class="person_name">{{ currentUser.house }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    {% endif %}
+    <div class="footer">
+        {% include 'en/productInfo/includes/footer.html' %}
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>
+
+

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/register/register_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Страница входа</title>
+</head>
+<body>
+  {% include 'ru/products/includes/navbar.html' %}
+    <div class="conteiner">
+      <div class="reg_body">
+        <form action="" method='post'>
+          <div class="formbl">
+            {% csrf_token %}
+            <div class="log_inf">
+              <div class="log_lab">
+                <label for='username'>Имя пользователя</label>
+              </div>
+              
+              <br>
+              <div class="log_inp">
+                <input type='text' name='username' id='username'>
+              </div>
+              
+              <br>
+              <div class="log_lab">
+                <label for='password'>Пароль</label>
+              </div>
+              
+              <br>
+              <div class="log_inp">
+                <input type='password' name='password' id='password'>
+              </div>
+              
+            </div>
+            
+            <br>
+            {% if login_error %}
+              <label>{{ login_error }}</label>
+            {% endif %}
+            <div class="log_inp">
+              <input type='submit' value='Войти'>
+            </div>
+            
+          </div>
+            
+        </form>
+      </div>
+      
+    </div>
+  <div class="footer">
+    {% include 'ru/products/includes/footer.html' %}
+  </div>
+</body>
+</html>

@@ -77,6 +77,7 @@ def productsPage(request, lang):
                     'продукты': filteredProducts,
                     'withprice': 'yes',
                     'available': 'yes',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/index.html'
                 return render(request, template, context)
@@ -86,6 +87,7 @@ def productsPage(request, lang):
                     'продукты': filteredProducts,
                     'withprice': 'yes',
                     'available': 'no',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/index.html'
                 return render(request, template, context)
@@ -95,6 +97,7 @@ def productsPage(request, lang):
                     'продукты': filteredProducts,
                     'withprice': 'no',
                     'available': 'no',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/index.html'
                 return render(request, template, context)
@@ -104,6 +107,7 @@ def productsPage(request, lang):
                     'продукты': filteredProducts,
                     'withprice': 'no',
                     'available': 'yes',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/index.html'
                 return render(request, template, context)
@@ -112,6 +116,7 @@ def productsPage(request, lang):
                 'продукты': продукты,
                 'withprice': 'spec',
                 'available': 'spec',
+                'lang': lang,
                     }
             template = str(lang) + '/products/index.html'
             return render(request, template, context)
@@ -122,6 +127,7 @@ def productsPage(request, lang):
     context = {
         'продукты': filteredProducts,
         'available': 'spec',
+        'lang': lang,
             }
     template = str(lang) + '/products/index.html'
     return render(request, template, context)
@@ -150,6 +156,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'yes',
                     'available': 'yes',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -160,6 +167,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'yes',
                     'available': 'no',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -170,6 +178,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'no',
                     'available': 'no',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -180,6 +189,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'no',
                     'available': 'spec',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -188,7 +198,7 @@ def searchPage(request, lang):
                 context = {
                     'продукты': filteredProducts,
                     'page': int(page),
-
+                    'lang': lang,
                     'withprice': 'yes',
                     'available': 'spec',
                         }
@@ -201,6 +211,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'spec',
                     'available': 'no',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -211,6 +222,7 @@ def searchPage(request, lang):
                     'page': int(page),
                     'withprice': 'spec',
                     'available': 'yes',
+                    'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
@@ -220,6 +232,7 @@ def searchPage(request, lang):
                 'page': int(page),
                 'withprice': 'spec',
                 'available': 'spec',
+                'lang': lang,
                     }
             template = str(lang) + '/products/search/index.html'
             return render(request, template, context)
@@ -229,6 +242,7 @@ def searchPage(request, lang):
                 'page': int(page),
                 'withprice': 'spec',
                 'available': 'spec',
+                'lang': lang,
                     }
             template = str(lang) + '/products/search/index.html'
             return render(request, template, context)
@@ -242,6 +256,7 @@ def searchPage(request, lang):
                 context = {
                     #'продукты': a[0:len(a):],
                     'error_message': 'Пустой запрос',
+                    'lang': lang,
                     #'page': int(page),
                     }
                 return render(request, template, context)
@@ -249,6 +264,7 @@ def searchPage(request, lang):
                 context = {
                 #'продукты': a[0:len(a):],
                 'error_message': 'Empty search field',
+                'lang': lang,
                 #'page': int(page),
                 }
             return render(request, template, context)
@@ -257,6 +273,7 @@ def searchPage(request, lang):
                 context = {
                 #'продукты': a[0:len(a):],
                 'error_message': 'По Вашему запросу ничего не найдено',
+                'lang': lang,
                 #'page': int(page),
                 }
                 return render(request, template, context)
@@ -264,6 +281,7 @@ def searchPage(request, lang):
                 context ={
                     #'продукты': a[0:len(a):],
                     'error_message': 'No results were found for your search',
+                    'lang': lang,
                     #'page': int(page),
                     }
                 return render(request, template, context)                
@@ -272,6 +290,7 @@ def searchPage(request, lang):
                 'продукты': a[0:len(a):],
                 'withprice': 'spec',
                 'available': 'spec',
+                'lang': lang,
                 #'page': int(page),
                 }
             return render(request, template, context)
@@ -287,7 +306,10 @@ def achievementsPage(request, lang):
         else: 
             HttpResponse('404')
     else:
-        return render(request, str(lang) + '/achievements/index.html')
+        context = {
+            'lang': lang,
+        }
+        return render(request, str(lang) + '/achievements/index.html', context=context)
 
 def aboutUsPage(request, lang):
     language = request.POST.get('language', '')
@@ -297,10 +319,11 @@ def aboutUsPage(request, lang):
         else:
             HttpResponse('404')
     else:
-        return render(request, str(lang) + '/about/index.html')
+        context = {
+            'lang': lang,
+        }
+        return render(request, str(lang) + '/about/index.html', context=context)
 
-def loginPage(request):
-    return render(request, 'login/index.html')
 
 def aboutProductPage(request, id, lang):
 
@@ -360,7 +383,7 @@ def aboutProductPage(request, id, lang):
                 elif i.amount == ToSave.amount and i.item == ToSave.item: 
                     ShopCarty.objects.filter(item = ToSave.item).delete()           
             ToSave.save()
-            return redirect(str(lang) + '/products/')
+            return redirect('/' + str(lang) + '/products/')
         elif language:
             return redirect('/' + str(language))
         elif favourite_add:
@@ -379,11 +402,11 @@ def aboutProductPage(request, id, lang):
                 if i.favourite_item == favourite_item_id:
                     ShopFavourite.objects.filter(favourite_item = favourite_item_id).delete()    
             favouriteToSave.save()             
-            return redirect(str(lang) + '/accounts/'+ str(request.user.id) +'/favourites')
+            return redirect('/' + str(lang) + '/accounts/'+ str(request.user.id) +'/favourites')
         elif callme:
             call = ShopCalls(first_name=first_name, last_name=last_name, phone_number=phone_number, timedate=datetime.now())
             call.save()
-            return redirect(str(lang) + '/products')  
+            return redirect('/' + str(lang) + '/products')  
     else:
         if request.user.is_authenticated == False:
             auth_status = 'failed'
@@ -392,6 +415,7 @@ def aboutProductPage(request, id, lang):
                 'продукт': product,
                 'user_id': request.user.id,
                 'auth_status': auth_status,
+                'lang': lang,
             }
         else: 
             user = AuthUser.objects.get(id=request.user.id)
@@ -404,10 +428,11 @@ def aboutProductPage(request, id, lang):
                 'user': user,
                 'auth_status': auth_status,
                 'images': images,
+                'lang': lang,
             }
         template = str(lang) + '/productInfo/more.html'
         context.update(csrf(request))
         return render(request, template, context)
 
 def goWithLanguage(request):
-    return redirect('/ru')
+    return redirect('/uk')

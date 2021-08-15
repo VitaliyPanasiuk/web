@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/register/register_style.css'  %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Реєстрація</title>
+</head>
+<body>
+    
+    {% block content %}
+    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
+    <div class="conteiner">
+      <div class="reg_body">
+        <div class="reg-tit">
+          <h2>Регистрация</h2>
+        </div>
+        <form method="post" action="" class="reg_forms">
+          {% csrf_token %}
+          <div class="reg_name_bl">
+            <div class="reg_name">
+              <label>Имя пользователя: </label>
+              <input type='text' name='username' required>
+            </div>
+          </div>
+          
+          <br>
+          <div class="reg_em_bl">
+            <div class="reg_em">
+              <label>Email: </label>
+              <input type='email' name='email' required>
+            </div>
+          </div>
+        
+          <br>
+          <div class="reg_warn">
+            <p>Минимально 8 символов.</p>
+          </div>
+          
+          <div class="reg_password_bl">
+            <div class="reg_password">
+              <label>Пароль: </label>
+              <input type='password' name='password1' required>
+            </div>
+          </div>
+          
+          <div class="reg_password_bl">
+            <div class="reg_password">
+              <label>Повторите пароль: </label>
+              <input type='password' name='password2' required>
+            </div>
+          </div>
+          
+          <p>{{ error_code }}</p>
+          <div class="reg_but">
+            <input type="submit" name='register' value='Зарегистрироваться'>
+          </div>
+          
+        </form>
+      </div>
+      
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/editProfile/edit_profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Изменить профиль</title>
+    <style>
+        body{
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    {% include 'ru/accounts/editProfile/includes/navbar.html' %}
+    <h1 class='main_label'>Редактировать пользовательские данные</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>Имя: </label>
+        <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
+        <label>Фамилия: </label>
+        <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
+        <label>Email: </label>
+        <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
+        <label>Номер телефона: </label>
+        <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
+        <br>
+        <p>Адрес Доставки: </p>
+        <label>Город: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
+        <label>Улица: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
+        <label>Дом: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
+        <label>Подтвердите пароль</label>
+        <input type="password" name='password' id='password' required >
+        <input type="submit" value='Сохранить'>
+        {{ error_message }}
+        </form>  
+</body>
+{% include 'ru/accounts/editProfile/includes/footer.html' %}
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Создать заказ</title>
+    <script>
+        function pickup(){
+            document.getElementById('address').style.display ='none';
+            document.getElementById('np').style.display ='none';
+            document.getElementById('up').style.display ='none';
+        }
+        function novapochta(){
+            document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='block';
+            document.getElementById('ukr').style.display ='none';
+        }
+        function ukrpochta(){
+            document.getElementById('address').style.display ='block';
+            document.getElementById('nova').style.display ='none';
+            document.getElementById('ukr').style.display ='block';
+        }
+    </script>
+</head>
+<body>
+    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
+    {% if userId == account %}
+    {{ error_message }}
+    <div>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите Ваше имя" required>
+            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите Вашу фамилию" required>
+            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
+            {% if user.phone_number != None %}
+            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
+            {% else %}
+            <label>Телефон: </label><input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
+            {% endif %}
+            <br>
+            <label>Заказ: </label>
+            <div style='display: none;'>
+                <input type="hidden" value='{{ userCart.name }}' name='order'>
+            </div>
+            {% for i in userCart %}
+            {% if i.currency == 'UAH' %}
+                <p>{{ i.name }} Цена: {{ i.price|floatformat:"2" }}UAH</p>
+            {% else %}
+                <p>{{ i.name }} Цена: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
+            {% endif %}
+            {% endfor %}
+            <div style='display: none;'>
+                <input type="hidden" value='{{ price }}' name='price'>
+            </div>
+            <div style='display: none;'>
+                <input type="submit" name='quit' id='quit'>
+            </div>
+            <p>К оплате: {{ price|floatformat:"2" }} UAH</p>
+            <p style='color: red !important; text-decoration: underline;'>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
+            <p>Тип доставки: </p>
+            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
+            <label>Самовывоз</label>
+            <br>
+            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
+            <label>Нова Пошта</label>
+            <br>
+            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
+            <label>Укрпошта</label>
+            <br>
+            <p>Тип оплаты: </p>
+            <input type="radio" name='typeOfPayment' value='Наличный' checked>
+            <label>Наличный</label>
+            <br>
+            <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
+            <label>Безналичный </label><label style="color: red;">Недоступно (в разработке)</label>
+            <div id='address' style='display: none;'>
+                <p>Адрес</p>
+                <div id='nova' style='display: none;'><label>Отделение Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                <div id='ukr' style='display: none;'><label>Почтовый индекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
+                <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
+                <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
+                <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
+            </div>
+            <br>
+            <input type="submit" name='go' value="Создать Заказ!">
+        </form>
+    </div>
+    {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
+    {% endif %}
+    {% include 'ru/accounts/profilePage/includes/footer.html' %}
+    <script>
+        window.onbeforeunload = closingCode;
+            function closingCode(){
+            document.getElementById("quit").submit();
+            return null; //<-- this prevents the dialog confirm box
+        }
+    </script>
+</body>
+</html>

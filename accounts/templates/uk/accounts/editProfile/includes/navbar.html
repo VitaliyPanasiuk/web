@@ -1,0 +1,107 @@
+{% load static %}
+{% block content %}
+<div class="introADD">
+    <header>
+        <div class="conteiner">
+            <div class="intro_header">
+                <div class="header_link">
+                    <div class="header_top">
+                        <div class="header_top_img">
+                            <div class="top_img">
+                                <a href='/'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
+                            </div>
+                            
+                        </div>
+                        <nav class="navv">
+                            <a href='/' class='nav_link'>home</a>
+                            <a href="/about" class="nav_link">about Us</a>
+                            <a href="/products" class="nav_link">products</a>
+                            <a href="/achievements" class="nav_link">achievements</a>
+                            <a href="" class="nav_link">contact</a>
+                        </nav>
+                        <div class="header_language">
+                            <p>Russin</p>
+                        </div>
+                        
+                        {% if user.is_authenticated %}
+                        <div class="header_but">
+                            <a href="/accounts/logout" class="headerbut_log">
+                                Log Out
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="header_bot">
+                        <div class="header_allcontact">
+                            <div class="header_contact">
+                                <div class="header_contact_item">
+                                    <p class="header_contact_num">+380963265300</p>
+                                </div>
+                                <div class="header_contact_item">
+                                    <a href="" class="header_link2">luxonSport@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="header_media">
+                                <div class="header_media_item">
+                                    <a href='https://www.instagram.com/' target="_blank" class="fab fa-instagram"></a>
+                                </div>
+                                <div class="header_media_item">
+                                    <a href='https://www.facebook.com/' target="_blank" class="fab fa-facebook-square"></a>
+                                </div>
+                                <div class="header_media_item">
+                                    <a href='https://www.youtube.com/' target="_blank" class="fab fa-youtube"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header_infuser">
+                            {% if user.is_staff %}
+                            <div class="header_but">
+                                <a href="/admin" class="headerbut_log">
+                                    Admin 
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                                <div style="color: aliceblue;" class="header_user">
+                                    <div class="header_welcome">
+                                        Welcome: 
+                                    </div>
+                                    <div class="header_user_but">
+                                        <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
+                                            {% if user.first_name %}
+                                                {{ user.first_name }}
+                                            {% else %}
+                                                {{ user.username }}
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                   
+                                </div>
+                            {% endif %}
+                            {% if not user.is_authenticated %}
+                            <div class="header_but">
+                                <a href="/accounts/login" class="headerbut_log">
+                                    Log In
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% if not user.is_authenticated %}
+                            <div class="header_but">
+                                <a href="/accounts/register" class="headerbut_log">
+                                    Register
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </header>
+</div>
+{% endblock %}

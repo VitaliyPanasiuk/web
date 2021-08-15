@@ -19,7 +19,7 @@ products = Продукт.objects.all()
 accounts = AuthUser.objects.all()
 timezona = pytz.timezone('Europe/Kiev')
 
-def register(request):
+def register(request, lang):
     args = {}
     args.update(csrf(request))
     if request.POST:
@@ -27,11 +27,13 @@ def register(request):
         email = request.POST.get('email', '')
         password1 = request.POST.get("password1", "")
         password2 = request.POST.get("password2", "")
+        language = request.POST.get('language', '')
         d = datetime.now(pytz.timezone('Europe/Kiev'))
         upper_case = 0
         lower_case = 0
         number = 0
-
+        if language:
+            return redirect('/' + str(language))
         for i in password2:
             if i.isupper():
                 upper_case += 1
@@ -47,22 +49,50 @@ def register(request):
                                 user.save()
                                 usery = auth.authenticate(username=username, password=password2)
                                 auth.login(request, usery)
-                                return redirect("/accounts/"+str(user.id))
+                                return redirect('/'+ str(lang) + "/accounts/"+str(user.id))
                             except IntegrityError:
-                                error_code = 'Пользователь с таким именем уже существует'
-                                return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+                                if lang == 'ru':
+                                    error_code = 'Пользователь с таким именем уже существует'
+                                    return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                                elif lang == 'en':  
+                                    error_code = 'User with this username  already exist'
+                                    return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                                elif lang == 'uk':  
+                                    error_code = "Користувач з таким ім'ям вже існує"
+                                    return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})    
                 else:
-                    error_code = 'Пароль должен содержать по крайней мере одну заглавную букву и одну цифру'
-                    return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+                    if lang == 'en':
+                        error_code = 'Your password must contain at least one number and one capital letter'
+                        return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                    elif lang == 'ru':
+                        error_code = 'Ваш пароль должен сожержать хотя бы одну цифру и одну заглавную букву'
+                        return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                    elif lang == 'uk':
+                        error_code = 'Ваш пароль повинен містити хоча б одну цифру та одну велику літеру'
+                        return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
             else:
-                error_code = 'Ваш пароль слишком короткий'
-                return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+                if lang == 'ru':
+                    error_code = 'Ваш пароль слишком короткий'
+                    return render(request,str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                elif lang == 'en':
+                    error_code = 'Your password is too short'
+                    return render(request,str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+                elif lang == 'uk':
+                    error_code = 'Ваш пароль дуже короткий'
+                    return render(request,str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
         else:
-            error_code = 'Пароли не совпадают'
-            return render(request, "accounts/auth/register.html", {'error_code': error_code,})
+            if lang == 'ru':
+                error_code = 'Пароли не совпадают'
+                return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+            elif lang == 'en':
+                error_code = 'Passwords are different'
+                return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
+            elif lang == 'uk':
+                error_code = 'Паролі не співпадають'
+                return render(request, str(lang) + "/accounts/auth/register.html", {'error_code': error_code,})
 
     else:
-        return render(request, "accounts/auth/register.html", args)
+        return render(request, str(lang) + "/accounts/auth/register.html", args)
     '''if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -74,45 +104,53 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'accounts/auth/register.html', {'form': form})'''
     
-def login(request):
+def login(request, lang):
     args = {}
     args.update(csrf(request))
     if request.POST:
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
+        language = request.POST.get('language', '')
         user = auth.authenticate(username=username, password=password)
+        if language:
+            return redirect('/' + str(language))
         if user is not None:
             auth.login(request, user)
-            return redirect("/")
+            return redirect("/" + str(lang))
         else:
             args["login_error"] = "Wrong username or password!"
-            return render(request, "accounts/auth/failed.html", args)
+            return render(request, '' + str(lang) + "/accounts/auth/failed.html", args)
 
     else:
-        return render(request, "accounts/auth/login.html", args)
+        return render(request, '' + str(lang) + "/accounts/auth/login.html", args)
 
 
-def logout(request):
+def logout(request, lang):
     auth.logout(request)
-    return redirect("/")
+    return redirect("/" + str(lang))
 
 
-def userProfilePage(request, uid):
+def userProfilePage(request, uid, lang):
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     else:
         auth_status = 'success'
-    context = {
-        'auth_status': auth_status,
-        "userId": str(request.user.id),
-        "account": str(uid),
-        'currentUser': AuthUser.objects.get(id=request.user.id)
-    }
-    template = "accounts/profilePage/profilePage.html"
-    return render(request, template, context)
+    if request.POST:
+        language = request.POST.get('language', '')
+        if language:
+            return redirect('/' + str(language))
+    else:        
+        context = {
+            'auth_status': auth_status,
+            "userId": str(request.user.id),
+            "account": str(uid),
+            'currentUser': AuthUser.objects.get(id=request.user.id)
+        }
+        template = str(lang) + "/accounts/profilePage/profilePage.html"
+        return render(request, template, context)
 
 
-def userOrders(request, uid):
+def userOrders(request, uid, lang):
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     else:
@@ -146,9 +184,12 @@ def userOrders(request, uid):
             db_table = 'shop_order'
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
+        language = request.POST.get('language', '')
         if itemToDelete:
             ShopOrdery.objects.filter(id=int(itemToDelete)).delete()
-            return redirect('/accounts/' + str(request.user.id) + '/orders')
+            return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/orders')
+        elif language:
+            return redirect('/' + str(language))
     else:
         a = ShopOrdery.objects.all()
         orders=[]
@@ -161,13 +202,13 @@ def userOrders(request, uid):
             "account": str(uid),
             "orders": orders,
         }
-        template = "accounts/profilePage/orders.html"
+        template = lang +  "/accounts/profilePage/orders.html"
         return render(request, template, context)
 
 now = datetime.now(pytz.timezone('Europe/Kiev'))
 
-def userCart(request, uid):
-    template = "accounts/profilePage/cart.html"
+def userCart(request, uid, lang):
+    template = lang + "/accounts/profilePage/cart.html"
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     else:
@@ -180,6 +221,7 @@ def userCart(request, uid):
         телефон = models.CharField(max_length=45, blank=True, null=True)
         почта = models.CharField(max_length=60)
         заказ = models.CharField(max_length=10000, blank=True, null=True)
+        user_order = models.CharField(max_length=10000, blank=True, null=True)
         сумма_заказа = models.CharField(max_length=45, blank=True, null=True)     
         валюта_заказа = models.CharField(max_length=45, blank=True, null=True)    
         статус_оплаты = models.CharField(max_length=45)
@@ -220,25 +262,33 @@ def userCart(request, uid):
         addOneMore = request.POST.get("plus", "")
         removeOneMore = request.POST.get("minus", "")
         makeorder = request.POST.get('makeorder', '')
+        language = request.POST.get('language', '')
         if addOneMore:
             item = request.POST.get("item_plus", "")
             carts = ShopCarty.objects.get(item=item)
             carts.amount += 1
             carts.save()
-            return redirect("/accounts/" + str(request.user.id) + "/cart")
+            return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
         elif removeOneMore:
             item = request.POST.get("item_minus", "")
             carts = ShopCarty.objects.get(item=item)
             carts.amount -= 1
             if carts.amount == 0:
-                messages.error(request, "Количество товара не может быть меньше 1")
-                return redirect("/accounts/" + str(request.user.id) + "/cart")
+                if lang == 'ru':
+                    messages.error(request, "Количество товара не может быть меньше 1")
+                elif lang == 'en':
+                    messages.error(request, "Amount can't be lower than 1")
+                elif lang == 'uk':
+                    messages.error(request, "Кількість товару не може бути менше 1")
+                return redirect('/' + lang +"/accounts/" + str(request.user.id) + "/cart")
             else:
                 carts.save()
-                return redirect("/accounts/" + str(request.user.id) + "/cart")
+                return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
         elif itemToDelete:
             ShopCarty.objects.filter(item=itemToDelete).delete()
-            return redirect("/accounts/" + str(request.user.id) + "/cart")
+            return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
+        elif language:
+            return redirect('/' + str(language))
         elif makeorder:
             b = 0
             userAccount = AuthUser.objects.get(id=request.user.id)
@@ -249,20 +299,32 @@ def userCart(request, uid):
             a = []
             bob = []
             c=[]
+            e=[]
+            f=[]
             d = datetime.now(pytz.timezone('Europe/Kiev'))
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
                     b += 1
             if b == 0:
-                return HttpResponse('Корзина пуста!')#Have to add speial error message for this situation
+                if lang == 'ru':
+                    return HttpResponse('Корзина пуста!')#Have to add speial error message for this situation
+                if lang == 'en':
+                    return HttpResponse('Empty cart!')
+                if lang == 'uk':
+                    return HttpResponse('Пустий кошик!')
             else:
                 for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
                             c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + 'шт.' + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+
                         else:
                             c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + 'шт.' + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
@@ -270,14 +332,21 @@ def userCart(request, uid):
                     else:
                         bob.append(round(float(local.price) * currency * float(local.amount), 2))
                 intbob = [float(elem) for elem in bob]
-                ordery = " ".join(str(x) for x in c)
                 newa = str(a)
-                order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
+                if lang == 'ru':
+                    ordery = " ".join(str(x) for x in c)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])             
+                elif lang == 'en':
+                    ordery = " ".join(str(x) for x in e)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
+                elif lang == 'uk':
+                    ordery = " ".join(str(x) for x in f)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
                 order.save()
                 '''for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
                         i.delete()'''
-            return redirect('/accounts/' + str(request.user.id) + '/make-order')
+            return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/make-order')
     else:
 
 
@@ -337,8 +406,8 @@ def userCart(request, uid):
         return render(request, template, context)
 
 
-def userFavourites(request, uid):
-    template = "accounts/profilePage/favourites.html"
+def userFavourites(request, uid, lang):
+    template = lang + "/accounts/profilePage/favourites.html"
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     else:
@@ -357,9 +426,12 @@ def userFavourites(request, uid):
 
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
+        language = request.POST.get('language', '')
         if itemToDelete:
             ShopFavourite.objects.filter(favourite_item=itemToDelete).delete()
-        return redirect("/accounts/" + str(request.user.id) + "/favourites")
+            return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/favourites")
+        elif language:
+            return redirect('/' + str(language))
     else:
         favourites = ShopFavourite.objects.all()
         a = []
@@ -376,7 +448,7 @@ def userFavourites(request, uid):
         return render(request, template, context)
 
 
-def editProfilePage(request, uid):
+def editProfilePage(request, uid ,lang):
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     new_name = request.POST.get('new_name', '')
@@ -389,6 +461,7 @@ def editProfilePage(request, uid):
     password = request.POST.get('password', '')
     if request.POST:
         userProfile = AuthUser.objects.get(id=uid)
+        language = request.POST.get('language', '')
         userProfile.first_name = new_name
         userProfile.last_name = new_last_name
         userProfile.email = new_email
@@ -398,32 +471,44 @@ def editProfilePage(request, uid):
         userProfile.house = new_house
         if check_password(password=password, encoded=userProfile.password) == True:
             userProfile.save()
-            return redirect('/accounts/'+ str(uid))
+            return redirect('/' + lang + '/accounts/'+ str(uid))
+        elif language:
+            return redirect('/' + str(language))
         else:
-            template = 'accounts/editProfile/edit.html'
-            context = {
-                'error_message': 'Неправильный пароль',
-            }
+            template = lang + '/accounts/editProfile/edit.html'
+            if lang == 'ru':
+                context = {
+                    'error_message': 'Неправильный пароль',
+                }
+            elif lang == 'uk':
+                context = {
+                'error_message': 'Неправильний пароль',
+                }
+            elif lang == 'en':
+                context = {
+                'error_message': 'Wrong password',
+                }
             context.update(csrf(request))
             return render(request, template, context)  
     else:
         userProfile = AuthUser.objects.get(id=uid)
-        template = 'accounts/editProfile/edit.html'
+        template = lang + '/accounts/editProfile/edit.html'
         context = {
             'userProfile': userProfile,
         }
         context.update(csrf(request))
         return render(request, template, context)
 
-def editPasswordPage(request, uid):
+def editPasswordPage(request, uid, lang):
     if request.user.is_authenticated == False:
         return HttpResponse('404')
     old_pwd = request.POST.get('old_pwd', '')
     new_pwd = request.POST.get('new_pwd', '')
     repeat_new_pwd = request.POST.get('repeat_new_pwd', '')
     userProfile = AuthUser.objects.get(id=request.user.id)
-    template = 'accounts/editProfile/editPassword.html'
+    template = lang + '/accounts/editProfile/editPassword.html'
     if request.POST:
+        language = request.POST.get('language', '')
         if check_password(password=old_pwd , encoded=userProfile.password) == True:
             if new_pwd == repeat_new_pwd:
                 username = userProfile.username
@@ -432,24 +517,36 @@ def editPasswordPage(request, uid):
                 userProfile.save()
                 user = auth.authenticate(username=username, password=repeat_new_pwd)
                 auth.login(request, user)
-                return redirect('/accounts/'+ str(uid))
+                return redirect('/' + lang + '/accounts/'+ str(uid))
             else:
-                error_code = 'Новые пароли не совпадают. Повторите попытку'
+                if lang == 'ru':
+                    error_code = 'Новые пароли не совпадают. Повторите попытку'
+                elif lang == 'en':
+                    error_code = 'New passwords are different. Try again'
+                elif lang == 'uk':
+                    error_code = 'Нові паролі не співпадають. Спробуйте ще раз'
                 context = {
                 'error_message': error_code,
             }
             return render(request, template, context)
+        elif language:
+            return redirect('/' + str(language))
         else:
-            error_code = 'Неверный старый пароль. Попробуйте снова'
+            if lang == 'ru':
+                error_code = 'Неверный старый пароль. Попробуйте снова'
+            elif lang == 'en':
+                error_code = 'Wrong old password. Try again'
+            elif lang == 'uk':
+                error_code = 'Невірний старий пароль. Спробуйте ще раз'
             context = {
                 'error_message': error_code,
             }
             return render(request, template, context)
     else:
-        template = 'accounts/editProfile/editPassword.html'
+        template = lang + '/accounts/editProfile/editPassword.html'
         return render(request, template)
 
-def makeOrder(request, uid):
+def makeOrder(request, uid, lang):
     if request.user.is_authenticated == False:
         auth_status = 'failed'
         return HttpResponse('404')
@@ -498,7 +595,7 @@ def makeOrder(request, uid):
 
     if request.user.is_anonymous:
         anon = True
-    template = 'accounts/profilePage/makingOrder.html'
+    template = lang + '/accounts/profilePage/makingOrder.html'
     try:
         user = AuthUser.objects.get(id=str(request.user.id))
     except ValueError:
@@ -511,6 +608,7 @@ def makeOrder(request, uid):
     needed = currencys[len(currencys) - 1]
     currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
     if request.POST:
+        language = request.POST.get('language', '')
         go = request.POST.get('go', '')
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
@@ -526,6 +624,8 @@ def makeOrder(request, uid):
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
         #normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
+        if language:
+            return redirect('/' + str(language))
         if orderFromHtml == None:
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
@@ -539,7 +639,12 @@ def makeOrder(request, uid):
                         price += int(i.price) * currency * int(i.amount)
             '''b = max(a)
             newUser = ShopCarty.objects.get(cart_id=b)'''
-            error_message = 'Ошибка: Пустой заказ'
+            if lang == 'ru':
+                error_message = 'Ошибка: Пустой заказ'
+            elif lang == 'en':
+                error_message = 'Error: Empty order'
+            elif lang == 'uk':
+                error_message = 'Помилка: Порожнє замовлення'
             context = {
                 'currency': currency,
                 'auth_status': auth_status,
@@ -564,7 +669,12 @@ def makeOrder(request, uid):
                         price += int(i.price) * currency * int(i.amount)
             '''b = max(a)
             newUser = ShopCarty.objects.get(cart_id=b)'''
-            error_message = 'Ошибка: Введите корректный адрес'
+            if lang == 'ru':
+                error_message = 'Ошибка: Введите корректный адрес'
+            elif lang == 'en':
+                error_message = 'Error: Enter correct address'
+            elif lang == 'uk':
+                error_message = 'Помилка: Введіть правильну адресу'
             context = {
                 'currency': currency,
                 'auth_status': auth_status,
@@ -617,7 +727,7 @@ def makeOrder(request, uid):
             if typeOfPayment == 'Наличный':
                 '''toDelete = ShopOrdery.objects.last()
                 toDelete.delete()'''
-                return redirect('/accounts/' + str(request.user.id) + '/orders')
+                return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/orders')
             else:
                 '''toDelete = ShopOrdery.objects.last()
                 toDelete.delete()'''
@@ -646,7 +756,7 @@ def makeOrder(request, uid):
         }
         return render(request, template, context)
 
-def orderInfo(request, oid, uid):
+def orderInfo(request, oid, uid, lang):
 
     class ShopOrdery(models.Model):
         id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -692,8 +802,11 @@ def orderInfo(request, oid, uid):
     if request.POST:
         edit = request.POST.get('edit', '')
         editid = request.POST.get('editid', '')
+        language = request.POST.get('language', '')
         if edit:
-            return redirect('/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
+            return redirect('/' + lang + '/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
+        elif language:
+            return redirect('/' + str(language))
     else:
         if request.user.is_authenticated == False:
             auth_status = 'failed'
@@ -704,7 +817,7 @@ def orderInfo(request, oid, uid):
             user = AuthUser.objects.get(id=str(request.user.id))
         except ValueError:
             user = AuthUser.objects.get(id=str(1))
-        template = 'accounts/orderInfo/order.html'
+        template = lang + '/accounts/orderInfo/order.html'
         cart = ShopCarty.objects.all()
         orders = ShopOrdery.objects.all()
         a = []
@@ -720,19 +833,24 @@ def orderInfo(request, oid, uid):
             }
         return render(request, template, context)
 
-def success_order(request, uid):
+def success_order(request, uid, lang):
     if request.user.is_authenticated == False:
         auth_status = 'failed'
         return HttpResponse('404')
     else: 
         auth_status = 'success'
-    template = 'accounts/profilePage/success.html'
-    context = {
-        'auth_status': auth_status,
-    }
-    return render(request, template, context)
+    if request.POST:
+        language = request.POST.get('language', '')
+        if language:
+            return redirect('/' + str(language))
+    else:
+        template = lang + '/accounts/profilePage/success.html'
+        context = {
+            'auth_status': auth_status,
+        }
+        return render(request, template, context)
 
-def edit_order_page(request, uid, oid):
+def edit_order_page(request, uid, oid, lang):
 
     class ShopOrdery(models.Model):
         id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -762,7 +880,7 @@ def edit_order_page(request, uid, oid):
             managed = False
             db_table = 'shop_order'
 
-    template = 'accounts/editOrder/editOrder.html'
+    template = lang + '/accounts/editOrder/editOrder.html'
     if request.user.is_authenticated == False:
         auth_status = 'failed'
         return HttpResponse('404')
@@ -773,6 +891,7 @@ def edit_order_page(request, uid, oid):
     except ValueError:
         user = AuthUser.objects.get(id=str(1))
     if request.POST:
+        language = request.POST.get('language', '')
         go = request.POST.get('go', '')
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
@@ -787,9 +906,15 @@ def edit_order_page(request, uid, oid):
         house = request.POST.get('house', '')
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
-
+        if language:
+            return redirect('/' + str(language))
         if orderFromHtml == None:
-            error_message = 'Ошибка: Пустой заказ'
+            if lang == 'ru':
+                error_message = 'Ошибка: Пустой заказ'
+            elif lang == 'en':
+                error_message = 'Error: Empty order'
+            elif lang == 'uk':
+                error_message = 'Помилка: Порожнє замовлення'
             context = {
                 'auth_status': auth_status,
                 'userId': str(request.user.id),
@@ -799,7 +924,12 @@ def edit_order_page(request, uid, oid):
             return render(request, template, context)
         
         if (street == 'None'or house == 'None' or city == 'None') and typeOfDelivery != 'Самовывоз':
-            error_message = 'Ошибка: Введите корректный адрес'
+            if lang == 'ru':
+                error_message = 'Ошибка: Введите корректный адрес'
+            elif lang == 'en':
+                error_message = 'Error: Enter correct address'
+            elif lang == 'uk':
+                error_message = 'Помилка: Введіть правильну адресу'
             context = {
                 'auth_status': auth_status,
                 'user': user,
@@ -842,7 +972,7 @@ def edit_order_page(request, uid, oid):
                 specorder.confirm = 'uc'
                 specorder.save()
             if typeOfPayment == 'Наличный':
-                return redirect('/accounts/' + str(request.user.id) + '/success-order')
+                return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/success-order')
             else:
                 return redirect('/payment')
     else:

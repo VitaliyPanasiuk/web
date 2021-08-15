@@ -1,0 +1,163 @@
+{% load static %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>Cart</title>
+</head>
+</head>
+<body>
+    {% block content %}
+    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% if account == userId %}
+        <div class="body_inf">
+            <div class="conteiner">
+                <div class="intro_page">
+                    <div class="user_page">
+                        <div class="user" >
+                            <div class="user_img">
+                                <a class="first_name" href='/en/accounts/{{ user.id }}/'>
+                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
+                                </a>
+                            </div>
+                            <div class="user_inf ">
+                                <div class="user_inf_top">
+                                    {% if user.first_name %}
+                                    <a class="first_name" href='/en/accounts/{{ user.id }}/'>
+                                        {{ user.first_name }}
+                                    </a>
+                                    {% else %}
+                                        <a class="first_name" href='/en/accounts/{{ user.id }}/'>
+                                            {{ user.username }}
+                                        </a>
+                                    {% endif %}
+                                    {% if user.last_name %} 
+                                    <a class="last_name" href='/en/accounts/{{ user.id }}/'>
+                                        {{ user.last_name }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="user_inf_bot">
+                                    <a class="user_email" href='/en/accounts/{{ user.id }}/'>
+                                        {{ user.email }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order user_bl">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                                <a href='orders'>My orders</a>
+                            </div>
+                        </div>
+                        <div class="favourite user_bl ">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
+                             </div>
+                             <div class="user_bl_text">
+                                <a href='favourites'>my favourites</a>
+                            </div>
+                        </div>
+                        <div class="cart user_bl active_item">
+                            <div class="user_bl_img">
+                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
+                            </div>
+                            <div class="user_bl_text">
+                               <a href='cart'>My cart</a> 
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="user_redact">
+                        {% for item in items %}
+                            {% if userId == item.user_id %}
+                            <div class="user_cart_bl">
+                                <div class="user_cart_lf" >
+                                    <img src="{%static 'shop/img/cart-left.jpg' %}" alt="">
+                                </div>
+                                <div class="user_cart_all">
+                                    <div class='name_and_delete'>
+                                        <a href='/product/{{ item.item }}'>
+                                            <p>{{ item.name }}</p>
+                                        </a>
+                                        <form action='' method="POST" class="form_del">
+                                            {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
+                                            <input type='submit' value='&#10060;'>
+                                        </form>
+                                    </div>
+                                    <div class="price_and_other">
+                                        <p>Price: {{ item.price|mul:item.amount  }} {{ item.currency }} </p>
+                                        {% if item.currency == 'USD' %}
+                                           <p> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
+                                        {% endif %}
+                                        <div class="quantity">
+                                            <p>Amount: {{ item.amount }}</p>
+                                        <div class='forms'>
+                                            <form action='' method="POST">
+                                                {% csrf_token %}
+                                                <div style='display: none;'><input type='text' name='item_plus' id='item_plus' value='{{ item.item }}'></div>
+                                                <input type='hidden' name='plus' id='plus' value='plus'>
+                                                <input type='submit' value='+'>
+                                            </form>
+        
+                                            <form action='' method="POST">
+                                                {% csrf_token %}
+                                                <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
+                                                <input type='hidden' name='minus' id='minus' value='minus'>
+                                                <input type='submit' value='-'>
+                                            </form>
+                                        </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %} 
+
+                        {% if items %}
+                            <p>Total price: {{ sum }} UAH</p>
+                            {% if messages %}
+                                    {% for message in messages %}
+                                        <p class="{{ message.tags }}">
+                                            {{ message|safe }}
+                                            <a href="" class="close">✖</a>
+                                        </p>
+                                    {% endfor %}
+                            {% endif %}
+                            <form method='POST' action=''>
+                                {% csrf_token %}
+                                <input type='submit' name = 'makeorder' value='Make an order'>
+                            </form>
+                        {% else %}
+                            Empty cart
+                        {% endif %}
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        {% else %}
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    {% endif %}
+    <div class="footer">
+        {% include 'en/productInfo/includes/footer.html' %}
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>
