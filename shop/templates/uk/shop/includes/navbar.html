@@ -33,7 +33,7 @@
                         
                         {% if user.is_authenticated %}
                         <div class="header_but">
-                            <a href="/accounts/logout" class="headerbut_log">
+                            <a href="/uk/accounts/logout" class="headerbut_log">
                                 Вийти
                             </a>
                         </div>
@@ -75,7 +75,7 @@
                                         Ласкаво просимо: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/uk/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -88,14 +88,14 @@
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/accounts/login" class="headerbut_log">
+                                <a href="/uk/accounts/login" class="headerbut_log">
                                     Увійти
                                 </a>
                             </div>
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/accounts/register" class="headerbut_log">
+                                <a href="/uk/accounts/register" class="headerbut_log">
                                     Зареєструватися
                                 </a>
                             </div>
