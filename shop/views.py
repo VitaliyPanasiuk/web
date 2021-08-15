@@ -1,3 +1,4 @@
+from django.http.response import Http404
 from accounts.models import AuthUser
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
@@ -13,11 +14,21 @@ from datetime import datetime
 x = 0
 y = 4
 
-def homePage(request):
-    return render(request, 'shop/index.html')
+def homePage(request, lang):
+    language = request.POST.get('language', '')
+    if request.POST:
+        if language:
+            return redirect('/' + str(language))
+        else:
+            HttpResponse('404')
+    else:
+        context = { 
+            'lang': lang,
+        }
+        return render(request, str(lang) + '/shop/index.html', context)
 
 
-def productsPage(request):
+def productsPage(request, lang):
     '''for i in продукты:
         try:
             image = i.ссылка_изображения
@@ -54,8 +65,9 @@ def productsPage(request):
         searchText = searchTextRaw.replace(" ", "-")
         applyfilters = request.POST.get('applyfilters', '')
         nofilters = request.POST.get('nofilters', '')
+        language = request.POST.get('language', '')
         if search:
-            return redirect('/products/search/?q=' + searchText)
+            return redirect('/' + str(lang) + '/products/search/?q=' + searchText)
         elif applyfilters:
             pricefilter = request.POST.get('pricefilter', '')
             availablefilter = request.POST.get('availablefilter', '')
@@ -66,7 +78,7 @@ def productsPage(request):
                     'withprice': 'yes',
                     'available': 'yes',
                         }
-                template = 'products/index.html'
+                template = str(lang) + '/products/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цена есть' and availablefilter == 'Нету':
                 filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие='-')
@@ -75,7 +87,7 @@ def productsPage(request):
                     'withprice': 'yes',
                     'available': 'no',
                         }
-                template = 'products/index.html'
+                template = str(lang) + '/products/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цены нет' and availablefilter == 'Нету':
                 filteredProducts = Продукт.objects.filter(цена=None).filter(наличие='-')
@@ -84,7 +96,7 @@ def productsPage(request):
                     'withprice': 'no',
                     'available': 'no',
                         }
-                template = 'products/index.html'
+                template = str(lang) + '/products/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цены нет' and availablefilter == 'Есть':
                 filteredProducts = Продукт.objects.exclude(наличие='-').filter(цена=None)
@@ -93,7 +105,7 @@ def productsPage(request):
                     'withprice': 'no',
                     'available': 'yes',
                         }
-                template = 'products/index.html'
+                template = str(lang) + '/products/index.html'
                 return render(request, template, context)
         elif nofilters:
             context = {
@@ -101,18 +113,20 @@ def productsPage(request):
                 'withprice': 'spec',
                 'available': 'spec',
                     }
-            template = 'products/index.html'
+            template = str(lang) + '/products/index.html'
             return render(request, template, context)
+        elif language:
+            return redirect('/' + str(language))
 
     filteredProducts = Продукт.objects.exclude(наличие='-').exclude(цена=None)#| Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
     context = {
         'продукты': filteredProducts,
         'available': 'spec',
             }
-    template = 'products/index.html'
+    template = str(lang) + '/products/index.html'
     return render(request, template, context)
 
-def searchPage(request):
+def searchPage(request, lang):
     q = request.GET.get('q').replace("-", " ").lower()
     a = Продукт.objects.filter(название_позиции__icontains = q)
     if request.POST:
@@ -123,8 +137,9 @@ def searchPage(request):
         searchText = searchTextRaw.replace(" ", "-")
         applyfilters = request.POST.get('applyfilters', '')
         nofilters = request.POST.get('nofilters', '')
+        language = request.POST.get('language', '')
         if search:
-            return redirect('/products/search/?q=' + searchText)
+            return redirect('/' + str(lang) + '/products/search/?q=' + searchText)
         elif applyfilters:
             pricefilter = request.POST.get('pricefilter', '')
             availablefilter = request.POST.get('availablefilter', '')
@@ -136,7 +151,7 @@ def searchPage(request):
                     'withprice': 'yes',
                     'available': 'yes',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цена есть' and availablefilter == 'Нету':
                 filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие='-').filter(название_позиции__icontains = q.lower())
@@ -146,7 +161,7 @@ def searchPage(request):
                     'withprice': 'yes',
                     'available': 'no',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цены нет' and availablefilter == 'Нету':
                 filteredProducts = Продукт.objects.filter(цена=None).filter(наличие='-').filter(название_позиции__icontains = q.lower())
@@ -156,7 +171,7 @@ def searchPage(request):
                     'withprice': 'no',
                     'available': 'no',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цены нет' and availablefilter == '':
                 filteredProducts = Продукт.objects.filter(цена=None).filter(название_позиции__icontains = q.lower())
@@ -166,7 +181,7 @@ def searchPage(request):
                     'withprice': 'no',
                     'available': 'spec',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == 'Цена есть' and availablefilter == '':
                 filteredProducts = Продукт.objects.exclude(цена=None).filter(название_позиции__icontains = q.lower())
@@ -177,7 +192,7 @@ def searchPage(request):
                     'withprice': 'yes',
                     'available': 'spec',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == '' and availablefilter == 'Нету':
                 filteredProducts = Продукт.objects.filter(наличие='-').filter(название_позиции__icontains = q.lower())
@@ -187,7 +202,7 @@ def searchPage(request):
                     'withprice': 'spec',
                     'available': 'no',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == '' and availablefilter == 'Есть':
                 filteredProducts = Продукт.objects.exclude(наличие='-').filter(название_позиции__icontains = q.lower())
@@ -197,7 +212,7 @@ def searchPage(request):
                     'withprice': 'spec',
                     'available': 'yes',
                         }
-                template = 'products/search/index.html'
+                template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == '' and availablefilter == '':
                 context = {
@@ -206,7 +221,7 @@ def searchPage(request):
                 'withprice': 'spec',
                 'available': 'spec',
                     }
-            template = 'products/search/index.html'
+            template = str(lang) + '/products/search/index.html'
             return render(request, template, context)
         elif nofilters:
             context = {
@@ -215,25 +230,43 @@ def searchPage(request):
                 'withprice': 'spec',
                 'available': 'spec',
                     }
-            template = 'products/search/index.html'
+            template = str(lang) + '/products/search/index.html'
             return render(request, template, context)
+        elif language:
+            return redirect('/' + str(language))
             
     else:
-        template = 'products/search/index.html'
+        template = str(lang) + '/products/search/index.html'
         if len(a) == len(Продукт.objects.all()):
-            context = {
+            if lang == 'ru':
+                context = {
+                    #'продукты': a[0:len(a):],
+                    'error_message': 'Пустой запрос',
+                    #'page': int(page),
+                    }
+                return render(request, template, context)
+            elif lang == 'en':
+                context = {
                 #'продукты': a[0:len(a):],
-                'error_message': 'Пустой запрос',
+                'error_message': 'Empty search field',
                 #'page': int(page),
                 }
             return render(request, template, context)
         elif len(a) == 0:
-            context = {
+            if lang == 'ru':
+                context = {
                 #'продукты': a[0:len(a):],
                 'error_message': 'По Вашему запросу ничего не найдено',
                 #'page': int(page),
                 }
-            return render(request, template, context)
+                return render(request, template, context)
+            elif lang == 'en':
+                context ={
+                    #'продукты': a[0:len(a):],
+                    'error_message': 'No results were found for your search',
+                    #'page': int(page),
+                    }
+                return render(request, template, context)                
         else:
             context = {
                 'продукты': a[0:len(a):],
@@ -244,18 +277,32 @@ def searchPage(request):
             return render(request, template, context)
 
 def error404(request, exception):
-    return render(request, '404.html')
+    return render(request, 'ru/404.html')
 
-def achievementsPage(request):
-    return render(request, 'achievements/index.html')
+def achievementsPage(request, lang):
+    language = request.POST.get('language', '')
+    if request.POST:
+        if language:
+            return redirect('/' + str(language))
+        else: 
+            HttpResponse('404')
+    else:
+        return render(request, str(lang) + '/achievements/index.html')
 
-def aboutUsPage(request):
-    return render(request, 'about/index.html')
+def aboutUsPage(request, lang):
+    language = request.POST.get('language', '')
+    if request.POST:
+        if language:
+            return redirect('/' + str(language))
+        else:
+            HttpResponse('404')
+    else:
+        return render(request, str(lang) + '/about/index.html')
 
 def loginPage(request):
     return render(request, 'login/index.html')
 
-def aboutProductPage(request, id):
+def aboutProductPage(request, id, lang):
 
     class ShopCarty(models.Model):
         user_id = models.CharField(max_length=45)
@@ -292,6 +339,7 @@ def aboutProductPage(request, id):
         last_name = request.POST.get('callme_last_name', '')
         phone_number = request.POST.get('callme_phone_number')
         callme = request.POST.get('callme_inp_button', '')
+        language = request.POST.get('language', '')
         if cart_add:
             item_id = request.POST.get('add_id', '')
             item_name = request.POST.get('add_name', '')
@@ -312,7 +360,9 @@ def aboutProductPage(request, id):
                 elif i.amount == ToSave.amount and i.item == ToSave.item: 
                     ShopCarty.objects.filter(item = ToSave.item).delete()           
             ToSave.save()
-            return redirect('/products/')
+            return redirect(str(lang) + '/products/')
+        elif language:
+            return redirect('/' + str(language))
         elif favourite_add:
             favourite_item_id = request.POST.get('favourite_add_id', '')
             favourite_item_name = request.POST.get('favourite_add_name', '')
@@ -329,11 +379,11 @@ def aboutProductPage(request, id):
                 if i.favourite_item == favourite_item_id:
                     ShopFavourite.objects.filter(favourite_item = favourite_item_id).delete()    
             favouriteToSave.save()             
-            return redirect('/accounts/'+ str(request.user.id) +'/favourites')
+            return redirect(str(lang) + '/accounts/'+ str(request.user.id) +'/favourites')
         elif callme:
             call = ShopCalls(first_name=first_name, last_name=last_name, phone_number=phone_number, timedate=datetime.now())
             call.save()
-            return redirect('/products')  
+            return redirect(str(lang) + '/products')  
     else:
         if request.user.is_authenticated == False:
             auth_status = 'failed'
@@ -348,7 +398,6 @@ def aboutProductPage(request, id):
             auth_status = 'success'
             product = Продукт.objects.get(id=int(id))
             images = product.images.all()
-            print(images)
             context = {
                 'продукт': product,
                 'user_id': request.user.id,
@@ -356,6 +405,9 @@ def aboutProductPage(request, id):
                 'auth_status': auth_status,
                 'images': images,
             }
-        template = 'productInfo/more.html'
+        template = str(lang) + '/productInfo/more.html'
         context.update(csrf(request))
         return render(request, template, context)
+
+def goWithLanguage(request):
+    return redirect('/ru')

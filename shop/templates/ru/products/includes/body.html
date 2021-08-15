@@ -1,0 +1,127 @@
+{% load static %}
+{% get_media_prefix as MEDIA_URL %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="{%  static  'shop\css\style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop\css\productMain\products_style.css'  %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    <title>LuxonSport</title>
+</head>
+<body>
+    <div class="conteiner">
+        <div class="intro_conADD">
+            <div class="conteiner">
+                <div class="intro_inner">
+                    <h1 class="intro_tittle"><i>Каталог</i></h1>
+                </div>
+            </div>
+        </div>
+        <div class='search'>
+            <form method='POST' action=''>
+                {% csrf_token %}
+                <div class='searchtextdiv'>
+                    <input type='search' name='searchtext' class="searchtext">
+                </div>
+                <div class='searchbuttondiv'>
+                    <input type='submit' name='search' class='searchbutton' value='Поиск'>
+                </div>
+            </form>
+        </div> 
+        <br>
+        <div class="filters">
+            <form method='POST' action=''>
+                {% csrf_token %}
+                <p>Цена</p>
+                {% if withprice == 'no' %}
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                {% elif withprice == 'spec' %}
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет'>
+                {% else %}
+                <label>С ценой</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Без цены</label><input type='radio' name='pricefilter' value='Цены нет'>
+                {% endif %}
+                <p>Наличие</p>
+                {% if available == 'no' %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% elif available == 'spec' %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету'>
+                {% else %}
+                <label>Есть в наличии</label><input type='radio' name='availablefilter' value='Есть' checked>
+                <label>Нет в наличии</label><input type='radio' name='availablefilter' value='Нету'>
+                {% endif %}
+                <input type='submit' name='applyfilters' value='Применить фильтры'>
+                <input type='submit' name='nofilters' value='Убрать все фильтры'>
+            </form>
+        </div>
+        <div class="body_inf">    
+            <div class="content_products">
+                        {% for продукт in продукты %}
+                            <div class="line">
+                                <div class="line_item item1">
+                                    <div class="line_item_info">
+                                            <a href='/ru/product/{{ продукт.id }}/'><div class="line_item_img"><img alt="" src="{{ MEDIA_URL }}{{ продукт.image }}"></div></a>
+                                            <div class="protuct_tit">
+                                            <p class="line_item_text item_info">
+                                                {{ продукт.название_позиции }}
+                                            </p>
+                                        </div> 
+                                        {% if продукт.наличие != '-' %}
+                                            <p class="item_info">
+                                                Есть в наличии
+                                            </p>
+                                        {% else %}
+                                            <p class=" item_info">
+                                                Нет в наличии
+                                            </p>
+                                        {% endif %}
+                                        {% if продукт.цена == None or продукт.валюта == None %}
+                                            <p class="line_item_price item_info">
+                                                Цена формируется
+                                            </p> 
+                                        {% else %}  
+                                            <p class="line_item_price item_info">
+                                                {{ продукт.цена  }} {{ продукт.валюта }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="line_item_button">
+                                        <a class="line_item_but " href='/ru/product/{{ продукт.id }}/'>
+                                            Подробнее
+                                        </a>   
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <!--{% if page != 1 %}
+                        <form method='POST' action=''>
+                            {% csrf_token %}
+                            <input type='submit' name='previousPage' value='Previous Page'>
+                        </form>
+                        {% endif %}
+                        <form method='POST' action='' id='next'>
+                            {% csrf_token %}
+                            <input type='submit' name='nextPage' value='Next Page'>
+                        </form>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <label>Перейти на страницу:</label>
+                            <input type='number' name='goto'>
+                            <input type='submit' value='Перейти' name='go'>
+                        </form>-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
