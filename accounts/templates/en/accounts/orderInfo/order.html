@@ -49,19 +49,25 @@
             {% elif order.confirm == 'uc' %}
             <p>Order status: Processing</p>
             {% elif order.confirm == 'ac' %}
-            <p>Order status:Confirmed by administrator</p>
+            <p>Order status: Confirmed by administrator</p>
             {% elif order.confirm == 'done' %}
             <p>Order status: Order completed</p>
             {% endif %}
             {% if order.delivery_type == None %}
             <p>Delivery Type: Not Chosen</p>
-            {% else %}
-            <p>Delivery Type: {{ order.delivery_type }}</p>
+            {% elif order.delivery_type == 'Самовывоз' %}
+            <p>Delivery Type: by yourself</p>
+            {% elif order.delivery_type == 'Нова пошта' %}
+            <p>Delivery Type: Nova Poshta</p>
+            {% elif order.delivery_type == 'Укрпошта' %}
+            <p>Delivery Type: Ukrposhta</p>
             {% endif %}
             {% if order.payment_type == None %}
             <p>Payment Type: Not Chosen</p>
-            {% else %}
-            <p>Payment Type: {{ order.payment_type }}</p>
+            {% elif order.payment_type == 'Наличный'  %}
+            <p>Payment Type: Cash</p>
+            {% elif order.payment_type == 'Безналичный'  %}
+            <p>Payment Type: Card</p>
             {% endif %}
             {% if order.delivery_type == 'Нова пошта' %}
             <p>Nova Poshta department: {{ order.nova_pochta }}</p>
