@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Заказ</title>
+    <title>Замовлення</title>
     <script>
         function pickup(){
             document.getElementById('address').style.display ='none';
@@ -32,57 +32,63 @@
     </script>
 </head>
 <body>
-    {% include 'accounts/orderInfo/includes/navbar.html' %}
+    {% include 'uk/accounts/orderInfo/includes/navbar.html' %}
     {% if userId == account %}
     <div>
         <form method="POST" action="">
             {% csrf_token %}
-            <p>Имя: {{ user.first_name }}</p>
-            <p>Фамилия: {{ user.last_name }}</p>
-            <p>Почта: {{ user.email }}</p>
-            <p>Телефон: {{ user.phone_number }}</p>
-            <label>Заказ: </label>
+            <p>Ім'я: {{ user.first_name }}</p>
+            <p>Прізвище: {{ user.last_name }}</p>
+            <p>Електронна пошта: {{ user.email }}</p>
+            <p>Номер телефону: {{ user.phone_number }}</p>
+            <label>Замовлення: </label>
             <span style="white-space: pre-line">{{ order.заказ }}</span>
-            <p>К оплате: {{ order.сумма_заказа }} UAH</p>
+            <p>До сплати: {{ order.сумма_заказа }} UAH</p>
             {% if order.confirm == 'unc' %}
-            <div style="color:red; text-decoration:underline;"><p>Внимание! статус заказа: Не подтвержден пользователем. Пожалуйста, завершите оформление заказа.</p></div>
+            <div style="color:red; text-decoration:underline;"><p>Увага! Статус замовлення: Не підтверджено користувачем. Будь-ласка, завершіть оформлення замовлення.</p></div>
             {% elif order.confirm == 'uc' %}
-            <p>Статус заказа: В обработке</p>
+            <p>Статус замовлення: В обробці</p>
             {% elif order.confirm == 'ac' %}
-            <p>Статус заказа: Подтвержден администратором</p>
+            <p>Статус замовлення: Підтверджено адміністратором</p>
             {% elif order.confirm == 'done' %}
-            <p>Статус заказа: Заказ выполнен</p>
+            <p>Статус замовлення: Замовлення виконано</p>
             {% endif %}
             {% if order.delivery_type == None %}
-            <p>Тип доставки: не выбран</p>
-            {% else %}
-            <p>Тип доставки: {{ order.delivery_type }}</p>
+            <p>Тип доставки: не обрано</p>
+            {% elif order.delivery_type == 'Самовивіз' %}
+            <p>Тип доставки: Самовивіз</p>
+            {% elif order.delivery_type == 'Нова пошта' %}
+            <p>Тип доставки: Нова пошта</p>
+            {% elif order.delivery_type == 'Укрпошта' %}
+            <p>Тип доставки: Укрпошта</p>
             {% endif %}
             {% if order.payment_type == None %}
-            <p>Тип оплаты: не выбран</p>
-            {% else %}
-            <p>Тип оплаты: {{ order.payment_type }}</p>
+            <p>Тип сплати: не обрано</p>
+            {% elif order.payment_type == 'Наличный' %}
+            <p>Тип сплати: Готівка</p>
+            {% elif order.payment_type == 'Безналичный' %}
+            <p>Тип сплати: Картка</p>
             {% endif %}
             {% if order.delivery_type == 'Нова пошта' %}
-            <p>Отделение Новой Почты: {{ order.nova_pochta }}</p>
-            <p>Город: {{ order.city }}</p>
-            <p>Улица: {{ order.street }}</p>
-            <p>Дом: {{ order.house }}</p>
+            <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
+            <p>Місто: {{ order.city }}</p>
+            <p>Вулиця: {{ order.street }}</p>
+            <p>Дім: {{ order.house }}</p>
             {% elif order.delivery_type == 'Укрпошта' %}
-            <p>Почтовый индекс: {{ order.ukr_pochta }}</p>
-            <p>Город: {{ order.city }}</p>
-            <p>Улица: {{ order.street }}</p>
-            <p>Дом: {{ order.house }}</p>
+            <p>Поштовий індекс: {{ order.ukr_pochta }}</p>
+            <p>Місто: {{ order.city }}</p>
+            <p>Вулиця: {{ order.street }}</p>
+            <p>Дім: {{ order.house }}</p>
             {% endif %}
             {% if order.confirm == 'unc' %}
             <input type='hidden' name='editid' value='{{ order.id }}'>
-            <input type="submit" name='edit' value='Завершить оформление заказа'>
+            <input type="submit" name='edit' value='Завершити оформлення замовлення'>
             {% endif %}
         </form>
     </div>
     {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
     {% endif %}
-    {% include 'accounts/profilePage/includes/footer.html' %}
+    {% include 'uk/accounts/profilePage/includes/footer.html' %}
 </body>
 </html>

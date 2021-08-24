@@ -12,11 +12,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Заказы</title>
+    <title>Замовлення</title>
 </head>
 <body>
     {% block content %}
-    {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     {% if account == userId %}
         <div class="body_inf">
             <div class="conteiner">
@@ -24,29 +24,29 @@
                     <div class="user_page">
                         <div class="user" >
                             <div class="user_img">
-                                <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                     <img src="{%  static  'shop/img/user.png'  %}" alt="">
                                 </a>
                             </div>
                              <div class="user_inf ">
                                 <div class="user_inf_top">
                                     {% if user.first_name %}
-                                    <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                    <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.first_name }}
                                     </a>
                                     {% else %}
-                                        <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                        <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                             {{ user.username }}
                                         </a>
                                     {% endif %}
                                     {% if user.last_name %} 
-                                    <a class="last_name" href='/accounts/{{ user.id }}/'>
+                                    <a class="last_name" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.last_name }}
                                     </a>
                                     {% endif %}
                                 </div>
                                 <div class="user_inf_bot">
-                                    <a class="user_email" href='/accounts/{{ user.id }}/'>
+                                    <a class="user_email" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.email }}
                                     </a>  
                                     <!-- <p class="user_email">{{ user.email }}</p> -->
@@ -58,7 +58,7 @@
                                 <img src="{%  static  'shop/img/list.png'  %}" alt="">
                             </div>
                             <div class="user_bl_text">
-                                <a href='orders'>Мои заказы</a>
+                                <a href='orders'>Мої замовлення</a>
                             </div>
                         </div>
                         <div class="favourite user_bl ">
@@ -66,7 +66,7 @@
                                 <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
                              </div>
                              <div class="user_bl_text">
-                                <a href='favourites'>Избранное</a>
+                                <a href='favourites'>Обранне</a>
                             </div>
                         </div>
                         <div class="cart user_bl">
@@ -74,7 +74,7 @@
                                 <img src="{%  static  'shop/img/cart.png'  %}" alt="">
                             </div>
                             <div class="user_bl_text">
-                               <a href='cart'>Моя корзина</a> 
+                               <a href='cart'>Мій кошик</a> 
                             </div>
                             
                         </div>
@@ -100,7 +100,7 @@
                             <div class="status">
                                 <div class="stat_data">
                                     <a href='order/{{ order.id }}'>
-                                        Заказ №{{ order.id }}
+                                        Замовлення №{{ order.id }}
                                     </a>  
                                 </div>
                                 
@@ -111,7 +111,7 @@
                                     Статус: 
                                 </div>
                                 <div class="stat_inf">
-                                    В обработке
+                                    В обробці
                                 </div>
                                 
                             </div>
@@ -121,7 +121,7 @@
                                     Статус: 
                                 </div>
                                 <div class="stat_inf">
-                                    Заказ принят
+                                    Замовлення прийняте
                                 </div>
                                 
                             </div>
@@ -131,7 +131,7 @@
                                     Статус: 
                                 </div>
                                 <div class="stat_inf">
-                                    Заказ выполнен
+                                    Замовлення виконано
                                 </div>
                                 
                             </div>
@@ -141,14 +141,14 @@
                                     Статус: 
                                 </div>
                                 <div class="stat_inf">
-                                    Не подтвержден пользователем
+                                    Не підтверджено користувачем
                                 </div>
                                 
                             </div>
                             {% endif %}
                             <div class="order_price">
                                 <div class="order_price_tit">
-                                    Сумма Заказа: {{ order.сумма_заказа }} UAH
+                                    Сума замовлення: {{ order.сумма_заказа }} UAH
                                 </div>
                             </div>
                             {% if order.confirm == 'unc' %}
@@ -172,10 +172,10 @@
 
 
     {% else %}
-        <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+        <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
     {% endif %}
         <div class="footer">
-            {% include 'productInfo/includes/footer.html' %}
+            {% include 'uk/productInfo/includes/footer.html' %}
         </div>
         
     {% endblock %}

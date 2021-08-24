@@ -74,16 +74,20 @@
                                             <a href='/uk/product/{{ продукт.id }}/'><div class="line_item_img"><img alt="" src="{{ MEDIA_URL }}{{ продукт.image }}"></div></a>
                                             <div class="protuct_tit">
                                             <p class="line_item_text item_info">
-                                                {{ продукт.название_позиции }}
+                                                {{ продукт.название_позиции_укр }}
                                             </p>
                                         </div> 
-                                        {% if продукт.наличие != '-' %}
+                                        {% if продукт.наличие == 'a' or продукт.наличие == '+' %}
                                             <p class="item_info">
                                                 Є в наявності
                                             </p>
-                                        {% else %}
+                                        {% elif продукт.наличие == '-' or None %}
                                             <p class=" item_info">
                                                 Немає в наявності
+                                            </p>
+                                        {% else %}
+                                            <p class="item_info">
+                                                Є в наявності
                                             </p>
                                         {% endif %}
                                         {% if продукт.цена == None or продукт.валюта == None %}

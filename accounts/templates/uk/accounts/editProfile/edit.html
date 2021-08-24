@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Изменить профиль</title>
+    <title>Редагувати профіль</title>
     <style>
         body{
             overflow: hidden;
@@ -23,28 +23,28 @@
     </style>
 </head>
 <body>
-    {% include 'accounts/editProfile/includes/navbar.html' %}
-    <h1 class='main_label'>Редактировать пользовательские данные</h1>
+    {% include 'uk/accounts/editProfile/includes/navbar.html' %}
+    <h1 class='main_label'>Редагувати даны користувача</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        <label>Имя: </label>
+        <label>Ім'я: </label>
         <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
-        <label>Фамилия: </label>
+        <label>Прізвище: </label>
         <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
-        <label>Email: </label>
+        <label>Електронна пошта: </label>
         <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
-        <label>Номер телефона: </label>
+        <label>Номер телефону: </label>
         <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
         <br>
-        <p>Адрес Доставки: </p>
-        <label>Город: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
-        <label>Улица: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
-        <label>Дом: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
-        <label>Подтвердите пароль</label>
+        <p>Адреса доставки: </p>
+        <label>Місто: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
+        <label>Вулиця: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
+        <label>Дім: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
+        <label>Підтвердіть пароль</label>
         <input type="password" name='password' id='password' required >
-        <input type="submit" value='Сохранить'>
+        <input type="submit" value='Зберегти'>
         {{ error_message }}
         </form>  
 </body>
-{% include 'accounts/editProfile/includes/footer.html' %}
+{% include 'uk/accounts/editProfile/includes/footer.html' %}
 </html>

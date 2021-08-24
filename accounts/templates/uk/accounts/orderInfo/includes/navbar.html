@@ -13,25 +13,33 @@
                     <div class="header_top">
                         <div class="header_top_img">
                             <div class="top_img">
-                                <a href='/'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
+                                <a href='/uk'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
                             </div>
                             
                         </div>
                         <nav class="navv">
-                            <a href='/' class='nav_link'>home</a>
-                            <a href="/about" class="nav_link">about Us</a>
-                            <a href="/products" class="nav_link">products</a>
-                            <a href="/achievements" class="nav_link">achievements</a>
-                            <a href="" class="nav_link">contact</a>
+                            <a href='/uk' class='nav_link'>Головна сторінка</a>
+                            <a href="/uk/about" class="nav_link">Про нас</a>
+                            <a href="/uk/products" class="nav_link">Каталог</a>
+                            <a href="/uk/achievements" class="nav_link">Досягнення</a>
+                            <a href="" class="nav_link">Контакти</a>
                         </nav>
                         <div class="header_language">
-                            <p>Russin</p>
+                            <form action='' method="POST" id='language'>
+                                {% csrf_token %}
+                                <select form="language" name='language' onchange="this.form.submit()">
+                                    <option value="" disabled selected>Оберіть мову</option>
+                                    <option value="ru">Русский язык</option>
+                                    <option value='en'>English</option>
+                                    <option value='uk'>Українська мова</option>
+                                </select>
+                            </form>
                         </div>
                         
                         {% if auth_status == 'success' %}
                         <div class="header_but">
-                            <a href="/accounts/logout" class="headerbut_log">
-                                Log Out
+                            <a href="/uk/accounts/logout" class="headerbut_log">
+                                Вийти
                             </a>
                         </div>
                         {% endif %}
@@ -62,14 +70,14 @@
                             {% if user.is_staff %}
                             <div class="header_but">
                                 <a href="/admin" class="headerbut_log">
-                                    Admin 
+                                    Адмін 
                                 </a>
                             </div>
                             {% endif %}
                             {% if auth_status == 'success' %}
                                 <div style="color: aliceblue;" class="header_user">
                                     <div class="header_welcome">
-                                        Welcome: 
+                                        Ласкаво просимо: 
                                     </div>
                                     <div class="header_user_but">
                                         <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
@@ -85,15 +93,15 @@
                             {% endif %}
                             {% if auth_status == 'failed' %}
                             <div class="header_but">
-                                <a href="/accounts/login" class="headerbut_log">
-                                    Log In
+                                <a href="/uk/accounts/login" class="headerbut_log">
+                                    Увійти
                                 </a>
                             </div>
                             {% endif %}
                             {% if auth_status == 'failed' %}
                             <div class="header_but">
-                                <a href="/accounts/register" class="headerbut_log">
-                                    Register
+                                <a href="/uk/accounts/register" class="headerbut_log">
+                                    Зареєструватися
                                 </a>
                             </div>
                             {% endif %}

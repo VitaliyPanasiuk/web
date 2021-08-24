@@ -12,22 +12,22 @@
     <link rel="stylesheet"  href="{%  static  'shop/css/accounts/register/register_style.css'  %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Регистрация</title>
+    <title>Реєстрація</title>
 </head>
 <body>
     
     {% block content %}
-    {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     <div class="conteiner">
       <div class="reg_body">
         <div class="reg-tit">
-          <h2>Регистрация</h2>
+          <h2>Реєстрація</h2>
         </div>
         <form method="post" action="" class="reg_forms">
           {% csrf_token %}
           <div class="reg_name_bl">
             <div class="reg_name">
-              <label>Имя пользователя: </label>
+              <label>Ім'я користувача: </label>
               <input type='text' name='username' required>
             </div>
           </div>
@@ -35,14 +35,14 @@
           <br>
           <div class="reg_em_bl">
             <div class="reg_em">
-              <label>Email: </label>
+              <label>Електронна пошта: </label>
               <input type='email' name='email' required>
             </div>
           </div>
         
           <br>
           <div class="reg_warn">
-            <p>Минимально 8 символов.</p>
+            <p>Мінімально 8 символів. Хоча б одна велика літера та одна цифра</p>
           </div>
           
           <div class="reg_password_bl">
@@ -54,14 +54,14 @@
           
           <div class="reg_password_bl">
             <div class="reg_password">
-              <label>Повторите пароль: </label>
+              <label>Підтвердіть пароль: </label>
               <input type='password' name='password2' required>
             </div>
           </div>
           
           <p>{{ error_code }}</p>
           <div class="reg_but">
-            <input type="submit" name='register' value='Зарегистрироваться'>
+            <input type="submit" name='register' value='Зареєструватися'>
           </div>
           
         </form>

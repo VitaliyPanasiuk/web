@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Создать заказ</title>
+    <title>Редагувати замовлення</title>
     <script>
         function pickup(){
             document.getElementById('address').style.display ='none';
@@ -34,22 +34,22 @@
     </script>
 </head>
 <body>
-    {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div>
         <form method="POST" action="">
             {% csrf_token %}
-            <label>Имя: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите Ваше имя" required>
-            <label>Фамилия: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите Вашу фамилию" required>
+            <label>Ім'я: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введіть Ваше ім'я" required>
+            <label>Прізвище: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введіть Ваше прізвище" required>
             <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
             {% if user.phone_number != None %}
-            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
+            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введіть Ваш номер телефону" required>
             {% else %}
-            <label>Телефон: </label><input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
+            <label>Телефон: </label><input type='text' name='phone_number' placeholder="Введіть Ваш номер телефону" required>
             {% endif %}
             <br>
-            <label>Заказ: </label><div style='display: none;'>
+            <label>Замовлення: </label><div style='display: none;'>
                 <input type="hidden" value='{{ order.заказ }}' name='order'>
             </div>
             <br>
@@ -57,10 +57,10 @@
             <div style='display: none;'>
                 <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
             </div>
-            <p>К оплате: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
+            <p>До сплати: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
             <p>Тип доставки: </p>
             <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>Самовывоз</label>
+            <label>Самовивіз</label>
             <br>
             <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
             <label>Нова Пошта</label>
@@ -68,28 +68,28 @@
             <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
             <label>Укрпошта</label>
             <br>
-            <p>Тип оплаты: </p>
+            <p>Тип сплати: </p>
             <input type="radio" name='typeOfPayment' value='Наличный' checked>
-            <label>Наличный</label>
+            <label>Готівка</label>
             <br>
             <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
-            <label>Безналичный </label><label style="color: red;">Недоступно (в разработке)</label>
+            <label>Карткою</label><label style="color: red;">Недоступно (У розробці)</label>
             <div id='address' style='display: none;'>
                 <p>Адрес</p>
-                <div id='nova' style='display: none;'><label>Отделение Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
-                <div id='ukr' style='display: none;'><label>Почтовый индекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
-                <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
-                <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
-                <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
+                <div id='nova' style='display: none;'><label>Відділення Нової Пошти: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                <div id='ukr' style='display: none;'><label>Почтовий індекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
+                <label>Місто: </label><input type='text' name='city' value='{{ user.city }}'>
+                <label>Вулиця: </label><input type='text' name='street' value='{{ user.street }}'>
+                <label>Дім: </label><input type='text' name="house" value='{{ user.house }}'>
             </div>
             <br>
-            <input type="submit" name='go' value="Подтвердить Заказ!">
+            <input type="submit" name='go' value="Підтвердити замовлення!">
         </form>
     </div>
     {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
     {% endif %}
-    {% include 'accounts/profilePage/includes/footer.html' %}
+    {% include 'uk/accounts/profilePage/includes/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

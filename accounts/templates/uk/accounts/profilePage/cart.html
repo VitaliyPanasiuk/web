@@ -13,12 +13,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <title>Cart</title>
+    <title>Кошик</title>
 </head>
 </head>
 <body>
     {% block content %}
-    {% include 'accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     {% if account == userId %}
         <div class="body_inf">
             <div class="conteiner">
@@ -26,29 +26,29 @@
                     <div class="user_page">
                         <div class="user" >
                             <div class="user_img">
-                                <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                     <img src="{%  static  'shop/img/user.png'  %}" alt="">
                                 </a>
                             </div>
                             <div class="user_inf ">
                                 <div class="user_inf_top">
                                     {% if user.first_name %}
-                                    <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                    <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.first_name }}
                                     </a>
                                     {% else %}
-                                        <a class="first_name" href='/accounts/{{ user.id }}/'>
+                                        <a class="first_name" href='/uk/accounts/{{ user.id }}/'>
                                             {{ user.username }}
                                         </a>
                                     {% endif %}
                                     {% if user.last_name %} 
-                                    <a class="last_name" href='/accounts/{{ user.id }}/'>
+                                    <a class="last_name" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.last_name }}
                                     </a>
                                     {% endif %}
                                 </div>
                                 <div class="user_inf_bot">
-                                    <a class="user_email" href='/accounts/{{ user.id }}/'>
+                                    <a class="user_email" href='/uk/accounts/{{ user.id }}/'>
                                         {{ user.email }}
                                     </a>
                                 </div>
@@ -59,7 +59,7 @@
                                 <img src="{%  static  'shop/img/list.png'  %}" alt="">
                             </div>
                             <div class="user_bl_text">
-                                <a href='orders'>Мои заказы</a>
+                                <a href='orders'>Мої замовлення</a>
                             </div>
                         </div>
                         <div class="favourite user_bl ">
@@ -67,7 +67,7 @@
                                 <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
                              </div>
                              <div class="user_bl_text">
-                                <a href='favourites'>Избранное</a>
+                                <a href='favourites'>Обранне</a>
                             </div>
                         </div>
                         <div class="cart user_bl active_item">
@@ -75,7 +75,7 @@
                                 <img src="{%  static  'shop/img/cart.png'  %}" alt="">
                             </div>
                             <div class="user_bl_text">
-                               <a href='cart'>Моя корзина</a> 
+                               <a href='cart'>Мій кошик</a> 
                             </div>
                             
                         </div>
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="user_cart_all">
                                     <div class='name_and_delete'>
-                                        <a href='/product/{{ item.item }}'>
+                                        <a href='/uk/product/{{ item.item }}'>
                                             <p>{{ item.name }}</p>
                                         </a>
                                         <form action='' method="POST" class="form_del">
@@ -99,12 +99,12 @@
                                         </form>
                                     </div>
                                     <div class="price_and_other">
-                                        <p>Цена: {{ item.price|mul:item.amount  }} {{ item.currency }} </p>
+                                        <p>Ціна: {{ item.price|mul:item.amount  }} {{ item.currency }} </p>
                                         {% if item.currency == 'USD' %}
                                            <p> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
                                         {% endif %}
                                         <div class="quantity">
-                                            <p>Количество: {{ item.amount }} шт.</p>
+                                            <p>Кількість: {{ item.amount }} шт.</p>
                                         <div class='forms'>
                                             <form action='' method="POST">
                                                 {% csrf_token %}
@@ -129,7 +129,7 @@
                         {% endfor %} 
 
                         {% if items %}
-                            <p>Итого: {{ sum }} UAH</p>
+                            <p>Усього до сплати: {{ sum }} UAH</p>
                             {% if messages %}
                                     {% for message in messages %}
                                         <p class="{{ message.tags }}">
@@ -140,10 +140,10 @@
                             {% endif %}
                             <form method='POST' action=''>
                                 {% csrf_token %}
-                                <input type='submit' name = 'makeorder' value='Оформить заказ'>
+                                <input type='submit' name = 'makeorder' value='Оформити замовлення'>
                             </form>
                         {% else %}
-                            Корзина пуста
+                            Порожній кошик
                         {% endif %}
                     </div>
                 </div>
@@ -151,10 +151,10 @@
             </div>
         </div>
         {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
     {% endif %}
     <div class="footer">
-        {% include 'productInfo/includes/footer.html' %}
+        {% include 'uk/productInfo/includes/footer.html' %}
     </div>
     
     {% endblock %}

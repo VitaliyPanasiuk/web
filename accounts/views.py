@@ -251,6 +251,7 @@ def userCart(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
+        user_cart_order = models.CharField(max_length=10000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -588,6 +589,7 @@ def makeOrder(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
+        user_cart_order = models.CharField(max_length=10000, blank=True, null=True)
 
         class Meta:
             managed = False
