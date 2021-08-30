@@ -348,7 +348,7 @@ def userCart(request, uid, lang):
                     order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
                 elif lang == 'uk':
                     ordery = " ".join(str(x) for x in f)
-                    ordery_default = " ".join(str(x) for x in c)
+                    ordery_default = " ".join(str(x) for x in special)
                     order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
                 order.save()
                 '''for i in userCarts:
