@@ -164,6 +164,9 @@
                     
                     </li>
                     {% endfor %}
+                    {% if ordersamount == 0 %}
+                        <p>Поки що Ви не створили жодного замовлення. <a href='/uk/products/'>Почніть прямо зараз!</a></p>
+                    {% endif %}
                     </ul>
                 </div>
                

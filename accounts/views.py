@@ -200,7 +200,8 @@ def userOrders(request, uid, lang):
             'auth_status': auth_status,
             "userId": str(request.user.id),
             "account": str(uid),
-            "orders": orders,
+            "orders": ShopOrdery.objects.filter(user_id=id),
+            'ordersamount': len(ShopOrdery.objects.filter(user_id=request.user.id)), 
         }
         template = lang +  "/accounts/profilePage/orders.html"
         return render(request, template, context)
@@ -439,11 +440,13 @@ def userFavourites(request, uid, lang):
         for i in favourites:
             if str(i.user_id) == str(request.user.id):
                 a.append(i)
+        print(len(ShopFavourite.objects.filter(user_id=request.user.id)))
         context = {
             'auth_status': auth_status,
             "favourites": a,
             'userId': str(request.user.id),
             'account': str(uid),
+            'items': len(ShopFavourite.objects.filter(user_id=request.user.id))
         }
         context.update(csrf(request))
         return render(request, template, context)
