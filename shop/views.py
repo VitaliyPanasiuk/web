@@ -329,7 +329,9 @@ def aboutProductPage(request, id, lang):
 
     class ShopCarty(models.Model):
         user_id = models.CharField(max_length=45)
-        item = models.CharField(max_length=45, blank=True, null=True)
+        item = models.CharField(max_length=90, blank=True, null=True)
+        item_uk = models.CharField(max_length=90, blank=True, null=True)
+        item_en = models.CharField(max_length=90, blank=True, null=True)
         cart_id = models.AutoField(primary_key=True)
         amount = models.IntegerField(blank=True, null=True, default=1)
         name = models.CharField(max_length=300, blank=True, null=True)
@@ -355,7 +357,7 @@ def aboutProductPage(request, id, lang):
             db_table = 'shop_favourite'
         
     '''for i in продукты:
-        if int(i.id) > 28:
+        if int(i.id) > 47:
             russian_desc = i.описание
             from googletrans import Translator
             translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
