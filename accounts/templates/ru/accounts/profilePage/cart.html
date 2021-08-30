@@ -142,6 +142,7 @@
                                 {% csrf_token %}
                                 <input type='submit' name = 'makeorder' value='Оформить заказ'>
                             </form>
+                            <a href='/ru/products/' style='text-decoration: underline; color: blue !important;'>Продолжить выбор товаров</a>
                         {% else %}
                             <p>Корзина пуста</p>
                         {% endif %}

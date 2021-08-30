@@ -142,6 +142,7 @@
                                 {% csrf_token %}
                                 <input type='submit' name = 'makeorder' value='Оформити замовлення'>
                             </form>
+                            <a href='/uk/products/' style='text-decoration: underline; color: blue !important;'>Продовжити вибір товарів</a>
                         {% else %}
                             <p>Порожній кошик</p>
                         {% endif %}

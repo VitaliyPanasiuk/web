@@ -330,13 +330,12 @@ def aboutProductPage(request, id, lang):
     class ShopCarty(models.Model):
         user_id = models.CharField(max_length=45)
         item = models.CharField(max_length=90, blank=True, null=True)
-        item_uk = models.CharField(max_length=90, blank=True, null=True)
-        item_en = models.CharField(max_length=90, blank=True, null=True)
         cart_id = models.AutoField(primary_key=True)
         amount = models.IntegerField(blank=True, null=True, default=1)
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
+        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -386,9 +385,10 @@ def aboutProductPage(request, id, lang):
             item_id = request.POST.get('add_id', '')
             item_name = request.POST.get('add_name', '')
             item_price = request.POST.get('add_price', '')
+            default_name = request.POST.get('default_name', '')
             item_currency = request.POST.get('add_currency', '')
             howMuchToAdd = request.POST.get('how_much_to_add', '')
-            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency)
+            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency, admin_order_item=default_name)
             ToSave.save()
             cart_item = ShopCarty.objects.all()
             for i in cart_item:
@@ -402,7 +402,7 @@ def aboutProductPage(request, id, lang):
                 elif i.amount == ToSave.amount and i.item == ToSave.item: 
                     ShopCarty.objects.filter(item = ToSave.item).delete()           
             ToSave.save()
-            return redirect('/' + str(lang) + '/products/')
+            return redirect('/' + str(lang) + '/accounts/' + str(request.user.id) + '/cart')
         elif language:
             return redirect('/' + str(language))
         elif favourite_add:

@@ -67,7 +67,7 @@
                                 <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
                              </div>
                              <div class="user_bl_text">
-                                <a href='favourites'>my favourites</a>
+                                <a href='favourites'>My favourites</a>
                             </div>
                         </div>
                         <div class="cart user_bl active_item">
@@ -142,6 +142,7 @@
                                 {% csrf_token %}
                                 <input type='submit' name = 'makeorder' value='Make an order'>
                             </form>
+                            <a href='/en/products/' style='text-decoration: underline; color: blue !important;'>Continue shopping</a>
                         {% else %}
                             <p>Empty cart</p>
                         {% endif %}

@@ -71,6 +71,7 @@
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
                                         <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                                        <div style='display: none;'><input type='text' name='default_name' id='default_name' value='{{ продукт.название_позиции }}'></div>
                                         <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                         <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
                                         <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
@@ -82,7 +83,7 @@
                             {% endif %}
                             {% else %}
                             <div class="inp_cart">
-                                <p><a style='color: blue !important;' href='/accounts/login'>Войдите</a> в аккаунт или <a style='color: blue !important;' href='/accounts/register'>зарегестрируйтесь</a> для покупки
+                                <p><a style='color: blue !important;' href='/ru/accounts/login'>Войдите</a> в аккаунт или <a style='color: blue !important;' href='/ru/accounts/register'>зарегестрируйтесь</a> для покупки
                                 </p> 
                             </div>
                             {% endif %}

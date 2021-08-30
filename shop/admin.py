@@ -45,13 +45,13 @@ class orderAdmin(admin.ModelAdmin):
             'fields': ('фамилия','имя', 'отчество', 'телефон', 'почта')
         }),
         ('Информация о заказе', {
-            'fields': ('заказ', 'сумма_заказа', 'валюта_заказа', 'статус_оплаты', 'статус_заказа', 'дата_заказа', 'confirm')
+            'fields': ('raworder', 'сумма_заказа', 'валюта_заказа', 'статус_оплаты', 'статус_заказа', 'дата_заказа', 'confirm')
         }),
         ('Адрес доставки', {
             'fields': ('delivery_type', 'payment_type', 'city', 'street', 'house', 'nova_pochta', 'ukr_pochta' )
         }),
     )
-    exclude = ('raworder', )
+    exclude = ('заказ', )
     model = Заказ
     
 

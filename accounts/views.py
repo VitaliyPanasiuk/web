@@ -200,7 +200,7 @@ def userOrders(request, uid, lang):
             'auth_status': auth_status,
             "userId": str(request.user.id),
             "account": str(uid),
-            "orders": ShopOrdery.objects.filter(user_id=id),
+            "orders": ShopOrdery.objects.filter(user_id=request.user.id),
             'ordersamount': len(ShopOrdery.objects.filter(user_id=request.user.id)), 
         }
         template = lang +  "/accounts/profilePage/orders.html"
@@ -237,7 +237,8 @@ def userCart(request, uid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.CharField(max_length=2000, blank=True, null=True)
+        raworder = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        user_order = models.CharField(max_length=10000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -252,7 +253,7 @@ def userCart(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
-        user_cart_order = models.CharField(max_length=10000, blank=True, null=True)
+        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -303,6 +304,7 @@ def userCart(request, uid, lang):
             c=[]
             e=[]
             f=[]
+            special=[]
             d = datetime.now(pytz.timezone('Europe/Kiev'))
             for i in userCarts:
                 if str(i.user_id) == str(request.user.id):
@@ -319,13 +321,15 @@ def userCart(request, uid, lang):
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
+                            special.append(str(i.admin_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
                             c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + 'шт.' + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
                             f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
 
                         else:
+                            special.append(str(i.admin_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
                             c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + 'шт.' + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
                             f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
@@ -337,13 +341,15 @@ def userCart(request, uid, lang):
                 newa = str(a)
                 if lang == 'ru':
                     ordery = " ".join(str(x) for x in c)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])             
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery)             
                 elif lang == 'en':
+                    ordery_default = " ".join(str(x) for x in special)
                     ordery = " ".join(str(x) for x in e)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
                 elif lang == 'uk':
                     ordery = " ".join(str(x) for x in f)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=newa[1:-1])
+                    ordery_default = " ".join(str(x) for x in c)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
                 order.save()
                 '''for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
@@ -592,7 +598,7 @@ def makeOrder(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
-        user_cart_order = models.CharField(max_length=10000, blank=True, null=True)
+        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
 
         class Meta:
             managed = False
