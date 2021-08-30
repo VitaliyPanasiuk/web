@@ -355,17 +355,21 @@ def aboutProductPage(request, id, lang):
             db_table = 'shop_favourite'
         
     '''for i in продукты:
-        russian_desc = i.описание
-        from googletrans import Translator
-        translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
-        english_desc = translator.translate(russian_desc, dest='en').text
-        import time
-        time.sleep(5)
-        print(english_desc)
-        item = Продукт.objects.get(id=i.id)
-        item.description = english_desc
-        item.save()
-        print(i.id)'''
+        if int(i.id) > 28:
+            russian_desc = i.описание
+            from googletrans import Translator
+            translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
+            english_desc = translator.translate(russian_desc, dest='en').text
+            import time
+            time.sleep(2)
+            eng_name = translator.translate(i.название_позиции, dest='en').text
+            time.sleep(2)
+            print(english_desc + ' $ ' + eng_name)
+            item = Продукт.objects.get(id=i.id)
+            item.description = english_desc
+            item.name = eng_name
+            item.save()
+            print(i.id)'''
         
     favourites = ShopFavourite.objects.all()
     if request.POST:

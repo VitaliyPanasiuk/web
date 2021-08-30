@@ -31,7 +31,7 @@
                     <div class="main_r">
                         <div class='productLabel'>
                             <p>
-                                {{ продукт.название_позиции }}
+                                {{ продукт.name }}
                             </p>
                         </div>
                         <div class='small_block'>
@@ -47,15 +47,11 @@
                                 {% endif %}
                             </div>
                             <div class="availability">
-                                {% if  продукт.наличие == '+' %}
+                                {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
                                     <p>
                                         Available. Amount: Unknown
                                     </p>
-                                {% elif продукт.наличие == '-'%}
-                                    <p>
-                                        Unavailable
-                                    </p>
-                                    {% elif продукт.наличие == None%}
+                                {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
                                     <p>
                                         Unavailable
                                     </p>
@@ -125,7 +121,7 @@
                 </div>
                 <div class="main_all_bot" id="description">
                     <p>Description and parameters</p>
-                    <span style="white-space: pre-line">{{ продукт.описание }}</span>
+                    <span style="white-space: pre-line">{{ продукт.description }}</span>
                 </div>
                 <button class="desc_but" class="but" onclick="getMore()">
                     &#8597;
@@ -133,9 +129,13 @@
             </div>
         </div>
     </div>
+
+    
     {% for image in images %}
     <img src='{{ MEDIA_URL }}{{ image.image }}'>
     {% endfor %}
+
+
     {% include 'en/productInfo/includes/footer.html' %}
     {% endblock %}
     </div>

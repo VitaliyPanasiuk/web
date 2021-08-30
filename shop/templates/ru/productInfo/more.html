@@ -47,15 +47,11 @@
                                 {% endif %}
                             </div>
                             <div class="availability">
-                                {% if  продукт.наличие == '+' %}
+                                {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
                                     <p>
                                         Есть в наличии. Количество: неизвестно
                                     </p>
-                                {% elif продукт.наличие == '-'%}
-                                    <p>
-                                        Нет в наличии
-                                    </p>
-                                    {% elif продукт.наличие == None%}
+                                {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
                                     <p>
                                         Нет в наличии
                                     </p>
@@ -133,9 +129,13 @@
             </div>
         </div>
     </div>
+
+    
     {% for image in images %}
     <img src='{{ MEDIA_URL }}{{ image.image }}'>
     {% endfor %}
+
+
     {% include 'ru/productInfo/includes/footer.html' %}
     {% endblock %}
     </div>

@@ -8,24 +8,32 @@
                     <div class="header_top">
                         <div class="header_top_img">
                             <div class="top_img">
-                                <a href='/'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
+                                <a href='/en/'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
                             </div>
                             
                         </div>
                         <nav class="navv">
-                            <a href='/' class='nav_link'>home</a>
-                            <a href="/about" class="nav_link">about Us</a>
-                            <a href="/products" class="nav_link">products</a>
-                            <a href="/achievements" class="nav_link">achievements</a>
+                            <a href='/en' class='nav_link'>home</a>
+                            <a href="/en/about" class="nav_link">about Us</a>
+                            <a href="/en/products" class="nav_link">products</a>
+                            <a href="/en/achievements" class="nav_link">achievements</a>
                             <a href="" class="nav_link">contact</a>
                         </nav>
                         <div class="header_language">
-                            <p>Russin</p>
+                            <form action='' method="POST" id='language'>
+                                {% csrf_token %}
+                                <select form="language" name='language' onchange="this.form.submit()">
+                                    <option value="" disabled selected>Choose language</option>
+                                    <option value="ru">Русский язык</option>
+                                    <option value='en'>English</option>
+                                    <option value='uk'>Українська мова</option>
+                                </select>
+                            </form>
                         </div>
                         
                         {% if user.is_authenticated %}
                         <div class="header_but">
-                            <a href="/accounts/logout" class="headerbut_log">
+                            <a href="/en/accounts/logout" class="headerbut_log">
                                 Log Out
                             </a>
                         </div>
@@ -67,7 +75,7 @@
                                         Welcome: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/en/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -80,15 +88,15 @@
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/accounts/login" class="headerbut_log">
+                                <a href="/en/accounts/login" class="headerbut_log">
                                     Log In
                                 </a>
                             </div>
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/accounts/register" class="headerbut_log">
-                                    Register
+                                <a href="/en/accounts/register" class="headerbut_log">
+                                    Sign Up
                                 </a>
                             </div>
                             {% endif %}
