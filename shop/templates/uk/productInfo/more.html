@@ -108,6 +108,9 @@
                                 {% else %}
                                 <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
                                 {% endif %}
+                                <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                                <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
                                 {% if auth_status == 'success' and user.phone_number %}
                                 <input type='tel' name='callme_phone_number' id='callme_phone_number' value='{{ user.phone_number }}'>
                                 {% else %}

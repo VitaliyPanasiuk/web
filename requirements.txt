@@ -1,0 +1,12 @@
+django
+celery
+django-celery
+django-celery-beat
+django-celery-results
+django-crispy-forms
+django-mathfilters
+bs4
+googletrans
+pytz
+requests
+mysqlclient

@@ -161,6 +161,8 @@ class ShopCalls(models.Model):
     last_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Фамилия')
     phone_number = models.CharField(max_length=100, blank=True, null=True, verbose_name='Номер телефона')
     timedate = models.DateTimeField(blank=True, null=True, verbose_name='Дата создания запроса')
+    viewed_product = models.CharField(max_length=1000, null=True, blank=True, verbose_name="Просматриваемый продукт")
+    price = models.CharField(max_length=100, blank=True, null=True, verbose_name='Цена продукта')
 
     class Meta:
         db_table = 'shop_calls'

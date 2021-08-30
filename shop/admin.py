@@ -60,4 +60,5 @@ class productAdmin(admin.ModelAdmin):
     actions = ['delete_selected']
     search_fields = ('phone_number',)
     list_display = ('phone_number', 'first_name', 'timedate')
-    readonly_fields  = ('id',)
+    readonly_fields  = ('first_name', 'last_name', 'phone_number', 'viewed_product', 'price', 'timedate',)
+    exclude = ('id', )
