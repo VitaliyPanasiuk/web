@@ -156,7 +156,14 @@ def productsPage(request, lang):
 
 def searchPage(request, lang):
     q = request.GET.get('q').replace("-", " ").lower()
-    a = Продукт.objects.filter(название_позиции__icontains = q)
+    if lang == 'ru':
+        a = Продукт.objects.filter(название_позиции__icontains = q)
+    elif lang == 'en':
+        a = Продукт.objects.filter(name__icontains = q)
+    elif lang == 'uk':
+        a = Продукт.objects.filter(название_позиции_укр__icontains = q)
+    if q == '':
+        return redirect('/'+ str(lang) + '/products/')
     if request.POST:
         page = 1
         counter = 20
@@ -295,6 +302,14 @@ def searchPage(request, lang):
                 'lang': lang,
                 #'page': int(page),
                 }
+                return render(request, template, context)
+            elif lang == 'uk':
+                context = {
+                #'продукты': a[0:len(a):],
+                'error_message': 'Порожнє поле пошуку',
+                'lang': lang,
+                #'page': int(page),
+                }
             return render(request, template, context)
         elif len(a) == 0:
             if lang == 'ru':
@@ -312,7 +327,15 @@ def searchPage(request, lang):
                     'lang': lang,
                     #'page': int(page),
                     }
-                return render(request, template, context)                
+                return render(request, template, context)
+            elif lang == 'uk':
+                context ={
+                    #'продукты': a[0:len(a):],
+                    'error_message': 'За Вашим запитом нічого не знайдено',
+                    'lang': lang,
+                    #'page': int(page),
+                    }
+                return render(request, template, context)                  
         else:
             context = {
                 'продукты': a[0:len(a):],
@@ -398,7 +421,7 @@ def aboutProductPage(request, id, lang):
             db_table = 'shop_favourite'
         
     '''for i in продукты:
-        if int(i.id) > 68:
+        if int(i.id) > 89:
             russian_desc = i.описание
             from googletrans import Translator
             translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
