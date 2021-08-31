@@ -1,5 +1,5 @@
 from django.http.response import Http404
-from accounts.models import AuthUser
+from .models import AuthUser
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.http import HttpResponse
@@ -18,14 +18,30 @@ def homePage(request, lang):
     language = request.POST.get('language', '')
     if request.POST:
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language)
+            else:
+                return redirect('/' + str(language))
         else:
             HttpResponse('404')
     else:
-        context = { 
-            'lang': lang,
-        }
-        return render(request, str(lang) + '/shop/index.html', context)
+        if request.user.id != None:
+            current_user = AuthUser.objects.get(id=request.user.id)
+            context = { 
+                'lang': lang,
+            }
+            try:
+                return render(request, current_user.user_language + '/shop/index.html', context)
+            except TypeError:
+                return render(request, str(lang) + '/shop/index.html', context)
+        else:
+            context = { 
+                'lang': lang,
+            }
+            return render(request, str(lang) + '/shop/index.html', context)
 
 
 def productsPage(request, lang):
@@ -121,7 +137,13 @@ def productsPage(request, lang):
             template = str(lang) + '/products/index.html'
             return render(request, template, context)
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/products/')
+            else:
+                return redirect('/' + str(language) + '/products/')
 
     filteredProducts = Продукт.objects.exclude(наличие='-').exclude(цена=None)#| Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
     context = {
@@ -247,7 +269,13 @@ def searchPage(request, lang):
             template = str(lang) + '/products/search/index.html'
             return render(request, template, context)
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/products/search/?q=' + q)
+            else:
+                return redirect('/' + str(language) + '/products/search/?q=' + q)
             
     else:
         template = str(lang) + '/products/search/index.html'
@@ -302,7 +330,13 @@ def achievementsPage(request, lang):
     language = request.POST.get('language', '')
     if request.POST:
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/achievements/')
+            else:
+                return redirect('/' + str(language) + '/achievements/')
         else: 
             HttpResponse('404')
     else:
@@ -315,7 +349,13 @@ def aboutUsPage(request, lang):
     language = request.POST.get('language', '')
     if request.POST:
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/about/')
+            else:
+                return redirect('/' + str(language) + '/about/')
         else:
             HttpResponse('404')
     else:
@@ -335,7 +375,9 @@ def aboutProductPage(request, id, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
-        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
+        ru_order_item = models.CharField(max_length=500, null=True, blank=True)
+        uk_order_item = models.CharField(max_length=500, null=True, blank=True)
+        en_order_item = models.CharField(max_length=500, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -356,7 +398,7 @@ def aboutProductPage(request, id, lang):
             db_table = 'shop_favourite'
         
     '''for i in продукты:
-        if int(i.id) > 47:
+        if int(i.id) > 68:
             russian_desc = i.описание
             from googletrans import Translator
             translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
@@ -383,12 +425,18 @@ def aboutProductPage(request, id, lang):
         language = request.POST.get('language', '')
         if cart_add:
             item_id = request.POST.get('add_id', '')
-            item_name = request.POST.get('add_name', '')
+            item_name_ru = request.POST.get('add_name_ru', '')
+            item_name_uk = request.POST.get('add_name_uk', '')
+            item_name_en = request.POST.get('add_name_en', '')
             item_price = request.POST.get('add_price', '')
-            default_name = request.POST.get('default_name', '')
             item_currency = request.POST.get('add_currency', '')
             howMuchToAdd = request.POST.get('how_much_to_add', '')
-            ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency, admin_order_item=default_name)
+            if lang == 'ru':
+                ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name_ru, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency, ru_order_item=item_name_ru, en_order_item=item_name_en, uk_order_item=item_name_uk)
+            elif lang == 'en':
+                ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name_ru, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency, ru_order_item=item_name_ru, en_order_item=item_name_en, uk_order_item=item_name_uk)
+            elif lang == 'uk':
+                ToSave = ShopCarty(user_id=request.user.id, item=item_id, name=item_name_ru, price=max(float(i) for i in item_price.replace(',','.').split()), currency=item_currency, ru_order_item=item_name_ru, en_order_item=item_name_en, uk_order_item=item_name_uk)
             ToSave.save()
             cart_item = ShopCarty.objects.all()
             for i in cart_item:
@@ -404,7 +452,13 @@ def aboutProductPage(request, id, lang):
             ToSave.save()
             return redirect('/' + str(lang) + '/accounts/' + str(request.user.id) + '/cart')
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/product/' + str(id))
+            else:
+                return redirect('/' + str(language) + '/product/' + str(id))
         elif favourite_add:
             favourite_item_id = request.POST.get('favourite_add_id', '')
             favourite_item_name = request.POST.get('favourite_add_name', '')
@@ -457,4 +511,8 @@ def aboutProductPage(request, id, lang):
         return render(request, template, context)
 
 def goWithLanguage(request):
-    return redirect('/uk')
+    if request.user.id != None:
+        current_user = AuthUser.objects.get(id=request.user.id)
+        return redirect('/' + current_user.user_language)
+    else:
+        return redirect('/uk')

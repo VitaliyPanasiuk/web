@@ -54,9 +54,9 @@
             </div>
             {% for i in userCart %}
             {% if i.currency == 'UAH' %}
-                <p>{{ i.name }} Price: {{ i.price|floatformat:"2" }}UAH</p>
+                <p>{{ i.en_order_item }} Price: {{ i.price|floatformat:"2" }}UAH</p>
             {% else %}
-                <p>{{ i.name }} Price: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
+                <p>{{ i.en_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
             {% endif %}
             {% endfor %}
             <div style='display: none;'>

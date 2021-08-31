@@ -42,7 +42,7 @@
             <p>Email: {{ user.email }}</p>
             <p>Phone number: {{ user.phone_number }}</p>
             <label>Order: </label>
-            <span style="white-space: pre-line">{{ order.заказ }}</span>
+            <span style="white-space: pre-line">{{ order.order_en }}</span>
             <p>Total price: {{ order.сумма_заказа }} UAH</p>
             {% if order.confirm == 'unc' %}
             <div style="color:red; text-decoration:underline;"><p>Attention! If you leave this page, the order will not be confirmed and will be deleted after 30 minutes!</p></div>

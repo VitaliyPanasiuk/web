@@ -53,7 +53,7 @@
                 <input type="hidden" value='{{ order.заказ }}' name='order'>
             </div>
             <br>
-            <p>{{ order.заказ }}</p>
+            <p>{{ order.order_uk }}</p>
             <div style='display: none;'>
                 <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
             </div>
@@ -73,7 +73,7 @@
             <label>Готівка</label>
             <br>
             <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
-            <label>Карткою</label><label style="color: red;">Недоступно (У розробці)</label>
+            <label>Карткою</label><label style="color: red;"> Недоступно (У розробці)</label>
             <div id='address' style='display: none;'>
                 <p>Адрес</p>
                 <div id='nova' style='display: none;'><label>Відділення Нової Пошти: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>

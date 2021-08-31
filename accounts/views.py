@@ -33,7 +33,13 @@ def register(request, lang):
         lower_case = 0
         number = 0
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/register/')
+            else:
+                return redirect('/' + str(language) + '/accounts/register/')
         for i in password2:
             if i.isupper():
                 upper_case += 1
@@ -113,12 +119,23 @@ def login(request, lang):
         language = request.POST.get('language', '')
         user = auth.authenticate(username=username, password=password)
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/login/')
+            else:
+                return redirect('/' + str(language) + '/accounts/login/')
         if user is not None:
             auth.login(request, user)
             return redirect("/" + str(lang))
         else:
-            args["login_error"] = "Wrong username or password!"
+            if lang == 'en':
+                args["login_error"] = "Wrong username or password!"
+            elif lang == 'ru':
+                args['login_error'] = 'Неверное имя пользователя или пароль'
+            elif lang == 'uk':
+                args['login_error'] = "Невірне ім'я користувача або пароль"
             return render(request, '' + str(lang) + "/accounts/auth/failed.html", args)
 
     else:
@@ -138,7 +155,13 @@ def userProfilePage(request, uid, lang):
     if request.POST:
         language = request.POST.get('language', '')
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid))
+            else:
+                return redirect('/' + str(language) + '/accounts/' + str(uid))
     else:        
         context = {
             'auth_status': auth_status,
@@ -177,7 +200,9 @@ def userOrders(request, uid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.CharField(max_length=2000, blank=True, null=True)
+        order_uk = models.TextField(max_length=2000, blank=True, null=True)
+        order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -189,7 +214,11 @@ def userOrders(request, uid, lang):
             ShopOrdery.objects.filter(id=int(itemToDelete)).delete()
             return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/orders')
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/orders')
     else:
         a = ShopOrdery.objects.all()
         orders=[]
@@ -237,8 +266,9 @@ def userCart(request, uid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
-        user_order = models.CharField(max_length=10000, blank=True, null=True)
+        order_uk = models.TextField(max_length=2000, blank=True, null=True)
+        order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -253,7 +283,9 @@ def userCart(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
-        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
+        ru_order_item = models.CharField(max_length=500, null=True, blank=True)
+        uk_order_item = models.CharField(max_length=500, null=True, blank=True)
+        en_order_item = models.CharField(max_length=500, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -291,7 +323,11 @@ def userCart(request, uid, lang):
             ShopCarty.objects.filter(item=itemToDelete).delete()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/cart')
         elif makeorder:
             b = 0
             userAccount = AuthUser.objects.get(id=request.user.id)
@@ -321,16 +357,14 @@ def userCart(request, uid, lang):
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
-                            special.append(str(i.admin_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            c.append(str(i.name) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            c.append(str(i.ru_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
 
                         else:
-                            special.append(str(i.admin_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            c.append(str(i.name) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.name) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            f.append(str(i.name) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            c.append(str(i.ru_order_item) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
@@ -340,16 +374,20 @@ def userCart(request, uid, lang):
                 intbob = [float(elem) for elem in bob]
                 newa = str(a)
                 if lang == 'ru':
-                    ordery = " ".join(str(x) for x in c)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery)             
+                    ordery_ru = " ".join(str(x) for x in c)
+                    ordery_en = " ".join(str(x) for x in e)
+                    ordery_uk = " ".join(str(x) for x in f)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery_ru, статус_оплаты='np', статус_заказа='nd', confirm='unc', order_uk=ordery_uk, order_ru=ordery_ru, order_en=ordery_en)             
                 elif lang == 'en':
-                    ordery_default = " ".join(str(x) for x in special)
-                    ordery = " ".join(str(x) for x in e)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
+                    ordery_ru = " ".join(str(x) for x in c)
+                    ordery_en = " ".join(str(x) for x in e)
+                    ordery_uk = " ".join(str(x) for x in f)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery_en, статус_оплаты='np', статус_заказа='nd', confirm='unc', order_uk=ordery_uk, order_ru=ordery_ru, order_en=ordery_en)
                 elif lang == 'uk':
-                    ordery = " ".join(str(x) for x in f)
-                    ordery_default = " ".join(str(x) for x in special)
-                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery, статус_оплаты='np', статус_заказа='nd', confirm='unc', raworder=ordery_default)
+                    ordery_ru = " ".join(str(x) for x in c)
+                    ordery_en = " ".join(str(x) for x in e)
+                    ordery_uk = " ".join(str(x) for x in f)
+                    order = ShopOrdery(user_id=request.user.id, имя=userAccount.first_name, фамилия=userAccount.last_name, дата_заказа=d, почта=userAccount.email, сумма_заказа=sum(intbob), телефон=userAccount.phone_number, валюта_заказа='UAH', заказ=ordery_uk, статус_оплаты='np', статус_заказа='nd', confirm='unc', order_uk=ordery_uk, order_ru=ordery_ru, order_en=ordery_en)
                 order.save()
                 '''for i in userCarts:
                     if str(i.user_id) == str(request.user.id):
@@ -439,7 +477,11 @@ def userFavourites(request, uid, lang):
             ShopFavourite.objects.filter(favourite_item=itemToDelete).delete()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/favourites")
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/favourites')
     else:
         favourites = ShopFavourite.objects.all()
         a = []
@@ -483,7 +525,11 @@ def editProfilePage(request, uid ,lang):
             userProfile.save()
             return redirect('/' + lang + '/accounts/'+ str(uid))
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit')
         else:
             template = lang + '/accounts/editProfile/edit.html'
             if lang == 'ru':
@@ -540,7 +586,11 @@ def editPasswordPage(request, uid, lang):
             }
             return render(request, template, context)
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/change-password')
         else:
             if lang == 'ru':
                 error_code = 'Неверный старый пароль. Попробуйте снова'
@@ -584,7 +634,9 @@ def makeOrder(request, uid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.CharField(max_length=2000, blank=True, null=True)
+        order_uk = models.TextField(max_length=2000, blank=True, null=True)
+        order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -598,7 +650,9 @@ def makeOrder(request, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
-        admin_order_item = models.CharField(max_length=100, null=True, blank=True)
+        en_order_item = models.CharField(max_length=500, blank=True, null=True)
+        ru_order_item = models.CharField(max_length=500, blank=True, null=True)
+        uk_order_item = models.CharField(max_length=500, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -636,7 +690,12 @@ def makeOrder(request, uid, lang):
         nova_pochta = request.POST.get('nova_pochta', '')
         #normalPrice = max(float(i) for i in priceFromHtml.replace(',','.').split())
         if language:
-            return redirect('/' + str(language))
+            last_order = ShopOrdery.objects.filter(user_id=request.user.id).last()
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit-order/' + str(last_order.id))
         if orderFromHtml == None:
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
@@ -791,7 +850,9 @@ def orderInfo(request, oid, uid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.CharField(max_length=2000, blank=True, null=True)
+        order_uk = models.TextField(max_length=2000, blank=True, null=True)
+        order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -805,6 +866,9 @@ def orderInfo(request, oid, uid, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=30, blank=True, null=True)
         currency = models.CharField(max_length=30, blank=True, null=True)
+        en_order_item = models.CharField(max_length=500, blank=True, null=True)
+        ru_order_item = models.CharField(max_length=500, blank=True, null=True)
+        uk_order_item = models.CharField(max_length=500, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -817,7 +881,11 @@ def orderInfo(request, oid, uid, lang):
         if edit:
             return redirect('/' + lang + '/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
         elif language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/order/' + str(oid))
     else:
         if request.user.is_authenticated == False:
             auth_status = 'failed'
@@ -885,7 +953,9 @@ def edit_order_page(request, uid, oid, lang):
         nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
-        raworder = models.CharField(max_length=2000, blank=True, null=True)
+        order_uk = models.TextField(max_length=2000, blank=True, null=True)
+        order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+        order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -918,7 +988,11 @@ def edit_order_page(request, uid, oid, lang):
         ukr_pochta = request.POST.get('ukr_pochta', '')
         nova_pochta = request.POST.get('nova_pochta', '')
         if language:
-            return redirect('/' + str(language))
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit-order/' + str(oid))
         if orderFromHtml == None:
             if lang == 'ru':
                 error_message = 'Ошибка: Пустой заказ'

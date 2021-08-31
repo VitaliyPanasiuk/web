@@ -81,6 +81,7 @@ class AuthUser(models.Model):
     house = models.CharField(max_length=50, blank=True, null=True)
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    user_language = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -246,7 +247,9 @@ class Заказ(models.Model):
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
     confirm = models.CharField(max_length=500, blank=True, null=True, choices=CONFIRM_STATUS, verbose_name='Статус подтверждения заказа')
-    raworder = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+    order_uk = models.TextField(max_length=2000, blank=True, null=True)
+    order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+    order_en = models.TextField(max_length=2000, blank=True, null=True)
 
     class Meta:
         db_table = 'shop_order'
@@ -268,7 +271,9 @@ class ShopCart(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
     price = models.CharField(max_length=30, blank=True, null=True)
     currency = models.CharField(max_length=30, blank=True, null=True)
-    admin_order_item = models.CharField(max_length=100, null=True, blank=True)
+    ru_order_item = models.CharField(max_length=500, null=True, blank=True)
+    uk_order_item = models.CharField(max_length=500, null=True, blank=True)
+    en_order_item = models.CharField(max_length=500, null=True, blank=True)
 
     class Meta:
         db_table = 'shop_cart'

@@ -42,7 +42,7 @@
             <p>Електронна пошта: {{ user.email }}</p>
             <p>Номер телефону: {{ user.phone_number }}</p>
             <label>Замовлення: </label>
-            <span style="white-space: pre-line">{{ order.заказ }}</span>
+            <span style="white-space: pre-line">{{ order.order_uk }}</span>
             <p>До сплати: {{ order.сумма_заказа }} UAH</p>
             {% if order.confirm == 'unc' %}
             <div style="color:red; text-decoration:underline;"><p>Увага! Статус замовлення: Не підтверджено користувачем. Будь-ласка, завершіть оформлення замовлення.</p></div>

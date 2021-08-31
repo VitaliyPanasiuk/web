@@ -42,7 +42,7 @@
             <p>Почта: {{ user.email }}</p>
             <p>Телефон: {{ user.phone_number }}</p>
             <label>Заказ: </label>
-            <span style="white-space: pre-line">{{ order.заказ }}</span>
+            <span style="white-space: pre-line">{{ order.order_ru }}</span>
             <p>К оплате: {{ order.сумма_заказа }} UAH</p>
             {% if order.confirm == 'unc' %}
             <div style="color:red; text-decoration:underline;"><p>Внимание! статус заказа: Не подтвержден пользователем. Пожалуйста, завершите оформление заказа.</p></div>

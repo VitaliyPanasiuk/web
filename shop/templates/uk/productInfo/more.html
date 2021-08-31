@@ -70,8 +70,9 @@
                                     <form action="" method='post' >
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции_укр }}'></div>
-                                        <div style='display: none;'><input type='text' name='default_name' id='default_name' value='{{ продукт.название_позиции }}'></div>
+                                        <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
+                                        <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                        <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
                                         <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                         <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
                                         <div><label>Кількість: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
