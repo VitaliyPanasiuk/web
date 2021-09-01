@@ -39,7 +39,71 @@
         <div class="filters">
             <form method='POST' action=''>
                 {% csrf_token %}
+                {% if withprice == 'no' and available == 'no' %}
                 <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% elif withprice == 'no' and available == 'yes' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть' checked>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% elif withprice == 'yes' and available == 'no' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% elif withprice == 'yes' and available == 'yes' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть' checked>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% elif withprice == 'spec' and available == 'yes' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть' checked>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% elif withprice == 'spec' and available == 'no' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету' checked>
+                {% elif withprice == 'spec' and available == 'spec' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% elif withprice == 'yes' and available == 'spec' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть' checked>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет'>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% elif withprice == 'no' and available == 'spec' %}
+                <p>Ціна</p>
+                <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
+                <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет' checked>
+                <p>Наявність</p>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
+                {% endif %}
+                <!--<p>Ціна</p>
                 {% if withprice == 'no' %}
                 <label>З ціною</label><input type='radio' name='pricefilter' value='Цена есть'>
                 <label>Без ціни</label><input type='radio' name='pricefilter' value='Цены нет' checked>
@@ -55,12 +119,12 @@
                 <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
                 <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету' checked>
                 {% elif available == 'spec' %}
-                <label>Є в наявностіи</label><input type='radio' name='availablefilter' value='Есть'>
+                <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть'>
                 <label>Немає в наявност</label>і</label><input type='radio' name='availablefilter' value='Нету'>
                 {% else %}
                 <label>Є в наявності</label><input type='radio' name='availablefilter' value='Есть' checked>
                 <label>Немає в наявності</label><input type='radio' name='availablefilter' value='Нету'>
-                {% endif %}
+                {% endif %}-->
                 <input type='submit' name='applyfilters' value='Застосувати фільтри'>
                 <input type='submit' name='nofilters' value='Прибрати усі фільтри'>
             </form>

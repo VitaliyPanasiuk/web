@@ -127,6 +127,26 @@ def productsPage(request, lang):
                         }
                 template = str(lang) + '/products/index.html'
                 return render(request, template, context)
+            elif pricefilter == 'Цены нет' and availablefilter == '':
+                filteredProducts = Продукт.objects.filter(цена=None)
+                context = {
+                    'продукты': filteredProducts,
+                    'withprice': 'no',
+                    'available': 'spec',
+                    'lang': lang,
+                        }
+                template = str(lang) + '/products/index.html'
+                return render(request, template, context)
+            elif availablefilter == 'Нету' and pricefilter == '':
+                filteredProducts = Продукт.objects.filter(наличие='-')
+                context = {
+                    'продукты': filteredProducts,
+                    'withprice': 'spec',
+                    'available': 'no',
+                    'lang': lang,
+                        }
+                template = str(lang) + '/products/index.html'
+                return render(request, template, context)
         elif nofilters:
             context = {
                 'продукты': продукты,
@@ -149,6 +169,7 @@ def productsPage(request, lang):
     context = {
         'продукты': filteredProducts,
         'available': 'spec',
+        'withprice': 'spec',
         'lang': lang,
             }
     template = str(lang) + '/products/index.html'
@@ -211,13 +232,24 @@ def searchPage(request, lang):
                         }
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
-            elif pricefilter == 'Цены нет' and availablefilter == '':
+            elif pricefilter == 'Цены нет' and availablefilter == 'Нету':
+                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие='-').filter(название_позиции__icontains = q.lower())
+                context = {
+                    'продукты': filteredProducts,
+                    'page': int(page),
+                    'withprice': 'no',
+                    'available': 'no',
+                    'lang': lang,
+                        }
+                template = str(lang) + '/products/search/index.html'
+                return render(request, template, context)
+            elif pricefilter == 'Цены нет' and availablefilter == 'Есть':
                 filteredProducts = Продукт.objects.filter(цена=None).filter(название_позиции__icontains = q.lower())
                 context = {
                     'продукты': filteredProducts,
                     'page': int(page),
                     'withprice': 'no',
-                    'available': 'spec',
+                    'available': 'yes',
                     'lang': lang,
                         }
                 template = str(lang) + '/products/search/index.html'
@@ -256,15 +288,37 @@ def searchPage(request, lang):
                 template = str(lang) + '/products/search/index.html'
                 return render(request, template, context)
             elif pricefilter == '' and availablefilter == '':
+                filteredProducts = Продукт.objects.filter(название_позиции__icontains = q.lower())
                 context = {
-                'продукты': a,
+                'продукты': filteredProducts,
                 'page': int(page),
                 'withprice': 'spec',
                 'available': 'spec',
                 'lang': lang,
                     }
-            template = str(lang) + '/products/search/index.html'
-            return render(request, template, context)
+                template = str(lang) + '/products/search/index.html'
+                return render(request, template, context)
+            elif pricefilter == 'Цены нет' and availablefilter == '':
+                filteredProducts = Продукт.objects.filter(цена=None).filter(название_позиции__icontains = q.lower())
+                context = {
+                    'продукты': filteredProducts,
+                    'withprice': 'no',
+                    'available': 'spec',
+                    'lang': lang,
+                        }
+                template = str(lang) + '/products/index.html'
+                return render(request, template, context)
+            elif availablefilter == 'Нету' and pricefilter == '':
+                filteredProducts = Продукт.objects.filter(наличие='-').filter(название_позиции__icontains = q.lower())
+                context = {
+                    'продукты': filteredProducts,
+                    'withprice': 'spec',
+                    'available': 'no',
+                    'lang': lang,
+                        }
+                template = str(lang) + '/products/index.html'
+                return render(request, template, context)
+            
         elif nofilters:
             context = {
                 'продукты': a,
