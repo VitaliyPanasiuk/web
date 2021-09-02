@@ -469,6 +469,8 @@ def aboutProductPage(request, id, lang):
         name = models.CharField(max_length=300, blank=True, null=True)
         price = models.CharField(max_length=45, blank=True, null=True)
         currency = models.CharField(max_length=45, blank=True, null=True)
+        ru_name = models.CharField(max_length=1000, blank=True, null=True)
+        uk_name = models.CharField(max_length=1000, blank=True, null=True)
 
         class Meta:
             managed = False
@@ -538,14 +540,16 @@ def aboutProductPage(request, id, lang):
                 return redirect('/' + str(language) + '/product/' + str(id))
         elif favourite_add:
             favourite_item_id = request.POST.get('favourite_add_id', '')
-            favourite_item_name = request.POST.get('favourite_add_name', '')
+            favourite_item_name_ru = request.POST.get('favourite_add_name_ru', '')
+            favourite_item_name_en = request.POST.get('favourite_add_name_en', '')
+            favourite_item_name_uk = request.POST.get('favourite_add_name_uk', '')
             favourite_item_price = request.POST.get('favourite_add_price', '')
             favourite_item_currency = request.POST.get('favourite_add_currency', '')
             if favourite_item_price == 'None':
                 favourite_item_price = 0
-                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=favourite_item_price, currency=favourite_item_currency)
+                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name_en, price=favourite_item_price, ru_name = favourite_item_name_ru, uk_name = favourite_item_name_uk, currency=favourite_item_currency)
             else:
-                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name, price=max(float(i) for i in favourite_item_price.replace(',','.').split()), currency=favourite_item_currency)
+                favouriteToSave = ShopFavourite(user_id=request.user.id, favourite_item=favourite_item_id, name=favourite_item_name_en, ru_name = favourite_item_name_ru, uk_name = favourite_item_name_uk, price=max(float(i) for i in favourite_item_price.replace(',','.').split()), currency=favourite_item_currency)
             favouriteToSave.save()
             favourite_item = ShopFavourite.objects.all()
             for i in favourite_item:

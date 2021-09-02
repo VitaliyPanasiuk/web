@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.contrib.auth import login, authenticate
 from .forms import UserCreationForm
 from django.template.context_processors import csrf
-from .models import AuthUser, Продукт, ShopCurrency
+from .models import AuthUser, Продукт, ShopCurrency, ShopFavourite
 from django.db import models
 from django.db.models import F
 from django.contrib import messages
@@ -458,17 +458,6 @@ def userFavourites(request, uid, lang):
         return HttpResponse('404')
     else:
         auth_status = 'success'
-    class ShopFavourite(models.Model):
-        favourite_id = models.AutoField(primary_key=True)
-        user_id = models.CharField(max_length=45)
-        favourite_item = models.CharField(max_length=45, blank=True, null=True)
-        name = models.CharField(max_length=300, blank=True, null=True)
-        price = models.CharField(max_length=45, blank=True, null=True)
-        currency = models.CharField(max_length=45, blank=True, null=True)
-
-        class Meta:
-            managed = False
-            db_table = "shop_favourite"
 
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
@@ -494,7 +483,7 @@ def userFavourites(request, uid, lang):
             "favourites": a,
             'userId': str(request.user.id),
             'account': str(uid),
-            'items': len(ShopFavourite.objects.filter(user_id=request.user.id))
+            'items': len(ShopFavourite.objects.filter(user_id=request.user.id)),
         }
         context.update(csrf(request))
         return render(request, template, context)

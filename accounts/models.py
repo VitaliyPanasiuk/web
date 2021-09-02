@@ -39,6 +39,20 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
+class ShopFavourite(models.Model):
+        favourite_id = models.AutoField(primary_key=True)
+        user_id = models.CharField(max_length=45)
+        favourite_item = models.CharField(max_length=45, blank=True, null=True)
+        name = models.CharField(max_length=1000, blank=True, null=True)
+        price = models.CharField(max_length=45, blank=True, null=True)
+        currency = models.CharField(max_length=45, blank=True, null=True)
+        ru_name = models.CharField(max_length=1000, blank=True, null=True)
+        uk_name = models.CharField(max_length=1000, blank=True, null=True)
+
+        class Meta:
+            managed = True
+            db_table = "shop_favourite"
+
 class Продукт(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     код_товара = models.CharField(db_column='Код_товара', max_length=25, blank=True, null=True)  # Field name made lowercase.

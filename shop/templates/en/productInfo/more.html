@@ -92,7 +92,9 @@
                             <form action="" method='post' >
                                 {% csrf_token %}
                                 <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_name' id='favourite_add_name' value='{{ продукт.name }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
                                 <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
                                 <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
                                 <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>

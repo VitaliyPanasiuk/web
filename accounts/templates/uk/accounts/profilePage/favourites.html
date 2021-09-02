@@ -84,7 +84,7 @@
                             {% for favourite in favourites %}
                                 <form action='' method="POST">
                                     {% csrf_token %}
-                                    <a href='/uk/product/{{ favourite.favourite_item }}'>{{ favourite.name }}</a>
+                                    <a href='/uk/product/{{ favourite.favourite_item }}'>{{ favourite.uk_name }}</a>
                                     <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
                                     <input type='submit' value='&#10060;'>
                                 </form>
