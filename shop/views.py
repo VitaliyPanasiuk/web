@@ -562,8 +562,8 @@ def aboutProductPage(request, id, lang):
             managed = False
             db_table = "shop_favourite"
 
-    """for i in продукты:
-        if int(i.id) > 131:
+    '''for i in продукты:
+        if int(i.id) > 147:
             russian_desc = i.описание
             from googletrans import Translator
             translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
@@ -577,7 +577,7 @@ def aboutProductPage(request, id, lang):
             item.description = english_desc
             item.name = eng_name
             item.save()
-            print(i.id)"""
+            print(i.id)'''
 
     favourites = ShopFavourite.objects.all()
     if request.POST:
