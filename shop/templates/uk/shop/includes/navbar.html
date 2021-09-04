@@ -18,6 +18,8 @@
                             <a href="/uk/products" class="nav_link">Каталог</a>
                             <a href="/uk/achievements" class="nav_link">Досягнення</a>
                             <a href="" class="nav_link">Контакти</a>
+                            <a href="" class="nav_link">Співробітництво</a>
+                            <a href="" class="nav_link">Гарантії</a>
                         </nav>
                         <div class="header_language">
                             <form action='' method="POST" id='language'>
@@ -39,25 +41,27 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div class="header_bot">
-                        <div class="header_allcontact">
-                            <div class="header_contact">
-                                <div class="header_contact_item">
-                                    <p class="header_contact_num">+380963265300</p>
+                    <div class="bop">
+                        <div class="header_bot">
+                            <div class="header_allcontact">
+                                <div class="header_contact">
+                                    <div class="header_contact_item">
+                                        <p class="header_contact_num">+380963265300</p>
+                                    </div>
+                                    <div class="header_contact_item">
+                                        <a href="" class="header_link2">luxonSport@gmail.com</a>
+                                    </div>
                                 </div>
-                                <div class="header_contact_item">
-                                    <a href="" class="header_link2">luxonSport@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="header_media">
-                                <div class="header_media_item">
-                                    <a href='https://www.instagram.com/' target="_blank" class="fab fa-instagram"></a>
-                                </div>
-                                <div class="header_media_item">
-                                    <a href='https://www.facebook.com/' target="_blank" class="fab fa-facebook-square"></a>
-                                </div>
-                                <div class="header_media_item">
-                                    <a href='https://www.youtube.com/' target="_blank" class="fab fa-youtube"></a>
+                                <div class="header_media">
+                                    <div class="header_media_item">
+                                        <a href='https://www.instagram.com/' target="_blank" class="fab fa-instagram"></a>
+                                    </div>
+                                    <div class="header_media_item">
+                                        <a href='https://www.facebook.com/' target="_blank" class="fab fa-facebook-square"></a>
+                                    </div>
+                                    <div class="header_media_item">
+                                        <a href='https://www.youtube.com/' target="_blank" class="fab fa-youtube"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +79,7 @@
                                         Ласкаво просимо: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/uk/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/ru/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -88,20 +92,19 @@
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/uk/accounts/login" class="headerbut_log">
+                                <a href="/ru/accounts/login" class="headerbut_log">
                                     Увійти
                                 </a>
                             </div>
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/uk/accounts/register" class="headerbut_log">
-                                    Зареєструватися
+                                <a href="/ru/accounts/register" class="headerbut_log">
+                                    Реєстрація
                                 </a>
                             </div>
                             {% endif %}
                         </div>
-                        
                     </div>
                     
                     

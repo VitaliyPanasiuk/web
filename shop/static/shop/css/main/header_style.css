@@ -67,6 +67,7 @@ header {
 
 .navv {
   margin: auto 0;
+  width: 730px;
 }
 .navv a {
   margin-left: 20px;
@@ -98,7 +99,8 @@ header {
 
 .header_but {
   border-radius: 50%;
-  margin: auto 20px;
+  margin: auto 17px;
+  font-size: 14px;
 }
 
 .headerbut_log {
@@ -154,6 +156,7 @@ header {
 .header_bot {
   display: flex;
   height: 40%;
+  width: 75%;
 }
 .top_img img {
   width: 200px;
@@ -205,23 +208,31 @@ header {
   margin: auto;
 }
 .header_allcontact {
-  width: 75%;
+  width: 100%;
+  justify-content: space-between;
   display: flex;
 }
 .header_infuser {
   width: 25%;
   display: flex;
   margin-right: 0;
+  justify-content: center;
 }
 .header_contact_item {
   margin: auto 20px;
 }
 .header_user {
   display: flex;
+  width: 100%;
+  justify-content: center;
 }
 .header_welcome {
   margin: auto 0px;
 }
 .header_user_but {
   margin: auto 0px;
+}
+.bop {
+  display: flex;
+  width: 100%;
 }
