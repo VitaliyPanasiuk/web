@@ -58,6 +58,9 @@ input[type="password"] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+body {
+  font-family: monospace;
+}
 
 .loginform {
   border: 3px solid #f1f1f1;
@@ -94,6 +97,7 @@ span.psw {
   margin: 10px auto;
 }
 .reg_body {
+  margin-top: 30px;
 }
 .reg-tit {
   margin: auto;
@@ -108,7 +112,8 @@ h2 {
 .reg_name {
   /* display: inline-block; */
   width: max-content;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 30%;
 }
 .reg_name input {
   width: 200px;
@@ -123,7 +128,8 @@ h2 {
 .reg_em {
   /* display: inline-block; */
   width: max-content;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 30%;
 }
 .reg_em input {
   width: 200px;
@@ -134,7 +140,11 @@ h2 {
 
 .reg_warn {
   width: max-content;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 30%;
+}
+.reg_warn p {
+  font-size: 12px;
 }
 
 .reg_password_bl {
@@ -143,7 +153,8 @@ h2 {
 .reg_password {
   /* display: inline-block; */
   width: max-content;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 30%;
 }
 .reg_password input {
   width: 300px;

@@ -1,408 +1,425 @@
 p {
-    font-family: "Roboto", sans-serif;
-  }
-  .body_inf {
-    width: 100%;
-    min-height: 72vh;
-    height: auto;
-  }
-  .user_page {
-    padding-top: 25px;
-    width: 340px;
-    height: 320px;
-    border-right: 1px solid #c6c6c6;
-    border-bottom: 1px solid #c6c6c6;
-  }
-  .user_img {
-    margin-left: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 50px;
-    height: 50px;
-  }
-  .user_bl_img {
-    margin-left: 8px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: auto;
-    height: 30px;
-  }
-  .user_img img {
-    display: block;
-    width: 50px;
-    height: 50px;
-  }
-  .user {
-    display: flex;
-    border-bottom: 1px solid #c6c6c6;
-    width: 340px;
-    /* margin-left: -55px; */
-  }
-  a {
-    text-decoration: none;
-    font-size: 20px;
-    color: #000;
-    font-family: "Roboto", sans-serif;
-  }
-  .user_inf {
-    margin-left: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  .user_inf_top {
-    display: flex;
-    margin-top: 5px;
-  }
-  .first_name {
-    margin-left: 0px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-  }
-  .last_name {
-    margin-left: 7px;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-right: 0;
-  }
-  .user_email {
-    font-size: 14px;
-    margin-left: 0px;
-    margin-top: 2px;
-    margin-bottom: 0;
-    margin-right: 0;
-  }
-  .user_bl {
-    display: flex;
-    margin-top: 15px;
-    width: 100%;
-    height: 50px;
-  }
-  .user_bl_text {
-    margin-left: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: auto;
-  }
-  
-  .user_bl a {
-    margin: auto;
-    /* width: 100%;
+  font-family: monospace;
+}
+.body_inf {
+  width: 100%;
+  min-height: 72vh;
+  height: auto;
+}
+.user_page {
+  padding-top: 25px;
+  width: 340px;
+  height: 320px;
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+.user_img {
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+}
+.user_bl_img {
+  margin-left: 8px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  height: 30px;
+}
+.user_img img {
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+.user {
+  display: flex;
+  border-bottom: 1px solid #c6c6c6;
+  width: 340px;
+  /* margin-left: -55px; */
+}
+a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #000;
+  font-family: monospace;
+}
+.user_inf {
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.user_inf_top {
+  display: flex;
+  margin-top: 5px;
+}
+.first_name {
+  margin-left: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.last_name {
+  margin-left: 7px;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.user_email {
+  font-size: 14px;
+  margin-left: 0px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.user_bl {
+  display: flex;
+  margin-top: 15px;
+  width: 100%;
+  height: 50px;
+}
+.user_bl_text {
+  margin-left: 0px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+}
+
+.user_bl a {
+  margin: auto;
+  /* width: 100%;
     height: 50px; */
-  }
-  .order img {
-    display: block;
-    width: 30px;
-    height: 30px;
-  }
-  .favourite img {
-    display: block;
-    width: 30px;
-    height: 30px;
-    margin: auto;
-  }
-  .cart img {
-    display: block;
-    width: 30px;
-    height: 30px;
-  }
-  .cart {
-    margin-bottom: 15px;
-    /* margin-left: -55px; */
-  }
-  .forms {
-    display: flex;
-    align-items: center;
-  }
-  .forms form {
-    margin-left: 10px;
-  }
-  .name_and_delete {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .intro_page {
-    display: flex;
-    width: 100%;
-  }
-  .active_item {
-    background-color: rgb(255, 0, 0, 0.4);
-    border-radius: 25px;
-  }
-  
-  .user_redact {
-    width: 950px;
-    margin-left: 10px;
-  }
-  .person_icon {
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 50px;
-    height: 50px;
-  }
-  .person_icon img {
-    width: 50px;
-    height: 50px;
-  }
-  .person_icon_let {
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 50px;
-    height: 35px;
-  }
-  .person_icon_let img {
-    width: 50px;
-    height: 35px;
-  }
-  .adres_icon_ad {
-    margin-left: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 50px;
-    height: 35px;
-  }
-  .adres_icon_ad img {
-    width: 50px;
-    height: 35px;
-  }
-  .personality {
-    display: block;
-    width: 900px;
-    margin-left: 50px;
-    margin-top: 50px;
-    border: 1px solid #c6c6c6;
-  }
-  .contacts {
-    display: block;
-    width: 900px;
-    margin-left: 50px;
-    margin-top: 50px;
-    border: 1px solid #c6c6c6;
-  }
-  .adres {
-    display: block;
-    width: 900px;
-    margin-left: 50px;
-    margin-top: 50px;
-    border: 1px solid #c6c6c6;
-  }
-  .adres_top {
-    display: flex;
-  }
-  .person_top {
-    display: flex;
-    width: 900px;
-  }
-  .person_text {
-    display: flex;
-    width: 900px;
-  }
-  .person_text p {
-    font-size: 16px;
-  }
-  .person_tit {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_redact {
-    width: auto;
-    margin-right: 30px;
-    margin-left: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_info {
-    display: flex;
-  }
-  .person_last_name {
-    margin-right: auto;
-    margin-left: 80px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_firs_name {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_num {
-    margin-right: auto;
-    margin-left: 80px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_emeil {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .person_subname {
-    color: #c6c6c6;
-    font-size: 14px;
-  }
-  .person_name {
-    font-size: 16px;
-  }
-  
-  /* order*/
-  .order_descr {
-    display: flex;
-    width: 80%;
-    border: 1px solid #c6c6c6;
-    height: 75px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 25px;
-    margin-bottom: auto;
-    border-radius: 5px;
-  }
-  .order_inf {
-    width: calc(100% - 340px);
-  }
-  .status_bl {
-    width: 15px;
-    height: 80%;
-    margin-right: 0;
-    margin-left: 15px;
-    margin-top: auto;
-    margin-bottom: auto;
-    background-color: #66cc00;
-    border-radius: 30px;
-  }
-  .status {
-    margin-right: 0;
-    margin-left: 15px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .order_price {
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  .order_img {
-    margin-right: 5px;
-    margin-left: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  
-  /* cart */
-  
-  .cart_inf {
-    margin-top: 20px;
-  }
-  .cart_bl {
-    display: flex;
-    width: 85%;
-    border: 1px solid #c6c6c6;
-    margin: 0 auto;
-  }
-  .cart_name {
-    height: auto;
-    max-height: 60px;
-    overflow: hidden;
-  }
-  .cart_name p {
-    font-size: 24px;
-    margin: 5px 10px;
-  }
-  .cart_price {
-    width: 100%;
-  }
-  .cart_price_text {
-    width: 100%;
-    display: flex;
-  }
-  .cart_price p {
-    font-size: 14px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-  .cart_inf {
-    display: flex;
-  }
-  .cart_descr {
-    display: block;
-    width: calc(100% - 50px);
-  }
-  .cart_price {
-    display: flex;
-  }
-  .cart_action {
-    border-left: 1px solid #c6c6c6;
-    width: 50px;
-  }
-  .cart_del {
-    margin-right: auto;
-    margin-left: 7px;
-    margin-top: 10px;
-    margin-bottom: 0;
-  }
-  .cart_buy {
-    margin-right: auto;
-    margin-left: 7px;
-    margin-top: auto;
-    margin-bottom: auto;
-  }
-  
-  .user_cart_bl {
-    display: flex;
-    width: 90%;
-    border: 1px solid #c6c6c6;
-    height: 120px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 25px;
-    margin-bottom: auto;
-    border-radius: 5px;
-  }
-  .user_cart_lf {
-    width: 15px;
-    height: 80%;
-    margin-right: 0;
-    margin-left: 12px;
-    margin-top: auto;
-    margin-bottom: auto;
-    /* background-color: #ffcc33; */
-    border-radius: 30px;
-    overflow: hidden;
-  }
-  .user_cart_lf img{
-    width: 100%;
-    height: 100%;
-    display: block;
-  
-  }
-  .user_cart_all {
-    margin-left: 25px;
-    width: 100%;
-  }
-  .price_and_other {
-    display: flex;
-    margin-left: 10px;
-  }
-  .quantity {
-    display: flex;
-    margin-left: 60px;
-  }
-  .name_and_delete {
-    width: 100%;
-  }
-  .form_del {
-    margin-right: 10px;
-  }
-.main_label{
-    text-align: center;
-    margin-top: 1%;
-}  
+}
+.order img {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.favourite img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: auto;
+}
+.cart img {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.cart {
+  margin-bottom: 15px;
+  /* margin-left: -55px; */
+}
+.forms {
+  display: flex;
+  align-items: center;
+}
+.forms form {
+  margin-left: 10px;
+}
+.name_and_delete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.intro_page {
+  display: flex;
+  width: 100%;
+}
+.active_item {
+  background-color: rgb(255, 0, 0, 0.4);
+  border-radius: 25px;
+}
+
+.user_redact {
+  width: 950px;
+  margin-left: 10px;
+}
+.person_icon {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
+}
+.person_icon img {
+  width: 50px;
+  height: 50px;
+}
+.person_icon_let {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 35px;
+}
+.person_icon_let img {
+  width: 50px;
+  height: 35px;
+}
+.adres_icon_ad {
+  margin-left: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50px;
+  height: 35px;
+}
+.adres_icon_ad img {
+  width: 50px;
+  height: 35px;
+}
+.personality {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.contacts {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.adres {
+  display: block;
+  width: 900px;
+  margin-left: 50px;
+  margin-top: 50px;
+  border: 1px solid #c6c6c6;
+}
+.adres_top {
+  display: flex;
+}
+.person_top {
+  display: flex;
+  width: 900px;
+}
+.person_text {
+  display: flex;
+  width: 900px;
+}
+.person_text p {
+  font-size: 16px;
+}
+.person_tit {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_redact {
+  width: auto;
+  margin-right: 30px;
+  margin-left: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_info {
+  display: flex;
+}
+.person_last_name {
+  margin-right: auto;
+  margin-left: 80px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_firs_name {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_num {
+  margin-right: auto;
+  margin-left: 80px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_emeil {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.person_subname {
+  color: #c6c6c6;
+  font-size: 14px;
+}
+.person_name {
+  font-size: 16px;
+}
+
+/* order*/
+.order_descr {
+  display: flex;
+  width: 80%;
+  border: 1px solid #c6c6c6;
+  height: 75px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+  margin-bottom: auto;
+  border-radius: 5px;
+}
+.order_inf {
+  width: calc(100% - 340px);
+}
+.status_bl {
+  width: 15px;
+  height: 80%;
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #66cc00;
+  border-radius: 30px;
+}
+.status {
+  margin-right: 0;
+  margin-left: 15px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.order_price {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.order_img {
+  margin-right: 5px;
+  margin-left: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* cart */
+
+.cart_inf {
+  margin-top: 20px;
+}
+.cart_bl {
+  display: flex;
+  width: 85%;
+  border: 1px solid #c6c6c6;
+  margin: 0 auto;
+}
+.cart_name {
+  height: auto;
+  max-height: 60px;
+  overflow: hidden;
+}
+.cart_name p {
+  font-size: 24px;
+  margin: 5px 10px;
+}
+.cart_price {
+  width: 100%;
+}
+.cart_price_text {
+  width: 100%;
+  display: flex;
+}
+.cart_price p {
+  font-size: 14px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.cart_inf {
+  display: flex;
+}
+.cart_descr {
+  display: block;
+  width: calc(100% - 50px);
+}
+.cart_price {
+  display: flex;
+}
+.cart_action {
+  border-left: 1px solid #c6c6c6;
+  width: 50px;
+}
+.cart_del {
+  margin-right: auto;
+  margin-left: 7px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.cart_buy {
+  margin-right: auto;
+  margin-left: 7px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.user_cart_bl {
+  display: flex;
+  width: 90%;
+  border: 1px solid #c6c6c6;
+  height: 120px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25px;
+  margin-bottom: auto;
+  border-radius: 5px;
+}
+.user_cart_lf {
+  width: 15px;
+  height: 80%;
+  margin-right: 0;
+  margin-left: 12px;
+  margin-top: auto;
+  margin-bottom: auto;
+  /* background-color: #ffcc33; */
+  border-radius: 30px;
+  overflow: hidden;
+}
+.user_cart_lf img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.user_cart_all {
+  margin-left: 25px;
+  width: 100%;
+}
+.price_and_other {
+  display: flex;
+  margin-left: 10px;
+}
+.quantity {
+  display: flex;
+  margin-left: 60px;
+}
+.name_and_delete {
+  width: 100%;
+}
+.form_del {
+  margin-right: 10px;
+}
+
+/* change password */
+.main_label {
+  text-align: center;
+  margin-top: 1%;
+  font-family: monospace;
+}
+#change_pass_form {
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  align-items: center;
+}
+.change_label {
+  margin-top: 25px;
+}
+.change_input {
+  margin-top: 5px;
+}
+.change_input2 {
+  margin-top: 15px;
+}
