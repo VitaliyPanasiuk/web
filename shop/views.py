@@ -146,8 +146,38 @@ def productsPage(request, lang):
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
-            elif availablefilter == "Нету" and pricefilter == "":
+            elif pricefilter == "" and availablefilter == "Нету":
                 filteredProducts = Продукт.objects.filter(наличие="-")
+                context = {
+                    "продукты": filteredProducts,
+                    "withprice": "spec",
+                    "available": "no",
+                    "lang": lang,
+                }
+                template = str(lang) + "/products/index.html"
+                return render(request, template, context)
+            elif pricefilter == "Цена есть" and availablefilter == "":
+                filteredProducts = Продукт.objects.exclude(цена=None)
+                context = {
+                    "продукты": filteredProducts,
+                    "withprice": "yes",
+                    "available": "spec",
+                    "lang": lang,
+                }
+                template = str(lang) + "/products/index.html"
+                return render(request, template, context)
+            elif pricefilter == "" and availablefilter == "Есть":
+                filteredProducts = Продукт.objects.exclude(наличие='-')
+                context = {
+                    "продукты": filteredProducts,
+                    "withprice": "spec",
+                    "available": "yes",
+                    "lang": lang,
+                }
+                template = str(lang) + "/products/index.html"
+                return render(request, template, context)
+            elif pricefilter == "" and availablefilter == "Нету":
+                filteredProducts = Продукт.objects.filter(наличие='-')
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",

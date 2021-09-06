@@ -25,7 +25,7 @@ class ProductImage(admin.TabularInline):
 
 @admin.register(Продукт)
 class productAdmin(admin.ModelAdmin):
-    search_fields = ('название_позиции',)
+    search_fields = ('название_позиции', 'name', 'название_позиции_укр')
     list_display = ('название_позиции', 'цена', 'валюта', 'количество',)
     list_filter = ('наличие', 'страна_производитель', )
     readonly_fields  = ('id',)
@@ -35,7 +35,7 @@ class productAdmin(admin.ModelAdmin):
 @admin.register(Заказ)
 class orderAdmin(admin.ModelAdmin):
     search_fields = ('фамилия', 'имя')
-    list_display = ('id', 'имя' , 'фамилия', 'статус_заказа', 'статус_оплаты', 'дата_заказа')
+    list_display = ('id', 'имя' , 'фамилия', 'confirm', 'статус_оплаты', 'дата_заказа')
     #filter_horizontal = ('заказ',)
     list_filter = ('confirm', 'статус_оплаты', )
     readonly_fields  = ('id', 'user_id')
@@ -45,7 +45,7 @@ class orderAdmin(admin.ModelAdmin):
             'fields': ('фамилия','имя', 'отчество', 'телефон', 'почта')
         }),
         ('Информация о заказе', {
-            'fields': ('order_ru', 'сумма_заказа', 'валюта_заказа', 'статус_оплаты', 'статус_заказа', 'дата_заказа', 'confirm')
+            'fields': ('order_ru', 'сумма_заказа', 'валюта_заказа', 'статус_оплаты', 'confirm', 'дата_заказа')
         }),
         ('Адрес доставки', {
             'fields': ('delivery_type', 'payment_type', 'city', 'street', 'house', 'nova_pochta', 'ukr_pochta' )
@@ -58,7 +58,7 @@ class orderAdmin(admin.ModelAdmin):
 @admin.register(ShopCalls)
 class productAdmin(admin.ModelAdmin):
     actions = ['delete_selected']
-    search_fields = ('phone_number',)
+    search_fields = ('phone_number', 'first_name', 'last_name')
     list_display = ('phone_number', 'first_name', 'timedate')
     readonly_fields  = ('first_name', 'last_name', 'phone_number', 'viewed_product', 'price', 'timedate',)
     exclude = ('id', )
