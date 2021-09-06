@@ -72,13 +72,13 @@
                                 </a>
                             </div>
                             {% endif %}
-                            {% if user.is_authenticated %}
+                            {% if auth_status == 'success' %}
                                 <div style="color: aliceblue;" class="header_user">
                                     <div class="header_welcome">
                                         Welcome: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/ru/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/en/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -91,14 +91,14 @@
                             {% endif %}
                             {% if auth_status == 'failed' %}
                             <div class="header_but">
-                                <a href="/ru/accounts/login" class="headerbut_log">
+                                <a href="/en/accounts/login" class="headerbut_log">
                                     Log in
                                 </a>
                             </div>
                             {% endif %}
                             {% if auth_status == 'failed' %}
                             <div class="header_but">
-                                <a href="/ru/accounts/register" class="headerbut_log">
+                                <a href="/en/accounts/register" class="headerbut_log">
                                     Registration
                                 </a>
                             </div>

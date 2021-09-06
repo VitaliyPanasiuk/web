@@ -863,6 +863,12 @@ def orderInfo(request, oid, uid, lang):
             managed = False
             db_table = "shop_cart"
 
+    if request.user.is_authenticated == False:
+            auth_status = 'failed'
+            return HttpResponse('404')
+    else: 
+        auth_status = 'success'
+        
     if request.POST:
         edit = request.POST.get('edit', '')
         editid = request.POST.get('editid', '')
@@ -876,11 +882,6 @@ def orderInfo(request, oid, uid, lang):
                 current_user.save()
                 return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/order/' + str(oid))
     else:
-        if request.user.is_authenticated == False:
-            auth_status = 'failed'
-            return HttpResponse('404')
-        else: 
-            auth_status = 'success'
         try:
             user = AuthUser.objects.get(id=str(request.user.id))
         except ValueError:

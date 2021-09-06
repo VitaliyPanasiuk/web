@@ -78,7 +78,7 @@
                                         Welcome: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/ru/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/en/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -91,7 +91,7 @@
                             {% endif %}
                             {% if not user.is_authenticated %}
                             <div class="header_but">
-                                <a href="/ru/accounts/login" class="headerbut_log">
+                                <a href="/en/accounts/login" class="headerbut_log">
                                     Log in
                                 </a>
                             </div>

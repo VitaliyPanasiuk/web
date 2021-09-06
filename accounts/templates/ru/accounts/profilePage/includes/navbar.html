@@ -17,8 +17,8 @@
                             <a href="/ru/about" class="nav_link">О нас</a>
                             <a href="/ru/products" class="nav_link">Каталог</a>
                             <a href="/ru/achievements" class="nav_link">Достижения</a>
-                            <a href="/en/collaboration" class="nav_link">сотрудничество</a>
-                            <a href="/en/guarantees" class="nav_link">гарантии</a>
+                            <a href="/ru/collaboration" class="nav_link">сотрудничество</a>
+                            <a href="/ru/guarantees" class="nav_link">гарантии</a>
                         </nav>
                         <div class="header_language">
                             <form action='' method="POST" id='language'>
@@ -72,7 +72,7 @@
                                 </a>
                             </div>
                             {% endif %}
-                            {% if user.is_authenticated %}
+                            {% if auth_status == 'success' %}
                                 <div style="color: aliceblue;" class="header_user">
                                     <div class="header_welcome">
                                         Добро пожаловать: 
