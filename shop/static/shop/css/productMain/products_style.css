@@ -1,10 +1,12 @@
 .all_products {
   width: 100%;
   display: flex;
+  /* min-height: 100vh; */
 }
 .helper {
   width: 30%;
 }
+
 .body_inf {
   display: flex;
   flex-direction: row;
@@ -147,7 +149,6 @@ input[type="search"] {
 .category-content {
   display: flex;
   flex-direction: column;
-  height: 300px;
   text-decoration: none;
 }
 .category-content p {
@@ -235,6 +236,6 @@ input[type="search"] {
 .availability_lab {
   display: block;
 }
-.filter_but{
+.filter_but {
   margin-top: 20px;
 }
