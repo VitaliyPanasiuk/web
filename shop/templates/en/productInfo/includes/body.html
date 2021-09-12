@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
+        <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
     <title>LuxonSport</title>
 </head>
 <body>
@@ -21,9 +23,31 @@
             <div class="main_all">
                 <div class="main_all_top">
                     <div class="main_l">
-                        <div class='mainImage'>
+                        <!-- <div class='mainImage'>
                             <img src='{{ MEDIA_URL }}{{ продукт.image }}'>
-                        </div> 
+                        </div>  -->
+                        <div class="slider">
+                            <div class="slider__wrapper">
+                              <div class="slider__items">
+                                <div class="slider__item">
+                                    <div >
+                                        <img src='{{ MEDIA_URL }}{{ продукт.image }}'>
+                                    </div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #607d8b;"></div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #f44336;"></div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #4caf50;"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <a class="slider__control slider__control_prev" href="#" role="button" data-slide="prev"></a>
+                            <a class="slider__control slider__control_next" href="#" role="button" data-slide="next"></a>
+                        </div>
                     </div>
                     <div class="main_r">
                         <div class='productLabel'>
@@ -148,4 +172,14 @@
     
 </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var slider = new SimpleAdaptiveSlider('.slider', {
+        loop: false,
+        autoplay: false,
+        interval: 5000,
+        swipe: true,
+      });
+    });
+  </script>
 </html>
