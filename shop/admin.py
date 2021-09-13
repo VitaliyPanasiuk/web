@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ, ShopCalls, Image
+from .models import ShopCategory, Продукт, Заказ, ShopCalls, Image, ShopCategory
 from django.contrib.admin import site
 site.disable_action('delete_selected')
 
@@ -61,4 +61,11 @@ class productAdmin(admin.ModelAdmin):
     search_fields = ('phone_number', 'first_name', 'last_name')
     list_display = ('phone_number', 'first_name', 'timedate')
     readonly_fields  = ('first_name', 'last_name', 'phone_number', 'viewed_product', 'price', 'timedate',)
+    exclude = ('id', )
+    
+@admin.register(ShopCategory)
+class productAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    search_fields = ('category_name_ru', 'category_name_en', 'category_name_uk',)
+    list_display = ('category_name_ru', 'id',)
     exclude = ('id', )

@@ -173,6 +173,20 @@ class ShopCalls(models.Model):
     def __str__(self):
         return 'Запрос от номера ' + str(self.phone_number)
 
+class ShopCategory(models.Model):
+    category_name_ru = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на русском')
+    category_name_en = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на английском')
+    category_name_uk = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на украинском')
+    category_id = models.TextField(max_length=300, blank=True, null=True, verbose_name='Id категории')
+    category_description = models.TextField(blank=True, null=True, verbose_name='Описание')
+
+    class Meta:
+        verbose_name_plural = "Категории"
+        verbose_name = "Категория"
+        db_table = 'shop_category'
+    def __str__(self):
+        return self.category_name_ru
+
 class Продукт(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -195,7 +209,8 @@ class Продукт(models.Model):
     наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True, default='np', choices=AVAILABLE_STATUS)  # Field name made lowercase.
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.
     номер_группы = models.IntegerField(db_column='Номер_группы', blank=True, null=True)  # Field name made lowercase.
-    название_группы = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    #категория = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)
+    категория = models.ForeignKey(ShopCategory, db_column='Название_группы', max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING)  # Field name made lowercase.
     адрес_подраздела = models.CharField(db_column='Адрес_подраздела', max_length=77, blank=True, null=True)  # Field name made lowercase.
     возможность_поставки = models.IntegerField(db_column='Возможность_поставки', blank=True, null=True)  # Field name made lowercase.
     срок_поставки = models.CharField(db_column='Срок_поставки', max_length=7, blank=True, null=True)  # Field name made lowercase.

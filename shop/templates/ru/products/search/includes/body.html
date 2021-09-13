@@ -248,13 +248,18 @@
                     </div>
                     <div class="filter_but">
                         <input type='submit' name='applyfilters' value='Применить фильтры'>
-                        <input type='submit' name='nofilters' value='убрать все фильтры'>
+                        <input type='submit' name='nofilters' value='Убрать все фильтры'>
                     </div>
                 </div>
                 </form>
             </div>
             <div class="help_category">
                 <div class="category">
+                        {% for i in category %}
+                            <a href='/ru/products/category/{{ i.id }}/'>{{ i.category_name_ru }}</a>
+                            <br>
+                        {% endfor %}
+                <!--
                     <div id="mycategory" class="category-content">
                         <p onclick="myFunction()" class="dropbtn">Спортивное оборудование для фитнес центров</p>
                         <div id="myDropdown" class="dropdown-content">
@@ -288,6 +293,7 @@
                         </div>
                     </div>
                 </div>
+                -->
             </div>
         </div>
         <div class="body_inf">    
