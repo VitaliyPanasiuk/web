@@ -662,6 +662,7 @@ def categorySearchPage(request, lang, id):
                     "withprice": "yes",
                     "available": "yes",
                     "lang": lang,
+                    'category': ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -677,6 +678,7 @@ def categorySearchPage(request, lang, id):
                     "withprice": "yes",
                     "available": "no",
                     "lang": lang,
+                    'category': ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)

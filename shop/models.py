@@ -177,7 +177,7 @@ class ShopCategory(models.Model):
     category_name_ru = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на русском')
     category_name_en = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на английском')
     category_name_uk = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на украинском')
-    category_id = models.TextField(max_length=300, blank=True, null=True, verbose_name='Id категории')
+    category_id = models.CharField(max_length=300, blank=True, null=True, verbose_name='Id категории')
     category_description = models.TextField(blank=True, null=True, verbose_name='Описание')
 
     class Meta:
