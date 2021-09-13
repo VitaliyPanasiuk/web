@@ -39,13 +39,13 @@ input[type="submit"] {
 }
 .main_l {
   width: 40%;
-  background-color: #ebe5e5;
+  background-color: #cecaca;
   min-height: 650px;
   height: 100%;
 }
 .main_r {
   width: 58%;
-  background-color: #ebe5e5;
+  background-color: #cecaca;
   min-height: 650px;
   height: 100%;
   margin-left: 2%;
@@ -58,7 +58,7 @@ input[type="submit"] {
 .mainImage {
   width: 400px;
   height: 400px;
-  background-color: #ebe5e5;
+  background-color: #cecaca;
 }
 .mainImage img {
   display: block;
@@ -68,8 +68,6 @@ input[type="submit"] {
   object-fit: cover;
   -o-object-position: center;
   object-position: center;
-}
-#description {
 }
 .main_all_bot {
   width: 100%;
@@ -134,4 +132,28 @@ input[type="submit"] {
 .availability p {
   font-size: 24px;
   margin-left: 30px;
+}
+
+/*slider*/
+.slider__items {
+  counter-reset: slide;
+}
+
+.slider__item {
+  counter-increment: slide;
+}
+
+.slider__item > div::before {
+  content: counter(slide);
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  color: #fff;
+  font-style: italic;
+  font-size: 32px;
+  font-weight: bold;
+}
+.slider__item img{
+  width:100%;
+  height:100%;
 }
