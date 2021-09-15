@@ -424,34 +424,34 @@ a {
   margin-top: 15px;
 }
 
-.person_edit{
+.person_edit {
   display: flex;
 }
-.person_edit label{
+.person_edit label {
   margin-top: 15px;
 }
-.person_adress label{
+.person_adress label {
   margin-top: 15px;
 }
-.person_data{
+.person_data {
   display: flex;
   flex-direction: column;
   width: 40%;
   margin-left: 15%;
 }
-.person_data input{
+.person_data input {
   max-width: 50%;
 }
-.person_adress input{
+.person_adress input {
   max-width: 60%;
 }
-.person_adress{
+.person_adress {
   display: flex;
   flex-direction: column;
   width: 40%;
   margin-left: 5%;
 }
-.person_all{
+.person_all {
   display: block;
   font-family: monospace;
 }
@@ -459,3 +459,4 @@ a {
   display: block;
   text-align: center;
 }
+

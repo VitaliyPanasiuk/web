@@ -36,6 +36,7 @@
 </head>
 <body>
     {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    <div class="conteiner">
     {% if userId == account %}
     {{ error_message }}
     <div>
@@ -45,62 +46,102 @@
                 <div class="make_order_product">
                     <div class="order_product_items">
                         <p>{{ order.order_en }}</p>
+                        <div class="prod_img">
+                            <img src="" >
+                        </div>
                         <div style='display: none;'>
                             <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
                         </div>
                     </div>
                     <p>Total price: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
                 </div>
-                <div class="make_order_l">
-
+                <div class="make_order_r">
+                    <div class="order_person_data">
+                        <div class="person_namef">
+                            <label>First name: </label>
+                            <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter your first name" required>
+                        </div>
+                        <div class="person_names">
+                            <label>Last name: </label>
+                            <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter your last name" required>
+                        </div>
+                        <div class="person_emeil">
+                            <label>Почта: </label>
+                            <input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
+                        </div>
+                        <div class="person_number">
+                            {% if user.phone_number != None %}
+                            <label>Phone number: </label>
+                            <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Enter your phone number" required>
+                            {% else %}
+                            <label>Phone number: </label>
+                            <input type='text' name='phone_number' placeholder="Enter your phone number" required>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="order_del_inf">
+                        <div class="order_delivery">
+                            <p>Delivery Type: </p>
+                            <div class="delivery_items">
+                                <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
+                                <label>By yourself</label>
+                            </div>
+                            
+                            <div class="delivery_items">
+                                <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
+                                <label>Nova Poshta</label>
+                            </div>
+                            
+                            <div class="delivery_items">
+                                <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
+                                <label>Ukrposhta</label>
+                            </div>
+                        </div>
+                        <div class="order_pay">
+                            <p>Payment Type: </p>
+                            <div class="pay_items">
+                                <input type="radio" name='typeOfPayment' value='Наличный' checked>
+                                <label>Cash</label>
+                            </div>
+                            <div class="pay_items">
+                                <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
+                                <label>Card </label><label style="color: red;">Unavailable (in development)</label>
+                            </div>
+                        </div>
+                        <div id='address' style='display: none;'>
+                            <p>Адрес</p>
+                            <div id='nova' style='display: none;' class="adress_items">
+                                <label>Nova Poshta department: </label>
+                                <input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'>
+                            </div>
+                            <div id='ukr' style='display: none;' class="adress_items">
+                                <label>Ukrposhta index: </label>
+                                <input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'>
+                            </div>
+                            <div class="adress_city">
+                                <label>City: </label>
+                                <input type='text' name='city' value='{{ user.city }}'>
+                            </div>
+                            <div class="adress_street">
+                                <label>Street: </label>
+                                <input type='text' name='street' value='{{ user.street }}'>
+                            </div>
+                            <div class="adress_house">
+                                <label>House: </label>
+                                <input type='text' name="house" value='{{ user.house }}'>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" name='go' value="Confirm this order!" class="confirm_order">
                 </div>
             </div>
-            <label>First name: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter your first name" required>
-            <label>Last name: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter your last name" required>
-            <label>Почта: </label><input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
-            {% if user.phone_number != None %}
-            <label>Phone number: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Enter your phone number" required>
-            {% else %}
-            <label>Phone number: </label><input type='text' name='phone_number' placeholder="Enter your phone number" required>
-            {% endif %}
-          
-            <!-- <label>Order: </label><div style='display: none;'>
-                <input type="hidden" value='{{ order.заказ }}' name='order'>
-            </div> -->
-
             
-            
-            <p>Delivery Type: </p>
-            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>By yourself</label>
-            
-            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-            <label>Nova Poshta</label>
-            
-            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-            <label>Ukrposhta</label>
-            
-            <p>Payment Type: </p>
-            <input type="radio" name='typeOfPayment' value='Наличный' checked>
-            <label>Cash</label>
-            
-            <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
-            <label>Card </label><label style="color: red;">Unavailable (in development)</label>
-            <div id='address' style='display: none;'>
-                <p>Адрес</p>
-                <div id='nova' style='display: none;'><label>Nova Poshta department: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
-                <div id='ukr' style='display: none;'><label>Ukrposhta index: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
-                <label>City: </label><input type='text' name='city' value='{{ user.city }}'>
-                <label>Street: </label><input type='text' name='street' value='{{ user.street }}'>
-                <label>House: </label><input type='text' name="house" value='{{ user.house }}'>
-            </div>
-            
-            <input type="submit" name='go' value="Confirm this order!">
         </form>
     </div>
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
+    </div>
     {% include 'en/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;

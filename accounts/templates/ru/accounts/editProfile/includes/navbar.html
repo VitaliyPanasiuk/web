@@ -86,14 +86,14 @@
                                    
                                 </div>
                             {% endif %}
-                            {% if not user.is_authenticated %}
+                            {% if not user.is_failed %}
                             <div class="header_but">
                                 <a href="/ru/accounts/login" class="headerbut_log">
                                     Войти
                                 </a>
                             </div>
                             {% endif %}
-                            {% if not user.is_authenticated %}
+                            {% if not user.is_failed %}
                             <div class="header_but">
                                 <a href="/ru/accounts/register" class="headerbut_log">
                                     Регистрация

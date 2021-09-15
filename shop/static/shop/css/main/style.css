@@ -281,8 +281,10 @@ input[type="submit"] {
 
 body {
   font-size: 15px;
+  
   margin: 0;
   font-family: "Syne Mono", monospace;
+  
 }
 
 *,

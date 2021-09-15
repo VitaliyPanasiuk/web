@@ -287,7 +287,7 @@ a {
   background-color: #66cc00;
   border-radius: 30px;
 }
-.status_bl_yellow{
+.status_bl_yellow {
   width: 15px;
   height: 80%;
   margin-right: 0;
@@ -438,5 +438,60 @@ a {
   margin-right: 10px;
   margin: auto 10px auto 10px;
 }
-
-
+.make_order {
+  display: flex;
+  min-height: 63vh;
+  margin-bottom: 10px;
+}
+.make_order_product {
+  width: 40%;
+  margin-left: 10%;
+}
+.make_order_r {
+  width: 40%;
+  margin-left: 10%;
+  font-family: monospace;
+}
+.make_order_r label {
+  font-size: 20px;
+}
+.make_order_r p {
+  font-size: 22px;
+}
+.order_product_items {
+  width: 250px;
+  height: 300px;
+}
+.order_person_data {
+  text-align: center;
+}
+.person_namef {
+  margin-top: 15px;
+}
+.person_names {
+  margin-top: 15px;
+}
+.person_emeil {
+  margin-top: 15px;
+}
+.person_number {
+  margin-top: 15px;
+}
+.order_delivery {
+  flex-direction: column;
+}
+.order_pay {
+  flex-direction: column;
+}
+.delivery_items,
+.pay_items {
+  margin-top: 10px;
+}
+.adress_city,
+.adress_street,
+.adress_house {
+  margin-top: 10px;
+}
+.confirm_order{
+  margin-top: 10px;
+}
