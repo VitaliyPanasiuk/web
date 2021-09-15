@@ -28,22 +28,33 @@
     <h1 class='main_label'>Edit your profile</h1>
     <form action="" method="POST">
         {% csrf_token %}
-        <label>First name: </label>
-        <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
-        <label>Last name: </label>
-        <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
-        <label>Email: </label>
-        <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
-        <label>Phone number: </label>
-        <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
-        <br>
-        <p>Shippin address: </p>
-        <label>City: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
-        <label>Street: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
-        <label>House: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
-        <label>Confirm your password</label>
-        <input type="password" name='password' id='password' required >
-        <input type="submit" value='Save'>
+        <div class="person_all">
+            <div class="person_edit">
+                <div class="person_data">
+                    <label>First name: </label>
+                    <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
+                    <label>Last name: </label>
+                    <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
+                    <label>Email: </label>
+                    <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
+                    <label>Phone number: </label>
+                    <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
+                </div>
+                <div class="person_adress">
+                    <label>City: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
+                    <label>Street: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
+                    <label>House: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
+                </div>
+            </div>
+            <div class="person_confirm">
+                <label>Confirm your password</label>
+                <div class="person_confirm_other">
+                    <input type="password" name='password' id='password' required >
+                    <input type="submit" value='Save'>
+                </div>
+                
+            </div>
+        </div>
         {{ error_message }}
         </form>  
 </body>

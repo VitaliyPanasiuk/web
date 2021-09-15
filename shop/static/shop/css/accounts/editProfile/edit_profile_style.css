@@ -423,3 +423,36 @@ a {
 .change_input2 {
   margin-top: 15px;
 }
+
+.person_edit{
+  display: flex;
+}
+.person_edit label{
+  margin-top: 15px;
+}
+.person_adress label{
+  margin-top: 15px;
+}
+.person_data{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 5%;
+}
+.person_data input{
+  max-width: 50%;
+}
+.person_adress{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-left: 5%;
+}
+.person_all{
+  display: block;
+  font-family: monospace;
+}
+.person_confirm {
+  display: block;
+  text-align: center;
+}

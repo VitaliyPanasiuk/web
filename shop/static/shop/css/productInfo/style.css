@@ -95,6 +95,18 @@ input[type="submit"] {
 }
 .small_block {
   margin-left: 25px;
+  display: block;
+}
+.small_other{
+  display: flex;
+}
+.add_tocart_amount{
+  display: flex;
+}
+.buy_second{
+  margin-left: 20px;
+}
+.price_availabilytity{
   display: flex;
 }
 .inp_button {

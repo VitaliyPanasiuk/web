@@ -36,32 +36,36 @@
                             </p>
                         </div>
                         <div class='small_block'>
-                            <div class="product_price">
-                                {% if  продукт.цена == None %}
+                            <div class="price_availabilytity">
+                                <div class="product_price">
+                                    {% if  продукт.цена == None %}
+                                        <p>
+                                            Цена формируется
+                                        </p>
+                                    {% else %}
+                                        <h3>
+                                            {{ продукт.цена }} {{ продукт.валюта }}
+                                        </h3>
+                                    {% endif %}
+                                </div>
+                                <div class="availability">
+                                    {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
+                                        <p>
+                                            Есть в наличии. Количество: неизвестно
+                                        </p>
+                                    {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
+                                        <p>
+                                            Нет в наличии
+                                        </p>
+                                    {% else %}
                                     <p>
-                                        Цена формируется
+                                        Есть в наличии. Количество: {{ продукт.наличие }}шт.
                                     </p>
-                                {% else %}
-                                    <h3>
-                                        {{ продукт.цена }} {{ продукт.валюта }}
-                                    </h3>
-                                {% endif %}
-                            </div>
-                            <div class="availability">
-                                {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
-                                    <p>
-                                        Есть в наличии. Количество: неизвестно
-                                    </p>
-                                {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
-                                    <p>
-                                        Нет в наличии
-                                    </p>
-                                {% else %}
-                                <p>
-                                    Есть в наличии. Количество: {{ продукт.наличие }}шт.
-                                </p>
-                                {% endif %}
-                            </div>  
+                                    {% endif %}
+                                </div> 
+                            </div> 
+                        <div class="small_other">
+                            <div class="buy_first">
                             {% if user_id %} 
                             {% if  продукт.цена == None  %}                         
                                 <h3>Ожидается поставка</h3>
@@ -76,7 +80,9 @@
                                          <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
                                         <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                         <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                        <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                        <div class="add_tocart_amount">
+                                            <label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1">
+                                        </div>
                                         <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
                                         <input class='inp_button' type='submit' value='Добавить в корзину!'>
                                     </form>  
@@ -102,7 +108,9 @@
                                 <input class='favourite_inp_button' type='submit' value='Добавить в избранное!'>
                             </form>
                             {% endif %}
+                            </div>
                             <label>Или</label>
+                            <div class="buy_second">
                             <form action="" method='post' >
                                 {% csrf_token %}
                                 {% if auth_status == 'success' and user.first_name %}
@@ -121,16 +129,20 @@
                                 {% endif %}
                                 <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Перезвоните мне!'>
                             </form>
+                            </div>
                         </div>
+                        <div class="main_all_bot" id="description">
+                            <p>Описание и характеристики</p>
+                            <span style="white-space: pre-line">{{ продукт.описание }}</span>
+                        </div>
+                        <button class="desc_but" class="but" onclick="getMore()">
+                            &#8597;
+                        </button>
                     </div>
+                    </div>
+                    
                 </div>
-                <div class="main_all_bot" id="description">
-                    <p>Описание и характеристики</p>
-                    <span style="white-space: pre-line">{{ продукт.описание }}</span>
-                </div>
-                <button class="desc_but" class="but" onclick="getMore()">
-                    &#8597;
-                </button>
+                
             </div>
         </div>
     </div>
