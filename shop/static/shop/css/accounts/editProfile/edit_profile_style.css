@@ -437,10 +437,13 @@ a {
   display: flex;
   flex-direction: column;
   width: 40%;
-  margin-left: 5%;
+  margin-left: 15%;
 }
 .person_data input{
   max-width: 50%;
+}
+.person_adress input{
+  max-width: 60%;
 }
 .person_adress{
   display: flex;
