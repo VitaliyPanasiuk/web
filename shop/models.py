@@ -203,9 +203,9 @@ class Продукт(models.Model):
     цена = models.FloatField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
     валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True, choices=CURRENCIES)  # Field name made lowercase.
     единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True, choices=AMOUNT)  # Field name made lowercase.
-    минимальный_объем_заказа = models.DecimalField(db_column='Минимальный_объем_заказа', max_digits=5, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
+    минимальный_объем_заказа = models.IntegerField(db_column='Минимальный_объем_заказа', blank=True, null=True)  # Field name made lowercase.
     оптовая_цена = models.DecimalField(db_column='Оптовая_цена', max_digits=11, decimal_places=5, blank=True, null=True)  # Field name made lowercase.
-    минимальный_заказ_опт = models.DecimalField(db_column='Минимальный_заказ_опт', max_digits=9, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
+    минимальный_заказ_опт = models.IntegerField(db_column='Минимальный_заказ_опт', blank=True, null=True)  # Field name made lowercase.
     ссылка_изображения = models.CharField(db_column='Ссылка_изображения', max_length=828, blank=True, null=True)  # Field name made lowercase.
     наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True, default='np', choices=AVAILABLE_STATUS)  # Field name made lowercase.
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.

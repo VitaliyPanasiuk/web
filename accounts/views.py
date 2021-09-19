@@ -314,6 +314,14 @@ def userCart(request, uid, lang):
             carts.amount -= 1
             if carts.amount < int(round(product.минимальный_заказ_опт, 0)):
                 carts.price = product.цена
+            if carts.amount < product.минимальный_объем_заказа:
+                if lang == 'ru':
+                    messages.error(request, "Количество товара не может быть меньше " + str(product.минимальный_объем_заказа))
+                elif lang == 'en':
+                    messages.error(request, "Amount can't be lower than " + str(product.минимальный_объем_заказа))
+                elif lang == 'uk':
+                    messages.error(request, "Кількість товару не може бути менше " + str(product.минимальный_объем_заказа))
+                return redirect('/' + lang +"/accounts/" + str(request.user.id) + "/cart")
             if carts.amount == 0:
                 if lang == 'ru':
                     messages.error(request, "Количество товара не может быть меньше 1")

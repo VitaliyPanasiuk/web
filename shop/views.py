@@ -8,6 +8,7 @@ from django.db import models
 import requests
 from requests.exceptions import MissingSchema
 from datetime import datetime
+from django.contrib import messages
 
 продукты = Продукт.objects.all()
 
@@ -1062,6 +1063,10 @@ def aboutProductPage(request, id, lang):
                     prce=product.оптовая_цена
                 else:
                     prce=max(float(i) for i in item_price.replace(",", ".").split())
+                if int(howMuchToAdd) < product.минимальный_объем_заказа:
+                    error_message = 'Вы не можете заказать меньше ' + str(product.минимальный_объем_заказа) + ' единиц этого товара'
+                    messages.error(request, error_message)
+                    return redirect('/' + str(lang) + '/product/' + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
@@ -1073,22 +1078,40 @@ def aboutProductPage(request, id, lang):
                     uk_order_item=item_name_uk,
                 )
             elif lang == "en":
+                product = Продукт.objects.get(id=item_id)
+                if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
+                    prce=product.оптовая_цена
+                else:
+                    prce=max(float(i) for i in item_price.replace(",", ".").split())
+                if int(howMuchToAdd) < product.минимальный_объем_заказа:
+                    error_message = 'You cannot order less than ' + str(product.минимальный_объем_заказа) + ' units'
+                    messages.error(request, error_message)
+                    return redirect('/' + str(lang) + '/product/' + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
                     name=item_name_ru,
-                    price=max(float(i) for i in item_price.replace(",", ".").split()),
+                    price=prce,
                     currency=item_currency,
                     ru_order_item=item_name_ru,
                     en_order_item=item_name_en,
                     uk_order_item=item_name_uk,
                 )
             elif lang == "uk":
+                product = Продукт.objects.get(id=item_id)
+                if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
+                    prce=product.оптовая_цена
+                else:
+                    prce=max(float(i) for i in item_price.replace(",", ".").split())
+                if int(howMuchToAdd) < product.минимальный_объем_заказа:
+                    error_message = 'Ви не можете замовити менш як ' + str(product.минимальный_объем_заказа) + ' одиниць цього товару'
+                    messages.error(request, error_message)
+                    return redirect('/' + str(lang) + '/product/' + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
                     name=item_name_ru,
-                    price=max(float(i) for i in item_price.replace(",", ".").split()),
+                    price=prce,
                     currency=item_currency,
                     ru_order_item=item_name_ru,
                     en_order_item=item_name_en,

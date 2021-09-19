@@ -143,6 +143,14 @@
                             </form>
                             </div>
                         </div>
+                        {% if messages %}
+                                    {% for message in messages %}
+                                        <p class="{{ message.tags }}">
+                                            {{ message|safe }}
+                                            <a href="" class="close">✖</a>
+                                        </p>
+                                    {% endfor %}
+                            {% endif %}
                         <div class="main_all_bot" id="description">
                             <p>Описание и характеристики</p>
                             <span style="white-space: pre-line">{{ продукт.описание }}</span>
