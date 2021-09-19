@@ -1023,7 +1023,7 @@ def aboutProductPage(request, id, lang):
             db_table = "shop_favourite"
 
     '''for i in продукты:
-        if int(i.id) > 214:
+        if int(i.id) > 236:
             russian_desc = i.описание
             from googletrans import Translator
             translator = Translator(user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36')
@@ -1057,11 +1057,16 @@ def aboutProductPage(request, id, lang):
             item_currency = request.POST.get("add_currency", "")
             howMuchToAdd = request.POST.get("how_much_to_add", "")
             if lang == "ru":
+                product = Продукт.objects.get(id=item_id)
+                if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
+                    prce=product.оптовая_цена
+                else:
+                    prce=max(float(i) for i in item_price.replace(",", ".").split())
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
                     name=item_name_ru,
-                    price=max(float(i) for i in item_price.replace(",", ".").split()),
+                    price=prce,
                     currency=item_currency,
                     ru_order_item=item_name_ru,
                     en_order_item=item_name_en,

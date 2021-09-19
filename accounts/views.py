@@ -300,14 +300,20 @@ def userCart(request, uid, lang):
         language = request.POST.get('language', '')
         if addOneMore:
             item = request.POST.get("item_plus", "")
+            product = Продукт.objects.get(id=item)
             carts = ShopCarty.objects.get(item=item)
             carts.amount += 1
+            if carts.amount >= int(round(product.минимальный_заказ_опт, 0)):
+                carts.price = product.оптовая_цена
             carts.save()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
         elif removeOneMore:
             item = request.POST.get("item_minus", "")
+            product = Продукт.objects.get(id=item)
             carts = ShopCarty.objects.get(item=item)
             carts.amount -= 1
+            if carts.amount < int(round(product.минимальный_заказ_опт, 0)):
+                carts.price = product.цена
             if carts.amount == 0:
                 if lang == 'ru':
                     messages.error(request, "Количество товара не может быть меньше 1")

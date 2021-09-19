@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,9 +43,20 @@
                                             Цена формируется
                                         </p>
                                     {% else %}
-                                        <h3>
-                                            {{ продукт.цена }} {{ продукт.валюта }}
-                                        </h3>
+                                        {% if продукт.скидка %}
+                                            <h3>
+                                            {% with a=100 %}
+                                                {% with saleproc=a|sub:продукт.скидка  %}
+                                                    {% with sale=saleproc|div:100 %}
+                                                        {{ продукт.цена|mul:sale|floatformat:2 }} {{ продукт.валюта }}
+                                                    {% endwith %}
+                                                {% endwith %}
+                                            {% endwith %}
+                                            </h3>
+                                        {% else %}
+                                            {{ продукт.цена}} {{ продукт.валюта }}
+                                        {% endif %}
+                                        <p>Цена при заказе от {{ продукт.минимальный_заказ_опт|floatformat:0 }} единиц: {{ продукт.оптовая_цена|floatformat:2 }}</p>
                                     {% endif %}
                                 </div>
                                 <div class="availability">
@@ -64,6 +75,7 @@
                                     {% endif %}
                                 </div> 
                             </div> 
+                            <h2>Страна производства: {{ продукт.страна_производитель }}</h2>
                         <div class="small_other">
                             <div class="buy_first">
                             {% if user_id %} 

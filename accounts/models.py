@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 PROGRESS_STATUS = (
     ('d', 'Исполнено'),
@@ -54,16 +55,18 @@ class ShopFavourite(models.Model):
             db_table = "shop_favourite"
 
 class Продукт(models.Model):
+    название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     код_товара = models.CharField(db_column='Код_товара', max_length=25, blank=True, null=True)  # Field name made lowercase.
-    название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     название_позиции_укр = models.CharField(db_column='Название_позиции_укр', max_length=90, blank=True, null=True)  # Field name made lowercase.
+    name = models.CharField(max_length=100, null=True, blank=True, verbose_name='Название позиции англ')
     поисковые_запросы = models.CharField(db_column='Поисковые_запросы', max_length=171, blank=True, null=True)  # Field name made lowercase.
     поисковые_запросы_укр = models.CharField(db_column='Поисковые_запросы_укр', max_length=169, blank=True, null=True)  # Field name made lowercase.
-    описание = models.CharField(db_column='Описание', max_length=5231, blank=True, null=True)  # Field name made lowercase.
-    описание_укр = models.CharField(db_column='Описание_укр', max_length=6656, blank=True, null=True)  # Field name made lowercase.
+    описание = models.TextField(db_column='Описание', max_length=5231, blank=True, null=True)  # Field name made lowercase.
+    описание_укр = models.TextField(db_column='Описание_укр', max_length=6656, blank=True, null=True)  # Field name made lowercase.
+    description = models.TextField(max_length=5000, blank=True, null=True)
     тип_товара = models.CharField(db_column='Тип_товара', max_length=1, blank=True, null=True)  # Field name made lowercase.
-    цена = models.IntegerField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
+    цена = models.FloatField(db_column='Цена', blank=True, null=True)  # Field name made lowercase.
     валюта = models.CharField(db_column='Валюта', max_length=3, blank=True, null=True)  # Field name made lowercase.
     единица_измерения = models.CharField(db_column='Единица_измерения', max_length=8, blank=True, null=True)  # Field name made lowercase.
     минимальный_объем_заказа = models.DecimalField(db_column='Минимальный_объем_заказа', max_digits=5, decimal_places=3, blank=True, null=True)  # Field name made lowercase.
@@ -73,7 +76,8 @@ class Продукт(models.Model):
     наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True, default='np', choices=AVAILABLE_STATUS)  # Field name made lowercase.
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.
     номер_группы = models.IntegerField(db_column='Номер_группы', blank=True, null=True)  # Field name made lowercase.
-    название_группы = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    #категория = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)
+    #категория = models.ForeignKey(ShopCategory, db_column='Название_группы', max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING)  # Field name made lowercase.
     адрес_подраздела = models.CharField(db_column='Адрес_подраздела', max_length=77, blank=True, null=True)  # Field name made lowercase.
     возможность_поставки = models.IntegerField(db_column='Возможность_поставки', blank=True, null=True)  # Field name made lowercase.
     срок_поставки = models.CharField(db_column='Срок_поставки', max_length=7, blank=True, null=True)  # Field name made lowercase.
@@ -83,16 +87,22 @@ class Продукт(models.Model):
     идентификатор_группы = models.CharField(db_column='Идентификатор_группы', max_length=30, blank=True, null=True)  # Field name made lowercase.
     производитель = models.CharField(db_column='Производитель', max_length=11, blank=True, null=True)  # Field name made lowercase.
     страна_производитель = models.CharField(db_column='Страна_производитель', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    скидка = models.CharField(db_column='Скидка', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    скидка = models.IntegerField(db_column='Скидка', blank=True, null=True, verbose_name='Скидка (%)', default=0 ,validators=[
+            MaxValueValidator(100),
+            MinValueValidator(0)
+        ])  # Field name made lowercase.
     id_группы_разновидностей = models.CharField(db_column='ID_группы_разновидностей', max_length=30, blank=True, null=True)  # Field name made lowercase.
     личные_заметки = models.CharField(db_column='Личные_заметки', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
-
+    #cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    #cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    image = models.FileField(upload_to='products/', blank=True, null=True, verbose_name='Главное изображение')
+    
     class Meta:
-        managed = False
         db_table = 'shop_product'
         verbose_name_plural = "Продукты"
+        managed=False
+    def __str__(self):
+        return self.название_позиции
     
 
 class ShopCart(models.Model):
