@@ -256,8 +256,15 @@
                 <div class="help_category">
                     <div class="category">
                         {% for i in category %}
-                            <a href='/ru/products/category/{{ i.id }}/'>{{ i.category_name_ru }}</a>
-                            <br>
+                            <a onclick="myFunction()" class="dropbtn" href='/ru/products/category/{{ i.id }}/'>{{ i.category_name_ru }}</a>
+                            <div id="myDropdown" class="dropdown-content">
+                                <ul>
+                                    <a href="#">text2</a>
+                                    <a href="#">text2</a>
+                                    <a href="#">text2</a>
+                                    <a href="#">text</a>
+                                </ul>
+                            </div>
                         {% endfor %}
                         <!--
                         <div id="mycategory" class="category-content">
