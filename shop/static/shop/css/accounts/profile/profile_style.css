@@ -442,6 +442,7 @@ a {
   display: flex;
   min-height: 63vh;
   margin-bottom: 10px;
+  margin-top: 15px;
 }
 .make_order_product {
   width: 40%;
@@ -460,7 +461,21 @@ a {
 }
 .order_product_items {
   width: 250px;
-  height: 300px;
+  height: 400px;
+  border: solid 1px black;
+}
+.order_product_items p {
+  font-size: 20px;
+  margin-left: 10px;
+  /* margin-right: auto; */
+}
+.prod_img img {
+  width: 100%;
+  height: 40%;
+}
+.prod_img {
+  width: 100%;
+  height: 40%;
 }
 .order_person_data {
   text-align: center;
