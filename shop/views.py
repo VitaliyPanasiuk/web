@@ -49,16 +49,16 @@ def homePage(request, lang):
 
 
 def productsPage(request, lang):
-    '''for i in ShopCategory.objects.all():
-        a = i.category_id.split(", ")
-        for x in продукты:
-            if str(x.номер_группы) in a:
-                product = Продукт.objects.get(id=x.id)
-                product.категория = i.id
-                product.save()
-                print('wow')
-            else:
-                print()'''
+    """for i in ShopCategory.objects.all():
+    a = i.category_id.split(", ")
+    for x in продукты:
+        if str(x.номер_группы) in a:
+            product = Продукт.objects.get(id=x.id)
+            product.категория = i.id
+            product.save()
+            print('wow')
+        else:
+            print()"""
     if request.POST:
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
@@ -80,7 +80,7 @@ def productsPage(request, lang):
                     "withprice": "yes",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -93,7 +93,7 @@ def productsPage(request, lang):
                     "withprice": "yes",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -104,7 +104,7 @@ def productsPage(request, lang):
                     "withprice": "no",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -117,7 +117,7 @@ def productsPage(request, lang):
                     "withprice": "no",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -128,7 +128,7 @@ def productsPage(request, lang):
                     "withprice": "no",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -139,7 +139,7 @@ def productsPage(request, lang):
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -150,29 +150,29 @@ def productsPage(request, lang):
                     "withprice": "yes",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие='-')
+                filteredProducts = Продукт.objects.exclude(наличие="-")
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие='-')
+                filteredProducts = Продукт.objects.filter(наличие="-")
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
@@ -182,7 +182,7 @@ def productsPage(request, lang):
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
-                'category': ShopCategory.objects.all(),
+                "category": ShopCategory.objects.all(),
             }
             template = str(lang) + "/products/index.html"
             return render(request, template, context)
@@ -203,10 +203,11 @@ def productsPage(request, lang):
         "available": "spec",
         "withprice": "spec",
         "lang": lang,
-        'category': ShopCategory.objects.all(),
+        "category": ShopCategory.objects.all(),
     }
     template = str(lang) + "/products/index.html"
     return render(request, template, context)
+
 
 def categoryPage(request, lang, id):
     if request.POST:
@@ -217,110 +218,139 @@ def categoryPage(request, lang, id):
         nofilters = request.POST.get("nofilters", "")
         language = request.POST.get("language", "")
         if search:
-            return redirect("/" + str(lang) + "/products/category/" + str(id) + "/search/?q=" + searchText)
+            return redirect(
+                "/"
+                + str(lang)
+                + "/products/category/"
+                + str(id)
+                + "/search/?q="
+                + searchText
+            )
         elif applyfilters:
             pricefilter = request.POST.get("pricefilter", "")
             availablefilter = request.POST.get("availablefilter", "")
             if pricefilter == "Цена есть" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(цена=None).exclude(наличие="-").filter(категория=id)  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+                filteredProducts = (
+                    Продукт.objects.exclude(цена=None)
+                    .exclude(наличие="-")
+                    .filter(категория=id)
+                )  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цена есть" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.exclude(цена=None).filter(
-                    наличие="-"
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.exclude(цена=None)
+                    .filter(наличие="-")
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-").filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.filter(цена=None)
+                    .filter(наличие="-")
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие="-").filter(
-                    цена=None
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.exclude(наличие="-")
+                    .filter(цена=None)
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "":
-                filteredProducts = Продукт.objects.filter(цена=None).filter(категория=id)
+                filteredProducts = Продукт.objects.filter(цена=None).filter(
+                    категория=id
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие="-").filter(категория=id)
+                filteredProducts = Продукт.objects.filter(наличие="-").filter(
+                    категория=id
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цена есть" and availablefilter == "":
-                filteredProducts = Продукт.objects.exclude(цена=None).filter(категория=id)
+                filteredProducts = Продукт.objects.exclude(цена=None).filter(
+                    категория=id
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие='-').filter(категория=id)
+                filteredProducts = Продукт.objects.exclude(наличие="-").filter(
+                    категория=id
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие='-').filter(категория=id)
+                filteredProducts = Продукт.objects.filter(наличие="-").filter(
+                    категория=id
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
@@ -331,7 +361,7 @@ def categoryPage(request, lang, id):
                     "withprice": "spec",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
@@ -342,7 +372,7 @@ def categoryPage(request, lang, id):
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
-                'category': ShopCategory.objects.all(),
+                "category": ShopCategory.objects.all(),
             }
             template = str(lang) + "/products/category/index.html"
             return render(request, template, context)
@@ -351,23 +381,32 @@ def categoryPage(request, lang, id):
                 current_user = AuthUser.objects.get(id=request.user.id)
                 current_user.user_language = str(language)
                 current_user.save()
-                return redirect("/" + current_user.user_language + "/products/category/" + str(id) + '/')
+                return redirect(
+                    "/"
+                    + current_user.user_language
+                    + "/products/category/"
+                    + str(id)
+                    + "/"
+                )
             else:
-                return redirect("/" + str(language) + "/products/category/" + str(id) + '/')
-        
+                return redirect(
+                    "/" + str(language) + "/products/category/" + str(id) + "/"
+                )
+
     else:
-        template = str(lang) + '/products/category/index.html'
-        #category = ShopCategory.objects.get(id=id)
+        template = str(lang) + "/products/category/index.html"
+        # category = ShopCategory.objects.get(id=id)
         filteredProducts = Продукт.objects.filter(категория=id)
         context = {
-            'продукты': filteredProducts,
+            "продукты": filteredProducts,
             "lang": lang,
             "withprice": "spec",
             "available": "spec",
-            'category': ShopCategory.objects.all(),
+            "category": ShopCategory.objects.all(),
         }
-        #return HttpResponse(filteredProducts)
+        # return HttpResponse(filteredProducts)
         return render(request, template, context)
+
 
 def searchPage(request, lang):
     q = request.GET.get("q").replace("-", " ").lower()
@@ -622,10 +661,11 @@ def searchPage(request, lang):
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
-                'category': ShopCategory.objects.all(),
+                "category": ShopCategory.objects.all(),
                 #'page': int(page),
             }
             return render(request, template, context)
+
 
 def categorySearchPage(request, lang, id):
     q = request.GET.get("q").replace("-", " ").lower()
@@ -634,9 +674,11 @@ def categorySearchPage(request, lang, id):
     elif lang == "en":
         a = Продукт.objects.filter(name__icontains=q).filter(категория=id)
     elif lang == "uk":
-        a = Продукт.objects.filter(название_позиции_укр__icontains=q).filter(категория=id)
+        a = Продукт.objects.filter(название_позиции_укр__icontains=q).filter(
+            категория=id
+        )
     if q == "":
-        return redirect("/" + str(lang) + "/products/category/"+ str(id) + '/')
+        return redirect("/" + str(lang) + "/products/category/" + str(id) + "/")
     if request.POST:
         page = 1
         counter = 20
@@ -647,7 +689,14 @@ def categorySearchPage(request, lang, id):
         nofilters = request.POST.get("nofilters", "")
         language = request.POST.get("language", "")
         if search:
-            return redirect("/" + str(lang) + "/products/category/" + str(id) + "/search/?q=" + searchText)
+            return redirect(
+                "/"
+                + str(lang)
+                + "/products/category/"
+                + str(id)
+                + "/search/?q="
+                + searchText
+            )
         elif applyfilters:
             pricefilter = request.POST.get("pricefilter", "")
             availablefilter = request.POST.get("availablefilter", "")
@@ -655,7 +704,8 @@ def categorySearchPage(request, lang, id):
                 filteredProducts = (
                     Продукт.objects.exclude(цена=None)
                     .exclude(наличие="-")
-                    .filter(название_позиции__icontains=q.lower()).filter(категория=id)
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
                 )  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
                 context = {
                     "продукты": filteredProducts,
@@ -663,7 +713,7 @@ def categorySearchPage(request, lang, id):
                     "withprice": "yes",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -679,7 +729,7 @@ def categorySearchPage(request, lang, id):
                     "withprice": "yes",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -695,7 +745,7 @@ def categorySearchPage(request, lang, id):
                     "withprice": "no",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -711,63 +761,71 @@ def categorySearchPage(request, lang, id):
                     "withprice": "no",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.filter(цена=None).filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.filter(цена=None)
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "page": int(page),
                     "withprice": "no",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цена есть" and availablefilter == "":
-                filteredProducts = Продукт.objects.exclude(цена=None).filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.exclude(цена=None)
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "page": int(page),
                     "lang": lang,
                     "withprice": "yes",
                     "available": "spec",
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие="-").filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.filter(наличие="-")
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "page": int(page),
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие="-").filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.exclude(наличие="-")
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "page": int(page),
                     "withprice": "spec",
                     "available": "yes",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -781,33 +839,37 @@ def categorySearchPage(request, lang, id):
                     "withprice": "spec",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "":
-                filteredProducts = Продукт.objects.filter(цена=None).filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.filter(цена=None)
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "spec",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
             elif availablefilter == "Нету" and pricefilter == "":
-                filteredProducts = Продукт.objects.filter(наличие="-").filter(
-                    название_позиции__icontains=q.lower()
-                ).filter(категория=id)
+                filteredProducts = (
+                    Продукт.objects.filter(наличие="-")
+                    .filter(название_позиции__icontains=q.lower())
+                    .filter(категория=id)
+                )
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                 }
                 template = str(lang) + "/products/category/search/index.html"
                 return render(request, template, context)
@@ -819,7 +881,7 @@ def categorySearchPage(request, lang, id):
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
-                'category': ShopCategory.objects.all(),
+                "category": ShopCategory.objects.all(),
             }
             template = str(lang) + "/products/category/search/index.html"
             return render(request, template, context)
@@ -829,10 +891,22 @@ def categorySearchPage(request, lang, id):
                 current_user.user_language = str(language)
                 current_user.save()
                 return redirect(
-                    "/" + current_user.user_language + "/products/category/"+ str(id) +"/search/?q=" + q
+                    "/"
+                    + current_user.user_language
+                    + "/products/category/"
+                    + str(id)
+                    + "/search/?q="
+                    + q
                 )
             else:
-                return redirect("/" + str(language) + "/products/category/"+ str(id) +"/search/?q=" + q)
+                return redirect(
+                    "/"
+                    + str(language)
+                    + "/products/category/"
+                    + str(id)
+                    + "/search/?q="
+                    + q
+                )
 
     else:
         template = str(lang) + "/products/category/search/index.html"
@@ -842,7 +916,7 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "Пустой запрос",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
                 return render(request, template, context)
@@ -851,7 +925,7 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "Empty search field",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
                 return render(request, template, context)
@@ -860,7 +934,7 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "Порожнє поле пошуку",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
             return render(request, template, context)
@@ -870,7 +944,7 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "По Вашему запросу ничего не найдено",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
                 return render(request, template, context)
@@ -879,7 +953,7 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "No results were found for your search",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
                 return render(request, template, context)
@@ -888,20 +962,20 @@ def categorySearchPage(request, lang, id):
                     #'продукты': a[0:len(a):],
                     "error_message": "За Вашим запитом нічого не знайдено",
                     "lang": lang,
-                    'category': ShopCategory.objects.all(),
+                    "category": ShopCategory.objects.all(),
                     #'page': int(page),
                 }
                 return render(request, template, context)
         else:
-            
+
             context = {
                 "продукты": a[0 : len(a) :],
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
-                'category': ShopCategory.objects.all(),
+                "category": ShopCategory.objects.all(),
                 #'page': int(page),
-                'error': str(len(a))
+                "error": str(len(a)),
             }
             return render(request, template, context)
 
@@ -1023,7 +1097,7 @@ def aboutProductPage(request, id, lang):
             managed = False
             db_table = "shop_favourite"
 
-    '''for i in продукты:
+    """for i in продукты:
         if int(i.id) > 236:
             russian_desc = i.описание
             from googletrans import Translator
@@ -1038,7 +1112,7 @@ def aboutProductPage(request, id, lang):
             item.description = english_desc
             item.name = eng_name
             item.save()
-            print(i.id)'''
+            print(i.id)"""
 
     favourites = ShopFavourite.objects.all()
     if request.POST:
@@ -1060,13 +1134,17 @@ def aboutProductPage(request, id, lang):
             if lang == "ru":
                 product = Продукт.objects.get(id=item_id)
                 if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
-                    prce=product.оптовая_цена
+                    prce = product.оптовая_цена
                 else:
-                    prce=max(float(i) for i in item_price.replace(",", ".").split())
+                    prce = max(float(i) for i in item_price.replace(",", ".").split())
                 if int(howMuchToAdd) < product.минимальный_объем_заказа:
-                    error_message = 'Вы не можете заказать меньше ' + str(product.минимальный_объем_заказа) + ' единиц этого товара'
+                    error_message = (
+                        "Вы не можете заказать меньше "
+                        + str(product.минимальный_объем_заказа)
+                        + " единиц этого товара"
+                    )
                     messages.error(request, error_message)
-                    return redirect('/' + str(lang) + '/product/' + str(id))
+                    return redirect("/" + str(lang) + "/product/" + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
@@ -1080,13 +1158,17 @@ def aboutProductPage(request, id, lang):
             elif lang == "en":
                 product = Продукт.objects.get(id=item_id)
                 if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
-                    prce=product.оптовая_цена
+                    prce = product.оптовая_цена
                 else:
-                    prce=max(float(i) for i in item_price.replace(",", ".").split())
+                    prce = max(float(i) for i in item_price.replace(",", ".").split())
                 if int(howMuchToAdd) < product.минимальный_объем_заказа:
-                    error_message = 'You cannot order less than ' + str(product.минимальный_объем_заказа) + ' units'
+                    error_message = (
+                        "You cannot order less than "
+                        + str(product.минимальный_объем_заказа)
+                        + " units"
+                    )
                     messages.error(request, error_message)
-                    return redirect('/' + str(lang) + '/product/' + str(id))
+                    return redirect("/" + str(lang) + "/product/" + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
@@ -1100,13 +1182,17 @@ def aboutProductPage(request, id, lang):
             elif lang == "uk":
                 product = Продукт.objects.get(id=item_id)
                 if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
-                    prce=product.оптовая_цена
+                    prce = product.оптовая_цена
                 else:
-                    prce=max(float(i) for i in item_price.replace(",", ".").split())
+                    prce = max(float(i) for i in item_price.replace(",", ".").split())
                 if int(howMuchToAdd) < product.минимальный_объем_заказа:
-                    error_message = 'Ви не можете замовити менш як ' + str(product.минимальный_объем_заказа) + ' одиниць цього товару'
+                    error_message = (
+                        "Ви не можете замовити менш як "
+                        + str(product.минимальный_объем_заказа)
+                        + " одиниць цього товару"
+                    )
                     messages.error(request, error_message)
-                    return redirect('/' + str(lang) + '/product/' + str(id))
+                    return redirect("/" + str(lang) + "/product/" + str(id))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,

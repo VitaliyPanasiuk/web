@@ -85,9 +85,27 @@
                             {% for favourite in favourites %}
                                 <form action='' method="POST">
                                     {% csrf_token %}
-                                    <a href='/ru/product/{{ favourite.favourite_item }}'>{{ favourite.ru_name }}</a>
-                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
-                                    <input type='submit' value='&#10060;'>
+                                
+                                    <div class="line">
+                                        <div class="line_item item1">
+                                            <div class="line_item_info">
+                                                    <div class="protuct_tit">
+                                                    <p class="line_item_text item_info">
+                                                        <a href='/ru/product/{{ favourite.favourite_item }}'>
+                                                            {{ favourite.ru_name }}
+                                                        </a>
+                                                    </p>
+                                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
+                                                </div> 
+                                            </div>
+                                            <div class="line_item_button">
+                                                <a class="line_item_but " href='/ru/product/{{ продукт.id }}/'>
+                                                    More
+                                                </a>   
+                                                <input type='submit' value='&#10060;'>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
                             {% endfor %}
                             {% if items == 0 %}

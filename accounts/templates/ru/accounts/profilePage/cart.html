@@ -130,23 +130,30 @@
                         {% endfor %} 
 
                         {% if items %}
-                            <p>Итого: {{ sum }} UAH</p>
-                            {% if messages %}
-                                    {% for message in messages %}
-                                        <p class="{{ message.tags }}">
-                                            {{ message|safe }}
-                                            <a href="" class="close">✖</a>
-                                        </p>
-                                    {% endfor %}
-                            {% endif %}
-                            <form method='POST' action=''>
-                                {% csrf_token %}
-                                <input type='submit' name = 'makeorder' value='Оформить заказ'>
-                            </form>
-                            <a href='/ru/products/' style='text-decoration: underline; color: blue !important;'>Продолжить выбор товаров</a>
-                        {% else %}
-                            <p>Корзина пуста</p>
-                        {% endif %}
+                            <div class="cart_bot">
+                                <div class="cart_cont">
+                                    <a href='/ru/products/'  >Продолжить выбор товаров</a>
+                                </div>
+                                <div class="cart_b">
+                                    <p>Итого: {{ sum }} UAH</p>
+                                    {% if messages %}
+                                            {% for message in messages %}
+                                                <p class="{{ message.tags }}">
+                                                    {{ message|safe }}
+                                                    <a href="" class="close">✖</a>
+                                                </p>
+                                            {% endfor %}
+                                    {% endif %}
+                                    <form method='POST' action=''>
+                                        {% csrf_token %}
+                                        <input type='submit' name = 'makeorder' value='Оформить заказ'>
+                                    </form>
+                                    
+                                    {% else %}
+                                        <p>Empty cart</p>
+                                    {% endif %}
+                                </div>
+                            </div>
                     </div>
                 </div>
                
