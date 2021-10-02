@@ -94,6 +94,7 @@
                                                             {{ favourite.uk_name }}
                                                         </a>
                                                     </p>
+                                                    <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'>
                                                     <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
                                                 </div> 
                                             </div>
@@ -106,6 +107,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'> <!--убери эту сроку когда будешь исправлять блок-->
                             {% endfor %}
 
                         {% if items == 0 %}

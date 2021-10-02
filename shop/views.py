@@ -1272,7 +1272,6 @@ def aboutProductPage(request, id, lang):
             favourite_item_price = request.POST.get("favourite_add_price", "")
             favourite_item_currency = request.POST.get("favourite_add_currency", "")
             favourite_item_image = request.POST.get("favourite_add_image", "")
-            print(favourite_item_image)
             if favourite_item_price == "None":
                 favourite_item_price = 0
                 favouriteToSave = ShopFavourite(
