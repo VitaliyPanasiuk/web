@@ -49,6 +49,7 @@ class ShopFavourite(models.Model):
         currency = models.CharField(max_length=45, blank=True, null=True)
         ru_name = models.CharField(max_length=1000, blank=True, null=True)
         uk_name = models.CharField(max_length=1000, blank=True, null=True)
+        image = models.CharField(max_length=200, null=True, blank=True)
 
         class Meta:
             managed = True

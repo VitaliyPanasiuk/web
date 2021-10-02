@@ -95,11 +95,12 @@
                                                             {{ favourite.ru_name }}
                                                         </a>
                                                     </p>
+                                                    <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'>
                                                     <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
                                                 </div> 
                                             </div>
                                             <div class="line_item_button">
-                                                <a class="line_item_but " href='/ru/product/{{ продукт.id }}/'>
+                                                <a class="line_item_but " href='/ru/product/{{ favourite.favourite_item }}/'>
                                                     More
                                                 </a>   
                                                 <input type='submit' value='&#10060;'>
@@ -107,6 +108,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'> <!--убери эту сроку когда будешь исправлять блок-->
                             {% endfor %}
                             {% if items == 0 %}
                                 <p>Тут пока что ничего нет</p>

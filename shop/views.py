@@ -1092,6 +1092,7 @@ def aboutProductPage(request, id, lang):
         currency = models.CharField(max_length=45, blank=True, null=True)
         ru_name = models.CharField(max_length=1000, blank=True, null=True)
         uk_name = models.CharField(max_length=1000, blank=True, null=True)
+        image = models.CharField(max_length=200, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -1227,15 +1228,15 @@ def aboutProductPage(request, id, lang):
                         )
                         messages.error(request, error_message)
                         return redirect("/" + str(lang) + "/accounts/" + str(request.user.id) + '/cart')
-                    ToSave = ShopCarty(
-                    user_id=request.user.id,
-                    item=item_id,
-                    name=item_name_ru,
-                    price=prce,
-                    currency=item_currency,
-                    ru_order_item=item_name_ru,
-                    en_order_item=item_name_en,
-                    uk_order_item=item_name_uk,
+                ToSave = ShopCarty(
+                user_id=request.user.id,
+                item=item_id,
+                name=item_name_ru,
+                price=prce,
+                currency=item_currency,
+                ru_order_item=item_name_ru,
+                en_order_item=item_name_en,
+                uk_order_item=item_name_uk,
                 )
             ToSave.save()
             cart_item = ShopCarty.objects.all()
@@ -1270,6 +1271,8 @@ def aboutProductPage(request, id, lang):
             favourite_item_name_uk = request.POST.get("favourite_add_name_uk", "")
             favourite_item_price = request.POST.get("favourite_add_price", "")
             favourite_item_currency = request.POST.get("favourite_add_currency", "")
+            favourite_item_image = request.POST.get("favourite_add_image", "")
+            print(favourite_item_image)
             if favourite_item_price == "None":
                 favourite_item_price = 0
                 favouriteToSave = ShopFavourite(
@@ -1280,6 +1283,7 @@ def aboutProductPage(request, id, lang):
                     ru_name=favourite_item_name_ru,
                     uk_name=favourite_item_name_uk,
                     currency=favourite_item_currency,
+                    image = favourite_item_image
                 )
             else:
                 favouriteToSave = ShopFavourite(
@@ -1292,6 +1296,7 @@ def aboutProductPage(request, id, lang):
                         float(i) for i in favourite_item_price.replace(",", ".").split()
                     ),
                     currency=favourite_item_currency,
+                    image = favourite_item_image
                 )
             favouriteToSave.save()
             favourite_item = ShopFavourite.objects.all()
