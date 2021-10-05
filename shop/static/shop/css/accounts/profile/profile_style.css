@@ -619,3 +619,17 @@ a {
 .cart_cont a:hover {
   color: #cc0000;
 }
+.success_b {
+  height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.success_b h2 {
+  font-family: monospace;
+}
+.success_b img {
+  height: 125px;
+  width: 125px;
+}
