@@ -33,7 +33,7 @@ def homePage(request, lang):
         if request.user.id != None:
             current_user = AuthUser.objects.get(id=request.user.id)
             context = {
-                "lang": lang,
+                "lang": lang, 
             }
             try:
                 return render(
