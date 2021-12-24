@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-        <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
-        <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
+    <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
+    <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
     <title>LuxonSport</title>
 </head>
 <body>
@@ -70,6 +70,7 @@
                             </p>
                             {% endif %}
                         </div>  
+
                         <div class='small_block'>
                             <div class="product_price">
                                 {% if  продукт.цена == None %}
@@ -78,7 +79,7 @@
                                     </p>
                                 {% else %}
                                     <h3>
-                                        {{ продукт.цена }} {{ продукт.валюта }}
+                                        Price:  {{ продукт.цена }} {{ продукт.валюта }}
                                     </h3>
                                 {% endif %}
                             </div>
@@ -88,19 +89,32 @@
                                 <h3>Waiting for delivery</h3>
                             {% else %}
                                 <div class="inp_cart">
-                                {% if продукт.наличие != '-' and продукт.наличие != None %}
-                                    <form action="" method='post' >
-                                        {% csrf_token %}
-                                        <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                                        <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                        <div><label>Amount: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
-                                        <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
-                                        <input class='inp_button' type='submit' value='Add to cart!'>
-                                    </form>  
+                                    {% if продукт.наличие != '-' and продукт.наличие != None %}
+                                        <form action="" method='post' >
+                                            {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                            <div><label>Amount: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                            <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
+                                            <input class='inp_button' type='submit' value='Add to cart!'>
+                                        </form>  
+                                    {% endif %}
+                                    {% if user_id %}
+                                        <form action="" method='post' >
+                                            {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
+                                            <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
+                                            <input class='favourite_inp_button' type='submit' value='Add to favourite!'>
+                                        </form>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -110,32 +124,20 @@
                                 </p> 
                             </div>
                             {% endif %}
-                            {% if user_id %}
-                            <form action="" method='post' >
-                                {% csrf_token %}
-                                <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
-                                <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
-                                <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
-                                <input class='favourite_inp_button' type='submit' value='Add to favourite!'>
-                            </form>
-                            {% endif %}
+                            
                             <!-- <label>Or</label> -->
                             
                         </div>
-                        <div class="desc">
-                            <div class="main_all_bot" id="description">
-                                <p>Description and parameters</p>
-                                <span style="white-space: pre-line">{{ продукт.description }}</span>
-                            </div>
-                            <button class="desc_but" class="but" onclick="getMore()">
-                                &#8597;
-                            </button>
-                        </div>
                         
+                        
+                        
+                        <div class="pre_desc">
+                            <div class="descr_span">{{ продукт.description }}</div>
+                            
+                        </div>
+                        <div class="desck_link">
+                            <a href="#main_all_hr">More description...</a>
+                        </div>
                         <div class="callback_f">
                             <form action="" method='post' >
                             {% csrf_token %}
@@ -156,10 +158,24 @@
                             <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Call me back!'>
                         </form>
                         </div>
-                        
                     </div>
                 </div>
-                
+                <div class="main_all_nav">
+                    <div class="main_all_nav_hrs">
+                        <div class="main_all_nav_hr">
+                            <a href="#main_all_hr" id="main_all_hr">Parametrs</a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="main_all_moreinfo">
+                    <div class="desc" id="description">
+                        <div class="main_all_bot" id="description">
+                            <p>Description and parameters</p>
+                            <!-- <span style="white-space: pre-line" class="descr_span">{{ продукт.description }}</span> -->
+                            <div class="descr_span">{{ продукт.description }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
