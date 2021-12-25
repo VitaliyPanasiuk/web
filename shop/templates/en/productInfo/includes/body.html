@@ -57,11 +57,11 @@
                         </div>
                         <div class="availability">
                             {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
-                                <p>
+                                <p id="available">
                                     Available
                                 </p>
                             {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
-                                <p>
+                                <p id="unavailable">
                                     Unavailable
                                 </p>
                             {% else %}

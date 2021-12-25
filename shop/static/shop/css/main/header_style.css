@@ -1,7 +1,7 @@
 header {
   background-color: #000;
   color: #fff;
-  height: 17vh;
+  height: 15vh;
 }
 .nav_link:after {
   content: "";

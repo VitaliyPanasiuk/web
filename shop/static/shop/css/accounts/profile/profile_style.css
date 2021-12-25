@@ -134,10 +134,15 @@ a {
   border-radius: 25px;
 }
 
-.user_redact {
+.user_redact_fav {
   width: 950px;
   margin-left: 10px;
   display: flex;
+}
+.user_redact {
+  width: 950px;
+  margin-left: 10px;
+  display: block;
 }
 .person_icon {
   margin-left: 30px;
@@ -642,4 +647,33 @@ a {
 .success_b img {
   height: 125px;
   width: 125px;
+}
+
+/* Making order */
+
+body {
+  font-family: monospace;
+}
+.make_order_body {
+  height: 65vh;
+  margin-top: 0;
+}
+.order_tit {
+  text-align: center;
+  font-size: 22px;
+}
+.order_privat_info {
+  display: flex;
+  flex-direction: column;
+}
+.order_privat_info_items {
+  margin-top: 25px;
+}
+.order_info_top {
+  display: flex;
+  justify-content: space-around;
+}
+.order_price_mk {
+  text-align: center;
+  margin-top: 40px;
 }
