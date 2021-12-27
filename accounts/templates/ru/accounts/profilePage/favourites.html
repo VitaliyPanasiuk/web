@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="user_redact">
+                    <div class="user_redact_fav">
                             {% for favourite in favourites %}
                                 <form action='' method="POST">
                                     {% csrf_token %}
@@ -89,15 +89,19 @@
                                     <div class="line">
                                         <div class="line_item item1">
                                             <div class="line_item_info">
-                                                    <div class="protuct_tit">
+                                                <div class="protuct_tit">
                                                     <p class="line_item_text item_info">
                                                         <a href='/ru/product/{{ favourite.favourite_item }}'>
                                                             {{ favourite.ru_name }}
                                                         </a>
                                                     </p>
-                                                    <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'>
-                                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'></div>
+                                                    <div style='display: none;'>
+                                                        <input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'>
+                                                    </div>
                                                 </div> 
+                                                <div class="fav_img">
+                                                    <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'>
+                                                </div>
                                             </div>
                                             <div class="line_item_button">
                                                 <a class="line_item_but " href='/ru/product/{{ favourite.favourite_item }}/'>
@@ -108,7 +112,6 @@
                                         </div>
                                     </div>
                                 </form>
-                                <img src='{{ MEDIA_URL }}{{ favourite.image }}' alt='dio'> <!--убери эту сроку когда будешь исправлять блок-->
                             {% endfor %}
                             {% if items == 0 %}
                                 <p>Тут пока что ничего нет</p>
