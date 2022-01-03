@@ -50,6 +50,7 @@ header {
 .header_link {
   display: -webkit-box;
   display: -ms-flexbox;
+  width: 100%;
   height: 100%;
   display: block;
   margin: 0 auto;
@@ -67,11 +68,11 @@ header {
 
 .navv {
   margin: auto 0;
-  width: 730px;
+  width: 600px;
 }
 .navv a {
   margin-left: 20px;
-  font-size: 24px;
+
   text-transform: uppercase;
 }
 .submenu {
@@ -129,6 +130,7 @@ header {
   -webkit-transition: color 0.2s linear;
   -o-transition: color 0.2s linear;
   transition: color 0.2s linear;
+  font-size: 24px;
 }
 .nav_link_current {
   color: #cc0000;
@@ -139,6 +141,7 @@ header {
   -webkit-transition: color 0.2s linear;
   -o-transition: color 0.2s linear;
   transition: color 0.2s linear;
+  font-size: 24px;
 }
 
 .nav_link:hover {
@@ -148,15 +151,56 @@ header {
 .nav_link:hover::after {
   opacity: 1;
 }
+@media (max-width: 1045px) {
+  .nav_link_current::after {
+    content: "≡";
+    width: 100px;
+    height: 100px;
+    margin-left: 5px;
+  }
+  .nav_link_current {
+    font-size: 35px;
+  }
+  .nav_link {
+    display: none;
+    position: relative;
+    width: 180px;
+    margin-right: 20px;
+
+    margin-top: 10px;
+  }
+  .navv {
+    width: 220px;
+    background-color: #000;
+    z-index: 100;
+  }
+  .show {
+    display: block;
+  }
+  .header_language {
+    margin: auto 10px auto 0;
+  }
+}
+@media screen and (max-width: 883px) {
+  .header_media_item {
+    display: none;
+  }
+}
 
 .header_top {
   display: flex;
   height: 60%;
+  justify-content: space-between;
+}
+.header_top_l {
+  display: flex;
+}
+.header_top_r {
+  display: flex;
 }
 .header_bot {
   display: flex;
   height: 40%;
-  width: 75%;
 }
 .top_img img {
   width: 200px;
@@ -205,15 +249,13 @@ header {
 }
 .header_language {
   color: #fff;
-  margin: auto;
+  margin: auto 10px auto 0;
 }
 .header_allcontact {
   width: 100%;
-  justify-content: space-between;
   display: flex;
 }
 .header_infuser {
-  width: 25%;
   display: flex;
   margin-right: 0;
   justify-content: center;
@@ -224,15 +266,15 @@ header {
 .header_user {
   display: flex;
   width: 100%;
-  justify-content: center;
 }
 .header_welcome {
   margin: auto 0px;
 }
 .header_user_but {
-  margin: auto 0px;
+  margin: auto 17px;
 }
 .bop {
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }

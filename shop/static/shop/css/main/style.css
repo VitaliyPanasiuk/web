@@ -151,6 +151,7 @@ input[type="submit"] {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 .products_top {
   width: 100%;
@@ -281,10 +282,9 @@ input[type="submit"] {
 
 body {
   font-size: 15px;
-  
+
   margin: 0;
   font-family: "Syne Mono", monospace;
-  
 }
 
 *,
@@ -320,4 +320,5 @@ a {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 15px;
 }
