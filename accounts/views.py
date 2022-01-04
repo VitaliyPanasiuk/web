@@ -225,11 +225,12 @@ def userOrders(request, uid, lang):
         for i in a:
             if str(i.user_id) == str(request.user.id):
                 orders.append(i)
+        orders.reverse()
         context = {
             'auth_status': auth_status,
             "userId": str(request.user.id),
             "account": str(uid),
-            "orders": ShopOrdery.objects.filter(user_id=request.user.id),
+            "orders": ShopOrdery.objects.filter(user_id=request.user.id).order_by('-id'),
             'ordersamount': len(ShopOrdery.objects.filter(user_id=request.user.id)), 
         }
         template = lang +  "/accounts/profilePage/orders.html"
