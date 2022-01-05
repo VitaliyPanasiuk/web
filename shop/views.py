@@ -9,6 +9,7 @@ import requests
 from requests.exceptions import MissingSchema
 from datetime import datetime
 from django.contrib import messages
+import math
 
 продукты = Продукт.objects.all()
 
@@ -47,18 +48,13 @@ def homePage(request, lang):
             }
             return render(request, str(lang) + "/shop/index.html", context)
 
+'''def redirectProductsPage(request, lang):
+    return redirect("/" + str(lang) + "/products/p1")'''
+
 
 def productsPage(request, lang):
-    """for i in ShopCategory.objects.all():
-    a = i.category_id.split(", ")
-    for x in продукты:
-        if str(x.номер_группы) in a:
-            product = Продукт.objects.get(id=x.id)
-            product.категория = i.id
-            product.save()
-            print('wow')
-        else:
-            print()"""
+    start = 0
+    end = 20
     if request.POST:
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
@@ -66,123 +62,247 @@ def productsPage(request, lang):
         applyfilters = request.POST.get("applyfilters", "")
         nofilters = request.POST.get("nofilters", "")
         language = request.POST.get("language", "")
+        try:
+            page = int(request.POST.get("page", ""))
+        except ValueError:
+            page = 1
+        withpriceStatus = request.POST.get("withpriceStatus", "")
+        availableStatus = request.POST.get("availableStatus", "")
+        nextPage = request.POST.get("nextPage", "")
+        prevPage = request.POST.get("prevPage", "")
+        
         if search:
             return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
+        elif nextPage:
+            page += 1
+            print(page)
+            for i in range(page-1):
+                start += 20
+                end += 20
+            if availableStatus == "yes" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end] 
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+            elif availableStatus == "spec" and withpriceStatus == "spec":
+                filteredProducts = продукты[start:end]
+                maxPage = math.ceil(len(продукты)/20)
+            elif availableStatus == "yes" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/20)
+            elif availableStatus == "no" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
+            elif availableStatus == "no" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+            elif availableStatus == "yes" and withpriceStatus == "spec":
+                filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/20)
+            elif availableStatus == "no" and withpriceStatus == "spec":
+                filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/20)
+            elif availableStatus == "spec" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/20)
+            elif availableStatus == "spec" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/20)
+            context = {
+                "продукты": filteredProducts,
+                "available": availableStatus,
+                "withprice": withpriceStatus,
+                "lang": lang,
+                "page": page,
+                "category": ShopCategory.objects.all(),
+                "maxPage": maxPage,
+            }
+            template = str(lang) + "/products/index.html"
+            return render(request, template, context)
+        elif prevPage:
+            page -= 1
+            start = 0
+            end = 20
+            for i in range(page-1):
+                start += 20
+                end += 20
+            if availableStatus == "yes" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end] 
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+            elif availableStatus == "spec" and withpriceStatus == "spec":
+                filteredProducts = продукты[start:end]
+                maxPage = math.ceil(len(продукты)/20)
+            elif availableStatus == "yes" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/20)
+            elif availableStatus == "no" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
+            elif availableStatus == "no" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+            elif availableStatus == "yes" and withpriceStatus == "spec":
+                filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/20)
+            elif availableStatus == "no" and withpriceStatus == "spec":
+                filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/20)
+            elif availableStatus == "spec" and withpriceStatus == "yes":
+                filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/20)
+            elif availableStatus == "spec" and withpriceStatus == "no":
+                filteredProducts = Продукт.objects.filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/20)
+            context = {
+                "продукты": filteredProducts,
+                "available": availableStatus,
+                "withprice": withpriceStatus,
+                "lang": lang,
+                "page": page,
+                "category": ShopCategory.objects.all(),
+                "maxPage": maxPage,
+            }
+            template = str(lang) + "/products/index.html"
+            return render(request, template, context)
         elif applyfilters:
             pricefilter = request.POST.get("pricefilter", "")
             availablefilter = request.POST.get("availablefilter", "")
             if pricefilter == "Цена есть" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(цена=None).exclude(
-                    наличие="-"
-                )  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+                filteredProducts = Продукт.objects.exclude(цена=None).exclude(наличие="-")[start:end]  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+                maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "yes",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цена есть" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.exclude(цена=None).filter(
-                    наличие="-"
-                )
+                filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "no",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")
+                filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "no",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие="-").filter(
-                    цена=None
-                )
+                filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "yes",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цены нет" and availablefilter == "":
-                filteredProducts = Продукт.objects.filter(цена=None)
+                filteredProducts = Продукт.objects.filter(цена=None)[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(цена=None)[start:end])/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "no",
                     "available": "spec",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие="-")
+                filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(Продукт.objects.filter(наличие="-")[start:end])/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "Цена есть" and availablefilter == "":
-                filteredProducts = Продукт.objects.exclude(цена=None)
+                filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
+                maxPage = math.ceil(len(filteredProducts)/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "yes",
                     "available": "spec",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Есть":
-                filteredProducts = Продукт.objects.exclude(наличие="-")
+                filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
+                maxPage = math.ceil(len(filteredProducts)/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "yes",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
             elif pricefilter == "" and availablefilter == "Нету":
-                filteredProducts = Продукт.objects.filter(наличие="-")
+                filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
+                maxPage = math.ceil(len(filteredProducts)/20)
                 context = {
                     "продукты": filteredProducts,
                     "withprice": "spec",
                     "available": "no",
                     "lang": lang,
+                    "page": page,
                     "category": ShopCategory.objects.all(),
+                    "maxPage": maxPage,
                 }
                 template = str(lang) + "/products/index.html"
                 return render(request, template, context)
         elif nofilters:
+            withpriceStatus = "spec"
+            availableStatus = "spec"
+            maxPage = math.ceil(len(продукты)/20)
             context = {
-                "продукты": продукты,
+                "продукты": продукты[start:end],
                 "withprice": "spec",
                 "available": "spec",
                 "lang": lang,
+                "page": 1,
                 "category": ShopCategory.objects.all(),
+                "maxPage": maxPage,
             }
             template = str(lang) + "/products/index.html"
             return render(request, template, context)
@@ -195,15 +315,16 @@ def productsPage(request, lang):
             else:
                 return redirect("/" + str(language) + "/products/")
 
-    filteredProducts = Продукт.objects.exclude(наличие="-").exclude(
-        цена=None
-    )  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
+    filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end]
+    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
     context = {
         "продукты": filteredProducts,
-        "available": "spec",
-        "withprice": "spec",
+        "available": "yes",
+        "withprice": "yes",
         "lang": lang,
+        "page": 1,
         "category": ShopCategory.objects.all(),
+        "maxPage": maxPage,
     }
     template = str(lang) + "/products/index.html"
     return render(request, template, context)
@@ -366,7 +487,7 @@ def categoryPage(request, lang, id):
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
         elif nofilters:
-            filteredProducts = Продукт.objects.filter(категория=id)
+            filteredProducts = Продукт.objects.filter(категория=id)[:20]
             context = {
                 "продукты": filteredProducts,
                 "withprice": "spec",
@@ -396,7 +517,7 @@ def categoryPage(request, lang, id):
     else:
         template = str(lang) + "/products/category/index.html"
         # category = ShopCategory.objects.get(id=id)
-        filteredProducts = Продукт.objects.filter(категория=id)
+        filteredProducts = Продукт.objects.filter(категория=id)[:20]
         context = {
             "продукты": filteredProducts,
             "lang": lang,
