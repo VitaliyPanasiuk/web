@@ -11,12 +11,10 @@ from .views import (
     goWithLanguage,
     categoryPage,
     categorySearchPage,
-    #redirectProductsPage,
 )
 
 urlpatterns = [
     path("<str:lang>/", homePage),
-    #path("<str:lang>/products/", redirectProductsPage),
     path("<str:lang>/products/", productsPage),
     path("<str:lang>/achievements/", achievementsPage),
     path("<str:lang>/about/", aboutUsPage),
