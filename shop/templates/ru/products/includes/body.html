@@ -306,6 +306,27 @@
             </div>
         </div>
     </div>
+    <div>
+        <form method="POST" action=''>
+            {% csrf_token %}
+            {% if page != 1 %}
+                <input type='submit' name='prevPage' value='Предыдущая страница'>
+            {% endif %}
+            {% if page == 1 %}
+                <div style="display: none;"><input type="text" name='page' value="1"></div>
+            {% else %}
+                <div style="display: none;"><input type="text" name='page' value="{{ page }}"></div>
+            {% endif %}
+            <div style="display: none;"><input type="text" name='availableStatus' value="{{ available }}"></div>
+            <div style="display: none;"><input type="text" name='withpriceStatus' value="{{ withprice }}"></div>
+            {% if maxPage > page %}
+            <input type='submit' name='nextPage' value='Следующая страница'>
+            {% endif %}
+        </form>
+    </div>
+    <div> 
+        Страница {{ page }} из {{ maxPage }}
+    </div>
 </div>
 </body>
 <script>

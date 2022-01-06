@@ -14,7 +14,6 @@ from .views import (
 )
 
 urlpatterns = [
-    # RUSSIAN
     path("<str:lang>/", homePage),
     path("<str:lang>/products/", productsPage),
     path("<str:lang>/achievements/", achievementsPage),
