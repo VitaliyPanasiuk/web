@@ -100,7 +100,7 @@
                                         </form>
                                     </div>
                                     <div class="price_and_other">
-                                        <p>Цена: {{ item.price|mul:item.amount  }} {{ item.currency }} </p>
+                                        <p>Цена: {{ item.price|mul:item.amount|floatformat:"2"  }} {{ item.currency }} </p>
                                         {% if item.currency == 'USD' %}
                                            <p> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
                                         {% endif %}
@@ -135,7 +135,7 @@
                                     <a href='/ru/products/'  >Продолжить выбор товаров</a>
                                 </div>
                                 <div class="cart_b">
-                                    <p>Итого: {{ sum }} UAH</p>
+                                    <p>Итого: {{ sum|floatformat:2 }} UAH</p>
                                     {% if messages %}
                                             {% for message in messages %}
                                                 <p class="{{ message.tags }}">

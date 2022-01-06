@@ -34,7 +34,7 @@
     </script>
 </head>
 <body>
-    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div class="make_order_body">
@@ -44,9 +44,9 @@
             <div class="order_tit">
                 {% for i in userCart %}
                 {% if i.currency == 'UAH' %}
-                    <p>{{ i.ru_order_item }} Price: {{ i.price|floatformat:"2" }}UAH</p>
+                    <p>{{ i.ru_order_item }} Price: {{ i.price|floatformat:"2" }} UAH</p>
                 {% else %}
-                    <p>{{ i.ru_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
+                    <p>{{ i.ru_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }} UAH</p>   
                 {% endif %}
                 {% endfor %}
                 <div style='display: none;'>
@@ -114,15 +114,15 @@
             </div>
             <div class="order_price_mk">
                 <p>Total price: {{ price|floatformat:"2" }} UAH</p>
-                <p style='color: red !important; '>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
-                <input type="submit" name='go' value="Создать заказ!">
+                <!--<p style='color: red !important; '>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
+                --><input type="submit" name='go' value="Создать заказ!">
             </div>
         </form>
     </div>
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'en/footer.html' %}
+    {% include 'ru/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

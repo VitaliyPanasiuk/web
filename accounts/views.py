@@ -292,6 +292,19 @@ def userCart(request, uid, lang):
             managed = False
             db_table = "shop_cart"
     summary = 0
+    carts = ShopCarty.objects.all()
+    cartItems = carts[0 : len(carts):]
+    for cartItem in cartItems:
+            if str(cartItem.user_id) == str(request.user.id):
+                currentItem = Продукт.objects.get(id=int(cartItem.item))
+                if currentItem.скидка > 0:
+                    if cartItem.price != currentItem.цена:
+                        cartItem.price = currentItem.цена * (1 - (currentItem.скидка/100))
+                        cartItem.save()
+                else:
+                    if cartItem.price != currentItem.цена:
+                        cartItem.price = currentItem.цена
+                        cartItem.save()
     # DELETE FROM CART
     if request.POST:
         itemToDelete = request.POST.get("delete", "")
@@ -313,8 +326,12 @@ def userCart(request, uid, lang):
             product = Продукт.objects.get(id=item)
             carts = ShopCarty.objects.get(item=item)
             carts.amount -= 1
-            if carts.amount < int(round(product.минимальный_заказ_опт, 0)):
-                carts.price = product.цена
+            if product.скидка > 0:
+                if carts.amount < int(round(product.минимальный_заказ_опт, 0)):
+                    carts.price = product.цена * (1- (product.скидка/100))
+            else: 
+                if carts.amount < int(round(product.минимальный_заказ_опт, 0)):
+                    carts.price = product.цена
             if carts.amount < product.минимальный_объем_заказа:
                 if lang == 'ru':
                     messages.error(request, "Количество товара не может быть меньше " + str(product.минимальный_объем_заказа))
@@ -372,14 +389,14 @@ def userCart(request, uid, lang):
                     if str(i.user_id) == str(request.user.id):
                         a.append(str(i.name))
                         if i.currency == 'UAH':
-                            c.append(str(i.ru_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            c.append(str(i.ru_order_item) + '  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(float(i.price) * float(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(float(i.price) * float(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(float(i.price) * float(i.amount), 2)) +  'UAH' + '\n\n')
 
                         else:
-                            c.append(str(i.ru_order_item) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
-                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(int(i.price) * currency * int(i.amount), 2)) +  'UAH' + '\n\n')
+                            c.append(str(i.ru_order_item) + ',  Количество: ' + str(i.amount) + 'шт.' + '  Цена: '  + str(round(float(i.price) * float(currency) * float(i.amount), 2)) +  'UAH' + '\n\n')
+                            e.append(str(i.en_order_item) + ' Amount: ' + str(i.amount) + '  Price: '  + str(round(float(i.price) * float(currency) * float(i.amount), 2)) +  'UAH' + '\n\n')
+                            f.append(str(i.uk_order_item) + ' Кількість: ' + str(i.amount) + 'шт.' + ' Ціна: '  + str(round(float(i.price) * float(currency) * float(i.amount), 2)) +  'UAH' + '\n\n')
                 for i in a:
                     local = ShopCarty.objects.get(name=i)
                     if local.currency == 'UAH':
@@ -411,18 +428,6 @@ def userCart(request, uid, lang):
     else:
 
 
-        '''orders = ShopOrdery.objects.all()
-        for order in orders:
-            creationTime = order.дата_заказа
-                #print(creationTime)
-                #print(datetime.now(pytz.timezone('Europe/Kiev')))
-            difference = datetime.now(pytz.timezone('Europe/Kiev')) - creationTime
-            res = list(str(difference))
-            print(res)
-            if str(res[0]) != '0' and order.confirm != 'c':
-                order.delete()'''
-
-
         currencys = ShopCurrency.objects.all()
         needed = currencys[len(currencys) - 1]
         currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
@@ -433,18 +438,32 @@ def userCart(request, uid, lang):
         c = []
         for cartItem in cartItems:
             if str(cartItem.user_id) == str(request.user.id):
+                currentItem = Продукт.objects.get(id=int(cartItem.item))
+                if currentItem.скидка > 0:
+                    if cartItem.price != currentItem.цена:
+                        cartItem.price = currentItem.цена * (1 - (currentItem.скидка/100))
+                        cartItem.save()
+                else:
+                    if cartItem.price != currentItem.цена:
+                        cartItem.price = currentItem.цена
+                        cartItem.save()
+                
+        for cartItem in cartItems:
+            if str(cartItem.user_id) == str(request.user.id):
                 a.append(cartItem.name)
                 b.append(cartItem.amount)
                 c.append(cartItem)
+            
         for i in carts:
             if int(i.user_id) == request.user.id:
                 if i.currency == 'UAH':
-                    local_sum = int(i.price) * int(i.amount)
+                    local_sum = round(float(i.price) * float(i.amount), 2)
                 elif i.currency == 'USD':
-                    local_sum = round(int(i.price) * int(i.amount) * currency, 2)
+                    local_sum = round(float(i.price) * float(i.amount) * float(currency), 2)
                 summary += local_sum
         try:
             context = {
+                
                 'auth_status': auth_status,
                 "items": c,
                 "amounts": b,
@@ -705,12 +724,12 @@ def makeOrder(request, uid, lang):
                 if str(i.user_id) == str(request.user.id):
                     a.append(i)
                     if i.currency == 'UAH':
-                        price += int(i.price) * int(i.amount)
+                        price += round(float(i.price) * float(i.amount), 2)
                     else:
                         currencys = ShopCurrency.objects.all()
                         needed = currencys[len(currencys) - 1]
                         currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-                        price += int(i.price) * currency * int(i.amount)
+                        price += round(float(i.price) * float(currency) * float(i.amount), 2)
             '''b = max(a)
             newUser = ShopCarty.objects.get(cart_id=b)'''
             if lang == 'ru':
@@ -735,12 +754,12 @@ def makeOrder(request, uid, lang):
                 if str(i.user_id) == str(request.user.id):
                     a.append(i)
                     if i.currency == 'UAH':
-                        price += int(i.price) * int(i.amount)
+                        price += round(float(i.price) * float(i.amount), 2)
                     else:
                         currencys = ShopCurrency.objects.all()
                         needed = currencys[len(currencys) - 1]
                         currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-                        price += int(i.price) * currency * int(i.amount)
+                        price += round(float(i.price) * float(currency) * float(i.amount), 2)
             '''b = max(a)
             newUser = ShopCarty.objects.get(cart_id=b)'''
             if lang == 'ru':
@@ -811,12 +830,12 @@ def makeOrder(request, uid, lang):
             if str(i.user_id) == str(request.user.id):
                 a.append(i)
                 if i.currency == 'UAH':
-                    price += int(i.price) * int(i.amount)
+                    price += round(float(i.price) * float(i.amount), 2)
                 else:
                     currencys = ShopCurrency.objects.all()
                     needed = currencys[len(currencys) - 1]
                     currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
-                    price += int(i.price) * currency * int(i.amount)
+                    price += round(float(i.price) * float(currency) * float(i.amount), 2)
         '''b = max(a)
         newUser = ShopCarty.objects.get(cart_id=b)'''
         context = {

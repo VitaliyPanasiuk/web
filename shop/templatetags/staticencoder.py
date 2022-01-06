@@ -35,9 +35,14 @@ def raw_static(path):
     file_path = find_static_file(path)
     return get_file_data(file_path)
 
-
 def get_file_data(file_path):
     with open(file_path, 'rb') as f:
         data = f.read()
         f.close()
         return data
+
+@register.filter
+def discount( value, arg ):
+    value = int( value )
+    arg = int( arg )
+    return value * (1 -(arg/100))

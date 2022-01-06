@@ -1,5 +1,6 @@
 {% load static %}
 {% get_media_prefix as MEDIA_URL %}
+{% load staticencoder %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -296,9 +297,18 @@
                                                         Unknown price
                                                     </p> 
                                                 {% else %}  
-                                                    <p class="line_item_price item_info">
-                                                        {{ продукт.цена  }} {{ продукт.валюта }}
-                                                    </p>
+                                                {% if продукт.скидка > 0 %}
+                                                <p class="line_item_price item_info">
+                                                    <s>{{ продукт.цена  }} {{ продукт.валюта|floatformat:2 }}</s>
+                                                </p>
+                                                <p class="line_item_price item_info">
+                                                    {{ продукт.цена|discount:продукт.скидка|floatformat:2  }} {{ продукт.валюта }}
+                                                </p>
+                                            {% else %}
+                                                <p class="line_item_price item_info">
+                                                    {{ продукт.цена  }} {{ продукт.валюта }}
+                                                </p>
+                                            {% endif %}
                                                 {% endif %}
                                             </div>
                                             <div class="line_item_button">

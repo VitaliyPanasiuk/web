@@ -221,7 +221,7 @@ class Продукт(models.Model):
     идентификатор_группы = models.CharField(db_column='Идентификатор_группы', max_length=30, blank=True, null=True)  # Field name made lowercase.
     производитель = models.CharField(db_column='Производитель', max_length=11, blank=True, null=True)  # Field name made lowercase.
     страна_производитель = models.CharField(db_column='Страна_производитель', max_length=11, blank=True, null=True)  # Field name made lowercase.
-    скидка = models.IntegerField(db_column='Скидка', blank=True, null=True, verbose_name='Скидка (%)', default=0 ,validators=[
+    скидка = models.IntegerField(db_column='Скидка', blank=False, null=False, verbose_name='Скидка (%)', default=0 ,validators=[
             MaxValueValidator(100),
             MinValueValidator(0)
         ])  # Field name made lowercase.

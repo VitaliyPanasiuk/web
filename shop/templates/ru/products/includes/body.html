@@ -1,5 +1,6 @@
 {% load static %}
 {% get_media_prefix as MEDIA_URL %}
+{% load staticencoder %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -289,9 +290,18 @@
                                             Цена формируется
                                         </p> 
                                     {% else %}  
-                                        <p class="line_item_price item_info">
-                                            {{ продукт.цена  }} {{ продукт.валюта }}
-                                        </p>
+                                        {% if продукт.скидка > 0 %}
+                                            <p class="line_item_price item_info">
+                                                <s>{{ продукт.цена|floatformat:2  }} {{ продукт.валюта }}</s>
+                                            </p>
+                                            <p class="line_item_price item_info">
+                                                {{ продукт.цена|discount:продукт.скидка|floatformat:2  }} {{ продукт.валюта }}
+                                            </p>
+                                        {% else %}
+                                            <p class="line_item_price item_info">
+                                                {{ продукт.цена|floatformat:2  }} {{ продукт.валюта }}
+                                            </p>
+                                        {% endif %}
                                     {% endif %}
                                     <div class="line_item_button">
                                         <a class="line_item_but " href='/ru/product/{{ продукт.id }}/'>

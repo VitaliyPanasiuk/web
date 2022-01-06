@@ -1,4 +1,5 @@
 {% load static %}
+{% load staticencoder %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +87,7 @@
                         {{ продукт.название_позиции }}
                     </p>
                     <p class="line_item_price item_info">
-                        {{ продукт.цена }}
+                        {{ продукт.цена|discount:продукт.скидка }}
                     </p>
                     <div class="line_item_button">
                         <a class="line_item_but " href='/products/{{ продукт.id }}/'>

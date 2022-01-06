@@ -1236,7 +1236,7 @@ def aboutProductPage(request, id, lang):
             item.save()
             print(i.id)"""
 
-    favourites = ShopFavourite.objects.all()
+    #favourites = ShopFavourite.objects.all()
     if request.POST:
         cart_add = request.POST.get("add_to_cart", "")
         favourite_add = request.POST.get("add_to_favourite", "")
@@ -1276,6 +1276,8 @@ def aboutProductPage(request, id, lang):
                         )
                     messages.error(request, error_message)
                     return redirect("/" + str(lang) + "/product/" + str(id))  
+                if product.скидка > 0:
+                    prce = str(float(prce) * ((100 - int(product.скидка))/100))
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
@@ -1309,6 +1311,8 @@ def aboutProductPage(request, id, lang):
                         )
                     messages.error(request, error_message)
                     return redirect("/" + str(lang) + "/product/" + str(id))
+                if product.скидка > 0:
+                    prce = prce * ((100 - product.скидка)/100)
                 ToSave = ShopCarty(
                     user_id=request.user.id,
                     item=item_id,
@@ -1349,6 +1353,8 @@ def aboutProductPage(request, id, lang):
                         )
                         messages.error(request, error_message)
                         return redirect("/" + str(lang) + "/accounts/" + str(request.user.id) + '/cart')
+                if product.скидка > 0:
+                    prce = prce * ((100 - product.скидка)/100)
                 ToSave = ShopCarty(
                 user_id=request.user.id,
                 item=item_id,

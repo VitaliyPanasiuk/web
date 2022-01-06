@@ -1,4 +1,5 @@
 {% load static %}
+{% load staticencoder %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,9 +79,21 @@
                                         Unknown price
                                     </p>
                                 {% else %}
-                                    <h3>
-                                        Price:  {{ продукт.цена }} {{ продукт.валюта }}
-                                    </h3>
+                                    {% if продукт.скидка > 0 %}
+                                        <h3>
+                                            Discount {{ продукт.скидка }}%
+                                        </h3>
+                                        <h3>
+                                            Old price:  <s>{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</s>
+                                        </h3>
+                                        <h3>
+                                            New price:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
+                                        </h3>
+                                    {% else %}
+                                        <h3>
+                                            Price:  {{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}
+                                        </h3>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                            
