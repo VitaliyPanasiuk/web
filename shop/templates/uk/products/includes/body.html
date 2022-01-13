@@ -249,6 +249,7 @@
                             {% endif  %}
                         </div>
                         <div class="filter_but">
+                            <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
                             <input type='submit' name='applyfilters' value='Apply filters'>
                             <input type='submit' name='nofilters' value='Clear filters'>
                         </div>
@@ -257,41 +258,27 @@
                 </div>
                 <div class="help_category">
                     <div class="category">
-                        <div id="mycategory" class="category-content">
-                            <p onclick="myFunction()" class="dropbtn">Спортивне обладнання для фітнес центрів</p>
-                            <div id="myDropdown" class="dropdown-content">
-                                <ul>
-                                    <a href="#">text2</a>
-                                    <a href="#">text2</a>
-                                    <a href="#">text2</a>
-                                    <a href="#">text</a>
-                                </ul>
-                                
-                            </div>
-                            <p onclick="myFunction2()" class="dropbtn"> Спортивне обладнання для дому</p>
-                            <div id="myDropdown2" class="dropdown-content">
-                                <a href="#">text2</a>
-                            </div>
-                            <p   onclick="myFunction3()" class="dropbtn">Спортивне обладнання для ВИШів, шкіл </p>
-                            <div id="myDropdown3" class="dropdown-content">
-                                <a href="#">text3</a>
-                            </div>
-                            <p   onclick="myFunction4()" class="dropbtn">Будівництво футбольних полів та ігрових майданчиків</p>
-                            <div id="myDropdown4" class="dropdown-content">
-                                <a href="#">text4</a>
-                            </div>
-                            <p   onclick="myFunction5()" class="dropbtn"> Настільній теніс</p>
-                            <div id="myDropdown5" class="dropdown-content">
-                                <a href="#">text5</a>
-                            </div>
-                            <p   onclick="myFunction6()" class="dropbtn">Будівництво дитячих майданчиків</p>
-                            <div id="myDropdown6" class="dropdown-content">
-                                <a href="#">text6</a>
-                            </div>
-                        </div>
+                        <ul class="categories">
+                            {% for i in category %}
+                                <li>{{ i.category_name_uk }}
+                                    <ul class="subcategories">
+                                        {% for j in i.подкатегория.all %}
+                                            <li>
+                                                <form method="POST", action="">
+                                                    {% csrf_token %}
+                                                    <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                                    <input type='submit' name='categoryname' value='{{ j.subcategory_name_uk }}'>
+                                                </form>
+                                            </li>
+                                            {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
+        {% if maxPage != 0 %}
         <div class="body_inf">    
             <div class="content_products">
                         {% for продукт in продукты %}
@@ -347,6 +334,9 @@
                         
             </div>
         </div>
+        {% else %}
+            <p>Нічого не знайдено</p>
+        {% endif %}
     </div>
     <div>
         <form method="POST" action=''>
@@ -366,9 +356,11 @@
             {% endif %}
         </form>
     </div>
-    <div> 
-        Сторінка {{ page }} з {{ maxPage }}
-    </div>
+    {% if maxPage != 0 %}
+        <div> 
+            Сторінка {{ page }} з {{ maxPage }}
+        </div>
+    {% endif %}
 </div>
 </body>
 <script>

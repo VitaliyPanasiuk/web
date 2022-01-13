@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ShopCategory, Продукт, Заказ, ShopCalls, Image, ShopCategory
+from .models import Продукт, Заказ, ShopCalls, Image , ShopCategory, ShopSubCategory
 from django.contrib.admin import site
 site.disable_action('delete_selected')
 
@@ -12,16 +12,15 @@ def make_order_undone(modeladmin, request, queryset):
 make_order_undone.short_description = "Отменить выполнение заказа"
 
 
-'''def deleteit(modeladmin, request, queryset):
-    queryset.delete()
-deleteit.short_description = 'Удалить'''
-
-
 admin.site.site_header = 'Luxon'
 admin.site.site_title = 'Luxon Admin'
 
 class ProductImage(admin.TabularInline):
     model = Image
+
+'''class ShopSubCategoryAdmin(admin.StackedInline):
+    model = ShopSubCategory
+    extra = 1'''
 
 @admin.register(Продукт)
 class productAdmin(admin.ModelAdmin):
@@ -81,9 +80,16 @@ class productAdmin(admin.ModelAdmin):
     readonly_fields  = ('first_name', 'last_name', 'phone_number', 'viewed_product', 'price', 'timedate',)
     exclude = ('id', )
     
+@admin.register(ShopSubCategory)
+class productAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    search_fields = ('subcategory_name_ru', 'subcategory_name_en', 'subcategory_name_uk',)
+    list_display = ('subcategory_name_ru', 'subcategory_id')
+
 @admin.register(ShopCategory)
 class productAdmin(admin.ModelAdmin):
     actions = ['delete_selected']
     search_fields = ('category_name_ru', 'category_name_en', 'category_name_uk',)
     list_display = ('category_name_ru', 'id',)
     exclude = ('id', )
+    #inlines = [ShopSubCategoryAdmin]

@@ -249,6 +249,7 @@
                                     {% endif  %}
                                 </div>
                                 <div class="filter_but">
+                                    <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
                                     <input type='submit' name='applyfilters' value='Применить фильтры'>
                                     <input type='submit' name='nofilters' value='Убрать все фильтры'>
                                 </div>
@@ -257,13 +258,28 @@
                     </div>
                     <div class="help_category">
                         <div class="category">
-                            {% for i in category %}
-                                <a href='/ru/products/category/{{ i.id }}/' class="cat_link">{{ i.category_name_ru }}</a>
-                            {% endfor %}
+                            <ul class="categories">
+                                {% for i in category %}
+                                    <li>{{ i.category_name_ru }}
+                                        <ul class="subcategories">
+                                            {% for j in i.подкатегория.all %}
+                                                <li>
+                                                    <form method="POST", action="">
+                                                        {% csrf_token %}
+                                                        <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                                        <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                                    </form>
+                                                </li>
+                                                {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            {% if maxPage != 0 %}
             <div class="body_inf">    
                 <div class="content_products">
                     {% for продукт in продукты %}
@@ -314,6 +330,9 @@
                     {% endfor %}      
                 </div>
             </div>
+            {% else %}
+                <p>Ничего не найдено</p>
+            {% endif %}
         </div>
     </div>
     <div>
@@ -329,14 +348,15 @@
             {% endif %}
             <div style="display: none;"><input type="text" name='availableStatus' value="{{ available }}"></div>
             <div style="display: none;"><input type="text" name='withpriceStatus' value="{{ withprice }}"></div>
+            <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
             {% if maxPage > page %}
             <input type='submit' name='nextPage' value='Следующая страница'>
             {% endif %}
         </form>
     </div>
-    <div> 
+    {% if maxPage != 0 %}
         Страница {{ page }} из {{ maxPage }}
-    </div>
+    {% endif %}
 </div>
 </body>
 <script>

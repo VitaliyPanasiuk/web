@@ -21,7 +21,12 @@
   display: flex;
   flex-direction: column;
 }
+.show {
+  display:block;
+}
 .cat_link {
+  text-align: left;
+  background-color: white;
   font-size: 20px;
   color: black;
   font-family: monospace;
@@ -31,6 +36,8 @@
   -webkit-transition: color 0.2s linear;
   -o-transition: color 0.2s linear;
   transition: color 0.2s linear;
+  border: none;
+  cursor: pointer;
 }
 .cat_link:after {
   content: "";

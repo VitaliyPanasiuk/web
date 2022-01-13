@@ -255,56 +255,29 @@
             </div>
             <div class="help_category">
                 <div class="category">
+                    <ul class="categories">
                         {% for i in category %}
-                        <a onclick="myFunction()" class="dropbtn" href='/ru/products/category/{{ i.id }}/'>{{ i.category_name_ru }}</a>
-                        <div id="myDropdown" class="dropdown-content">
-                            <ul>
-                                <a href="#">text2</a>
-                                <a href="#">text2</a>
-                                <a href="#">text2</a>
-                                <a href="#">text</a>
-                            </ul>
-                        </div>
+                            <li>{{ i.category_name_ru }}
+                                <ul class="subcategories">
+                                    {% for j in i.подкатегория.all %}
+                                        <li>
+                                            <form method="POST", action="">
+                                                {% csrf_token %}
+                                                <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                                <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                            </form>
+                                        </li>
+                                        {% endfor %}
+                                </ul>
+                            </li>
                         {% endfor %}
-                <!--
-                    <div id="mycategory" class="category-content">
-                        <p onclick="myFunction()" class="dropbtn">Спортивное оборудование для фитнес центров</p>
-                        <div id="myDropdown" class="dropdown-content">
-                            <ul>
-                                <a href="#">text2</a>
-                                <a href="#">text2</a>
-                                <a href="#">text2</a>
-                                <a href="#">text</a>
-                            </ul>
-                            
-                        </div>
-                        <p onclick="myFunction2()" class="dropbtn">Спортивное оборудование для дома</p>
-                        <div id="myDropdown2" class="dropdown-content">
-                            <a href="#">text2</a>
-                        </div>
-                        <p   onclick="myFunction3()" class="dropbtn">Спортивное оборудование для ВУЗов, школ </p>
-                        <div id="myDropdown3" class="dropdown-content">
-                            <a href="#">text3</a>
-                        </div>
-                        <p   onclick="myFunction4()" class="dropbtn">Строительство футбольных полей и игровых площадок</p>
-                        <div id="myDropdown4" class="dropdown-content">
-                            <a href="#">text4</a>
-                        </div>
-                        <p   onclick="myFunction5()" class="dropbtn">Настольный теннис</p>
-                        <div id="myDropdown5" class="dropdown-content">
-                            <a href="#">text5</a>
-                        </div>
-                        <p   onclick="myFunction6()" class="dropbtn">Строительство детских площадок</p>
-                        <div id="myDropdown6" class="dropdown-content">
-                            <a href="#">text6</a>
-                        </div>
-                    </div>
+                    </ul>
                 </div>
-                -->
             </div>
         </div>
         <div class="body_inf">    
             <div class="content_products">
+                {{ error_message }}
                         {% for продукт in продукты %}
                             <div class="line">
                                 <div class="line_item item1">

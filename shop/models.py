@@ -174,12 +174,28 @@ class ShopCalls(models.Model):
     def __str__(self):
         return 'Запрос от номера ' + str(self.phone_number)
 
+class ShopSubCategory(models.Model):
+    subcategory_name_ru = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на русском')
+    subcategory_name_en = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на английском')
+    subcategory_name_uk = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на украинском')
+    subcategory_id = models.CharField(max_length=500, blank=True, null=True, verbose_name='Id подкатегории')
+    
+
+    class Meta:
+        verbose_name_plural = "Подкатегории"
+        verbose_name = "Подкатегория"
+        db_table = 'shop_subcategory'
+    def __str__(self):
+        #return self.subcategory_name_ru
+        return self.subcategory_id
+
+
 class ShopCategory(models.Model):
     category_name_ru = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на русском')
     category_name_en = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на английском')
     category_name_uk = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Название на украинском')
-    category_id = models.CharField(max_length=300, blank=True, null=True, verbose_name='Id категории')
-    category_description = models.TextField(blank=True, null=True, verbose_name='Описание')
+    подкатегория = models.ManyToManyField(ShopSubCategory)
+    #category_id = models.CharField(max_length=300, blank=True, null=True, verbose_name='Id категории')
 
     class Meta:
         verbose_name_plural = "Категории"
@@ -187,7 +203,7 @@ class ShopCategory(models.Model):
         db_table = 'shop_category'
     def __str__(self):
         return self.category_name_ru
-
+ 
 class Продукт(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
@@ -211,7 +227,7 @@ class Продукт(models.Model):
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.
     номер_группы = models.IntegerField(db_column='Номер_группы', blank=True, null=True)  # Field name made lowercase.
     #категория = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)
-    категория = models.ForeignKey(ShopCategory, db_column='Название_группы', max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING)  # Field name made lowercase.
+    #категория = models.ForeignKey(ShopCategory, db_column='Название_группы', max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING)  # Field name made lowercase.
     адрес_подраздела = models.CharField(db_column='Адрес_подраздела', max_length=77, blank=True, null=True)  # Field name made lowercase.
     возможность_поставки = models.IntegerField(db_column='Возможность_поставки', blank=True, null=True)  # Field name made lowercase.
     срок_поставки = models.CharField(db_column='Срок_поставки', max_length=7, blank=True, null=True)  # Field name made lowercase.

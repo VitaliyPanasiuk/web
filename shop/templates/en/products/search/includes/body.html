@@ -255,14 +255,29 @@
                 </div>
                 <div class="help_category">
                     <div class="category">
-                        {% for i in category %}
-                            <a onclick="myFunction()" class="dropbtn" href='/en/products/category/{{ i.id }}/'>{{ i.category_name_en }}</a>
-                        {% endfor %}
+                        <ul class="categories">
+                            {% for i in category %}
+                                <li>{{ i.category_name_en }}
+                                    <ul class="subcategories">
+                                        {% for j in i.подкатегория.all %}
+                                            <li>
+                                                <form method="POST", action="">
+                                                    {% csrf_token %}
+                                                    <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                                    <input type='submit' name='categoryname' value='{{ j.subcategory_name_en }}'>
+                                                </form>
+                                            </li>
+                                            {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
         <div class="body_inf">    
             <div class="content_products">
+                {{ error_message }}
                         {% for продукт in продукты %}
                             <div class="line">
                                 <div class="line_item item1">
