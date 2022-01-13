@@ -1,17 +1,16 @@
 {% load static %}
+{% get_media_prefix as MEDIA_URL %}
 <!DOCTYPE html>
-<html style="font-size: 16px;"><head>
+<html style="font-size: 16px;">
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="INTUITIVE">
+    <meta name="keywords" content="Luxon">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <meta property="og:title" content="Luxon">
-    <meta property="og:description" content="LuxonSports">
-    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
-    <title>Главная</title>
+    <title>Продукты</title>
     <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
-<link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+<link rel="stylesheet" href="{% static '' %}shop/new/Продукты.css" media="screen">
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
@@ -27,10 +26,12 @@
 		"sameAs": []
 }</script>
     <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Продукты">
+    <meta property="og:description" content="">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-0ff4"><div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
-        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1">Luxon</h1><a href="/ru/accounts/{{ request.user.id }}"><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
+        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1"><a href="/ru">Luxon</a></h1><a href="/ru/accounts/{{ request.user.id }}"><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
 	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
 	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
 	c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
@@ -57,7 +58,7 @@
           </div>
           <div class="u-custom-menu u-nav-container">
             <ul class="u-custom-font u-font-montserrat u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/ru" style="padding: 10px 4px;">Главная</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/ru/products" style="padding: 10px 4px;">каталог</a>
+</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/ru/products" style="padding: 10px 4px;">Каталог</a>
 </li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/ru/about" style="padding: 10px 4px;">О нас</a>
 </li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
 </li></ul>
@@ -86,137 +87,50 @@
           <input class="u-search-input" type="search" name="search" value="" placeholder="Поиск">
         </form>
       </div></header>
-    <section class="u-align-center u-clearfix u-image u-shading u-section-1" src="" data-image-width="1280" data-image-height="852" id="sec-6491">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h1 class="u-align-left u-custom-font u-font-montserrat u-text u-title u-text-1">Добро пожало​в​ать<br>в Luxon
-        </h1>
-        <a href="/ru/about" class="u-border-none u-btn u-button-style u-custom-font u-font-montserrat u-hover-grey-15 u-text-grey-75 u-white u-btn-1">О нас</a>
-      </div>
-    </section>
-    <section class="u-align-center u-clearfix u-section-2" id="sec-6353">
-      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-        <h2 class="u-custom-font u-font-montserrat u-text u-text-default u-text-1">Что мы предлагаем</h2>
-        <div class="u-carousel u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-always u-gallery-1" id="carousel-d2d5" data-interval="5000" data-u-ride="carousel">
-          <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="0" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="1" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="2" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="3" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="4" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-            <li data-u-target="#carousel-d2d5" data-u-slide-to="5" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-          </ol>
-          <div class="u-carousel-inner u-gallery-inner" role="listbox">
-            <div class="u-active u-carousel-item u-gallery-item u-carousel-item-1">
-              <div class="u-back-slide" data-image-width="1683" data-image-height="780">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/521ac65b68fff61f91214f230127bfd8.jpg">
-              </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-1">
-                <h3 class="u-gallery-heading">Спортивное оборудование для фитнес центров</h3>
-                <p class="u-gallery-text"></p>
+    <section class="u-clearfix u-grey-10 u-section-1" id="sec-b809">
+      <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
+      <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
+              <div class="u-container-layout u-valign-top u-container-layout-1">
+                <h4 class="u-custom-font u-font-montserrat u-text u-text-1">Sample Item 1<br>Sample Item 2<br>Sample Item 3<br>Sample Item 1<br>Sample Item 2<br>Sample Item 3<br>Sample Item 1<br>Sample Item 2<br>
+                </h4>
               </div>
             </div>
-            <div class="u-carousel-item u-gallery-item u-carousel-item-2">
-              <div class="u-back-slide" data-image-width="1079" data-image-height="785">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/forhome.jpg">
+            <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
+              <div class="u-container-layout u-container-layout-2">
+                <h4 class="u-custom-font u-font-montserrat u-text u-text-2">Sample Item 1<br>Sample Item 2<br>Sample Item 3<br>Sample Item 1<br>Sample Item 2<br>Sample Item 3<br>Sample Item 1<br>Sample Item 2<br>
+                </h4>
               </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-2">
-                <h3 class="u-gallery-heading">Спортивное оборудование для дома</h3>
-                <p class="u-gallery-text"></p>
-              </div>
-            </div>
-            <div class="u-carousel-item u-gallery-item u-carousel-item-3" data-image-width="1000" data-image-height="500">
-              <div class="u-back-slide">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/school.jpg" alt="Спортивное оборудование для ВУЗов, школ">
-              </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-3">
-                <h3 class="u-gallery-heading">Спортивное оборудование для ВУЗов, школ</h3>
-                <p class="u-gallery-text"></p>
-              </div>
-              <style data-mode="XL" data-visited="true"></style>
-              <style data-mode="LG"></style>
-              <style data-mode="MD"></style>
-              <style data-mode="SM"></style>
-              <style data-mode="XS"></style>
-            </div>
-            <div class="u-carousel-item u-gallery-item u-carousel-item-4" data-image-width="850" data-image-height="567">
-              <div class="u-back-slide">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/playground.jpg" alt="Строительство детских площадок">
-              </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-4">
-                <h3 class="u-gallery-heading">Строительство детских площадок</h3>
-                <p class="u-gallery-text"></p>
-              </div>
-              <style data-mode="XL" data-visited="true"></style>
-              <style data-mode="LG"></style>
-              <style data-mode="MD"></style>
-              <style data-mode="SM"></style>
-              <style data-mode="XS"></style>
-            </div>
-            <div class="u-carousel-item u-gallery-item u-carousel-item-5" data-image-width="1023" data-image-height="688">
-              <div class="u-back-slide">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/fild.jpg" alt="Строительство футбольных полей и игровых площадок">
-              </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-5">
-                <h3 class="u-gallery-heading">Строительство футбольных полей и игровых площадок</h3>
-                <p class="u-gallery-text"></p>
-              </div>
-              <style data-mode="XL" data-visited="true"></style>
-              <style data-mode="LG"></style>
-              <style data-mode="MD"></style>
-              <style data-mode="SM"></style>
-              <style data-mode="XS"></style>
-            </div>
-            <div class="u-carousel-item u-gallery-item u-carousel-item-6" data-image-width="840" data-image-height="473">
-              <div class="u-back-slide">
-                <img class="u-back-image u-expanded" src="{% static '' %}shop/new/images/tenis.jpg" alt="Настольный теннис">
-              </div>
-              <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-6">
-                <h3 class="u-gallery-heading">Настольный теннис</h3>
-                <p class="u-gallery-text"></p>
-              </div>
-              <style data-mode="XL" data-visited="true"></style>
-              <style data-mode="LG"></style>
-              <style data-mode="MD"></style>
-              <style data-mode="SM"></style>
-              <style data-mode="XS"></style>
             </div>
           </div>
-          <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-d2d5" role="button" data-u-slide="prev">
-            <span aria-hidden="true">
-              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
-            </span>
-            <span class="sr-only">
-              <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
-c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
-c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
-            </span>
-          </a>
-          <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-2" href="#carousel-d2d5" role="button" data-u-slide="next">
-            <span aria-hidden="true">
-              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
-            </span>
-            <span class="sr-only">
-              <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
-L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
-c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
-            </span>
-          </a>
         </div>
-        <a href="/ru/products" class="u-active-none u-border-2 u-border-active-black u-border-black u-border-hover-palette-2-base u-btn u-button-style u-custom-font u-font-montserrat u-hover-none u-none u-text-black u-text-hover-palette-2-base u-btn-1">Перейти в раздел Каталог</a>
       </div>
     </section>
-    <section class="u-clearfix u-section-3" id="sec-c3b1">
-      <div class="u-clearfix u-sheet u-valign-middle-xl u-sheet-1">
-        <h2 class="u-custom-font u-font-montserrat u-text u-text-default u-text-1">О нас</h2>
-        <h4 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Нажмите на кнопку чтобы увидеть больше про компанию</h4>
-        <a href="/ru/about" class="u-border-none u-btn u-button-style u-custom-font u-font-montserrat u-grey-90 u-hover-grey-80 u-btn-1">Перейти</a>
+    <div class="cont">
+      {% for продукт in продукты %}
+      <section class="u-clearfix u-grey-10 u-section-2" id="sec-257c">
+        <div class="u-align-left u-clearfix u-sheet u-sheet-1">
+          <div class="u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-22 u-shape-round u-group-1">
+            <div class="u-container-layout u-valign-top u-container-layout-1">
+              <img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ продукт.image }}" alt="" data-image-width="840" data-image-height="473">
+              <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ продукт.название_позиции }}</h4>
+              <h6 class="u-custom-font u-font-montserrat u-text u-text-custom-color-1 u-text-default u-text-2">{{ продукт.цена }} {{ продукт.валюта }}</h6>
+              <a href="/ru/product/{{ продукт.id }}" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">Подробнее</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endfor %}
+    </div>
+    <section class="u-clearfix u-section-3" id="sec-f281">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-60 u-btn-1">Предыдущая страница</a>
+        <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-75 u-btn-2">Следующая страница</a>
+        <p class="u-text u-text-default u-text-1">Страница 1 из 22</p>
       </div>
     </section>
-    
     
     <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4742"><div class="u-clearfix u-sheet u-sheet-1">
         <h3 class="u-custom-font u-font-montserrat u-headline u-text u-text-default u-text-1">
@@ -243,17 +157,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
           </a>
         </div>
         <div class="u-clearfix u-custom-html u-white u-custom-html-1">
-          <form action='' method="POST" id='language'>
-            {% csrf_token %}
-            <select form="language" name="language" onchange="this.form.submit()">
-              <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
-              <option value="ru" style="color:black">Русский язык</option>
-              <option value="en" style="color:black">English</option>
-              <option value="uk" style="color:black">Українська мова</option>
-            </select>
-            </form>
+          <select form="language" name="language" onchange="this.form.submit()">
+            <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
+            <option value="ru" style="color:black">Русский язык</option>
+            <option value="en" style="color:black">English</option>
+            <option value="uk" style="color:black">Українська мова</option>
+          </select>
         </div>
       </div></footer>
-
-  
-</body></html>
+  </body>
+</html>

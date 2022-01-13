@@ -35877,7 +35877,6 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-footer .u-custom-html-1 {
-  height: auto;
   min-height: 26px;
   width: 153px;
   margin: -12px auto 60px;
@@ -35898,6 +35897,7 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-footer .u-custom-html-1 {
+    height: auto;
     margin-top: -24px;
   }
 }
