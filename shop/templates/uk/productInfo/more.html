@@ -155,7 +155,7 @@
                                     {% if auth_status == 'success' and user.phone_number %}
                                     <input type='tel' name='callme_phone_number' id='callme_phone_number' value='{{ user.phone_number }}'>
                                     {% else %}
-                                    <input type='tel' name='callme_phone_number' id='callme_phone_number'>
+                                    <input type='tel' name='callme_phone_number' required id='callme_phone_number'>
                                     {% endif %}
                                     <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Передзвоніть мені!'>
                                 </form>

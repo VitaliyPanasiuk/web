@@ -38,15 +38,15 @@ def homePage(request, lang):
             }
             try:
                 return render(
-                    request, current_user.user_language + "/shop/index.html", context
+                    request, current_user.user_language + "/shopPrototype/index.html", context
                 )
             except TypeError:
-                return render(request, str(lang) + "/shop/index.html", context)
+                return render(request, str(lang) + "/shopPrototype/index.html", context)
         else:
             context = {
                 "lang": lang,
             }
-            return render(request, str(lang) + "/shop/index.html", context)
+            return render(request, str(lang) + "/shopPrototype/index.html", context)
 
 '''def redirectProductsPage(request, lang):
     return redirect("/" + str(lang) + "/products/p1")'''
