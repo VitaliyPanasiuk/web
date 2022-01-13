@@ -38,13 +38,17 @@ def homePage(request, lang):
             }
             try:
                 return render(request, current_user.user_language + "/shopPrototype/index.html", context)
+                # return render(request, current_user.user_language + "/shop/index.html", context)
             except TypeError:
-                return render(request, str(lang) + "/shopPrototype/index.html", context)
+                 return render(request, str(lang) + "/shopPrototype/index.html", context)
+                # return render(request, str(lang) + "/shop/index.html", context)
+
         else:
             context = {
                 "lang": lang,
             }
             return render(request, str(lang) + "/shopPrototype/index.html", context)
+            # return render(request, str(lang) + "/shop/index.html", context)
 
 '''def redirectProductsPage(request, lang):
     return redirect("/" + str(lang) + "/products/p1")'''
@@ -568,6 +572,7 @@ def productsPage(request, lang):
 
         "maxPage": maxPage,
     }
+    # template = str(lang) + "/products/index.html"
     template = str(lang) + "/productsPrototype/index.html"
     return render(request, template, context)
 
