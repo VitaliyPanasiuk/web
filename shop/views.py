@@ -1428,7 +1428,8 @@ def aboutProductPage(request, id, lang):
                 "images": images,
                 "lang": lang,
             }
-        template = str(lang) + "/productInfo/more.html"
+        #template = str(lang) + "/productInfo/more.html"
+        template = str(lang) + "/productInfoPrototype/index.html"
         context.update(csrf(request))
         return render(request, template, context)
 

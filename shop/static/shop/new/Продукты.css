@@ -146,11 +146,14 @@
 .u-section-2 .u-container-layout-1 {
   padding: 30px 29px 26px;
 }
-
-.u-section-2 .u-image-1 {
-  width: 203px;
-  height: 221px;
+.u-section-2 .u-image-1 img{
+  width: 250px;
+  height: 250px;
+}
+  .u-section-2 .u-image-1 {
   margin: 0 auto;
+  width: 250px !important;
+  height: 250px !important;
 }
 
 .u-section-2 .u-text-1 {
