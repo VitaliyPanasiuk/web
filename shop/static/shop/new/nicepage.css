@@ -18157,6 +18157,7 @@ p {
 @media (min-width: 768px) and (max-width: 991px) {
   .u-align-center-md {
     text-align: center;
+    vertical-align: center;
   }
 }
 @media (min-width: 576px) and (max-width: 767px) {
@@ -37159,10 +37160,15 @@ blockquote {
 /*end-variables sitestylecss*/
 .u-header {
   background-image: none;
+  height: 123px;
 }
 
 .u-header .u-sheet-1 {
   min-height: 123px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
 .u-header .u-text-1 {

@@ -121,9 +121,6 @@
   width: 340px;
   height: 540px;
 }
-.u-sheet-1 {
-  padding-top: 20px;
-}
 .u-section-2 .u-sheet-1 {
   min-height: 517px;
 }
@@ -155,7 +152,16 @@
   width: 250px !important;
   height: 250px !important;
 }
-
+.searchButton{
+  margin-left: -50px;
+    height: 20px;
+    width: 50px;
+}
+.searchField{
+  width: 200px;
+    height: 20px;
+    padding-right: 50px;
+}
 .u-section-2 .u-text-1 {
   font-size: 1.25rem;
   margin: 21px 0 0;

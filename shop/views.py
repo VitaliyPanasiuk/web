@@ -56,7 +56,7 @@ def homePage(request, lang):
 
 def productsPage(request, lang):
     start = 0
-    end = 20
+    end = 18
     if request.POST:
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
@@ -82,64 +82,64 @@ def productsPage(request, lang):
         elif nextPage:
             page += 1
             for i in range(page-1):
-                start += 20
-                end += 20
+                start += 18
+                end += 18
             try:
                 if availableStatus == "yes" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").exclude(цена=None)[start:end] 
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-") .exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-") .exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "spec":
                     filteredProducts = продукты.filter(номер_группы=int(categoryid))[start:end]
-                    maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/20)
+                    maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/18)
                 elif availableStatus == "yes" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None))/18)
                 elif availableStatus == "no" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "yes" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-"))/18)
                 elif availableStatus == "spec" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None))/18)
             except ValueError:
                 if availableStatus == "yes" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end] 
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "spec":
                     filteredProducts = продукты[start:end]
-                    maxPage = math.ceil(len(продукты)/20)
+                    maxPage = math.ceil(len(продукты)/18)
                 elif availableStatus == "yes" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/18)
                 elif availableStatus == "no" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "yes" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/18)
                 elif availableStatus == "spec" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/18)
                 
             context = {
                 "продукты": filteredProducts,
@@ -156,66 +156,66 @@ def productsPage(request, lang):
         elif prevPage:
             page -= 1
             start = 0
-            end = 20
+            end = 18
             for i in range(page-1):
-                start += 20
-                end += 20
+                start += 18
+                end += 18
             try:
                 if availableStatus == "yes" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(наличие="-").filter(номер_группы=int(categoryid)).exclude(цена=None)[start:end] 
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(номер_группы=int(categoryid)).exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(номер_группы=int(categoryid)).exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "spec":
                     filteredProducts = продукты.filter(номер_группы=int(categoryid))[start:end]
-                    maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/20)
+                    maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/18)
                 elif availableStatus == "yes" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None))/18)
                 elif availableStatus == "no" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "yes" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-"))/18)
                 elif availableStatus == "spec" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None))/18)
             except ValueError:
                 if availableStatus == "yes" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end] 
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "spec":
                     filteredProducts = продукты[start:end]
-                    maxPage = math.ceil(len(продукты)/20)
+                    maxPage = math.ceil(len(продукты)/18)
                 elif availableStatus == "yes" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").filter(цена=None))/18)
                 elif availableStatus == "no" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/18)
                 elif availableStatus == "yes" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-"))/18)
                 elif availableStatus == "no" and withpriceStatus == "spec":
                     filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-"))/18)
                 elif availableStatus == "spec" and withpriceStatus == "yes":
                     filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None))/18)
                 elif availableStatus == "spec" and withpriceStatus == "no":
                     filteredProducts = Продукт.objects.filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None))/18)
             
             context = {
                 "продукты": filteredProducts,
@@ -230,7 +230,7 @@ def productsPage(request, lang):
             template = str(lang) + "/productsPrototype/index.html"
             return render(request, template, context)
         elif findcategory:
-            maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)))/20)
+            maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)))/18)
             print(maxPage)
             filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid))[start:end]
             context = {
@@ -252,7 +252,7 @@ def productsPage(request, lang):
             try:
                 if pricefilter == "Цена есть" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).exclude(наличие="-")[start:end]  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").exclude(цена=None))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -267,7 +267,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цена есть" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -282,7 +282,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -297,7 +297,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -312,7 +312,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None)[start:end])/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(цена=None)[start:end])/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -327,7 +327,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end])/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end])/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -342,7 +342,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цена есть" and availablefilter == "":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -357,7 +357,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -372,7 +372,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid)).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -388,7 +388,7 @@ def productsPage(request, lang):
             except ValueError:
                 if pricefilter == "Цена есть" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.exclude(цена=None).exclude(наличие="-")[start:end]  # | Продукт.objects.exclude(наличие='-') | Продукт.objects.exclude(цена='None')
-                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -403,7 +403,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цена есть" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.exclude(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.exclude(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -418,7 +418,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(цена=None).filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -433,7 +433,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.exclude(наличие="-").filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None).filter(наличие="-"))/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -448,7 +448,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цены нет" and availablefilter == "":
                     filteredProducts = Продукт.objects.filter(цена=None)[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None)[start:end])/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(цена=None)[start:end])/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "no",
@@ -463,7 +463,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-")[start:end])/20)
+                    maxPage = math.ceil(len(Продукт.objects.filter(наличие="-")[start:end])/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -478,7 +478,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "Цена есть" and availablefilter == "":
                     filteredProducts = Продукт.objects.exclude(цена=None)[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "yes",
@@ -493,7 +493,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Есть":
                     filteredProducts = Продукт.objects.exclude(наличие="-")[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -508,7 +508,7 @@ def productsPage(request, lang):
                     return render(request, template, context)
                 elif pricefilter == "" and availablefilter == "Нету":
                     filteredProducts = Продукт.objects.filter(наличие="-")[start:end]
-                    maxPage = math.ceil(len(filteredProducts)/20)
+                    maxPage = math.ceil(len(filteredProducts)/18)
                     context = {
                         "продукты": filteredProducts,
                         "withprice": "spec",
@@ -525,7 +525,7 @@ def productsPage(request, lang):
             withpriceStatus = "spec"
             availableStatus = "spec"
             try:
-                maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/20)
+                maxPage = math.ceil(len(продукты.filter(номер_группы=int(categoryid)))/18)
                 context = {
                     "продукты": продукты.filter(номер_группы=int(categoryid))[start:end],
                     "withprice": "spec",
@@ -537,7 +537,7 @@ def productsPage(request, lang):
                     'currentCagtegory': categoryid,
                 }
             except ValueError:
-                maxPage = math.ceil(len(продукты)/20)
+                maxPage = math.ceil(len(продукты)/18)
                 context = {
                     "продукты": продукты[start:end],
                     "withprice": "spec",
@@ -560,7 +560,7 @@ def productsPage(request, lang):
                 return redirect("/" + str(language) + "/products/")
 
     filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end]
-    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/20)
+    maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/18)
     
     context = {
         "продукты": filteredProducts,
@@ -734,7 +734,7 @@ def productsPage(request, lang):
                 template = str(lang) + "/products/category/index.html"
                 return render(request, template, context)
         elif nofilters:
-            filteredProducts = Продукт.objects.filter(категория=id)[:20]
+            filteredProducts = Продукт.objects.filter(категория=id)[:18]
             context = {
                 "продукты": filteredProducts,
                 "withprice": "spec",
@@ -764,7 +764,7 @@ def productsPage(request, lang):
     else:
         template = str(lang) + "/products/category/index.html"
         # category = ShopCategory.objects.get(id=id)
-        filteredProducts = Продукт.objects.filter(категория=id)[:20]
+        filteredProducts = Продукт.objects.filter(категория=id)[:18]
         context = {
             "продукты": filteredProducts,
             "lang": lang,
@@ -788,7 +788,7 @@ def searchPage(request, lang):
         return redirect("/" + str(lang) + "/products/")
     if request.POST:
         page = 1
-        counter = 20
+        counter = 18
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
         searchText = searchTextRaw.replace(" ", "-")
