@@ -10,21 +10,20 @@
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>Продукты</title>
     <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
-<link rel="stylesheet" href="{% static '' %}shop/new/Продукты.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Продукты.css" media="screen">
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
     
     
-    
-    
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
 		"name": "Site1",
-		"sameAs": []
-}</script>
+		"sameAs": []}
+    </script>
+
     <meta name="theme-color" content="#478ac9">
     <meta property="og:title" content="Продукты">
     <meta property="og:description" content="">
@@ -101,22 +100,25 @@
         <div class="category">
           <ul class="categories">
               {% for i in category %}
-                  <li class="category_item">{{ i.category_name_ru }}
-                      <ul class="subcategories">
+                  <li class="category_item">
+                    <p onclick="myFunction()" class="dropbtn">
+                      {{ i.category_name_ru }}
+                    </p>
+                      <ul class="subcategories" id="sub_cat">
                           {% for j in i.подкатегория.all %}
                               <li>
-                                  <form method="POST", action="">
-                                      {% csrf_token %}
-                                      <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
-                                      <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
-                                  </form>
+                                <form method="POST", action="" >
+                                    {% csrf_token %}
+                                    <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                    <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                </form>
                               </li>
-                              {% endfor %}
+                          {% endfor %}
                       </ul>
                   </li>
               {% endfor %}
           </ul>
-      </div>
+        </div>
       </div>
       <div class="help_filters">
         <form method='POST' action=''>
@@ -402,6 +404,15 @@
             <option value="uk" style="color:black">Українська мова</option>
           </select>
         </div>
-      </div></footer>
+      </div>
+    </footer>
+    
+
+    <script>
+      function myFunction() {
+    document.getElementById("sub_cat").classList.toggle("show");
+    }
+    </script>
   </body>
+  
 </html>
