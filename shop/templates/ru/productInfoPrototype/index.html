@@ -1,5 +1,7 @@
 {% load static %}
+{% load staticencoder %}
 {% get_media_prefix as MEDIA_URL %}
+
 <!DOCTYPE html>
 <html style="font-size: 16px;">
   <head>
@@ -30,7 +32,7 @@
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-0ff4"><div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
-        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1"><a href='/ru'>Luxon</a></h1><a href='/ru/accounts/{{ request.user.id }}'><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
+        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1"><a href='/ru'>Luxon</a></h1>{% if request.user.id %}<a href='/ru/accounts/{{ request.user.id }}'><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
 	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
 	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
 	c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
@@ -46,6 +48,9 @@
 	s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.346-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545
 	c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
 	c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z"></path></svg></span></a>
+  {% else %}
+  <span class="u-icon u-icon-1"><div сlass='imgLogin'><a href='/ru/accounts/login'><img src="{% static '' %}shop/new/images/login.png"></a></div></span>
+  {% endif %}
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse u-custom-font u-font-montserrat" style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase;">
             <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
@@ -108,6 +113,7 @@
                           <p class="u-gallery-text"></p>
                         </div>
                       </div>
+                      <!--
                       <div class="u-carousel-item u-effect-fade u-gallery-item u-carousel-item-2">
                         <div class="u-back-slide">
                           <img class="u-back-image u-expanded" src="{% static '' %}shop/newProd/images/2.svg">
@@ -117,6 +123,7 @@
                           <p class="u-gallery-text"></p>
                         </div>
                       </div>
+                    -->
                     </div>
                     <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-d2d5" role="button" data-u-slide="prev">
                       <span aria-hidden="true">
@@ -153,10 +160,41 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                   {% else %}
                   <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Нет в наличии</h5>
                   {% endif %}
-                  <a href="https://nicepage.com/ru/c/galereya-html-shablony" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">в корзину</a>
-                  <a href="https://nicepage.me" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-2">В избранное</a>
+                  {% if  продукт.цена == None %}
+                  <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Цена формируется</h5>
+                  {% else %}
+                    {% if продукт.скидка > 0 %}
+                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2"><s>{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</s></h5>
+                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">{{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}</h5>
+                    {% else %}
+                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">{{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}</h5>
+                    {% endif %}
+                  {% endif %}
+                  <form action="" name="carty" id="carty" method="POST">
+                    {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                            <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
+                                            <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">--><input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="В КОРЗИНУ"></a>
+                  </form>
+                  <form action="" id="favy" name="favy" method="POST">
+                    {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
+                                            <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
+                                            <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-2"><input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="В ИЗБРАННОЕ"></a>
+                  </form>
                   <div class="u-clearfix u-custom-html u-custom-html-1">
-                    <input type="number" name="how_much_to_add" id="how_much_to_add" value="1">
+                    <input form='carty' type="number" name="how_much_to_add" id="how_much_to_add" value="1">
                   </div>
                   <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-3">Количество:</h5>
                 </div>
@@ -167,28 +205,42 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         <div class='callme_back'>
         <h6 class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-4">Нужна помощь консультанта?&nbsp;<br>Мы Вам перезвоним!
         </h6>
-        <a href="https://nicepage.com/c/medicine-science-html-templates" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
-          <span style="font-size: 0.75rem;">Перезвоните </span>
-          <span style="font-size: 0.75rem;">мне</span>
-        </a>
-        <div class="phone_number">
-        <div class="u-clearfix u-custom-html u-custom-html-2">
-          <input type="tel" name="callme_phone_number" required="" id="callme_phone_number">
-        </div>
-        </div>
+        <form method="POST" action="">
+                            {% csrf_token %}
+                            {% if auth_status == 'success' and user.first_name %}
+                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
+                            <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
+                            {% else %}
+                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
+                            {% endif %}
+                            <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+          <a href="https://nicepage.com/c/medicine-science-html-templates" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
+            <span style="font-size: 0.75rem;">Перезвоните </span>
+            <span style="font-size: 0.75rem;">мне</span>
+          </a>
+          {% if auth_status == 'success' and user.phone_number %}
+          <div class="phone_number">
+          <div class="u-clearfix u-custom-html u-custom-html-2">
+            <input type="tel" name="callme_phone_number" required id="callme_phone_number" value="{{ user.phone_number }}">
+          </div>
+          </div>
+          {% else %}
+          <div class="phone_number">
+            <div class="u-clearfix u-custom-html u-custom-html-2">
+              <input type="tel" name="callme_phone_number" required id="callme_phone_number">
+            </div>
+            </div>
+          {% endif %}
+        </form>
         </div>
       </div>
     </section>
     <section class="u-clearfix u-grey-5 u-section-2" id="sec-8fad">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h3 class="u-text u-text-1">Описание и характеристики</h3>
-        <p class="u-text u-text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-mollit anim id est laborum. </p>
+        <p class="u-text u-text-2">{{ продукт.описание }}</p>
       </div>
     </section>
     
