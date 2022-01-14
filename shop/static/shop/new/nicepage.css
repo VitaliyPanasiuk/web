@@ -35675,6 +35675,11 @@ a.u-button-style.u-button-style.active
 a.u-link.u-text-hover-white:hover {
   color: #ffffff !important;
 }
+select {
+  -webkit-appearance: none;
+  border-radius: 0px;
+  -moz-appearance: none;
+}
 .u-text-black,
 a.u-button-style.u-text-black,
 a.u-button-style.u-text-black[class*="u-border-"] {

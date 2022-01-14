@@ -1,5 +1,7 @@
 {% load static %}
+{% load staticencoder %}
 {% get_media_prefix as MEDIA_URL %}
+
 <!DOCTYPE html>
 <html style="font-size: 16px;">
   <head>
@@ -352,7 +354,15 @@
                 <div class="u-container-layout u-valign-top u-container-layout-1">
                   <a href='/ru/product/{{ продукт.id }}'><img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ продукт.image }}" alt="" data-image-width="840" data-image-height="473"></a>
                   <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ продукт.название_позиции }}</h4>
-                  <h6 class="u-custom-font u-font-montserrat u-text u-text-custom-color-1 u-text-default u-text-2">{{ продукт.цена }} {{ продукт.валюта }}</h6>
+                  {% if продукт.цена == None or продукт.валюта == None %}
+                  <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Цена формируется</h6>
+                  {% else %}
+                    {% if продукт.скидка > 0 %}
+                      <h6 class="u-custom-font u-font-montserrat u-text u-text-custom-color-1 u-text-default u-text-2"><s>{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</s>   {{ продукт.цена|discount:продукт.скидка|floatformat:2  }} {{ продукт.валюта }}</h6>
+                    {% else %}
+                      <h6 class="u-custom-font u-font-montserrat u-text u-text-custom-color-1 u-text-default u-text-2">{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</h6>
+                    {% endif %}
+                  {% endif %}
                   <a href="/ru/product/{{ продукт.id }}" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">Подробнее</a>
                 </div>
               </div>
@@ -363,10 +373,29 @@
       </div>
     </div>
     <section class="u-clearfix u-section-3" id="sec-f281">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-60 u-btn-1">Предыдущая страница</a>
-        <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-75 u-btn-2">Следующая страница</a>
-        <p class="u-text u-text-default u-text-1">Страница 1 из 22</p>
+      {% if maxPage != 0 %}
+      <div class="u-clearfix u-sheet u-sheet-1">      
+        <form method="POST" action=''>
+          {% csrf_token %}
+          {% if page != 1 %}
+          <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-60 u-btn-1"><input type='submit' style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" name='prevPage' value='Предыдущая страница'></a>
+          {% endif %}
+          {% if page == 1 %}
+              <div style="display: none;"><input type="text" name='page' value="1"></div>
+          {% else %}
+              <div style="display: none;"><input type="text" name='page' value="{{ page }}"></div>
+          {% endif %}
+          <div style="display: none;"><input type="text" name='availableStatus' value="{{ available }}"></div>
+          <div style="display: none;"><input type="text" name='withpriceStatus' value="{{ withprice }}"></div>
+          <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
+          {% if maxPage > page %}
+          <a class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-75 u-btn-2"><input type='submit'style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" name='nextPage' value='Следующая страница'></a>
+          {% endif %}
+      </form>
+        <p class="u-text u-text-default u-text-1">Страница {{ page }} из {{ maxPage }}</p>
+      {% else %}
+        <p class="u-text u-text-default u-text-1">Тут ничего нет</p>
+      {% endif %}
       </div>
     </section>
     
@@ -395,7 +424,7 @@
           </a>
         </div>
         <div class="u-clearfix u-custom-html u-white u-custom-html-1">
-          <select form="language" name="language" onchange="this.form.submit()">
+          <select style="background-color: inherit;" form="language" name="language" onchange="this.form.submit()">
             <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
             <option value="ru" style="color:black">Русский язык</option>
             <option value="en" style="color:black">English</option>
