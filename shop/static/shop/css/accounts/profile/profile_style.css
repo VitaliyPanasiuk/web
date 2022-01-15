@@ -677,11 +677,20 @@ body {
 }
 .order_tit {
   text-align: center;
-  font-size: 22px;
+  font-size: 24px;
 }
 .order_privat_info {
   display: flex;
   flex-direction: column;
+}
+.order_privat_info label {
+  font-size: 20px;
+}
+.order_delivery_pay p {
+  font-size: 20px;
+}
+.order_delivery_pay label {
+  font-size: 18px;
 }
 .order_privat_info_items {
   margin-top: 25px;
@@ -774,4 +783,34 @@ input[type="submitt"] {
 }
 .name_and_delete a:hover {
   color: rgba(255, 0, 0, 0.63);
+}
+input[type="make_order"] {
+  width: 230px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: #fff;
+  border: 2px solid;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 24px;
+  -webkit-transition: color 0.5s linear;
+  -o-transition: color 0.5s linear;
+  transition: color 0.5s linear;
+  -webkit-transition: background 0.5s linear;
+  -o-transition: background 0.5s linear;
+  transition: background 0.5s linear;
+}
+input[type="make_order"]:hover {
+  background: black;
+  color: white;
+  border: 2px solid;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
