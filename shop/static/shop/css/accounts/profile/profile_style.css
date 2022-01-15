@@ -730,3 +730,48 @@ body {
   display: block;
   background-color: rgb(255, 0, 0, 0.4);
 }
+.fav_btn {
+  color: black;
+  border-style: solid;
+  border-width: 2px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  /* margin: 30px auto 30px; */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color: #000000 !important;
+  user-select: none;
+  vertical-align: middle;
+  text-align: center;
+  border-radius: 0;
+  align-self: flex-start;
+}
+.fav_btn:hover {
+  color: white;
+  background-color: black;
+}
+
+input[type="submitt"] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: #fff;
+  border: 0 none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 26px;
+}
+.fav_buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.name_and_delete a {
+  color: black;
+}
+.name_and_delete a:hover {
+  color: rgba(255, 0, 0, 0.63);
+}

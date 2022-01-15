@@ -3,8 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
     <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -23,6 +24,7 @@
     <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
     <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
     <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Продукты.css" media="screen">
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
@@ -105,7 +107,22 @@
 
                     <div class="user_redact_fav">
                             {% for favourite in favourites %}
-                                <form action='' method="POST">
+                            <section class="u-clearfix u-grey-10 u-section-2" id="sec-257c">
+                                <div class="u-align-left u-clearfix u-sheet u-sheet-1">
+                                  <div class="u-border-2 u-border-grey-75 u-container-style u-grey-10 u-group u-radius-22 u-shape-round u-group-1">
+                                    <div class="u-container-layout u-valign-top u-container-layout-1">
+                                      <a href='/ru/product/{{ продукт.id }}'><img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ favourite.image }}" alt="" data-image-width="840" data-image-height="473"></a>
+                                      <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ favourite.ru_name }}</h4>
+                                      <div class="fav_buttons">
+                                        <a href="/ru/product/{{ продукт.id }}" class="fav_btn">Подробнее</a>
+                                        <!-- BUTTON FOR DEL FROM favourite LIST -->
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </section>
+                                <!-- <form action='' method="POST">
                                     {% csrf_token %}
                                 
                                     <div class="line">
@@ -133,7 +150,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </form> -->
                             {% endfor %}
                             {% if items == 0 %}
                                 <p>Тут пока что ничего нет</p>
