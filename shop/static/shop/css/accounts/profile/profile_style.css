@@ -3,15 +3,16 @@ p {
 }
 .body_inf {
   width: 100%;
-  min-height: 72vh;
+  min-height: calc(100vh - 123px);
   height: auto;
+  margin-top: 1px;
 }
 ul {
   list-style-type: none;
 }
 .user_page {
-  padding-top: 25px;
-  width: 340px;
+  margin-top: 50px;
+  width: 30%;
   height: 320px;
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
@@ -55,6 +56,24 @@ a {
 .user_inf_top {
   display: flex;
   margin-top: 5px;
+}
+.user_inf_top a {
+  color: #000;
+}
+.user_inf_top a:hover {
+  color: #000;
+}
+.user_inf_bot a {
+  color: #000;
+}
+.user_inf_bot a:hover {
+  color: #000;
+}
+.user_bl_text a {
+  color: #000;
+}
+.user_bl_text a:hover {
+  color: rgba(255, 0, 0, 0.63);
 }
 .first_name {
   margin-left: 0px;
@@ -140,7 +159,7 @@ a {
   display: flex;
 }
 .user_redact {
-  width: 950px;
+  width: 70%;
   margin-left: 10px;
   display: block;
 }
@@ -179,21 +198,21 @@ a {
 }
 .personality {
   display: block;
-  width: 900px;
+
   margin-left: 50px;
   margin-top: 50px;
   border: 1px solid #c6c6c6;
 }
 .contacts {
   display: block;
-  width: 900px;
+
   margin-left: 50px;
   margin-top: 50px;
   border: 1px solid #c6c6c6;
 }
 .adres {
   display: block;
-  width: 900px;
+
   margin-left: 50px;
   margin-top: 50px;
   border: 1px solid #c6c6c6;
@@ -203,14 +222,13 @@ a {
 }
 .person_top {
   display: flex;
-  width: 900px;
 }
 .person_text {
   display: flex;
   width: 900px;
 }
 .person_text p {
-  font-size: 16px;
+  font-size: 18px;
 }
 .person_tit {
   margin-right: auto;
@@ -221,10 +239,13 @@ a {
 
 .person_redact {
   width: auto;
-  margin-right: 30px;
-  margin-left: 0;
-  margin-top: auto;
-  margin-bottom: auto;
+  display: flex;
+  /* margin-right: 30px;
+  margin-left: 0; */
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .person_info {
   display: flex;
@@ -516,10 +537,6 @@ a {
 .confirm_order {
   margin-top: 10px;
 }
-.person_redact a {
-  text-decoration: none;
-  color: #000;
-}
 
 .line {
   display: -webkit-box;
@@ -676,4 +693,40 @@ body {
 .order_price_mk {
   text-align: center;
   margin-top: 40px;
+}
+
+.person_redact a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #000;
+  margin-left: 15px;
+  -webkit-transition: color 0.2s linear;
+  -o-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+.person_redact a:hover {
+  text-decoration: none;
+  font-size: 18px;
+  color: rgba(255, 0, 0, 0.63);
+  margin-left: 15px;
+}
+.person_redact a::after {
+  content: "";
+  width: 20%;
+  height: 1px;
+  display: block;
+  background-color: rgb(255, 0, 0, 0.4);
+  -webkit-transition: width 0.2s linear;
+  -o-transition: width 0.2s linear;
+  transition: width 0.2s linear;
+}
+.redactPassHr {
+  margin-left: 10px;
+}
+.person_redact a:hover::after {
+  content: "";
+  width: 80%;
+  height: 1px;
+  display: block;
+  background-color: rgb(255, 0, 0, 0.4);
 }

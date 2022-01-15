@@ -5798,7 +5798,6 @@ a:focus {
   display: table;
 }
 .u-clearfix:after {
-  clear: both;
 }
 .u-textlink,
 .u-textlink:hover,
@@ -37165,7 +37164,15 @@ blockquote {
 /*end-variables sitestylecss*/
 .u-header {
   background-image: none;
-  height: 123px;
+  height: 127px;
+}
+.u-header:after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  display: block;
+  /* margin: 50px auto 0; */
+  background-color: #000;
 }
 
 .u-header .u-sheet-1 {
