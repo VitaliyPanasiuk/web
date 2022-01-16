@@ -814,3 +814,61 @@ input[type="make_order"]:hover {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
+
+/* congirm order*/
+.confirm_order {
+  min-height: calc(100vh - 123px - 216px);
+}
+.con_order_tit {
+  text-align: center;
+  font-size: 24px;
+}
+.con_order_info_top {
+  display: flex;
+  justify-content: space-around;
+}
+.con_order_info_top p {
+  font-size: 22px;
+  margin: auto;
+}
+.con_order_info_bot {
+  margin-top: 25px;
+  text-align: center;
+}
+.con_order_delivery_pay {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+}
+input[type="confirm_order"] {
+  width: 300px;
+  height: 40px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: #fff;
+  border: 2px solid;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 24px;
+  -webkit-transition: color 0.5s linear;
+  -o-transition: color 0.5s linear;
+  transition: color 0.5s linear;
+  -webkit-transition: background 0.5s linear;
+  -o-transition: background 0.5s linear;
+  transition: background 0.5s linear;
+}
+input[type="confirm_order"]:hover {
+  background: black;
+  color: white;
+  border: 2px solid;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
