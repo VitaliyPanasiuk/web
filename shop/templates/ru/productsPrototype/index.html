@@ -106,9 +106,9 @@
                     <p onclick="myFunction()" class="dropbtn">
                       {{ i.category_name_ru }}
                     </p>
-                      <ul class="subcategories" id="sub_cat">
+                      <ul class="subcategories" >
                           {% for j in i.подкатегория.all %}
-                              <li>
+                              <li id="sub_cat">
                                 <form method="POST", action="" >
                                     {% csrf_token %}
                                     <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>

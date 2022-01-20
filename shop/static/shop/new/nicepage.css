@@ -3,10 +3,6 @@
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2021 Froala Labs
  */
-.conteiner {
-  width: 1200px;
-  margin: 0 auto;
-}
 .fr-clearfix::after {
   clear: both;
   display: block;
@@ -37164,7 +37160,7 @@ blockquote {
 /*end-variables sitestylecss*/
 .u-header {
   background-image: none;
-  height: 127px;
+  /* height: 127px; */
 }
 .u-header:after {
   content: "";

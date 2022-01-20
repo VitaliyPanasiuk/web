@@ -352,9 +352,11 @@
   width: 35%;
 }
 .subcategories {
-  display: none;
   list-style-type: none;
   width: 100%;
+}
+#sub_cat {
+  display: none;
 }
 .categories {
   list-style-type: none;
