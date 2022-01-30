@@ -511,7 +511,7 @@ def userFavourites(request, uid, lang):
         for i in favourites:
             if str(i.user_id) == str(request.user.id):
                 a.append(i)
-        print(len(ShopFavourite.objects.filter(user_id=request.user.id)))
+        #print(len(ShopFavourite.objects.filter(user_id=request.user.id)))
         context = {
             'auth_status': auth_status,
             "favourites": a,
