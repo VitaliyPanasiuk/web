@@ -135,8 +135,9 @@
             </div>
             <div class="order_price_mk">
                 <p>Total price: {{ price|floatformat:"2" }} UAH</p>
-                <!--<p style='color: red !important; '>Внимание! При выходе с этой страницы без оформления заказа, он не будет подтвержден и автоматически удалится через 30 минут!</p>
-                --><input type="make_order" name='go' value="Создать заказ!" readonly>
+                <a href="#" class="makeorder_hr">
+                    <input type="submit" name='go' value="Создать заказ!" readonly>
+                </a>
             </div>
         </form>
     </div>

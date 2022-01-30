@@ -688,7 +688,7 @@ body {
   font-family: monospace;
 }
 .make_order_body {
-  height: 65vh;
+  min-height: 65vh;
   margin-top: 0;
 }
 .order_tit {
@@ -800,7 +800,19 @@ input[type="submitt"] {
 .name_and_delete a:hover {
   color: rgba(255, 0, 0, 0.63);
 }
-input[type="make_order"] {
+.makeorder_hr input {
+  background: white;
+  color: black;
+  font-size: 25px;
+  -webkit-transition: background 0.5s linear;
+  -o-transition: background 0.5s linear;
+  transition: background 0.5s linear;
+}
+.makeorder_hr input:hover {
+  background: black;
+  color: white;
+}
+/* .makeorder_hr {
   width: 230px;
   height: 40px;
   margin: 0 auto;
@@ -822,13 +834,25 @@ input[type="make_order"] {
   -o-transition: background 0.5s linear;
   transition: background 0.5s linear;
 }
-input[type="make_order"]:hover {
+.makeorder_hr:hover {
   background: black;
   color: white;
   border: 2px solid;
   cursor: pointer;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+} */
+.order_price_mk p {
+  font-size: 22px;
+}
+@media (max-width: 700px) {
+  .order_info_top {
+    flex-direction: column;
+    text-align: center;
+  }
+  .order_price_mk {
+    margin-bottom: 25px;
+  }
 }
 
 /* congirm order*/
