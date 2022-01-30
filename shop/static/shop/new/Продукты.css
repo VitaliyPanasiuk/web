@@ -221,6 +221,10 @@
   margin: 29px auto 0 172px;
 }
 
+.grey-background{
+  background-color: rgb(232, 232, 232);
+}
+
 .u-section-3 .u-btn-2 {
   letter-spacing: 1px;
   border-style: none;

@@ -231,7 +231,7 @@ def productsPage(request, lang):
             return render(request, template, context)
         elif findcategory:
             maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)))/18)
-            print(maxPage)
+            #print(maxPage)
             filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid))[start:end]
             context = {
                 "продукты": filteredProducts,
