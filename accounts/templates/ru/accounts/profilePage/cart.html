@@ -124,7 +124,7 @@
                                     <div class="price_and_other">
                                         <p>Цена: {{ item.price|mul:item.amount|floatformat:"2"  }} {{ item.currency }} </p>
                                         {% if item.currency == 'USD' %}
-                                           <p> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
+                                        <p> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
                                         {% endif %}
                                         <div class="quantity">
                                             <p>Количество: {{ item.amount }} шт.</p>
