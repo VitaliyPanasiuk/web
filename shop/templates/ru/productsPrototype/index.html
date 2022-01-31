@@ -11,6 +11,7 @@
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
     <title>Продукты</title>
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
     <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
     <link rel="stylesheet" href="{% static '' %}shop/new/Продукты.css" media="screen">
     <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
@@ -102,17 +103,20 @@
         <div class="category">
           <ul class="categories">
               {% for i in category %}
-                  <li class="category_item">
-                    <p onclick="myFunction()" class="dropbtn">
+                  <li onclick="myFunction(this)" class="category_item">
+                    <p  class="dropbtn" style="cursor:pointer">
                       {{ i.category_name_ru }}
                     </p>
                       <ul class="subcategories" >
                           {% for j in i.подкатегория.all %}
-                              <li id="sub_cat">
+                              <li class="sub_cat ">
                                 <form method="POST", action="" >
                                     {% csrf_token %}
                                     <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
-                                    <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                    <a href="#" class="subcat_hr">
+                                      <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                    </a>
+                                    
                                 </form>
                               </li>
                           {% endfor %}
@@ -352,7 +356,7 @@
           {% for продукт in продукты %}
           <section class="u-clearfix u-grey-10 u-section-2" id="sec-257c">
             <div class="u-align-left u-clearfix u-sheet u-sheet-1">
-              <div class="grey-background u-container-style u-group u-group-1">
+              <div class=" u-container-style u-group u-group-1">
                 <div class="u-container-layout u-valign-top u-container-layout-1">
                   <a href='/ru/product/{{ продукт.id }}'><img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ продукт.image }}" alt="" data-image-width="840" data-image-height="473"></a>
                   <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ продукт.название_позиции }}</h4>
@@ -438,9 +442,14 @@
     
 
     <script>
-      function myFunction() {
-    document.getElementById("sub_cat").classList.toggle("show");
-    }
+      function myFunction(element) {
+        let subcategories = element.querySelectorAll("li.sub_cat");
+        console.log(subcategories);
+ 
+        for (let i of subcategories) {
+          i.classList.toggle("show");
+        }
+}
     </script>
   </body>
   

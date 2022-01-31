@@ -15507,9 +15507,9 @@ section.u-image,
   border-bottom-style: solid;
   transform: translate(0, 50%);
 }
-.u-group .u-container-layout > * {
+/* .u-group .u-container-layout > * {
   position: relative;
-}
+} */
 .u-group {
   display: flex;
 }
