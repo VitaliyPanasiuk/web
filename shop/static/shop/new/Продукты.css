@@ -359,6 +359,9 @@
 /* .helper {
   
 } */
+.helper {
+  display: flex;
+}
 .dropdown_cat {
   position: relative;
 }
@@ -377,7 +380,7 @@
   /* width: 65%; */
 }
 .help_filters {
-  width: 35%;
+  width: 220px;
 }
 .subcategories {
   list-style-type: none;
@@ -391,6 +394,13 @@
   font-size: 18px;
   margin-top: 7px;
 }
+.filter {
+  width: 220px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .filter_set {
   text-align: center;
 }
@@ -399,8 +409,24 @@
 }
 .filter_but {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   padding-top: 10px;
+  align-items: center;
+}
+.filter_buHr {
+  margin-top: 5px;
+}
+.filter_buHr {
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+.filter_buHr:hover {
+  background-color: #efbebe;
+}
+.filter_buHr [type="submit"] {
+  background: none;
+  color: #000;
 }
 .dropbtn {
   width: auto;
