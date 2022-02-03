@@ -384,7 +384,7 @@
 }
 .subcategories {
   list-style-type: none;
-  width: 100%;
+  max-width: 840px;
 }
 
 .categories {
@@ -393,6 +393,12 @@
 .category_item {
   font-size: 18px;
   margin-top: 7px;
+}
+.sub_cat form {
+  width: auto;
+}
+.sub_cat {
+  width: auto;
 }
 .filter {
   width: 220px;
@@ -480,10 +486,30 @@
 .sub_cat {
   display: none;
 }
+.subcat_hr:after {
+  content: "";
+  width: 3%;
+  height: 2px;
+  display: block;
+  background-color: #660303;
+  opacity: 1;
+  z-index: 1;
+  position: relative;
+  top: 100%;
+  left: 0;
+  transition: width 0.35s linear;
+}
+.subcat_hr:hover:after {
+  width: 10%;
+}
 .show {
   display: block;
 }
 .subcat_hr input[type="submit"] {
   background: none;
   color: #000;
+  width: auto;
+  text-align: left;
+  white-space: normal;
+  padding-left: 0;
 }
