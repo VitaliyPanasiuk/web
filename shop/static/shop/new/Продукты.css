@@ -139,7 +139,7 @@
   padding-right: 15px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 .u-section-2 .u-group-1 {
   width: 320px;
@@ -212,7 +212,7 @@
 
 @media (max-width: 575px) {
   .u-section-2 .u-group-1 {
-    margin-left: 44px;
+    /* margin-left: 44px; */
   }
 }
 .u-section-3 .u-sheet-1 {
@@ -382,6 +382,7 @@
 .help_filters {
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 .subcategories {
@@ -403,8 +404,8 @@
   width: auto;
 }
 .filter {
-  width: 220px;
-  height: 380px;
+  /* width: 220px; */
+  height: 90px;
   display: flex;
   /* justify-content: center; */
 }
@@ -424,9 +425,7 @@
 .filter_but {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding-top: 10px;
-  align-items: center;
+  margin-left: 20px;
 }
 .filter_buHr {
   margin-top: 5px;
@@ -523,4 +522,98 @@
   text-align: left;
   white-space: normal;
   padding-left: 0;
+}
+.filter_act {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.filter_set p {
+  display: none;
+}
+.icon_filters img {
+  width: 30px;
+  height: 30px;
+}
+.icon_filters p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.icons {
+  display: flex;
+  justify-content: space-evenly;
+}
+.icons p {
+  cursor: pointer;
+}
+.filter_act input {
+  margin-left: 10px;
+}
+.icon_catalog {
+  font-size: 22px;
+}
+.icon_catalog:after {
+  content: "";
+  width: 0%;
+  height: 2px;
+  display: block;
+  background-color: #660303;
+  opacity: 1;
+  z-index: 1;
+  position: relative;
+  top: 100%;
+  left: 0;
+  transition: width 0.35s linear;
+}
+.icon_catalog:hover:after {
+  width: 100%;
+}
+.icon_filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.all_helper {
+  display: none;
+}
+.show_filter {
+  position: absolute;
+  top: 0;
+  left: 0px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
+  z-index: 100;
+  z-index: 100;
+}
+.filter_close {
+  display: flex;
+}
+.filter_close img {
+  width: 30px;
+  height: 30px;
+}
+@media (max-width: 860px) {
+  .filter {
+    flex-direction: column;
+    height: auto;
+  }
+  .help_filters {
+    margin-top: 20px;
+  }
+  .filter_buHr {
+    width: 189px;
+  }
+  .filter_but {
+    align-items: center;
+  }
+}
+@media (max-width: 630px) {
+  .filter_set {
+    flex-direction: column;
+    align-items: center;
+  }
 }
