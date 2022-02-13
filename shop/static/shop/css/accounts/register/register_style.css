@@ -50,9 +50,10 @@ label {
 } */
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
   width: 100%;
-  padding: 12px 20px;
+  padding: 6px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -97,11 +98,52 @@ span.psw {
   margin: 10px auto;
 }
 .reg_body {
-  margin-top: 30px;
+  /* margin-top: 30px; */
+  min-height: calc(100vh - 123px - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.reg_butHr input[type="submit"] {
+  background: none;
+  color: #000;
+  width: auto;
+  text-align: center;
+  white-space: normal;
+}
+.reg_butHr {
+  border: #000 1px solid;
+  border-radius: 15px;
+  text-align: center;
+}
+.reg_butHr:hover {
+  background: #000;
+}
+.logib_butHr input[type="submit"]:hover {
+  color: #fff;
+}
+.logib_butHr input[type="submit"] {
+  background: none;
+  color: #000;
+  width: auto;
+  text-align: center;
+  white-space: normal;
+}
+.logib_butHr {
+  border: #000 1px solid;
+  border-radius: 12px;
+  text-align: center;
+}
+.logib_butHr:hover {
+  background: #000;
+}
+.reg_butHr input[type="submit"]:hover {
+  color: #fff;
 }
 .reg-tit {
   margin: auto;
-  width: 150px;
+  /* width: 150px; */
 }
 h2 {
   text-align: center;
@@ -113,7 +155,7 @@ h2 {
   /* display: inline-block; */
   width: max-content;
   /* margin: 0 auto; */
-  margin-left: 30%;
+  /* margin-left: 30%; */
 }
 .reg_name input {
   width: 200px;
@@ -124,12 +166,14 @@ h2 {
 
 .reg_em_bl {
   width: 100%;
+  display: flex;
+  text-align: center;
 }
 .reg_em {
   /* display: inline-block; */
   width: max-content;
   /* margin: 0 auto; */
-  margin-left: 30%;
+  /* margin-left: 30%; */
 }
 .reg_em input {
   width: 200px;
@@ -141,7 +185,7 @@ h2 {
 .reg_warn {
   width: max-content;
   /* margin: 0 auto; */
-  margin-left: 30%;
+  /* margin-left: 30%; */
 }
 .reg_warn p {
   font-size: 12px;
@@ -154,7 +198,7 @@ h2 {
   /* display: inline-block; */
   width: max-content;
   /* margin: 0 auto; */
-  margin-left: 30%;
+  /* margin-left: 30%; */
 }
 .reg_password input {
   width: 300px;
@@ -183,7 +227,7 @@ h2 {
 }
 
 .log_inf input {
-  width: 350px;
+  max-width: 350px;
 }
 .formbl {
   margin-top: 20px;
