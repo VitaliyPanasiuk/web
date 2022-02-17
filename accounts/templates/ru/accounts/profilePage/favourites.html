@@ -108,6 +108,7 @@
         </form>
       </div></header>
     <section class="skrollable u-clearfix u-section-1" id="sec-b283">
+      {% if request.user.id != NULL %}
       <div class="u-clearfix u-sheet u-sheet-1">
             <div class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-tab-links-align-justify u-tabs u-tabs-1">
                 <ul class="u-tab-list u-unstyled" role="tablist">
@@ -125,33 +126,43 @@
                     </li>
                 </ul>
             </div>
+            {% for favourite in favourites %}
+            <form method="POST" action="">
+              {% csrf_token %}
+              <div style='display: none;'>
+                <input type='text' name='delete' id='delete' value='{{ favourite.favourite_item }}'>
+              </div>
               <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-db60" role="tabpanel" aria-labelledby="link-tab-db60">
                 <div class="u-container-layout u-valign-top u-container-layout-7">
                   <div class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-2">
                     <div class="u-container-layout u-container-layout-8">
-                      <img class="u-image u-image-default u-image-1" src="{% static '' %}shop/newProf/images/521ac65b68fff61f91214f230127bfd8.jpg" alt="" data-image-width="1600" data-image-height="742">
-                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-20">Название товара название тоавра название товара</p><span class="u-file-icon u-icon u-icon-7"><img src="{% static '' %}shop/newProf/images/149343.png" alt=""></span>
-                      <a href="https://nicepage.com/one-page-template" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>
+                      <img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ favourite.image }}" alt="" data-image-width="1600" data-image-height="742">
+
+                      <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-20">{{ favourite.ru_name }}</p><span class="u-file-icon u-icon u-icon-7"><input type="submit" value="&#10060;" /></span><!--<img src="{% static '' %}shop/newProf/images/149343.png" alt="">-->
+                      <a href="/ru/product/{{ favourite.favourite_item }}" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-b4b2" role="tabpanel" aria-labelledby="link-tab-b4b2">
+              </form>
+              {% endfor %}
+              <!-- <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-b4b2" role="tabpanel" aria-labelledby="link-tab-b4b2">
                 <div class="u-container-layout u-container-layout-9">
-                  {% for item in items %}
+                  {% for favourite in favourites %}
                     {% if userId == item.user_id %}
                       <div class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-3">
                         <div class="u-container-layout u-container-layout-10">
-                          <img class="u-image u-image-default u-image-2" src="{%static 'shop/img/cart-left.jpg' %}" alt="" data-image-width="1600" data-image-height="742">
-                          <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-21">{{ item.ru_order_item }}</p>
+                          <img class="u-image u-image-default u-image-2" src="{{ MEDIA_URL }}{{ favourite.image }}" alt="" data-image-width="1600" data-image-height="742">
+                          <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-21">{{ favourite.ru_name }}</p>
                           <p class="u-align-center u-text u-text-22">Цена:{{ item.price|mul:item.amount|floatformat:"2"  }} {{ item.currency }}</p>
-                          <p class="u-align-center u-text u-text-23">{{ item.amount }} Шт.</p><span class="u-file-icon u-hover-feature u-icon u-icon-8"><img src="images/5.png" alt=""></span>
+                          <p class="u-align-center u-text u-text-23">{{ item.amount }} Шт.</p>
+                          <span class="u-file-icon u-hover-feature u-icon u-icon-8"><img src="images/5.png" alt=""></span>
                         </div>
                       </div>
                     {% endif %} 
                   {% endfor %} 
                 </div>
-              </div>
+              </div> -->
             {% else %}
             <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
             {% endif %}
