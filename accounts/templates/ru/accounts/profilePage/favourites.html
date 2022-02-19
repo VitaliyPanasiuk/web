@@ -162,8 +162,8 @@
               aria-controls="tab-94d9" aria-selected="true">Профиль</a>
           </li>
           <li class="u-tab-item" role="presentation">
-            <a class="nav-prof" id="link-tab-6e2b" href="#tab-6e2b" role="tab" aria-controls="tab-6e2b"
-              aria-selected="false">Мои
+            <a class="nav-prof" id="link-tab-6e2b" href="/ru/accounts/{{ request.user.id }}/orders" role="tab"
+              aria-controls="tab-6e2b" aria-selected="false">Мои
               заказы</a>
           </li>
           <li class="u-tab-item u-tab-item-active " role="presentation">
@@ -171,8 +171,8 @@
               aria-controls="tab-db60" aria-selected="false">Избранное</a>
           </li>
           <li class="u-tab-item" role="presentation">
-            <a class="nav-prof" id="link-tab-b4b2" href="#tab-b4b2" role="tab" aria-controls="tab-b4b2"
-              aria-selected="false">Моя
+            <a class="nav-prof" id="link-tab-b4b2" href="/ru/accounts/{{ request.user.id }}/cart" role="tab"
+              aria-controls="tab-b4b2" aria-selected="false">Моя
               корзина</a>
           </li>
         </ul>
@@ -194,7 +194,9 @@
                     data-image-width="1600" data-image-height="742">
 
                   <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-20">{{ favourite.ru_name }}</p>
-                  <span class="u-file-icon u-icon u-icon-7"><input type="submit" value="&#10060;" /></span>
+                  <span class="u-file-icon u-icon u-icon-7">
+                    <input type="submit" value="&#10060;" />
+                  </span>
                   <!--<img src="{% static '' %}shop/newProf/images/149343.png" alt="">-->
                   <a href="/ru/product/{{ favourite.favourite_item }}"
                     class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>

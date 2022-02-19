@@ -154,9 +154,160 @@
             </form>
         </div>
     </header>
+
+
     <section class="skrollable u-clearfix u-section-1" id="sec-b283">
+        {% if request.user.id != NULL %}
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-tab-links-align-justify u-tabs u-tabs-1">
+                <ul class="u-tab-list u-unstyled" role="tablist">
+                    <li class="u-tab-item" role="presentation">
+                        <a class="nav-prof" id="link-tab-94d9" href="/ru/accounts/{{ user.id }}/" role="tab"
+                            aria-controls="tab-94d9" aria-selected="true">Профиль</a>
+                    </li>
+                    <li class="u-tab-item  u-tab-item-active" role="presentation">
+                        <a class="nav-prof nav-prof-active" id="link-tab-6e2b"
+                            href="/ru/accounts/{{ request.user.id }}/orders" role="tab" aria-controls="tab-6e2b"
+                            aria-selected="false">Мои
+                            заказы</a>
+                    </li>
+                    <li class="u-tab-item " role="presentation">
+                        <a class="nav-prof " id="" href="/ru/accounts/{{ request.user.id }}/favourites" role="tab"
+                            aria-controls="tab-db60" aria-selected="false">Избранное</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="nav-prof" id="link-tab-b4b2" href="/ru/accounts/{{ request.user.id }}/cart" role="tab"
+                            aria-controls="tab-b4b2" aria-selected="false">Моя
+                            корзина</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="orders_all">
+                {% for order in orders %}
+                <div class="u-container-layout u-container-layout-5">
+                    <div
+                        class="u-border-1 u-border-grey-75 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-white u-group-1">
+                        <div class="order_bl">
+                            <div class="st_circle_block">
+                                {% if order.confirm == 'uc' or order.confirm == 'ac' %}
+                                <div class="status_bl_yellow">
 
+                                </div>
+                                {% elif order.confirm == 'unc' %}
+                                <div class="status_bl_red">
 
+                                </div>
+                                {% elif order.confirm == 'done' %}
+                                <div class="status_bl_green">
+
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="orderId_block">
+                                <h3 class="">
+                                    Заказ №{{order.id }}
+                                </h3>
+                            </div>
+                            <div class="st_block">
+                                {% if order.confirm == 'uc' %}
+                                <h5 class="st_text">
+                                    Статус заказа:<br> В обработке
+                                </h5>
+                                {% elif order.confirm == 'ac' %}
+                                <h5 class="st_text">
+                                    Статус заказа:<br> Заказ принят
+                                </h5>
+                                {% elif order.confirm == 'done' %}
+                                <h5 class="st_text">
+                                    Статус заказа: <br> Выполнен
+                                </h5>
+                                {% elif order.confirm == 'unc' %}
+                                <h5 class="st_text">
+                                    Статус заказа:<br> не подтвержден <br> пользователем
+                                </h5>
+                                {% endif %}
+                            </div>
+
+                            <div class="order_price">
+                                <h5 class="">
+                                    Сумма заказа:&nbsp;<br>{{ order.сумма_заказа }} UAH
+                                </h5>
+                            </div>
+                            <div class="order_del">
+                                <img src="{% static '' %}shop\newProf\images\del.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="orders_all2">
+                {% for order in orders %}
+                <div class="u-container-layout u-container-layout-5">
+                    <div
+                        class="u-border-1 u-border-grey-75 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-white u-group-1">
+                        <div class="order_bl">
+                            <div class="st_circle_block">
+                                {% if order.confirm == 'uc' or order.confirm == 'ac' %}
+                                <div class="status_bl_yellow">
+
+                                </div>
+                                {% elif order.confirm == 'unc' %}
+                                <div class="status_bl_red">
+
+                                </div>
+                                {% elif order.confirm == 'done' %}
+                                <div class="status_bl_green">
+
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="order_num_status">
+                                <div class="orderId_block">
+                                    <h3 class="">
+                                        Заказ №{{order.id }}
+                                    </h3>
+                                </div>
+                                <div class="st_block">
+                                    {% if order.confirm == 'uc' %}
+                                    <h5 class="st_text">
+                                        Статус заказа:<br> В обработке
+                                    </h5>
+                                    {% elif order.confirm == 'ac' %}
+                                    <h5 class="st_text">
+                                        Статус заказа:<br> Заказ принят
+                                    </h5>
+                                    {% elif order.confirm == 'done' %}
+                                    <h5 class="st_text">
+                                        Статус заказа: <br> Выполнен
+                                    </h5>
+                                    {% elif order.confirm == 'unc' %}
+                                    <h5 class="st_text">
+                                        Статус заказа:<br> не подтвержден <br> пользователем
+                                    </h5>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="order_price">
+                                <h5 class="">
+                                    Сумма заказа:&nbsp;<br>{{ order.сумма_заказа }} UAH
+                                </h5>
+                            </div>
+                            <div class="order_del">
+                                <img src="{% static '' %}shop\newProf\images\del.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/'
+                style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
+        {% endif %}
     </section>
 
 
