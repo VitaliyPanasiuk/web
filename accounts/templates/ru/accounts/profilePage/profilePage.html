@@ -1,202 +1,523 @@
 {% load static %}
+{% load staticencoder %}
+{% load mathfilters %}
+{% get_media_prefix as MEDIA_URL %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html style="font-size: 16px;">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
-    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/profile/profile_style.css'  %}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="INTUITIVE">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <meta property="og:title" content="Luxon">
-    <meta property="og:description" content="LuxonSports">
-    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
-    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
-    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
-    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
     <title>
         {% if user.first_name %}
         Профиль пользователя {{ user.first_name }}
         {% else %}
         Профиль пользователя {{ user.username }}
         {% endif %}
-
     </title>
+    <link rel="stylesheet" href="{% static '' %}shop/newProf/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/newProf/Account.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+
 
     <script type="application/ld+json">{
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "name": "Site1",
-        "sameAs": []
-      }
-      </script>
-      <meta name="theme-color" content="#478ac9">
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "Site1",
+		"sameAs": []
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Account">
+    <meta property="og:description" content="">
     <meta property="og:type" content="website">
 </head>
-<body>
-    {% block content %}
-    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
-    {% if account == userId %}
-        <div class="body_inf">
-            <div class="conteiner">
-                <div class="intro_page">
-                    <div class="user_page" >
-                        <div class="user active_item" onclick="location.href='profilePage';">
-                            <div class="user_img">
-                                <a class="first_name" href='/ru/accounts/{{ currentUser.id }}/'>
-                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
-                                </a>
-                            </div>
-                            <div class="user_inf ">
-                                <div class="user_inf_top">
-                                    <!-- {% if user.first_name %} -->
-                                    <a class="first_name" href='/ru/accounts/{{ currentUser.id }}/'>
-                                        {{ user.first_name }}
-                                    </a>
-                                        <!-- <a href=""><p class="first_name">{{ user.first_name }}</p></a> -->
-                                    <!-- {% else %}
-                                        <p class="first_name">не введено</p> -->
-                                    <!-- {% endif %} -->
-                                    {% if user.last_name %} 
-                                    <a class="last_name" href='/ru/accounts/{{ currentUser.id }}/'>
-                                        {{ currentUser.last_name }}
-                                    </a> 
-                                    {% else %}
-                                    <a class="last_name" href='/ru/accounts/{{ currentUser.id }}/'>
-                                        {{ currentUser.username }}
-                                    </a> 
-                                    {% endif %} 
-                                </div>
-                                <div class="user_inf_bot">
-                                    <a class="user_email" href='/ru/accounts/{{ currentUser.id }}/'>
-                                        {{ currentUser.email }}
-                                    </a>  
-                                    <!-- <p class="user_email">{{ user.email }}</p> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order user_bl">
-                            <div class="user_bl_img">
-                                <img src="{%  static  'shop/img/list.png'  %}" alt="">
-                            </div>
-                            <div class="user_bl_text">
-                                <a href='orders'>Мои заказы</a>
-                            </div>
-                        </div>
-                        <div class="favourite user_bl ">
-                            <div class="user_bl_img">
-                                <img src="{%  static  'shop/img/heart.png'  %}" alt=""> 
-                             </div>
-                             <div class="user_bl_text">
-                                <a href='favourites'>Избранное</a>
-                            </div>
-                        </div>
-                        <div class="cart user_bl">
-                            <div class="user_bl_img">
-                                <img src="{%  static  'shop/img/cart.png'  %}" alt="">
-                            </div>
-                            <div class="user_bl_text">
-                               <a href='cart'>Моя корзина</a> 
-                            </div>
-                            
+
+<body class="u-body">
+    <header class="u-align-center u-clearfix u-header u-header" id="sec-0ff4">
+        <div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
+            <h1
+                class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1">
+                Luxon</h1>
+            <span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+                    viewBox="0 0 55 55" style="">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use>
+                </svg>
+                <svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50"
+                    style="enable-background:new 0 0 55 55;">
+                    <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
+	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
+	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
+	c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
+	c0.724,0.125,1.456,0.225,2.197,0.292c0.09,0.008,0.18,0.013,0.271,0.021C25.998,54.961,26.744,55,27.5,55
+	c0.749,0,1.488-0.039,2.222-0.098c0.093-0.008,0.186-0.013,0.279-0.021c0.735-0.067,1.461-0.164,2.178-0.287
+	c0.062-0.011,0.125-0.022,0.187-0.034c2.297-0.412,4.495-1.109,6.557-2.055c0.076-0.035,0.153-0.068,0.229-0.104
+	c0.617-0.29,1.22-0.603,1.811-0.936c0.147-0.083,0.293-0.167,0.439-0.253c0.538-0.317,1.067-0.648,1.581-1
+	c0.185-0.126,0.366-0.259,0.549-0.391c0.439-0.316,0.87-0.642,1.289-0.983c0.093-0.075,0.193-0.14,0.284-0.217l0.915-0.764
+	l-0.027-0.023C51.523,42.802,55,35.55,55,27.5z M2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5
+	c0,7.577-3.325,14.389-8.589,19.063c-0.294-0.203-0.59-0.385-0.893-0.537l-8.467-4.233c-0.76-0.38-1.232-1.144-1.232-1.993v-2.957
+	c0.196-0.242,0.403-0.516,0.617-0.817c1.096-1.548,1.975-3.27,2.616-5.123c1.267-0.602,2.085-1.864,2.085-3.289v-3.545
+	c0-0.867-0.318-1.708-0.887-2.369v-4.667c0.052-0.52,0.236-3.448-1.883-5.864C34.524,9.065,31.541,8,27.5,8
+	s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.346-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545
+	c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
+	c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z"></path>
+                </svg></span>
+            <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+                <div class="menu-collapse u-custom-font u-font-montserrat"
+                    style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase;">
+                    <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+                        href="#">
+                        <svg class="u-svg-link" viewBox="0 0 24 24">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                        </svg>
+                        <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <rect y="1" width="16" height="2"></rect>
+                                <rect y="7" width="16" height="2"></rect>
+                                <rect y="13" width="16" height="2"></rect>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+                <div class="u-custom-menu u-nav-container">
+                    <ul class="u-custom-font u-font-montserrat u-nav u-spacing-30 u-unstyled u-nav-1">
+                        <li class="u-nav-item"><a
+                                class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base"
+                                href="/ru" style="padding: 10px 4px;">Главная</a>
+                        </li>
+                        <li class="u-nav-item"><a
+                                class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base"
+                                href="/ru/products" style="padding: 10px 4px;">Продукт</a>
+                        </li>
+                        <li class="u-nav-item"><a
+                                class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base"
+                                href="/ru/about" style="padding: 10px 4px;">О нас</a>
+                        </li>
+                        <li class="u-nav-item"><a
+                                class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base"
+                                href="/ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="u-custom-menu u-nav-container-collapse">
+                    <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                        <div class="u-inner-container-layout u-sidenav-overflow">
+                            <div class="u-menu-close"></div>
+                            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                                <li class="u-nav-item">
+                                    <a class="u-button-style u-nav-link" href="/ru"
+                                        style="padding: 10px 4px;">Главная</a>
+                                </li>
+                                <li class="u-nav-item">
+                                    <a class="u-button-style u-nav-link" href="/ru/products"
+                                        style="padding: 10px 4px;">Продукт</a>
+                                </li>
+                                <li class="u-nav-item">
+                                    <a class="u-button-style u-nav-link" href="/ru/about" style="padding: 10px 4px;">О
+                                        нас</a>
+                                </li>
+                                <li class="u-nav-item">
+                                    <a class="u-button-style u-nav-link" href="/ru/collaboration"
+                                        style="padding: 10px 4px;">Сотрудничество</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="user_redact">
-                        <div class="personality">
-                            <div class="person_top">
-                                <div class="person_icon">
-                                    <img src="{%  static  'shop/img/user.png'  %}" alt="">
-                                </div>
-                                <div class="person_text">
-                                    <p class="person_tit">Личные Данные</p>
-                                    <div class="person_redact">
-                                        <a href='/ru/accounts/{{ user.id }}/edit'  class="redactProfileHr">Редактировать профиль</a>
-                                        <a href='/ru/accounts/{{ user.id }}/change-password' class="redactPassHr"  >Изменить пароль</a>
+                    <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                </div>
+            </nav>
+            <form action="#" method="get" class="u-border-1 u-border-grey-30 u-search u-search-left u-white u-search-1">
+                <button class="u-search-button" type="submit">
+                    <span class="u-search-icon u-spacing-10">
+                        <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 56.966 56.966">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-50f1"></use>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                            id="svg-50f1" x="0px" y="0px" viewBox="0 0 56.966 56.966"
+                            style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" class="u-svg-content">
+                            <path
+                                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z">
+                            </path>
+                        </svg>
+                    </span>
+                </button>
+                <input class="u-search-input" type="search" name="search" value="" placeholder="Search">
+            </form>
+        </div>
+    </header>
+    <section class="skrollable u-clearfix u-section-1" id="sec-b283">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div
+                class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-tab-links-align-justify u-tabs u-tabs-1">
+                <ul class="u-tab-list u-unstyled" role="tablist">
+                    <li class="u-tab-item u-tab-item-active" role="presentation">
+                        <a class="nav-prof nav-prof-active" id="link-tab-94d9" href="#tab-94d9" role="tab"
+                            aria-controls="tab-94d9" aria-selected="true">Профиль</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="nav-prof" id="link-tab-6e2b" href="/ru/accounts/{{ request.user.id }}/orders"
+                            role="tab" aria-controls="tab-6e2b" aria-selected="false">Мои
+                            заказы</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="nav-prof" id="" href="/ru/accounts/{{ request.user.id }}/favourites" role="tab"
+                            aria-controls="tab-db60" aria-selected="false">Избранное</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="nav-prof" id="link-tab-b4b2" href="/ru/accounts/{{ request.user.id }}/cart" role="tab"
+                            aria-controls="tab-b4b2" aria-selected="false">Моя
+                            корзина</a>
+                    </li>
+                </ul>
+                <div class="u-tab-content">
+                    {% if account == userId %}
+                    <div class="u-container-style u-shape-rectangle u-tab-active u-tab-pane" id="tab-94d9"
+                        role="tabpanel" aria-labelledby="link-tab-94d9">
+                        <div class="u-container-layout u-container-layout-1">
+                            <span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link"
+                                    preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style="">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3e30"></use>
+                                </svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-3e30"
+                                    style="enable-background:new 0 0 55 55;">
+                                    <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
+                    c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
+                    c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
+                    c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
+                    c0.724,0.125,1.456,0.225,2.197,0.292c0.09,0.008,0.18,0.013,0.271,0.021C25.998,54.961,26.744,55,27.5,55
+                    c0.749,0,1.488-0.039,2.222-0.098c0.093-0.008,0.186-0.013,0.279-0.021c0.735-0.067,1.461-0.164,2.178-0.287
+                    c0.062-0.011,0.125-0.022,0.187-0.034c2.297-0.412,4.495-1.109,6.557-2.055c0.076-0.035,0.153-0.068,0.229-0.104
+                    c0.617-0.29,1.22-0.603,1.811-0.936c0.147-0.083,0.293-0.167,0.439-0.253c0.538-0.317,1.067-0.648,1.581-1
+                    c0.185-0.126,0.366-0.259,0.549-0.391c0.439-0.316,0.87-0.642,1.289-0.983c0.093-0.075,0.193-0.14,0.284-0.217l0.915-0.764
+                    l-0.027-0.023C51.523,42.802,55,35.55,55,27.5z M2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5
+                    c0,7.577-3.325,14.389-8.589,19.063c-0.294-0.203-0.59-0.385-0.893-0.537l-8.467-4.233c-0.76-0.38-1.232-1.144-1.232-1.993v-2.957
+                    c0.196-0.242,0.403-0.516,0.617-0.817c1.096-1.548,1.975-3.27,2.616-5.123c1.267-0.602,2.085-1.864,2.085-3.289v-3.545
+                    c0-0.867-0.318-1.708-0.887-2.369v-4.667c0.052-0.52,0.236-3.448-1.883-5.864C34.524,9.065,31.541,8,27.5,8
+                    s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.346-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545
+                    c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
+                    c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z"></path>
+                                </svg></span>
+                            <h3 class="u-custom-font u-font-montserrat u-text u-text-default u-text-1">
+                                {{ user.first_name }}
+                                {% if user.last_name %}
+                                {{ currentUser.last_name }}
+                                {% else %}
+                                {{ currentUser.username }}
+                                {% endif %}
+                            </h3>
+                            <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">{{
+                                currentUser.email }}</h6>
+                            <div class="u-clearfix u-expanded-width u-gutter-10 u-layout-wrap u-layout-wrap-1">
+                                <div class="u-layout">
+                                    <div class="u-layout-col">
+                                        <div
+                                            class="u-container-style u-layout-cell u-shape-rectangle u-size-20 u-layout-cell-1">
+                                            <div class="u-container-layout u-container-layout-2">
+                                                <div
+                                                    class="u-border-1 u-border-grey-dark-1 u-line u-line-horizontal u-line-1">
+                                                </div>
+                                                <h3
+                                                    class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-3">
+                                                    Личные данные</h3><span class="u-icon u-icon-circle u-icon-2"><svg
+                                                        class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+                                                        viewBox="0 0 60 60" style="">
+                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                            xlink:href="#svg-fab4"></use>
+                                                    </svg><svg class="u-svg-content" viewBox="0 0 60 60" x="0px" y="0px"
+                                                        id="svg-fab4" style="enable-background:new 0 0 60 60;">
+                                                        <g>
+                                                            <path d="M55.014,45.389l-9.553-4.776C44.56,40.162,44,39.256,44,38.248v-3.381c0.229-0.28,0.47-0.599,0.719-0.951
+                            c1.239-1.75,2.232-3.698,2.954-5.799C49.084,27.47,50,26.075,50,24.5v-4c0-0.963-0.36-1.896-1-2.625v-5.319
+                            c0.056-0.55,0.276-3.824-2.092-6.525C44.854,3.688,41.521,2.5,37,2.5s-7.854,1.188-9.908,3.53
+                            c-2.368,2.701-2.148,5.976-2.092,6.525v5.319c-0.64,0.729-1,1.662-1,2.625v4c0,1.217,0.553,2.352,1.497,3.109
+                            c0.916,3.627,2.833,6.36,3.503,7.237v3.309c0,0.968-0.528,1.856-1.377,2.32l-8.921,4.866c-2.9,1.582-4.701,4.616-4.701,7.92V57.5
+                            h46v-4.043C60,50.019,58.089,46.927,55.014,45.389z"></path>
+                                                            <path d="M17.983,44.025l8.921-4.866c0.367-0.201,0.596-0.586,0.596-1.004v-2.814c-0.885-1.232-2.446-3.712-3.337-6.91
+                            C23.1,27.399,22.5,25.994,22.5,24.5v-4c0-1.124,0.352-2.219,1-3.141v-4.733c-0.034-0.383-0.074-1.269,0.096-2.395
+                            C22.219,9.751,20.687,9.5,19,9.5c-10.389,0-10.994,8.855-11,9v4.579c-0.648,0.706-1,1.521-1,2.33v3.454
+                            c0,1.079,0.483,2.085,1.311,2.765c0.825,3.11,2.854,5.46,3.644,6.285v2.743c0,0.787-0.428,1.509-1.171,1.915l-6.653,4.173
+                            C1.583,48.134,0,50.801,0,53.703V57.5h12.5v-4.238C12.5,49.409,14.601,45.87,17.983,44.025z">
+                                                            </path>
+                                                        </g>
+                                                    </svg></span>
+                                                <h4
+                                                    class="u-custom-font u-font-montserrat u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-4">
+                                                    Имя:</h4>
+                                                <h4 class="u-custom-font u-font-montserrat u-text u-text-5">{{
+                                                    user.first_name }}</h4>
+                                                <h4
+                                                    class="u-custom-font u-font-montserrat u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-6">
+                                                    Фамилия:</h4>
+                                                <h4 class="u-custom-font u-font-montserrat u-text u-text-7">{{
+                                                    currentUser.last_name }}</h4>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="u-container-style u-layout-cell u-shape-rectangle u-size-20 u-layout-cell-2">
+                                            <div class="u-container-layout u-container-layout-3">
+                                                <h3
+                                                    class="u-custom-font u-font-montserrat u-text u-text-default u-text-8">
+                                                    Контакты</h3>
+                                                <div
+                                                    class="u-border-1 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-2">
+                                                </div>
+                                                <h4
+                                                    class="u-align-left u-custom-font u-font-montserrat u-text u-text-9">
+                                                    {{
+                                                    currentUser.phone_number }}</h4>
+                                                <h4
+                                                    class="u-align-left u-custom-font u-font-montserrat u-text u-text-default-md u-text-default-sm u-text-default-xs u-text-10">
+                                                    Номер телефона:&nbsp;</h4><span
+                                                    class="u-file-icon u-icon u-icon-3"><img
+                                                        src="{% static '' %}shop/newProf/images/149987.png"
+                                                        alt="contact"></span>
+                                                <h4
+                                                    class="u-align-left u-custom-font u-font-montserrat u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-11">
+                                                    {{ currentUser.email }}</h4>
+                                                <h4
+                                                    class="u-align-left u-custom-font u-font-montserrat u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-12">
+                                                    Электронная почта:</h4>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="u-container-style u-layout-cell u-shape-rectangle u-size-20 u-layout-cell-3">
+                                            <div class="u-container-layout u-container-layout-4">
+                                                <h3
+                                                    class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-13">
+                                                    Адрес доставки</h3>
+                                                <div
+                                                    class="u-border-1 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-3">
+                                                </div><span class="u-icon u-icon-circle u-icon-4"><svg
+                                                        class="u-svg-link" preserveAspectRatio="xMidYMin slice"
+                                                        viewBox="0 0 61.168 61.168" style="">
+                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                            xlink:href="#svg-efff"></use>
+                                                    </svg><svg class="u-svg-content" viewBox="0 0 61.168 61.168" x="0px"
+                                                        y="0px" id="svg-efff"
+                                                        style="enable-background:new 0 0 61.168 61.168;">
+                                                        <path d="M50.216,37.584h-7.161l3.047-4.4c5.755-7.671,4.922-20.28-1.781-26.982c-3.621-3.622-8.437-5.617-13.56-5.617
+                      c-5.122,0-9.938,1.995-13.56,5.617c-6.703,6.702-7.536,19.312-1.804,26.952l3.068,4.431h-7.513L0,60.584h61.168L50.216,37.584z
+                      M30.938,12.584c3.859,0,7,3.141,7,7s-3.141,7-7,7s-7-3.141-7-7S27.078,12.584,30.938,12.584z M12.216,39.584h7.634l10.911,15.757
+                      l10.91-15.757h7.281l9.048,19H3.168L12.216,39.584z"></path>
+                                                    </svg></span>
+                                                <h4
+                                                    class="u-custom-font u-font-montserrat u-text u-text-default u-text-14">
+                                                    Дом: {{
+                                                    currentUser.house }}</h4>
+                                                <h4
+                                                    class="u-custom-font u-font-montserrat u-text u-text-default u-text-15">
+                                                    Город: {{
+                                                    currentUser.city }}</h4>
+                                                <h4 class="u-custom-font u-font-montserrat u-text u-text-16">Улица: {{
+                                                    currentUser.street }}
+                                                </h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                            </div>
-                            <div class="person_info">
-                                <div class="person_last_name">
-                                    <p class="person_subname">Фамилия</p>
-                                    <p class="person_name">{{ currentUser.last_name }}</p>
-                                </div>
-                                <div class="person_firs_name">
-                                    <p class="person_subname">Имя</p>
-                                    <p class="person_name">{{ currentUser.first_name }}</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="contacts">
-                            <div class="person_top">
-                                <div class="person_icon_let">
-                                    <img src="{%  static  'shop/img/letter.png'  %}" alt="">
-                                </div>
-                                <div class="person_text">
-                                    <p class="person_tit">Контакты</p>
-                                </div>
-                            </div>
-                            <div class="person_info">
-                                <div class="person_num">
-                                    <p class="person_subname">Номер Телефона</p>
-                                    <p class="person_name">{{ currentUser.phone_number }}</p>
-                                </div>
-                                <div class="person_emeil">
-                                    <p class="person_subname">Электронная почта</p>
-                                    <p class="person_name">{{ currentUser.email }}</p>
-                                </div>
                             </div>
                         </div>
-                        <div class="adres">
-                            <div class="adres_top">
-                                <div class="adres_icon_ad">
-                                    <img src="{%  static  'shop/img/letter.png'  %}" alt="">
-                                </div>
-                                <div class="person_text">
-                                    <p class="person_tit">Адрес Доставки</p>
-                                </div>
-                            </div>
-                            <div class="person_info">
-                                <div class="person_num">
-                                    <p class="person_subname">Город</p>
-                                    <p class="person_name">{{ currentUser.city }}</p>
-                                </div>
-                                <div class="person_num">
-                                    <p class="person_subname">Улица</p>
-                                    <p class="person_name">{{ currentUser.street }}</p>
-                                </div>
-                                <div class="person_num">
-                                    <p class="person_subname">Дом</p>
-                                    <p class="person_name">{{ currentUser.house }}</p>
+                    </div>
+                    <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-6e2b" role="tabpanel"
+                        aria-labelledby="link-tab-6e2b">
+                        <div class="u-container-layout u-container-layout-5">
+                            <div
+                                class="u-border-1 u-border-grey-75 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-white u-group-1">
+                                <div class="u-container-layout u-container-layout-6">
+                                    {% for order in orders %}
+                                    <h5 class="u-custom-font u-font-montserrat u-text u-text-17">
+                                        {% if order.confirm == 'uc' %}
+                                        <div class="stat">
+                                            <div class="stat_tit">
+                                                Статус:
+                                            </div>
+                                            <div class="stat_inf">
+                                                В обработке
+                                            </div>
+
+                                        </div>
+                                        {% elif order.confirm == 'ac' %}
+                                        <div class="stat">
+                                            <div class="stat_tit">
+                                                Статус:
+                                            </div>
+                                            <div class="stat_inf">
+                                                Заказ принят
+                                            </div>
+
+                                        </div>
+                                        {% elif order.confirm == 'done' %}
+                                        <div class="stat">
+                                            <div class="stat_tit">
+                                                Статус:
+                                            </div>
+                                            <div class="stat_inf">
+                                                Заказ выполнен
+                                            </div>
+
+                                        </div>
+                                        {% elif order.confirm == 'unc' %}
+                                        <div class="stat">
+                                            <div class="stat_tit">
+                                                Статус:
+                                            </div>
+                                            <div class="stat_inf">
+                                                Не подтвержден пользователем
+                                            </div>
+
+                                        </div>
+                                        {% endif %}
+
+                                    </h5>
+                                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-18">Сумма
+                                        заказа:&nbsp;<br>14000 UAH
+                                    </h5><span class="u-file-icon u-icon u-text-palette-2-base u-icon-5"><img
+                                            src="{% static '' %}shop/newProf/images/2.png" alt=""></span>
+                                    <h3 class="u-custom-font u-font-montserrat u-text u-text-default u-text-19">Заказ
+                                        №{{ order.id }}</h3>
+                                    <span class="u-file-icon u-icon u-icon-6"><img
+                                            src="{% static '' %}shop/newProf/images/149343.png" alt=""></span>
+                                    <a href="https://nicepage.com/joomla-page-builder"
+                                        class="u-border-none u-btn u-button-style u-none u-text-palette-1-base u-btn-1"></a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-db60" role="tabpanel"
+                        aria-labelledby="link-tab-db60">
+                        <div class="u-container-layout u-valign-top u-container-layout-7">
+                            <div
+                                class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-2">
+                                <div class="u-container-layout u-container-layout-8">
+                                    <img class="u-image u-image-default u-image-1"
+                                        src="{% static '' %}shop/newProf/images/521ac65b68fff61f91214f230127bfd8.jpg"
+                                        alt="" data-image-width="1600" data-image-height="742">
+                                    <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-20">Название
+                                        товара название
+                                        тоавра название товара</p><span class="u-file-icon u-icon u-icon-7"><img
+                                            src="{% static '' %}shop/newProf/images/149343.png" alt=""></span>
+                                    <a href="https://nicepage.com/one-page-template"
+                                        class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-shape-rectangle u-tab-pane" id="tab-b4b2" role="tabpanel"
+                        aria-labelledby="link-tab-b4b2">
+                        <div class="u-container-layout u-container-layout-9">
+                            {% for item in items %}
+                            {% if userId == item.user_id %}
+                            <div
+                                class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-3">
+                                <div class="u-container-layout u-container-layout-10">
+                                    <img class="u-image u-image-default u-image-2"
+                                        src="{%static 'shop/img/cart-left.jpg' %}" alt="" data-image-width="1600"
+                                        data-image-height="742">
+                                    <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-21">{{
+                                        item.ru_order_item }}
+                                    </p>
+                                    <p class="u-align-center u-text u-text-22">Цена:{{
+                                        item.price|mul:item.amount|floatformat:"2" }} {{
+                                        item.currency }}</p>
+                                    <p class="u-align-center u-text u-text-23">{{ item.amount }} Шт.</p><span
+                                        class="u-file-icon u-hover-feature u-icon u-icon-8"><img src="images/5.png"
+                                            alt=""></span>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% else %}
+                    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/'
+                            style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
+                    {% endif %}
                 </div>
-               
             </div>
         </div>
-    {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
-    {% endif %}
-    {% include 'ru/accounts/profilePage/includes/footer.html' %}
-    
-    {% endblock %}
+
+    </section>
+
+
+    <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4742">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <h3 class="u-custom-font u-font-montserrat u-headline u-text u-text-default u-text-1">
+                <a href="/">Luxon</a>
+            </h3>
+            <div class="u-clearfix u-custom-html u-white u-custom-html-1">
+                <select form="language" name="language" onchange="this.form.submit()">
+                    <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
+                    <option value="ru" style="color:black">Русский язык</option>
+                    <option value="en" style="color:black">English</option>
+                    <option value="uk" style="color:black">Українська мова</option>
+                </select>
+            </div>
+            <div class="u-align-left u-social-icons u-spacing-10 u-social-icons-1">
+                <a class="u-social-url" title="facebook" target="_blank" href=""><span
+                        class="u-icon u-social-facebook u-social-icon u-icon-1"><svg class="u-svg-link"
+                            preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style="">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-12f8"></use>
+                        </svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-12f8">
+                            <circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
+                            <path fill="#FFFFFF" d="M73.5,31.6h-9.1c-1.4,0-3.6,0.8-3.6,3.9v8.5h12.6L72,58.3H60.8v40.8H43.9V58.3h-8V43.9h8v-9.2
+            c0-6.7,3.1-17,17-17h12.5v13.9H73.5z"></path>
+                        </svg></span>
+                </a>
+                <a class="u-social-url" title="twitter" target="_blank" href=""><span
+                        class="u-icon u-social-icon u-social-twitter u-icon-2"><svg class="u-svg-link"
+                            preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style="">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e31d"></use>
+                        </svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-e31d">
+                            <circle fill="currentColor" class="st0" cx="56.1" cy="56.1" r="55"></circle>
+                            <path fill="#FFFFFF" d="M83.8,47.3c0,0.6,0,1.2,0,1.7c0,17.7-13.5,38.2-38.2,38.2C38,87.2,31,85,25,81.2c1,0.1,2.1,0.2,3.2,0.2
+            c6.3,0,12.1-2.1,16.7-5.7c-5.9-0.1-10.8-4-12.5-9.3c0.8,0.2,1.7,0.2,2.5,0.2c1.2,0,2.4-0.2,3.5-0.5c-6.1-1.2-10.8-6.7-10.8-13.1
+            c0-0.1,0-0.1,0-0.2c1.8,1,3.9,1.6,6.1,1.7c-3.6-2.4-6-6.5-6-11.2c0-2.5,0.7-4.8,1.8-6.7c6.6,8.1,16.5,13.5,27.6,14
+            c-0.2-1-0.3-2-0.3-3.1c0-7.4,6-13.4,13.4-13.4c3.9,0,7.3,1.6,9.8,4.2c3.1-0.6,5.9-1.7,8.5-3.3c-1,3.1-3.1,5.8-5.9,7.4
+            c2.7-0.3,5.3-1,7.7-2.1C88.7,43,86.4,45.4,83.8,47.3z"></path>
+                        </svg></span>
+                </a>
+                <a class="u-social-url" title="instagram" target="_blank" href=""><span
+                        class="u-icon u-social-icon u-social-instagram u-icon-3"><svg class="u-svg-link"
+                            preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style="">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-ff75"></use>
+                        </svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-ff75">
+                            <circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
+                            <path fill="#FFFFFF"
+                                d="M55.9,38.2c-9.9,0-17.9,8-17.9,17.9C38,66,46,74,55.9,74c9.9,0,17.9-8,17.9-17.9C73.8,46.2,65.8,38.2,55.9,38.2
+            z M55.9,66.4c-5.7,0-10.3-4.6-10.3-10.3c-0.1-5.7,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3C66.2,61.8,61.6,66.4,55.9,66.4z">
+                            </path>
+                            <path fill="#FFFFFF"
+                                d="M74.3,33.5c-2.3,0-4.2,1.9-4.2,4.2s1.9,4.2,4.2,4.2s4.2-1.9,4.2-4.2S76.6,33.5,74.3,33.5z">
+                            </path>
+                            <path fill="#FFFFFF" d="M73.1,21.3H38.6c-9.7,0-17.5,7.9-17.5,17.5v34.5c0,9.7,7.9,17.6,17.5,17.6h34.5c9.7,0,17.5-7.9,17.5-17.5V38.8
+            C90.6,29.1,82.7,21.3,73.1,21.3z M83,73.3c0,5.5-4.5,9.9-9.9,9.9H38.6c-5.5,0-9.9-4.5-9.9-9.9V38.8c0-5.5,4.5-9.9,9.9-9.9h34.5
+            c5.5,0,9.9,4.5,9.9,9.9V73.3z"></path>
+                        </svg></span>
+                </a>
+                <a class="u-social-url" title="linkedin" target="_blank" href=""><span
+                        class="u-icon u-social-icon u-social-linkedin u-icon-4"><svg class="u-svg-link"
+                            preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style="">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-2c9c"></use>
+                        </svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-2c9c">
+                            <circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle>
+                            <path fill="#FFFFFF" d="M41.3,83.7H27.9V43.4h13.4V83.7z M34.6,37.9L34.6,37.9c-4.6,0-7.5-3.1-7.5-7c0-4,3-7,7.6-7s7.4,3,7.5,7
+            C42.2,34.8,39.2,37.9,34.6,37.9z M89.6,83.7H76.2V62.2c0-5.4-1.9-9.1-6.8-9.1c-3.7,0-5.9,2.5-6.9,4.9c-0.4,0.9-0.4,2.1-0.4,3.3v22.5
+            H48.7c0,0,0.2-36.5,0-40.3h13.4v5.7c1.8-2.7,5-6.7,12.1-6.7c8.8,0,15.4,5.8,15.4,18.1V83.7z"></path>
+                        </svg></span>
+                </a>
+            </div>
+        </div>
+    </footer>
 
 </body>
+
 </html>
-
-

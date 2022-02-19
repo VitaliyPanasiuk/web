@@ -3,7 +3,7 @@
 }
 
 .u-section-1 .u-tabs-1 {
-  min-height: 250px;
+  /* min-height: 250px; */
   margin-bottom: 60px;
   margin-top: 0;
   height: auto;
@@ -248,7 +248,7 @@
   width: 243px;
   min-height: 531px;
   height: auto;
-  margin: 0 auto 0 0;
+  /* margin: 0 auto 0 0; */
 }
 
 .u-section-1 .u-container-layout-8 {
@@ -928,4 +928,49 @@
 
 .u-section-1 .u-icon-8.u-icon-8.u-icon-8.hover {
   color: #000000 !important;
+}
+
+
+.fav_block{
+  width: 285px;
+}
+.fav_all{
+display:flex;
+}
+.u-tab-item a {
+  font-size: 1.25rem;
+}
+.nav-prof{
+  display: block;
+  padding: 10px 20px;
+  color: #000000;
+}
+.nav-prof:hover{
+  color: #000000;
+}
+
+
+.u-tab-item-active::after{
+  content: "";
+  width: 100%;
+  height: 3px;
+  display: block;
+  background-color: #000;
+  opacity: 1;
+  z-index: 100;
+  /* position: absolute; */
+  /* top: 100%; */
+  left: 0;
+}
+.u-tab-item:hover:after{
+  content: "";
+  width: 100%;
+  height: 3px;
+  display: block;
+  background-color: #000;
+  opacity: 1;
+  z-index: 100;
+  /* position: absolute; */
+  /* top: 100%; */
+  left: 0;
 }

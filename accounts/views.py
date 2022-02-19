@@ -169,7 +169,7 @@ def userProfilePage(request, uid, lang):
             "account": str(uid),
             'currentUser': AuthUser.objects.get(id=request.user.id)
         }
-        template = str(lang) + "/accounts/profilePageProt/Account.html"
+        template = str(lang) + "/accounts/profilePage/profilePage.html"
         return render(request, template, context)
 
 
