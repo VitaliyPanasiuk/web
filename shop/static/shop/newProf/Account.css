@@ -1046,3 +1046,59 @@ display:flex;
   justify-content: center;
   width:100%;
 }
+.grets{
+  display:flex;
+  justify-content:space-between;
+}
+.names_av{
+  display:flex;
+}
+.names{
+  margin-left: 15px;
+}
+.red_but{
+  display:flex;
+  flex-direction: column;
+  justify-content:space-evenly;
+}
+.red_button{
+  color: black;
+  border: 2px solid #000;
+  text-align: center;
+  padding: 7px 12px;
+}
+.red_button:hover{
+  color: #fff;
+  background-color: #000;
+  border: 2px solid #000;
+  text-align: center;
+  padding: 7px 12px;
+}
+@media (max-width:575px) {
+  .grets{
+    flex-direction:column;
+  }
+}
+.forms_cart{
+  display:flex;
+  justify-content:center;
+}
+.form_cart_input{
+  background: #fff;
+  border: none;
+  height: 40px;
+  width: 40px;
+}
+.form_cart_input_am{
+  background: #fff;
+  border: none;
+  height: 40px;
+  width: 40px;
+  font-size:26px;
+}
+.cart_am{
+  display:flex;
+  align-items:center;
+}
+
+

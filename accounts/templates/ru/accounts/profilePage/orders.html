@@ -159,7 +159,8 @@
     <section class="skrollable u-clearfix u-section-1" id="sec-b283">
         {% if request.user.id != NULL %}
         <div class="u-clearfix u-sheet u-sheet-1">
-            <div class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-tab-links-align-justify u-tabs u-tabs-1">
+            <div
+                class="u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-tab-links-align-justify u-tabs u-tabs-1">
                 <ul class="u-tab-list u-unstyled" role="tablist">
                     <li class="u-tab-item" role="presentation">
                         <a class="nav-prof" id="link-tab-94d9" href="/ru/accounts/{{ user.id }}/" role="tab"
@@ -296,7 +297,13 @@
                                 </h5>
                             </div>
                             <div class="order_del">
-                                <img src="{% static '' %}shop\newProf\images\del.png" alt="">
+                                <form action='' method="POST" class="form_del">
+                                    {% csrf_token %}
+                                    <div style='display: none;'><input type='text' name='delete' id='delete'
+                                            value='{{ order.id }}'></div>
+                                    <input type='submit' value='&#10060;'>
+                                </form>
+                                <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>
                         </div>
                     </div>

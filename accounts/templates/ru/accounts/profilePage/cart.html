@@ -193,22 +193,41 @@
                             class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-3">
                             <div class="u-container-layout u-container-layout-10">
                                 <img class="u-image u-image-default u-image-2"
-                                    src="images/521ac65b68fff61f91214f230127bfd8.jpg" alt="" data-image-width="1600"
+                                    src="{%static 'shop/img/cart-left.jpg' %}" alt="" data-image-width="1600"
                                     data-image-height="742">
                                 <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-21">{{ item.ru_order_item }}</p>
                                 <p class="u-align-center u-text u-text-22">Цена: {{ item.price|mul:item.amount|floatformat:"2" }} {{ item.currency }} </p>
                                 {% if item.currency == 'USD' %}
                                 <p class="u-align-center u-text u-text-22"> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
                                 {% endif %}
-                                <p class="u-align-center u-text u-text-23">{{ item.amount }} Шт.</p>
-                                <form action='' method="POST" class="form_del">
-                                    {% csrf_token %}
-                                    <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
-                                    <input type='submit' value='&#10060;'>
-                                </form>
-                                <span class="u-file-icon u-hover-feature u-icon u-icon-8">
+                                <div class="cart_am">
+                                    <p class="u-align-center u-text u-text-23">{{ item.amount }} Шт.</p>
+                                    <form action='' method="POST">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='item_plus' id='item_plus' value='{{ item.item }}'></div>
+                                        <input type='hidden' name='plus' id='plus' value='plus'>
+                                        <input type='submit' value='+' class="form_cart_input_am">
+                                    </form>
+                                    <form action='' method="POST">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
+                                        <input type='hidden' name='minus' id='minus' value='minus'>
+                                        <input type='submit' value='-' class="form_cart_input_am">
+                                    </form>
+                                </div>
+                                
+                                <div class="forms_cart">
+                                    
+                                    <form action='' method="POST" class="form_del">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
+                                        <input type='submit' value="&#10060;" class="form_cart_input">
+                                    </form>
+                                </div>
+                                
+                                <!-- <span class="u-file-icon u-hover-feature u-icon u-icon-8">
                                     <img src="{% static '' %}shop\newProf\images\del.png" alt="">
-                                </span>
+                                </span> -->
                             </div>
                         </div>
                     </div>
