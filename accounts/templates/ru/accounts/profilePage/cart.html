@@ -195,7 +195,7 @@
                                 <img class="u-image u-image-default u-image-2"
                                     src="{%static 'shop/img/cart-left.jpg' %}" alt="" data-image-width="1600"
                                     data-image-height="742">
-                                <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-21">{{ item.ru_order_item }}</p>
+                                <p class="u-align-center  cart-item-name">{{ item.ru_order_item }}</p>
                                 <p class="u-align-center u-text u-text-22">Цена: {{ item.price|mul:item.amount|floatformat:"2" }} {{ item.currency }} </p>
                                 {% if item.currency == 'USD' %}
                                 <p class="u-align-center u-text u-text-22"> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>

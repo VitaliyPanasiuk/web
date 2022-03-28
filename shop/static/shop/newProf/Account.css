@@ -1101,4 +1101,12 @@ display:flex;
   align-items:center;
 }
 
+.cart-item-name{
+  font-size: 14px;
+}
+
+.cart_all p{
+  font-size: 20px;
+}
+
 
