@@ -454,6 +454,7 @@ a {
 .person_all {
   display: block;
   font-family: monospace;
+  margin-bottom: 25px;
 }
 .person_confirm {
   display: block;

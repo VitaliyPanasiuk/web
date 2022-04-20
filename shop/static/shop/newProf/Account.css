@@ -1080,11 +1080,13 @@ display:flex;
   }
 }
 .forms_cart{
+  position: absolute;
+  right: 0;
   display:flex;
   justify-content:center;
 }
 .form_cart_input{
-  background: #fff;
+  background: none;
   border: none;
   height: 40px;
   width: 40px;
@@ -1099,6 +1101,11 @@ display:flex;
 .cart_am{
   display:flex;
   align-items:center;
+  justify-content: center;
+  margin-top: 15px;
+}
+.cart_am p{
+  margin: 0;
 }
 
 .cart-item-name{
@@ -1109,4 +1116,17 @@ display:flex;
   font-size: 20px;
 }
 
+.form_del{
+  margin-right: 15px;
+}
+.form_del input{
+  background-color: none;
+  background: none;
+  border: none;
+}
+.cart_bl{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
