@@ -234,6 +234,26 @@
                 {% endif %}
                 {% endfor %}
             </div>
+            {% if items %}
+                <div class="cart_b">
+                    <p>Total price: {{ sum }} UAH</p>
+                    {% if messages %}
+                            {% for message in messages %}
+                                <p class="{{ message.tags }}">
+                                    {{ message|safe }}
+                                    <a href="" class="close">✖</a>
+                                </p>
+                            {% endfor %}
+                    {% endif %}
+                    <form method='POST' action=''>
+                        {% csrf_token %}
+                        <input type='submit' name = 'makeorder' value='Make an order'>
+                    </form>
+                    
+                {% else %}
+                    <p>Empty cart</p>
+                {% endif %}
+                </div>
         </div>
         {% else %}
         <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/'

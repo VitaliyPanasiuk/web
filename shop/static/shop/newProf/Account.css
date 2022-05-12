@@ -1159,3 +1159,12 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.cart_b p {
+  text-align: center;
+}
+
+.cart_b form {
+  display: flex;
+  justify-content: center;
+}
