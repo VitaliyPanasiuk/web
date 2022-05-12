@@ -194,12 +194,15 @@
                     data-image-width="1600" data-image-height="742">
 
                   <p class="u-align-center u-custom-font u-font-montserrat u-text u-text-20">{{ favourite.ru_name }}</p>
-                  <span class="u-file-icon u-icon u-icon-7">
-                    <input type="submit" value="&#10060;" />
-                  </span>
-                  <!--<img src="{% static '' %}shop/newProf/images/149343.png" alt="">-->
-                  <a href="/ru/product/{{ favourite.favourite_item }}"
-                    class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>
+                  <div class="fav-block-bot">
+
+                    <!--<img src="{% static '' %}shop/newProf/images/149343.png" alt="">-->
+                    <a href="/ru/product/{{ favourite.favourite_item }}"
+                      class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-10 u-text-black u-text-hover-white u-btn-2">Больше</a>
+                    <span class="u-file-icon u-icon u-icon-7">
+                      <input type="submit" value="&#10060;" />
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

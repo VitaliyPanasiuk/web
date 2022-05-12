@@ -55,7 +55,7 @@
     </script>
 </head>
 <body>
-    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
+    {% include 'en/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div class="make_order_body">
@@ -65,9 +65,9 @@
             <div class="order_tit">
                 {% for i in userCart %}
                 {% if i.currency == 'UAH' %}
-                    <p>{{ i.ru_order_item }} Price: {{ i.price|floatformat:"2" }} UAH</p>
+                    <p>{{ i.en_order_item }} Price: {{ i.price|floatformat:"2" }} UAH</p>
                 {% else %}
-                    <p>{{ i.ru_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }} UAH</p>   
+                    <p>{{ i.en_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }} UAH</p>   
                 {% endif %}
                 {% endfor %}
                 <div style='display: none;'>
@@ -83,16 +83,16 @@
             <div class="order_info_top">
                 <div class="order_privat_info">
                     <div class="order_fname order_privat_info_items">
-                        <label>Имя: </label>
-                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите ваше имя" required>
+                        <label>Name: </label>
+                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter name" required>
                     </div>
                     <div class="order_lname order_privat_info_items">
-                        <label>Фамилия: </label>
-                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите вашу фамилию " required>
+                        <label>Surname: </label>
+                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter surname " required>
                     </div>
                     <div class="order_em order_privat_info_items">
-                        <label>Почта: </label>
-                        <input type='text' name='email' value='{{ user.email }}'placeholder="Введите но email">
+                        <label>Email: </label>
+                        <input type='text' name='email' value='{{ user.email }}'placeholder="Enter email">
                     </div>
                     <div class="order_phone order_privat_info_items">
                         {% if user.phone_number != None %}
@@ -105,23 +105,23 @@
                     </div>
                 </div>
                 <div class="order_delivery_pay">
-                    <p>Тип доставки: </p>
+                    <p>Type of delivery: </p>
                     <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-                    <label>Самовывоз</label>
+                    <label>Pickup</label>
                     <br>
                     <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-                    <label>Нова пошта</label>
+                    <label>Nova Poshta</label>
                     <br>
                     <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-                    <label>Укрпошта</label>
+                    <label>Ukrposhta</label>
                     <br>
-                    <p>Тип оплаты: </p>
+                    <p>Type of payment: </p>
                     <input type="radio" name='typeOfPayment' value='Наличный' checked>
-                    <label>Наличными</label>
+                    <label>Cash</label>
                     <br>
                     <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
-                    <label>Безналичный</label>
-                    <label style="color: red;"> недоступно (в разработке)</label>
+                    <label>Cashless</label>
+                    <label style="color: red;"> unavailable (in development)</label>
     
                     <div id='address' style='display: none;'>
                         <p>Адрес</p>
@@ -136,7 +136,7 @@
             <div class="order_price_mk">
                 <p>Total price: {{ price|floatformat:"2" }} UAH</p>
                 <a href="#" class="makeorder_hr">
-                    <input type="submit" name='go' value="Создать заказ!" readonly>
+                    <input type="submit" name='go' value="Make order!" readonly>
                 </a>
             </div>
         </form>

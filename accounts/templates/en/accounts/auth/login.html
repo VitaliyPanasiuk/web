@@ -71,10 +71,10 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-custom-font u-font-montserrat u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="ru" style="padding: 10px 4px;">Главная</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="ru/products" style="padding: 10px 4px;">Продукт</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="ru/about" style="padding: 10px 4px;">О нас</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
+            <ul class="u-custom-font u-font-montserrat u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="en" style="padding: 10px 4px;">Home</a>
+</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="en/products" style="padding: 10px 4px;">Catalog</a>
+</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="en/about" style="padding: 10px 4px;">About us</a>
+</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="en/collaboration" style="padding: 10px 4px;">Collaboration</a>
 </li></ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">
@@ -83,16 +83,16 @@
                 <div class="u-menu-close"></div>
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru" style="padding: 10px 4px;">Главная</a>
+                    <a class="u-button-style u-nav-link" href="en" style="padding: 10px 4px;">Home</a>
                   </li>
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/products" style="padding: 10px 4px;">Продукт</a>
+                    <a class="u-button-style u-nav-link" href="en/products" style="padding: 10px 4px;">Catalog</a>
                   </li>
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/about" style="padding: 10px 4px;">О нас</a>
+                    <a class="u-button-style u-nav-link" href="en/about" style="padding: 10px 4px;">About us</a>
                   </li>
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
+                    <a class="u-button-style u-nav-link" href="en/collaboration" style="padding: 10px 4px;">Collaboration</a>
                   </li>
                 </ul>
               </div>
@@ -118,7 +118,7 @@
             {% csrf_token %}
             <div class="log_inf">
               <div class="log_lab">
-                <label for='username'>Имя пользователя</label>
+                <label for='username'>Name</label>
               </div>
               
               
@@ -128,7 +128,7 @@
               
               
               <div class="log_lab">
-                <label for='password'>Пароль</label>
+                <label for='password'>Password</label>
               </div>
               
               
@@ -144,7 +144,7 @@
             {% endif %}
             <div class="log_inp">
               <div class="logib_butHr">
-                <input type='submit' value='Войти'>
+                <input type='submit' value='Log in'>
               </div>
 
             </div>
@@ -162,7 +162,7 @@
         </h3>
         <div class="u-clearfix u-custom-html u-white u-custom-html-1">
           <select form="language" name="language" onchange="this.form.submit()">
-            <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
+            <option value="" disabled="" selected="" style="color:black">Select language</option>
             <option value="ru" style="color:black">Русский язык</option>
             <option value="en" style="color:black">English</option>
             <option value="uk" style="color:black">Українська мова</option>
