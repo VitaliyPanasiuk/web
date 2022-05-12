@@ -13,7 +13,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Редагувати профіль</title>
+    <title>Изменить профиль</title>
+    <meta name="keywords" content="INTUITIVE">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <meta property="og:title" content="Luxon">
+    <meta property="og:description" content="LuxonSports">
+    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
+    <link rel="stylesheet" href="{% static '' %}shop/newProf/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site1",
+        "sameAs": []
+     	}
+    </script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:type" content="website">
     <style>
         body{
             overflow: hidden;
@@ -25,38 +46,41 @@
 </head>
 <body>
     {% include 'uk/accounts/profilePage/includes/navbar.html' %}
-    <h1 class='main_label'>Редагувати дані користувача</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <div class="person_all">
-            <div class="person_edit">
-                <div class="person_data">
-                    <label>Ім'я: </label>
-                    <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
-                    <label>Прізвище: </label>
-                    <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
-                    <label>Електронна пошта: </label>
-                    <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
-                    <label>Номер телефону: </label>
-                    <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
+    <div class="redactProfile_body">
+        <h1 class='main_label'>Редагувати персональні дані</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="person_all">
+                <div class="person_edit">
+                    <div class="person_data">
+                        <label>Ім'я: </label>
+                        <input type='text' name='new_name' id='new_name' value='{{ userProfile.first_name }}'>
+                        <label>Призвіще: </label>
+                        <input type='text' name='new_last_name' id='new_last_name' value='{{ userProfile.last_name }}'>
+                        <label>Електронна пошта: </label>
+                        <input type='email' name="new_email" id='new_email' value='{{ userProfile.email }}'>
+                        <label>Номер телефона: </label>
+                        <input type="tel" name='new_phonenumber' id='new_phonenumber' value='{{ userProfile.phone_number }}'>
+                    </div>
+                    <div class="person_adress">
+                        <label>Місто: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
+                        <label>Вулиця: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
+                        <label>Дім: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
+                    </div>
                 </div>
-                <div class="person_adress">
-                    <label>Місто: </label><input type='text' name='new_city' id='new_city' value='{{ userProfile.city }}'>
-                    <label>Вулиця: </label><input type='text' name='new_street' id='new_street' value='{{ userProfile.street }}'>
-                    <label>Дім: </label><input type='text' name='new_house' id='new_house' value='{{ userProfile.house }}'>
+                <div class="person_confirm">
+                    <label>Підтвердіть пароль</label>
+                    <div class="person_confirm_other">
+                        <input type="password" name='password' id='password' required >
+                        <input type="conf_password" value='Зберегти' readonly>
+                    </div>
+                    
                 </div>
             </div>
-            <div class="person_confirm">
-                <label>Підтвердіть пароль</label>
-                <div class="person_confirm_other">
-                    <input type="password" name='password' id='password' required >
-                    <input type="submit" value='Зберегти'>
-                </div>
-                
-            </div>
-        </div>
-        {{ error_message }}
-        </form>  
+            {{ error_message }}
+        </form> 
+    </div>
+     
 </body>
-{% include 'uk/footer.html' %}
+{% include 'uk/accounts/profilePage/includes/footer.html' %}
 </html>

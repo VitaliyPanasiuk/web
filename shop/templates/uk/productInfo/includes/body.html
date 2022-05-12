@@ -12,94 +12,185 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
+    <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <title>LuxonSport</title>
 </head>
 <body>
-    
-    <div class="intro_conADD">
+    <div class='main'>
         <div class="conteiner">
-            <div class="intro_inner">
-                <h1 class="intro_tittle"><i>Товары</i></h1>
-            </div>
-        </div>
-    </div>
-    
-    
-        <!--<div class='prod'>
-            <h3>{{ продукт.название_позиции }}</h3>
-            <br>
-        </div>
-    -->
+            <div class="main_all">
+                <div class="main_all_top">
+                    <div class="main_l">
+                        <!-- <div class='mainImage'>
+                            <img src='{{ MEDIA_URL }}{{ продукт.image }}'>
+                        </div>  -->
+                        <div class="slider">
+                            <div class="slider__wrapper">
+                              <div class="slider__items">
+                                <div class="slider__item">
+                                    <div >
+                                        <img src='{{ MEDIA_URL }}{{ продукт.image }}'>
+                                    </div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #607d8b;"></div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #f44336;"></div>
+                                </div>
+                                <div class="slider__item">
+                                  <div style="height: 250px; background: #4caf50;"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <a class="slider__control slider__control_prev" href="#" role="button" data-slide="prev"></a>
+                            <a class="slider__control slider__control_next" href="#" role="button" data-slide="next"></a>
+                        </div>
+                    </div>
+                    <div class="main_r">
+                        <div class='productLabel'>
+                            <p>
+                                {{ продукт.название_позиции }}
+                            </p>
+                        </div>
+                        <div class="availability">
+                            {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
+                                <p id="available">
+                                    Есть в наличии
+                                </p>
+                            {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
+                                <p id="unavailable">
+                                    Нет в наличии
+                                </p>
+                            {% else %}
+                            <p>
+                                Есть в наличии. Количество: {{ продукт.наличие }}шт.
+                            </p>
+                            {% endif %}
+                        </div>  
 
-    <div class="store_nav">
-        <nav class="store_navv">
-            <div class="store_link_block1">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="store_link_block">
-                <a href="" class="store_link">testtext</a>
-                <i class="fas fa-chevron-right"></i>
-            </div>
-        </nav>
-        <div class="footer_media_store">
-            <p class="footer_media_store_text">
-                Мы в социальных сетях
-            </p>
-            <div class="footer_media_item_store">
-                <a class="inst" href= "https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <p>instagram</p>
-            </div>
-            <div class="footer_media_item_store">
-                <a class="face" href= "https://uk-ua.facebook.com/" target="_blank"><i class="fab fa-facebook-square"></i> </a>
-                <p>facebook</p>
-            </div>
-            <div class="footer_media_item_store">
-                <a class="you" href= "https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-                <p>youtube</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="content_products">
-        {% for продукт in продукты %}
-            <div class="line">
-                <div class="line_item item1">
-                    <a href='/products/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ MEDIA_URL }}products/{{ продукт.id }}.png" alt=""></div></a> 
-                    <p class="line_item_text item_info">
-                        {{ продукт.название_позиции }}
-                    </p>
-                    <p class="line_item_price item_info">
-                        {{ продукт.цена|discount:продукт.скидка }}
-                    </p>
-                    <div class="line_item_button">
-                        <a class="line_item_but " href='/products/{{ продукт.id }}/'>
-                            подробнее
-                        </a>
+                        <div class='small_block'>
+                            <div class="product_price">
+                                {% if  продукт.цена == None %}
+                                    <p>
+                                        Цена формируется
+                                    </p>
+                                {% else %}
+                                    {% if продукт.скидка > 0 %}
+                                        <h3>
+                                            Скидка {{ продукт.скидка }}%
+                                        </h3>
+                                        <h3>
+                                            Старая цена:  <s>{{ продукт.цена}} {{ продукт.валюта|floatformat:2 }}</s>
+                                        </h3>
+                                        <h3>
+                                            Новая цена:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
+                                        </h3>
+                                    {% else %}
+                                        <h3>
+                                            Цена:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
+                                        </h3>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                           
+                            {% if user_id %} 
+                            {% if  продукт.цена == None  %}                         
+                                <h3>Ожидается поставка</h3>
+                            {% else %}
+                                <div class="inp_cart">
+                                    {% if продукт.наличие != '-' and продукт.наличие != None %}
+                                        <form action="" method='post' >
+                                            {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                            <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                            <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
+                                            <input class='inp_button' type='submit' value='Добавить в корзину!'>
+                                        </form>  
+                                    {% endif %}
+                                    {% if user_id %}
+                                        <form action="" method='post' >
+                                            {% csrf_token %}
+                                            <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
+                                            <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
+                                            <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
+                                            <input class='favourite_inp_button' type='submit' value='Добавить в избранное!'>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="inp_cart">
+                                <p><a style='color: blue !important;' href='/ru/accounts/login'>Войдите</a> в аккаунт или  <a style='color: blue !important;' href='/ru/accounts/register'>зарегестрируйтесь </a> для покупки
+                                </p> 
+                            </div>
+                            {% endif %}
+                            
+                            <!-- <label>Or</label> -->
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="pre_desc">
+                            <div class="descr_span">{{ продукт.описание }}</div>
+                            
+                        </div>
+                        <div class="desck_link">
+                            <a href="#main_all_hr">Больше о товаре...</a>
+                        </div>
+                        <div class="callback_f">
+                            <form action="" method='post' >
+                            {% csrf_token %}
+                            {% if auth_status == 'success' and user.first_name %}
+                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
+                            <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
+                            {% else %}
+                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
+                            {% endif %}
+                            <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                            {% if auth_status == 'success' and user.phone_number %}
+                            <input type='tel' name='callme_phone_number' id='callme_phone_number' value='{{ user.phone_number }}'>
+                            {% else %}
+                            <input type='tel' name='callme_phone_number' required id='callme_phone_number'>
+                            {% endif %}
+                            <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Call me back!'>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_all_nav">
+                    <div class="main_all_nav_hrs">
+                        <div class="main_all_nav_hr">
+                            <a href="#main_all_hr" id="main_all_hr">Описание</a> 
+                        </div>
+                    </div>
+                </div>
+                <div class="main_all_moreinfo">
+                    <div class="desc" id="description">
+                        <div class="main_all_bot" id="description">
+                            <p>Описание и параметры</p>
+                            <!-- <span style="white-space: pre-line" class="descr_span">{{ продукт.description }}</span> -->
+                            <div class="descr_span">{{ продукт.описание }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-       
-    
-</div>
+        </div>
+    </div> 
 </body>
 </html>

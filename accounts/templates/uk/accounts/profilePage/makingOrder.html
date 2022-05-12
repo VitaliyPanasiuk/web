@@ -14,7 +14,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Створити замовлення</title>
+    <title>Создать заказ</title>
+    <meta name="keywords" content="INTUITIVE">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <meta property="og:title" content="Luxon">
+    <meta property="og:description" content="LuxonSports">
+    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
+    <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site1",
+        "sameAs": []
+     	}
+    </script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:type" content="website">
     <script>
         function pickup(){
             document.getElementById('address').style.display ='none';
@@ -37,69 +58,93 @@
     {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     {{ error_message }}
-    <div>
+    <div class="make_order_body">
         <form method="POST" action="">
             {% csrf_token %}
-            <label>Ім'я: </label><input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введіть Ваше ім'я" required>
-            <label>Прізвище: </label><input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введіть Ваше прізвище" required>
-            <label>Електронна пошта: </label><input type='text' name='email' value='{{ user.email }}'placeholder="Введите Ваш email">
-            {% if user.phone_number != None %}
-            <label>Телефон: </label><input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введіть Ваш номер телефону" required>
-            {% else %}
-            <label>Телефон: </label><input type='text' name='phone_number' placeholder="Введіть Ваш номер телефону" required>
-            {% endif %}
-            <br>
-            <label>Замовлення: </label>
-            <div style='display: none;'>
-                <input type="hidden" value='{{ userCart.name }}' name='order'>
+
+            <div class="order_tit">
+                {% for i in userCart %}
+                {% if i.currency == 'UAH' %}
+                    <p>{{ i.uk_order_item }} Ціна: {{ i.price|floatformat:"2" }} UAH</p>
+                {% else %}
+                    <p>{{ i.uk_order_item }} Ціна: {{ i.price|mul:currency|floatformat:"2" }} UAH</p>   
+                {% endif %}
+                {% endfor %}
+                <div style='display: none;'>
+                    <input type="hidden" value='{{ price }}' name='price'>
+                </div>
+                <div style='display: none;'>
+                    <input type="submit" name='quit' id='quit'>
+                </div>
+                <div style='display: none;'>
+                    <input type="hidden" value='{{ userCart.uk_name }}' name='order'>
+                </div>
             </div>
-            {% for i in userCart %}
-            {% if i.currency == 'UAH' %}
-                <p>{{ i.uk_order_item }} Цена: {{ i.price|floatformat:"2" }}UAH</p>
-            {% else %}
-                <p>{{ i.uk_order_item }} Цена: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
-            {% endif %}
-            {% endfor %}
-            <div style='display: none;'>
-                <input type="hidden" value='{{ price }}' name='price'>
+            <div class="order_info_top">
+                <div class="order_privat_info">
+                    <div class="order_fname order_privat_info_items">
+                        <label>Ім'я: </label>
+                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите ваше имя" required>
+                    </div>
+                    <div class="order_lname order_privat_info_items">
+                        <label>Прізвище: </label>
+                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите вашу фамилию " required>
+                    </div>
+                    <div class="order_em order_privat_info_items">
+                        <label>Електронна пошта: </label>
+                        <input type='text' name='email' value='{{ user.email }}'placeholder="Введите но email">
+                    </div>
+                    <div class="order_phone order_privat_info_items">
+                        {% if user.phone_number != None %}
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
+                        {% else %}
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="order_delivery_pay">
+                    <p>Тип доставки: </p>
+                    <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
+                    <label>Самовивіз</label>
+                    <br>
+                    <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
+                    <label>Нова пошта</label>
+                    <br>
+                    <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
+                    <label>Укрпошта</label>
+                    <br>
+                    <p>Тип оплати: </p>
+                    <input type="radio" name='typeOfPayment' value='Наличный' checked>
+                    <label>Готівкою</label>
+                    <br>
+                    <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
+                    <label>Безготівковій</label>
+                    <label style="color: red;"> недоступно (в разробці)</label>
+    
+                    <div id='address' style='display: none;'>
+                        <p>Адреса</p>
+                        <div id='nova' style='display: none;'><label>Nova Poshta department: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                        <div id='ukr' style='display: none;'><label>Ukrposhta index: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
+                        <label>Місто: </label><input type='text' name='city' value='{{ user.city }}'>
+                        <label>Вулиця: </label><input type='text' name='street' value='{{ user.street }}'>
+                        <label>Дім: </label><input type='text' name="house" value='{{ user.house }}'>
+                    </div>
+                </div>
             </div>
-            <div style='display: none;'>
-                <input type="submit" name='quit' id='quit'>
+            <div class="order_price_mk">
+                <p>Загальна сума: {{ price|floatformat:"2" }} UAH</p>
+                <a href="#" class="makeorder_hr">
+                    <input type="submit" name='go' value="Замовити!" readonly>
+                </a>
             </div>
-            <p>До сплати: {{ price|floatformat:"2" }} UAH</p>
-            <p style='color: red !important; text-decoration: underline;'>Увага! При виході з цієї сторінки без оформлення замовлення, воно не будт підтверджено та автоматично буде видалено через 30 хвилин!</p>
-            <p>Тип доставки: </p>
-            <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>Самовивіз</label>
-            <br>
-            <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-            <label>Нова Пошта</label>
-            <br>
-            <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-            <label>Укрпошта</label>
-            <br>
-            <p>Тип оплаты: </p>
-            <input type="radio" name='typeOfPayment' value='Наличный' checked>
-            <label>Готівка</label>
-            <br>
-            <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
-            <label>Картка</label><label style="color: red;"> Недоступно (в розробці)</label>
-            <div id='address' style='display: none;'>
-                <p>Адреса</p>
-                <div id='nova' style='display: none;'><label>Відділення Нової Пошти: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
-                <div id='ukr' style='display: none;'><label>Поштовий індекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
-                <label>Місто: </label><input type='text' name='city' value='{{ user.city }}'>
-                <label>Вулиця: </label><input type='text' name='street' value='{{ user.street }}'>
-                <label>Дім: </label><input type='text' name="house" value='{{ user.house }}'>
-            </div>
-            <br>
-            <input type="submit" name='go' value="Створити замовлення!">
         </form>
     </div>
     {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'uk/footer.html' %}
+    {% include 'uk/accounts/profilePage/includes/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

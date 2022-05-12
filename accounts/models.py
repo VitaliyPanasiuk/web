@@ -153,9 +153,9 @@ class Заказ(models.Model):
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
     confirm = models.CharField(max_length=500, blank=True, null=True)
-    order_uk = models.TextField(max_length=2000, blank=True, null=True)
+    order_uk = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
     order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
-    order_en = models.TextField(max_length=2000, blank=True, null=True)
+    order_en = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
 
     class Meta:
         managed = False

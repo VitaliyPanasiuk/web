@@ -1,6 +1,5 @@
 {% load static %}
-{% load staticencoder %}
-
+{% load mathfilters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,170 +13,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
-        <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
-    <title>LuxonSport</title>
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
+    <title>LuxonSport</title>
 </head>
 <body>
     {% block content %}
-    {% include 'uk/productInfo/includes/navbar.html' %}
+    {% include 'ru/productInfo/includes/navbar.html' %}
+    {% include 'ru/productInfo/includes/body.html' %}
+    
 
-    <div class='main'>
-        <div class="conteiner">
-            <div class="main_all">
-                <div class="main_all_top">
-                    <div class="main_l">
-                        <div class="slider">
-                            <div class="slider__wrapper">
-                              <div class="slider__items">
-                                <div class="slider__item">
-                                    <div >
-                                        <img src='{{ MEDIA_URL }}{{ продукт.image }}'>
-                                    </div>
-                                </div>
-                                <div class="slider__item">
-                                  <div style="height: 250px; background: #607d8b;"></div>
-                                </div>
-                                <div class="slider__item">
-                                  <div style="height: 250px; background: #f44336;"></div>
-                                </div>
-                                <div class="slider__item">
-                                  <div style="height: 250px; background: #4caf50;"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a class="slider__control slider__control_prev" href="#" role="button" data-slide="prev"></a>
-                            <a class="slider__control slider__control_next" href="#" role="button" data-slide="next"></a>
-                        </div>
-                    </div>
-                    <div class="main_r">
-                        <div class='productLabel'>
-                            <p>
-                                {{ продукт.название_позиции_укр }}
-                            </p>
-                        </div>
-                        <div class='small_block'>
-                            <div class="price_availability">
-                                <div class="product_price">
-                                    {% if  продукт.цена == None %}
-                                        <p>
-                                            Ціна формується
-                                        </p>
-                                    {% else %}
-                                        {% if продукт.скидка > 0 %}
-                                            <h3>
-                                                Знижка {{ продукт.скидка }}%
-                                            </h3>
-                                            <h3>
-                                                Стара ціна:  <s>{{ продукт.цена}} {{ продукт.валюта }}</s>
-                                            </h3>
-                                            <h3>
-                                                Нова ціна:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
-                                            </h3>
-                                        {% else %}
-                                            <h3>
-                                                Ціна:  {{ продукт.цена|discount:продукт.скидка }} {{ продукт.валюта }}
-                                            </h3>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                <div class="availability">
-                                    {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
-                                        <p>
-                                            Є в наявності. Кількість: невідомо
-                                        </p>
-                                    {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
-                                        <p>
-                                            Немає в наявності
-                                        </p>
-                                    {% else %}
-                                    <p>
-                                        Є в наявності. Кількість: {{ продукт.наличие }}шт.
-                                    </p>
-                                    {% endif %}
-                                </div> 
-                            </div> 
-                            <div class="small_other"> 
-                                {% if user_id %} 
-                                {% if  продукт.цена == None  %}                         
-                                    <h3>Очікується поставка</h3>
-                                {% else %}
-                                    <div class="inp_cart">
-                                    {% if продукт.наличие != '-' %}
-                                        <form action="" method='post' >
-                                            {% csrf_token %}
-                                            <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
-                                            <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
-                                            <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                            <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
-                                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                            <div><label>Кількість: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
-                                            <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
-                                            <input class='inp_button' type='submit' value='Додати в кошик!'>
-                                        </form>  
-                                    {% endif %}
-                                    </div>
-                                {% endif %}
-                                {% else %}
-                                <div class="inp_cart">
-                                    <p><a style='color: blue !important;' href='/uk/accounts/login'>Увійдіть</a> в аккаунт або <a style='color: blue !important;' href='/uk/accounts/register'>зареєструйтесь</a> для купівлі
-                                    </p> 
-                                </div>
-                                {% endif %}
-                                {% if user_id %}
-                                <form action="" method='post' >
-                                    {% csrf_token %}
-                                    <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
-                                    <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
-                                    <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
-                                    <input class='favourite_inp_button' type='submit' value='Додати до улюбленного!'>
-                                </form>
-                                {% endif %}
-                                <label>Або</label>
-                                <form action="" method='post' >
-                                    {% csrf_token %}
-                                    {% if auth_status == 'success' and user.first_name %}
-                                    <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
-                                    <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
-                                    {% else %}
-                                    <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
-                                    {% endif %}
-                                    <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
-                                    <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                                    <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                    {% if auth_status == 'success' and user.phone_number %}
-                                    <input type='tel' name='callme_phone_number' id='callme_phone_number' value='{{ user.phone_number }}'>
-                                    {% else %}
-                                    <input type='tel' name='callme_phone_number' required id='callme_phone_number'>
-                                    {% endif %}
-                                    <input class='callme_inp_button' name = 'callme_inp_button' type='submit' value='Передзвоніть мені!'>
-                                </form>
-                            </div>
-                            <div class="main_all_bot" id="description">
-                                <p>Опис та характеристики</p>
-                                <span style="white-space: pre-line">{{ продукт.описание_укр }}</span>
-                            </div>
-                            <button class="desc_but" class="but" onclick="getMore()">
-                                &#8597;
-                            </button>
-                        </div> 
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    {% for image in images %}
+    
+    <!-- {% for image in images %}
     <img src='{{ MEDIA_URL }}{{ image.image }}'>
-    {% endfor %}
-    {% include 'uk/footer.html' %}
+    {% endfor %} -->
+
+
+    {% include 'ru/footer.html' %}
     {% endblock %}
     </div>
     <script>

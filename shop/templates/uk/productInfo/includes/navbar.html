@@ -8,23 +8,23 @@
                     <div class="header_top">
                         <div class="header_top_img">
                             <div class="top_img">
-                                <a href='/uk'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
+                                <a href='/ru'><img src="{% static '' %}shop/img/logo2.png" alt=""></a>
                             </div>
                             
                         </div>
                         <nav class="navv">
-                            <a href='/uk' class='nav_link'>Головна сторінка</a>
-                            <a href="/uk/about" class="nav_link">Про нас</a>
-                            <a href="/uk/products" class="nav_link">Каталог</a>
-                            <a href="/uk/achievements" class="nav_link">Досягнення</a>
-                            <a href="/uk/collaboration" class="nav_link">Співробітництво</a>
-                            <a href="/uk/guarantees" class="nav_link">Гарантії</a>
+                            <a href='/ru' class='nav_link'>Главная страница</a>
+                            <a href="/ru/about" class="nav_link">О нас</a>
+                            <a href="/ru/products" class="nav_link">Каталог</a>
+                            <a href="/ru/achievements" class="nav_link">Достижения</a>
+                            <a href="/ru/collaboration" class="nav_link">Сотрудничество</a>
+                            <a href="/ru/guarantees" class="nav_link">Гарантии</a>
                         </nav>
                         <div class="header_language">
                             <form action='' method="POST" id='language'>
                                 {% csrf_token %}
                                 <select form="language" name='language' onchange="this.form.submit()">
-                                    <option value="" disabled selected>Оберіть мову</option>
+                                    <option value="" disabled selected>Выберите язык</option>
                                     <option value="ru">Русский язык</option>
                                     <option value='en'>English</option>
                                     <option value='uk'>Українська мова</option>
@@ -34,8 +34,8 @@
                         
                         {% if auth_status == 'success' %}
                         <div class="header_but">
-                            <a href="/uk/accounts/logout" class="headerbut_log">
-                                Вийти
+                            <a href="/ru/accounts/logout" class="headerbut_log">
+                                Выйти
                             </a>
                         </div>
                         {% endif %}
@@ -68,17 +68,17 @@
                             {% if user.is_staff %}
                             <div class="header_but">
                                 <a href="/admin" class="headerbut_log">
-                                    Адмін 
+                                    Админ 
                                 </a>
                             </div>
                             {% endif %}
                             {% if auth_status == 'success' %}
                                 <div style="color: aliceblue;" class="header_user">
                                     <div class="header_welcome">
-                                        Ласкаво просимо: 
+                                        Добро пожаловать: 
                                     </div>
                                     <div class="header_user_but">
-                                        <a class="headerbut_log special" href='/uk/accounts/{{ user.id }}/'>
+                                        <a class="headerbut_log special" href='/ru/accounts/{{ user.id }}/'>
                                             {% if user.first_name %}
                                                 {{ user.first_name }}
                                             {% else %}
@@ -91,23 +91,19 @@
                             {% endif %}
                             {% if auth_status == 'failed' %}
                             <div class="header_but">
-                                <a href="/uk/accounts/login" class="headerbut_log">
-                                    Увійти
+                                <a href="/ru/accounts/login" class="headerbut_log">
+                                    Войти
                                 </a>
                             </div>
                             <div class="header_but">
-                                <a href="/uk/accounts/register" class="headerbut_log">
-                                    Реєстрація
+                                <a href="/ru/accounts/register" class="headerbut_log">
+                                    Регистрация
                                 </a>
                             </div>
                             {% endif %}
                         </div>
                     </div>
-                    
-                    
-                    
-                </div>
-                
+                </div> 
             </div>
         </div>
     </header>

@@ -1,31 +1,55 @@
 {% load static %}
+{% load staticencoder %}
+{% load mathfilters %}
+{% get_media_prefix as MEDIA_URL %}
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html style="font-size: 16px;">
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>
+      {% if user.first_name %}
+      Профиль пользователя {{ user.first_name }}
+      {% else %}
+      Профиль пользователя {{ user.username }}
+      {% endif %}
+    </title>
+    <link rel="stylesheet" href="{% static '' %}shop/newProf/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/newProf/Account.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
     <link rel="stylesheet"  href="{%  static  'shop/css/accounts/register/register_style.css'  %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
-    <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Реєстрація</title>
-</head>
-<body>
     
-    {% block content %}
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "Site1",
+		"sameAs": []
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Account">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body">
     {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     <div class="conteiner">
       <div class="reg_body">
-        <div class="reg-tit">
-          <h2>Реєстрація</h2>
-        </div>
+        
         <form method="post" action="" class="reg_forms">
           {% csrf_token %}
+          <div class="reg-tit">
+            <h2>Регістрація</h2>
+          </div>
           <div class="reg_name_bl">
             <div class="reg_name">
               <label>Ім'я користувача: </label>
@@ -33,15 +57,15 @@
             </div>
           </div>
           
-          <br>
+          
           <div class="reg_em_bl">
             <div class="reg_em">
-              <label>Електронна пошта: </label>
+              <label>Email: </label>
               <input type='email' name='email' required>
             </div>
           </div>
         
-          <br>
+        
           <div class="reg_warn">
             <p>Мінімально 8 символів. Хоча б одна велика літера та одна цифра</p>
           </div>
@@ -55,22 +79,36 @@
           
           <div class="reg_password_bl">
             <div class="reg_password">
-              <label>Підтвердіть пароль: </label>
+              <label>Повторіть пароль: </label>
               <input type='password' name='password2' required>
             </div>
           </div>
           
           <p>{{ error_code }}</p>
           <div class="reg_but">
-            <input type="submit" name='register' value='Зареєструватися'>
+            <div class="reg_butHr">
+              <input type="submit" name='register' value='Зареєструватися'>
+            </div>
+            
           </div>
           
         </form>
       </div>
       
     </div>
-    {% include 'uk/footer.html' %}
-    {% endblock %}
-
-</body>
+    
+    
+    {% include 'uk/accounts/profilePage/includes/footer.html' %}
+    <!-- <section class="u-backlink u-clearfix u-grey-80">
+      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
+        <span>Website Templates</span>
+      </a>
+      <p class="u-text">
+        <span>created with</span>
+      </p>
+      <a class="u-link" href="" target="_blank">
+        <span>Website Builder Software</span>
+      </a>. 
+    </section> -->
+  </body>
 </html>

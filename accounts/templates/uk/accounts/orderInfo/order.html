@@ -13,7 +13,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Замовлення</title>
+    <title>Заказ</title>
+    <meta name="keywords" content="INTUITIVE">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <meta property="og:title" content="Luxon">
+    <meta property="og:description" content="LuxonSports">
+    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
+    <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site1",
+        "sameAs": []
+     	}
+    </script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:type" content="website">
     <script>
         function pickup(){
             document.getElementById('address').style.display ='none';
@@ -36,60 +57,74 @@
     {% include 'uk/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     <div>
-        <form method="POST" action="">
-            {% csrf_token %}
-            <p>Ім'я: {{ user.first_name }}</p>
-            <p>Прізвище: {{ user.last_name }}</p>
-            <p>Електронна пошта: {{ user.email }}</p>
-            <p>Номер телефону: {{ user.phone_number }}</p>
-            <label>Замовлення: </label>
-            <span style="white-space: pre-line">{{ order.order_uk }}</span>
-            <p>До сплати: {{ order.сумма_заказа }} UAH</p>
-            {% if order.confirm == 'unc' %}
-            <div style="color:red; text-decoration:underline;"><p>Увага! Статус замовлення: Не підтверджено користувачем. Будь-ласка, завершіть оформлення замовлення.</p></div>
-            {% elif order.confirm == 'uc' %}
-            <p>Статус замовлення: В обробці</p>
-            {% elif order.confirm == 'ac' %}
-            <p>Статус замовлення: Підтверджено адміністратором</p>
-            {% elif order.confirm == 'done' %}
-            <p>Статус замовлення: Замовлення виконано</p>
-            {% endif %}
-            {% if order.delivery_type == None %}
-            <p>Тип доставки: не обрано</p>
-            {% elif order.delivery_type == 'Самовивіз' %}
-            <p>Тип доставки: Самовивіз</p>
-            {% elif order.delivery_type == 'Нова пошта' %}
-            <p>Тип доставки: Нова пошта</p>
-            {% elif order.delivery_type == 'Укрпошта' %}
-            <p>Тип доставки: Укрпошта</p>
-            {% endif %}
-            {% if order.payment_type == None %}
-            <p>Тип сплати: не обрано</p>
-            {% elif order.payment_type == 'Наличный' %}
-            <p>Тип сплати: Готівка</p>
-            {% elif order.payment_type == 'Безналичный' %}
-            <p>Тип сплати: Картка</p>
-            {% endif %}
-            {% if order.delivery_type == 'Нова пошта' %}
-            <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
-            <p>Місто: {{ order.city }}</p>
-            <p>Вулиця: {{ order.street }}</p>
-            <p>Дім: {{ order.house }}</p>
-            {% elif order.delivery_type == 'Укрпошта' %}
-            <p>Поштовий індекс: {{ order.ukr_pochta }}</p>
-            <p>Місто: {{ order.city }}</p>
-            <p>Вулиця: {{ order.street }}</p>
-            <p>Дім: {{ order.house }}</p>
-            {% endif %}
-            {% if order.confirm == 'unc' %}
-            <input type='hidden' name='editid' value='{{ order.id }}'>
-            <input type="submit" name='edit' value='Завершити оформлення замовлення'>
-            {% endif %}
-        </form>
+        <div class="conteiner">
+            <div class="confirm_order">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="con_order_tit">
+                        <span style="white-space: pre-line">{{ order.order_ru }}</span>
+                    </div>
+                    <div class="con_order_info_top">
+                        <div class="con_order_privat_info">
+                            <p>Ім'я: {{ user.first_name }}</p>
+                            <p>Призвіще: {{ user.last_name }}</p>
+                            <p>Пошта: {{ user.email }}</p>
+                            <p>Телефон: {{ user.phone_number }}</p>
+                        </div>
+                        <div class="con_order_delivery_pay">
+                            
+                            
+                            {% if order.confirm == 'uc' %}
+                            <p>Статус замовлення: В обробці</p>
+                            {% elif order.confirm == 'ac' %}
+                            <p>Статус замовлення: Підтверджений адмінистратором</p>
+                            {% elif order.confirm == 'done' %}
+                            <p>Статус замовлення: Заказ виконан</p>
+                            {% endif %}
+                            {% if order.delivery_type == None %}
+                            <p>Тип доставки: не обраний</p>
+                            {% else %}
+                            <p>Тип доставки: {{ order.delivery_type }}</p>
+                            {% endif %}
+                            {% if order.payment_type == None %}
+                            <p>Тип оплаты: не обраний</p>
+                            {% else %}
+                            <p>Тип оплаты: {{ order.payment_type }}</p>
+                            {% endif %}
+                            {% if order.delivery_type == 'Нова пошта' %}
+                            <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
+                            <p>Місто: {{ order.city }}</p>
+                            <p>Вулиця: {{ order.street }}</p>
+                            <p>Дім: {{ order.house }}</p>
+                            {% elif order.delivery_type == 'Укрпошта' %}
+                            <p>Поштовий індекс: {{ order.ukr_pochta }}</p>
+                            <p>Місто: {{ order.city }}</p>
+                            <p>Вулиця: {{ order.street }}</p>
+                            <p>Дфм: {{ order.house }}</p>
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                    <div class="con_order_info_bot">
+                        {% if order.confirm == 'unc' %}
+                        <div style="color:red; text-decoration:none;">
+                            <p>Увага! статус замовлення: Не підтверджений користувачем. Будьласка, заввершіть оформлення замовлення.</p>
+                        </div>
+                        {% endif %}
+                        <div class="confirm_btn">
+                            {% if order.confirm == 'unc' %}
+                            <input type='hidden' name='editid' value='{{ order.id }}'>
+                            <input type="confirm_order" name='edit' value='Завершити' readonly>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     {% else %}
-    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/uk' style="text-decoration: underline; color: blue !important;">Повернутися на головну!</a></h1>
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'uk/footer.html' %}
+    {% include 'uk/accounts/profilePage/includes/footer.html' %}
 </body>
 </html>
