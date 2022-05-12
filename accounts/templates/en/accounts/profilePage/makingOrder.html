@@ -14,7 +14,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Making order</title>
+    <title>Создать заказ</title>
+    <meta name="keywords" content="INTUITIVE">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <meta property="og:title" content="Luxon">
+    <meta property="og:description" content="LuxonSports">
+    <meta property="og:image" content="{% static '' %}shop/new/images/logo2.png">
+    <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/new/nicepage.js" defer=""></script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <script type="application/ld+json">{
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Site1",
+        "sameAs": []
+     	}
+    </script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:type" content="website">
     <script>
         function pickup(){
             document.getElementById('address').style.display ='none';
@@ -34,7 +55,7 @@
     </script>
 </head>
 <body>
-    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div class="make_order_body">
@@ -44,9 +65,9 @@
             <div class="order_tit">
                 {% for i in userCart %}
                 {% if i.currency == 'UAH' %}
-                    <p>{{ i.en_order_item }} Price: {{ i.price|floatformat:"2" }}UAH</p>
+                    <p>{{ i.ru_order_item }} Price: {{ i.price|floatformat:"2" }} UAH</p>
                 {% else %}
-                    <p>{{ i.en_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }}UAH</p>   
+                    <p>{{ i.ru_order_item }} Price: {{ i.price|mul:currency|floatformat:"2" }} UAH</p>   
                 {% endif %}
                 {% endfor %}
                 <div style='display: none;'>
@@ -62,67 +83,68 @@
             <div class="order_info_top">
                 <div class="order_privat_info">
                     <div class="order_fname order_privat_info_items">
-                        <label>First name: </label>
-                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter your first name" required>
+                        <label>Имя: </label>
+                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Введите ваше имя" required>
                     </div>
                     <div class="order_lname order_privat_info_items">
-                        <label>Last name: </label>
-                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter your last name" required>
+                        <label>Фамилия: </label>
+                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Введите вашу фамилию " required>
                     </div>
                     <div class="order_em order_privat_info_items">
-                        <label>Email: </label>
-                        <input type='text' name='email' value='{{ user.email }}'placeholder="Enter your email">
+                        <label>Почта: </label>
+                        <input type='text' name='email' value='{{ user.email }}'placeholder="Введите но email">
                     </div>
                     <div class="order_phone order_privat_info_items">
                         {% if user.phone_number != None %}
-                        <label>Phone number: </label>
-                        <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Enter your phone number" required>
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
                         {% else %}
-                        <label>Phone number: </label>
-                        <input type='text' name='phone_number' placeholder="Enter your phone number" required>
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
                         {% endif %}
                     </div>
                 </div>
                 <div class="order_delivery_pay">
-                    <p>Delivery Type: </p>
+                    <p>Тип доставки: </p>
                     <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-                    <label>By yourself</label>
+                    <label>Самовывоз</label>
                     <br>
                     <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-                    <label>Nova Poshta</label>
+                    <label>Нова пошта</label>
                     <br>
                     <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-                    <label>Ukrposhta</label>
+                    <label>Укрпошта</label>
                     <br>
-                    <p>Payment Type: </p>
+                    <p>Тип оплаты: </p>
                     <input type="radio" name='typeOfPayment' value='Наличный' checked>
-                    <label>Cash</label>
+                    <label>Наличными</label>
                     <br>
                     <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
-                    <label>Card</label>
-                    <label style="color: red;"> Unavailable (in development)</label>
+                    <label>Безналичный</label>
+                    <label style="color: red;"> недоступно (в разработке)</label>
     
                     <div id='address' style='display: none;'>
-                        <p>Address</p>
+                        <p>Адрес</p>
                         <div id='nova' style='display: none;'><label>Nova Poshta department: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
                         <div id='ukr' style='display: none;'><label>Ukrposhta index: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
-                        <label>City: </label><input type='text' name='city' value='{{ user.city }}'>
-                        <label>Street: </label><input type='text' name='street' value='{{ user.street }}'>
-                        <label>House: </label><input type='text' name="house" value='{{ user.house }}'>
+                        <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
+                        <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
+                        <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
                     </div>
                 </div>
             </div>
             <div class="order_price_mk">
                 <p>Total price: {{ price|floatformat:"2" }} UAH</p>
-                <p style='color: red !important; '>Attention! If you leave this page, the order will not be confirmed and will be deleted after 30 minutes!</p>
-                <input type="submit" name='go' value="Make an order!">
+                <a href="#" class="makeorder_hr">
+                    <input type="submit" name='go' value="Создать заказ!" readonly>
+                </a>
             </div>
         </form>
     </div>
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'en/footer.html' %}
+    {% include 'ru/accounts/profilePage/includes/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

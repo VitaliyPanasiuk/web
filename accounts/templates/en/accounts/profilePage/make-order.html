@@ -1,8 +1,4 @@
 {% load static %}
-{% load staticencoder %}
-{% load mathfilters %}
-{% get_media_prefix as MEDIA_URL %}
-
 <!DOCTYPE html>
 <html style="font-size: 16px;">
   <head>
@@ -11,23 +7,15 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>
-      {% if user.first_name %}
-      Профиль пользователя {{ user.first_name }}
-      {% else %}
-      Профиль пользователя {{ user.username }}
-      {% endif %}
-    </title>
-    <link rel="stylesheet" href="{% static '' %}shop/newProf/nicepage.css" media="screen">
-    <link rel="stylesheet" href="{% static '' %}shop/newProf/Account.css" media="screen">
-    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProf/nicepage.js" defer=""></script>
+    <title>создать заказ</title>
+    <link rel="stylesheet" href="{% static '' %}shop/new/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/Главная.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/new/make-order.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
-    <link rel="stylesheet"  href="{%  static  'shop/css/accounts/register/register_style.css'  %}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+    
     
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
@@ -36,17 +24,13 @@
 		"sameAs": []
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Account">
+    <meta property="og:title" content="make order">
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-align-center u-clearfix u-header u-header" id="sec-0ff4">
     <div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
-        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1">Luxon</h1>
-        <span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style="">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg>
-          <svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;">
-            <path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
+        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1">Luxon</h1><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
 	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
 	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
 	c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
@@ -81,20 +65,11 @@
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                  <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru" style="padding: 10px 4px;">Главная</a>
-                  </li>
-                  <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/products" style="padding: 10px 4px;">Продукт</a>
-                  </li>
-                  <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/about" style="padding: 10px 4px;">О нас</a>
-                  </li>
-                  <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
-                  </li>
-                </ul>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="ru" style="padding: 10px 4px;">Главная</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="ru/products" style="padding: 10px 4px;">Продукт</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="ru/about" style="padding: 10px 4px;">О нас</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="ru/collaboration" style="padding: 10px 4px;">Сотрудничество</a>
+</li></ul>
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -109,62 +84,38 @@
           </button>
           <input class="u-search-input" type="search" name="search" value="" placeholder="Search">
         </form>
+      </div></header>
+    <section class="skrollable u-align-center u-clearfix u-section-123" id="sec-323e">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-custom-font u-font-montserrat u-text u-text-default u-text-1">название</p>
+        <div class="u-container-style u-expanded-width-xs u-group u-group-1">
+          <div class="u-container-layout u-container-layout-1">
+            <p class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Тип доставки:</p>
+            <ul class="u-custom-font u-font-montserrat u-text u-text-default u-text-3">
+              <li>Самовывоз</li>
+              <li>Нова пошта</li>
+              <li>Укрпошта</li>
+            </ul>
+            <p class="u-custom-font u-font-montserrat u-text u-text-default u-text-4">Тип оплаты:</p>
+            <ul class="u-custom-font u-font-montserrat u-text u-text-default u-text-5">
+              <li>Наличными</li>
+              <li>Безналичный</li>
+            </ul>
+            <p class="u-custom-font u-font-montserrat u-text u-text-default u-text-palette-2-base u-text-6">Недоступно (в разработке)</p>
+          </div>
+        </div>
+        <div class="u-container-style u-group u-shape-rectangle u-group-2">
+          <div class="u-container-layout u-container-layout-2">
+            <p class="u-align-left u-custom-font u-font-montserrat u-text u-text-7">Имя: </p>
+            <p class="u-align-left u-custom-font u-font-montserrat u-text u-text-default u-text-8">Фами​лия:</p>
+            <p class="u-align-left u-custom-font u-font-montserrat u-text u-text-9">Почта:</p>
+            <p class="u-align-left u-custom-font u-font-montserrat u-text u-text-default u-text-10">Телефон: </p>
+          </div>
+        </div>
+        <p class="u-align-center u-text u-text-default u-text-11">Общая цена:</p>
+        <a href="https://nicepage.com/c/sale-website-templates" class="u-border-2 u-border-black u-btn u-btn-round u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-radius-20 u-text-black u-text-hover-white u-btn-1">создать заказ!</a>
       </div>
-    </header>
-    <div class="conteiner">
-      <div class="reg_body">
-        
-        <form method="post" action="" class="reg_forms">
-          {% csrf_token %}
-          <div class="reg-tit">
-            <h2>Регистрация</h2>
-          </div>
-          <div class="reg_name_bl">
-            <div class="reg_name">
-              <label>Имя пользователя: </label>
-              <input type='text' name='username' required>
-            </div>
-          </div>
-          
-          
-          <div class="reg_em_bl">
-            <div class="reg_em">
-              <label>Email: </label>
-              <input type='email' name='email' required>
-            </div>
-          </div>
-        
-        
-          <div class="reg_warn">
-            <p>Минимально 8 символов. Хотя бы одна заглавная буква и одна цифра</p>
-          </div>
-          
-          <div class="reg_password_bl">
-            <div class="reg_password">
-              <label>Пароль: </label>
-              <input type='password' name='password1' required>
-            </div>
-          </div>
-          
-          <div class="reg_password_bl">
-            <div class="reg_password">
-              <label>Повторите пароль: </label>
-              <input type='password' name='password2' required>
-            </div>
-          </div>
-          
-          <p>{{ error_code }}</p>
-          <div class="reg_but">
-            <div class="reg_butHr">
-              <input type="submit" name='register' value='Зарегистрироваться'>
-            </div>
-            
-          </div>
-          
-        </form>
-      </div>
-      
-    </div>
+    </section>
     
     
     <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4742"><div class="u-clearfix u-sheet u-sheet-1">
@@ -200,7 +151,7 @@
           </a>
         </div>
       </div></footer>
-    <!-- <section class="u-backlink u-clearfix u-grey-80">
+    <section class="u-backlink u-clearfix u-grey-80">
       <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
         <span>Website Templates</span>
       </a>
@@ -210,6 +161,6 @@
       <a class="u-link" href="" target="_blank">
         <span>Website Builder Software</span>
       </a>. 
-    </section> -->
+    </section>
   </body>
 </html>
