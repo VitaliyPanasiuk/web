@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/main/header_style.css'  %}">
+    <link rel="stylesheet"  href="{%  static  'shop/css/productMain/products_style.css'  %}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -17,19 +19,9 @@
 </head>
 <body>
     {% block content %}
-        {% include 'en/shop/includes/navbar.html' %}
-        {% include 'en/shop/includes/body.html' %}
-        {% include 'en/footer.html' %}
+        {% include 'ru/shop/includes/navbar.html' %}
+        {% include 'ru/shop/includes/body.html' %}
+        {% include 'ru/footer.html' %}
     {% endblock %}
 </body>
-<script>
-    let links = document.querySelectorAll('.nav_link');
-    let link_current = document.querySelector('.nav_link_current');
-
-    link_current.onclick = function(){
-        if(window.matchMedia("(max-width: 1045px)").matches){
-            links.forEach(x => x.classList.toggle('show'));
-        }
-    }
-</script>
 </html>

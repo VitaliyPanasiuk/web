@@ -12,13 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="{%  static  'shop/slider/simple-adaptive-slider.css'  %}">
     <script defer src="{%  static  'shop/slider/simple-adaptive-slider.js'  %}"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <title>LuxonSport</title>
 </head>
 <body>
-    
     <div class='main'>
         <div class="conteiner">
             <div class="main_all">
@@ -53,21 +52,21 @@
                     <div class="main_r">
                         <div class='productLabel'>
                             <p>
-                                {{ продукт.name }}
+                                {{ продукт.название_позиции }}
                             </p>
                         </div>
                         <div class="availability">
                             {% if  продукт.наличие == 'a' or продукт.наличие == '+' %}
                                 <p id="available">
-                                    Available
+                                    Есть в наличии
                                 </p>
                             {% elif продукт.наличие == 'ua' or продукт.наличие == None or продукт.наличие == '-' %}
                                 <p id="unavailable">
-                                    Unavailable
+                                    Нет в наличии
                                 </p>
                             {% else %}
                             <p>
-                                Available.
+                                Есть в наличии. Количество: {{ продукт.наличие }}шт.
                             </p>
                             {% endif %}
                         </div>  
@@ -76,22 +75,22 @@
                             <div class="product_price">
                                 {% if  продукт.цена == None %}
                                     <p>
-                                        Unknown price
+                                        Цена формируется
                                     </p>
                                 {% else %}
                                     {% if продукт.скидка > 0 %}
                                         <h3>
-                                            Discount {{ продукт.скидка }}%
+                                            Скидка {{ продукт.скидка }}%
                                         </h3>
                                         <h3>
-                                            Old price:  <s>{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</s>
+                                            Старая цена:  <s>{{ продукт.цена}} {{ продукт.валюта|floatformat:2 }}</s>
                                         </h3>
                                         <h3>
-                                            New price:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
+                                            Новая цена:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
                                         </h3>
                                     {% else %}
                                         <h3>
-                                            Price:  {{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}
+                                            Цена:  {{ продукт.цена|discount:продукт.скидка|floatformat:2 }} {{ продукт.валюта }}
                                         </h3>
                                     {% endif %}
                                 {% endif %}
@@ -99,7 +98,7 @@
                            
                             {% if user_id %} 
                             {% if  продукт.цена == None  %}                         
-                                <h3>Waiting for delivery</h3>
+                                <h3>Ожидается поставка</h3>
                             {% else %}
                                 <div class="inp_cart">
                                     {% if продукт.наличие != '-' and продукт.наличие != None %}
@@ -111,9 +110,9 @@
                                             <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
                                             <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                             <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                            <div><label>Amount: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
+                                            <div><label>Количество: </label><input type='number' name='how_much_to_add' id='how_much_to_add' value="1"></div>
                                             <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
-                                            <input class='inp_button' type='submit' value='Add to cart!'>
+                                            <input class='inp_button' type='submit' value='Добавить в корзину!'>
                                         </form>  
                                     {% endif %}
                                     {% if user_id %}
@@ -127,14 +126,14 @@
                                             <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
                                             <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
                                             <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
-                                            <input class='favourite_inp_button' type='submit' value='Add to favourite!'>
+                                            <input class='favourite_inp_button' type='submit' value='Добавить в избранное!'>
                                         </form>
                                     {% endif %}
                                 </div>
                             {% endif %}
                             {% else %}
                             <div class="inp_cart">
-                                <p><a style='color: blue !important;' href='/en/accounts/login'>Log In</a> to account or <a style='color: blue !important;' href='/en/accounts/register'>Sing Up</a> to buy
+                                <p><a style='color: blue !important;' href='/ru/accounts/login'>Войдите</a> в аккаунт или  <a style='color: blue !important;' href='/ru/accounts/register'>зарегестрируйтесь </a> для покупки
                                 </p> 
                             </div>
                             {% endif %}
@@ -146,11 +145,11 @@
                         
                         
                         <div class="pre_desc">
-                            <div class="descr_span">{{ продукт.description }}</div>
+                            <div class="descr_span">{{ продукт.описание }}</div>
                             
                         </div>
                         <div class="desck_link">
-                            <a href="#main_all_hr">More description...</a>
+                            <a href="#main_all_hr">Больше о товаре...</a>
                         </div>
                         <div class="callback_f">
                             <form action="" method='post' >
@@ -177,39 +176,21 @@
                 <div class="main_all_nav">
                     <div class="main_all_nav_hrs">
                         <div class="main_all_nav_hr">
-                            <a href="#main_all_hr" id="main_all_hr">Parametrs</a> 
+                            <a href="#main_all_hr" id="main_all_hr">Описание</a> 
                         </div>
                     </div>
                 </div>
                 <div class="main_all_moreinfo">
                     <div class="desc" id="description">
                         <div class="main_all_bot" id="description">
-                            <p>Description and parameters</p>
+                            <p>Описание и параметры</p>
                             <!-- <span style="white-space: pre-line" class="descr_span">{{ продукт.description }}</span> -->
-                            <div class="descr_span">{{ продукт.description }}</div>
+                            <div class="descr_span">{{ продукт.описание }}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    
-    {% for image in images %}
-    <img src='{{ MEDIA_URL }}{{ image.image }}'>
-    {% endfor %}
-       
-    
-</div>
+    </div> 
 </body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var slider = new SimpleAdaptiveSlider('.slider', {
-        loop: false,
-        autoplay: false,
-        interval: 5000,
-        swipe: true,
-      });
-    });
-  </script>
 </html>

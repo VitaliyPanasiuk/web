@@ -18,263 +18,263 @@
 <body>
     <div class="conteiner">
         <div class="all_products">
-            <div class="helper">
-                <div class="help_search">
-                    <div class='search'>
-                        <form method='POST' action='' class="form_search">
-                            {% csrf_token %}
-                            <div class='searchtextdiv'>
-                                <input type='search' name='searchtext' class="searchtext">
-                            </div>
-                            <div class='searchbuttondiv'>
-                                <input type='submit' name='search' class='searchbutton' value='Search'>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="help_filters">
-                    <form method='POST' action=''>
+        <div class="helper">
+            <div class="help_search">
+                <div class='search'>
+                    <form method='POST' action='' class="form_search">
                         {% csrf_token %}
-                        <div class="filter">
-                        <div class="filter_set">
-                            {% if withprice == 'no' and available == 'no' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' checked>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' checked>
-                                </div>
-                            </div>
-                            {% elif withprice == 'no' and available == 'yes' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' checked>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть' checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' >
-                                </div>
-                            </div>
-                            {% elif withprice == 'yes' and available == 'no' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть' checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' >
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' checked>
-                                </div>
-                            </div>
-                            {% elif withprice == 'yes' and available == 'yes' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть' checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' >
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть' checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету'>
-                                </div>
-                            </div>
-                            {% elif withprice == 'spec' and available == 'yes' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет'>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' >
-                                </div>
-                            </div>
-                            {% elif withprice == 'spec' and available == 'no' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет'>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' checked>
-                                </div>
-                            </div>
-                            {% elif withprice == 'spec' and available == 'spec' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' >
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету' >
-                                </div>
-                            </div>
-                            {% elif withprice == 'yes' and available == 'spec' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть' checked>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет'>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету'>
-                                </div>
-                            </div>
-                            {% elif withprice == 'no' and available == 'spec' %}
-                            <p>Price</p>
-                            <div class="price_lab">
-                                <div class="filter_act">
-                                    <label>With price</label>
-                                <input type='radio' name='pricefilter' value='Цена есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Without price</label>
-                                <input type='radio' name='pricefilter' value='Цены нет' checked>
-                                </div>
-                            </div>
-                            <p>Availability</p>
-                            <div class="availability_lab">
-                                <div class="filter_act">
-                                <label>Available</label>
-                                <input type='radio' name='availablefilter' value='Есть'>
-                                </div>
-                                <div class="filter_act">
-                                <label>Unavailable</label>
-                                <input type='radio' name='availablefilter' value='Нету'>
-                                </div>
-                            </div>
-                            {% endif  %}
+                        <div class='searchtextdiv'>
+                            <input type='search' name='searchtext' class="searchtext">
                         </div>
-                        <div class="filter_but">
-                            <input type='submit' name='applyfilters' value='Apply filters'>
-                            <input type='submit' name='nofilters' value='Clear filters'>
+                        <div class='searchbuttondiv'>
+                            <input type='submit' name='search' class='searchbutton' value='Поиск'>
                         </div>
-                    </div>
                     </form>
                 </div>
-                <div class="help_category">
-                    <div class="category">
-                        <ul class="categories">
-                            {% for i in category %}
-                                <li>{{ i.category_name_en }}
-                                    <ul class="subcategories">
-                                        {% for j in i.подкатегория.all %}
-                                            <li>
-                                                <form method="POST", action="">
-                                                    {% csrf_token %}
-                                                    <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
-                                                    <input type='submit' name='categoryname' value='{{ j.subcategory_name_en }}'>
-                                                </form>
-                                            </li>
-                                            {% endfor %}
-                                    </ul>
-                                </li>
-                            {% endfor %}
-                        </ul>
+            </div>
+            <div class="help_filters">
+                <form method='POST' action=''>
+                    {% csrf_token %}
+                    <div class="filter">
+                    <div class="filter_set">
+                        {% if withprice == 'no' and available == 'no' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' checked>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' checked>
+                            </div>
+                        </div>
+                        {% elif withprice == 'no' and available == 'yes' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' checked>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть' checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' >
+                            </div>
+                        </div>
+                        {% elif withprice == 'yes' and available == 'no' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть' checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' >
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' checked>
+                            </div>
+                        </div>
+                        {% elif withprice == 'yes' and available == 'yes' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть' checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' >
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть' checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету'>
+                            </div>
+                        </div>
+                        {% elif withprice == 'spec' and available == 'yes' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет'>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' >
+                            </div>
+                        </div>
+                        {% elif withprice == 'spec' and available == 'no' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет'>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' checked>
+                            </div>
+                        </div>
+                        {% elif withprice == 'spec' and available == 'spec' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' >
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету' >
+                            </div>
+                        </div>
+                        {% elif withprice == 'yes' and available == 'spec' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть' checked>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет'>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету'>
+                            </div>
+                        </div>
+                        {% elif withprice == 'no' and available == 'spec' %}
+                        <p>Цена</p>
+                        <div class="price_lab">
+                            <div class="filter_act">
+                                <label>С ценой</label>
+                            <input type='radio' name='pricefilter' value='Цена есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Без цены</label>
+                            <input type='radio' name='pricefilter' value='Цены нет' checked>
+                            </div>
+                        </div>
+                        <p>Наличие</p>
+                        <div class="availability_lab">
+                            <div class="filter_act">
+                            <label>Есть в наличии</label>
+                            <input type='radio' name='availablefilter' value='Есть'>
+                            </div>
+                            <div class="filter_act">
+                            <label>Нет в наличии</label>
+                            <input type='radio' name='availablefilter' value='Нету'>
+                            </div>
+                        </div>
+                        {% endif  %}
+                    </div>
+                    <div class="filter_but">
+                        <input type='submit' name='applyfilters' value='Применить фильтры'>
+                        <input type='submit' name='nofilters' value='Убрать все фильтры'>
                     </div>
                 </div>
+                </form>
             </div>
+            <div class="help_category">
+                <div class="category">
+                    <ul class="categories">
+                        {% for i in category %}
+                            <li>{{ i.category_name_ru }}
+                                <ul class="subcategories">
+                                    {% for j in i.подкатегория.all %}
+                                        <li>
+                                            <form method="POST", action="">
+                                                {% csrf_token %}
+                                                <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
+                                                <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
+                                            </form>
+                                        </li>
+                                        {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="body_inf">    
             <div class="content_products">
                 {{ error_message }}
@@ -282,24 +282,24 @@
                             <div class="line">
                                 <div class="line_item item1">
                                     <div class="line_item_info">
-                                        <a href='/en/product/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ MEDIA_URL }}{{ продукт.image }}" alt=""></div></a> 
+                                        <a href='/ru/product/{{ продукт.id }}/'><div class="line_item_img"><img src="{{ MEDIA_URL }}{{ продукт.image }}" alt=""></div></a> 
                                         <div class="protuct_tit">
                                             <p class="line_item_text item_info">
-                                                {{ продукт.name }}
+                                                {{ продукт.название_позиции }}
                                             </p>
                                         </div> 
                                         {% if продукт.наличие != '-'  %}
                                             <p class="item_info">
-                                                Available
+                                                Есть в наличии
                                             </p>
                                         {% else %}
                                             <p class=" item_info">
-                                                Unavailable
+                                                Нет в наличии
                                             </p>
                                         {% endif %}
                                         {% if продукт.цена == None or продукт.валюта == None %}
                                             <p class="line_item_price item_info">
-                                                Unknown price
+                                                Цена формируется
                                             </p> 
                                         {% else %}  
                                             <p class="line_item_price item_info">
@@ -308,8 +308,8 @@
                                         {% endif %}
                                     </div>
                                     <div class="line_item_button">
-                                        <a class="line_item_but " href='/en/product/{{ продукт.id }}/'>
-                                            More
+                                        <a class="line_item_but " href='/ru/product/{{ продукт.id }}/'>
+                                            Подробнее
                                         </a>   
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@
                         {% endfor %}  
             </div>
         </div>
-        </div>
+    </div>
     </div>
 
 </body>

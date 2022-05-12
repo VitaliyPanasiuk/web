@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  href="{%  static  'shop/css/style.css'  %}">
     <link rel="stylesheet"  href="{%  static  'shop/css/main/style.css'  %}">
+    <link rel="stylesheet" href="{% static '' %}shop/newProd/nicepage.css" media="screen">
+    <link rel="stylesheet" href="{% static '' %}shop/newProd/Продукт.css" media="screen">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -15,6 +17,20 @@
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
     <title>LuxonSport</title>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProd/jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{% static '' %}shop/newProd/nicepage.js" defer=""></script>
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "Site1",
+		"sameAs": []
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Продукт">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
 </head>
 <body>
     {% block content %}
