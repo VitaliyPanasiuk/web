@@ -1153,6 +1153,7 @@ def aboutProductPage(request, id, lang):
         ru_order_item = models.CharField(max_length=500, null=True, blank=True)
         uk_order_item = models.CharField(max_length=500, null=True, blank=True)
         en_order_item = models.CharField(max_length=500, null=True, blank=True)
+        image = models.CharField(max_length=200, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -1209,6 +1210,7 @@ def aboutProductPage(request, id, lang):
             item_price = request.POST.get("add_price", "")
             item_currency = request.POST.get("add_currency", "")
             howMuchToAdd = request.POST.get("how_much_to_add", "")
+            item_image = request.POST.get("add_image", "")
             if lang == "ru":
                 product = Продукт.objects.get(id=item_id)
                 if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):
@@ -1243,6 +1245,7 @@ def aboutProductPage(request, id, lang):
                     ru_order_item=item_name_ru,
                     en_order_item=item_name_en,
                     uk_order_item=item_name_uk,
+                    image = item_image,
                 )
             elif lang == "en":
                 product = Продукт.objects.get(id=item_id)
@@ -1278,6 +1281,7 @@ def aboutProductPage(request, id, lang):
                     ru_order_item=item_name_ru,
                     en_order_item=item_name_en,
                     uk_order_item=item_name_uk,
+                    image = item_image,
                 )
             elif lang == "uk":
                 product = Продукт.objects.get(id=item_id)
@@ -1320,6 +1324,7 @@ def aboutProductPage(request, id, lang):
                 ru_order_item=item_name_ru,
                 en_order_item=item_name_en,
                 uk_order_item=item_name_uk,
+                image = item_image,
                 )
             ToSave.save()
             cart_item = ShopCarty.objects.all()

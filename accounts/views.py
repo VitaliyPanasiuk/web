@@ -287,6 +287,7 @@ def userCart(request, uid, lang):
         ru_order_item = models.CharField(max_length=500, null=True, blank=True)
         uk_order_item = models.CharField(max_length=500, null=True, blank=True)
         en_order_item = models.CharField(max_length=500, null=True, blank=True)
+        image = models.CharField(max_length=200, null=True, blank=True)
 
         class Meta:
             managed = False
@@ -307,7 +308,8 @@ def userCart(request, uid, lang):
                         cartItem.save()
     # DELETE FROM CART
     if request.POST:
-        itemToDelete = request.POST.get("delete", "")
+        itemToDelete = request.POST.get("itemToDelete", "")
+        delete = request.POST.get('delete', '')
         addOneMore = request.POST.get("plus", "")
         removeOneMore = request.POST.get("minus", "")
         makeorder = request.POST.get('makeorder', '')
@@ -351,7 +353,7 @@ def userCart(request, uid, lang):
             else:
                 carts.save()
                 return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
-        elif itemToDelete:
+        elif delete:
             ShopCarty.objects.filter(item=itemToDelete).delete()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
         elif language:

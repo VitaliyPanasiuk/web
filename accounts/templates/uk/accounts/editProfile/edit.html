@@ -45,7 +45,7 @@
     </style>
 </head>
 <body>
-    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/header.html' %}
     <div class="redactProfile_body">
         <h1 class='main_label'>Редагувати персональні дані</h1>
         <form action="" method="POST">
@@ -72,7 +72,7 @@
                     <label>Підтвердіть пароль</label>
                     <div class="person_confirm_other">
                         <input type="password" name='password' id='password' required >
-                        <input type="conf_password" value='Зберегти' readonly>
+                        <input type="submit" value='Зберегти' readonly>
                     </div>
                     
                 </div>
@@ -82,5 +82,5 @@
     </div>
      
 </body>
-{% include 'uk/accounts/profilePage/includes/footer.html' %}
+{% include 'uk/accounts/footer.html' %}
 </html>

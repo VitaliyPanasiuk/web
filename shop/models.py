@@ -309,6 +309,7 @@ class ShopCart(models.Model):
     ru_order_item = models.CharField(max_length=500, null=True, blank=True)
     uk_order_item = models.CharField(max_length=500, null=True, blank=True)
     en_order_item = models.CharField(max_length=500, null=True, blank=True)
+    image = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
         db_table = 'shop_cart'

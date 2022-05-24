@@ -273,6 +273,10 @@
   margin: 0 15px;
 }
 
+.delete {
+  cursor: pointer;
+}
+
 .u-section-1 .u-icon-7 {
   font-size: 1.5em;
   width: 37px;
@@ -1105,14 +1109,17 @@
 }
 
 .forms_cart {
+  z-index: 1000;
   position: absolute;
   right: 0;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .form_cart_input {
   background: none;
+  cursor: pointer;
   border: none;
   height: 40px;
   width: 40px;
@@ -1120,6 +1127,7 @@
 
 .form_cart_input_am {
   background: #fff;
+  cursor: pointer;
   border: none;
   height: 40px;
   width: 40px;
