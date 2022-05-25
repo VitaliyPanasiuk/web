@@ -81,16 +81,26 @@
                             {% elif order.confirm == 'done' %}
                             <p>Статус заказа: Заказ выполнен</p>
                             {% endif %}
+
                             {% if order.delivery_type == None %}
-                            <p>Тип доставки: не выбран</p>
-                            {% else %}
-                            <p>Тип доставки: {{ order.delivery_type }}</p>
+                            <p>Тип доставки: не обраний</p>
+                            {% elif order.delivery_type == "Самовывоз" %}
+                            <p>Тип доставки: Самовывоз</p>
+                            {% elif order.delivery_type == "Нова Пошта" %}
+                            <p>Тип доставки: Новая Почта</p>
+                            {% elif order.delivery_type == "Укрпошта" %}
+                            <p>Тип доставки: Укрпочта</p>
                             {% endif %}
+
+
                             {% if order.payment_type == None %}
-                            <p>Тип оплаты: не выбран</p>
+                            <p>Тип оплати: не обраний</p>
+                            {% elif order.payment_type == 'Наличный'%}
+                            <p>Тип оплати: Наличными</p>
                             {% else %}
-                            <p>Тип оплаты: {{ order.payment_type }}</p>
+                            <p>Тип оплати: Безналичный</p>
                             {% endif %}
+
                             {% if order.delivery_type == 'Нова пошта' %}
                             <p>Отделение Новой Почты: {{ order.nova_pochta }}</p>
                             <p>Город: {{ order.city }}</p>

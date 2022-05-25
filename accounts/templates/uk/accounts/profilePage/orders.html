@@ -95,7 +95,7 @@
 
                             <div class="orderId_block">
                                 <h3 class="">
-                                    Замовлення №{{order.id }}
+                                    <a href="/uk/accounts/{{ request.user.id }}/order/{{ order.id }}">Замовлення №{{order.id }}</a>
                                 </h3>
                             </div>
                             <div class="st_block">
@@ -105,15 +105,15 @@
                                 </h5>
                                 {% elif order.confirm == 'ac' %}
                                 <h5 class="st_text">
-                                    Статус замовлення:<br> Замовлення прийняте
+                                    Статус замовлення:<br> Замовлення прийнято
                                 </h5>
                                 {% elif order.confirm == 'done' %}
                                 <h5 class="st_text">
-                                    Статус замовлення: <br> Виконан
+                                    Статус замовлення: <br> Виконано
                                 </h5>
                                 {% elif order.confirm == 'unc' %}
                                 <h5 class="st_text">
-                                    Статус замовлення:<br> не підтверджений <br> користувачем
+                                    Статус замовлення:<br> не підтверджено <br> користувачем
                                 </h5>
                                 {% endif %}
                             </div>
@@ -130,7 +130,7 @@
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='delete' id='delete'
                                                 value='{{ order.id }}'></div>
-                                        <input type='submit' value='&#10060;'>
+                                        <input type='submit' class="delete" value='&#10060;'>
                                     </form>
                                 {% endif %}
                             </div>
@@ -174,15 +174,15 @@
                                     </h5>
                                     {% elif order.confirm == 'ac' %}
                                     <h5 class="st_text">
-                                        Статус замовлення:<br> Замовлення прийняте
+                                        Статус замовлення:<br> Замовлення прийнято
                                     </h5>
                                     {% elif order.confirm == 'done' %}
                                     <h5 class="st_text">
-                                        Статус замовлення: <br> Виконан
+                                        Статус замовлення: <br> Виконано
                                     </h5>
                                     {% elif order.confirm == 'unc' %}
                                     <h5 class="st_text">
-                                        Статус замовлення:<br> не підтверджений <br> користувачем
+                                        Статус замовлення:<br> не підтверджено <br> користувачем
                                     </h5>
                                     {% endif %}
                                 </div>
@@ -198,7 +198,7 @@
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete'
                                             value='{{ order.id }}'></div>
-                                    <input type='submit' value='&#10060;'>
+                                    <input type='submit' class="delete" value='&#10060;'>
                                 </form>
                                 <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>

@@ -23,6 +23,9 @@ def register(request, lang):
     args = {}
     args.update(csrf(request))
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         username = request.POST.get("username", "")
         email = request.POST.get('email', '')
         password1 = request.POST.get("password1", "")
@@ -40,6 +43,8 @@ def register(request, lang):
                 return redirect('/' + current_user.user_language + '/accounts/register/')
             else:
                 return redirect('/' + str(language) + '/accounts/register/')
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         for i in password2:
             if i.isupper():
                 upper_case += 1
@@ -117,6 +122,9 @@ def login(request, lang):
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         language = request.POST.get('language', '')
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         user = auth.authenticate(username=username, password=password)
         if language:
             if request.user.id != None:
@@ -126,6 +134,8 @@ def login(request, lang):
                 return redirect('/' + current_user.user_language + '/accounts/login/')
             else:
                 return redirect('/' + str(language) + '/accounts/login/')
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         if user is not None:
             auth.login(request, user)
             return redirect("/" + str(lang))
@@ -154,6 +164,9 @@ def userProfilePage(request, uid, lang):
         auth_status = 'success'
     if request.POST:
         language = request.POST.get('language', '')
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -162,6 +175,8 @@ def userProfilePage(request, uid, lang):
                 return redirect('/' + current_user.user_language + '/accounts/' + str(uid))
             else:
                 return redirect('/' + str(language) + '/accounts/' + str(uid))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
     else:        
         context = {
             'auth_status': auth_status,
@@ -208,11 +223,16 @@ def userOrders(request, uid, lang):
             managed = False
             db_table = 'shop_order'
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         itemToDelete = request.POST.get("delete", "")
         language = request.POST.get('language', '')
         if itemToDelete:
             ShopOrdery.objects.filter(id=int(itemToDelete)).delete()
             return redirect('/' + lang + '/accounts/' + str(request.user.id) + '/orders')
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -308,6 +328,10 @@ def userCart(request, uid, lang):
                         cartItem.save()
     # DELETE FROM CART
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
+        itemToDelete = request.POST.get("delete", "")
         itemToDelete = request.POST.get("itemToDelete", "")
         delete = request.POST.get('delete', '')
         addOneMore = request.POST.get("plus", "")
@@ -356,6 +380,8 @@ def userCart(request, uid, lang):
         elif delete:
             ShopCarty.objects.filter(item=itemToDelete).delete()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/cart")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -471,7 +497,7 @@ def userCart(request, uid, lang):
                 "amounts": b,
                 "userId": str(request.user.id),
                 "account": str(uid),
-                "sum": summary,
+                "sum": round(summary, 2),
                 'currency': currency,
             }
         except UnboundLocalError:
@@ -496,11 +522,16 @@ def userFavourites(request, uid, lang):
         auth_status = 'success'
 
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         itemToDelete = request.POST.get("delete", "")
         language = request.POST.get('language', '')
         if itemToDelete:
             ShopFavourite.objects.filter(favourite_item=itemToDelete).delete()
             return redirect('/' + lang + "/accounts/" + str(request.user.id) + "/favourites")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -537,6 +568,9 @@ def editProfilePage(request, uid ,lang):
     new_house = request.POST.get('new_house', '')
     password = request.POST.get('password', '')
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         userProfile = AuthUser.objects.get(id=uid)
         language = request.POST.get('language', '')
         userProfile.first_name = new_name
@@ -555,6 +589,8 @@ def editProfilePage(request, uid ,lang):
                 current_user.user_language = str(language)
                 current_user.save()
                 return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit')
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             template = lang + '/accounts/editProfile/edit.html'
             if lang == 'ru':
@@ -589,6 +625,9 @@ def editPasswordPage(request, uid, lang):
     userProfile = AuthUser.objects.get(id=request.user.id)
     template = lang + '/accounts/editProfile/editPassword.html'
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         language = request.POST.get('language', '')
         if check_password(password=old_pwd , encoded=userProfile.password) == True:
             if new_pwd == repeat_new_pwd:
@@ -610,6 +649,8 @@ def editPasswordPage(request, uid, lang):
                 'error_message': error_code,
             }
             return render(request, template, context)
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -698,6 +739,9 @@ def makeOrder(request, uid, lang):
     needed = currencys[len(currencys) - 1]
     currency = max(float(i) for i in needed.usd_to_uah.replace(',','.').split())
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         language = request.POST.get('language', '')
         go = request.POST.get('go', '')
         first_name = request.POST.get('first_name', '')
@@ -721,6 +765,8 @@ def makeOrder(request, uid, lang):
                 current_user.user_language = str(language)
                 current_user.save()
                 return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit-order/' + str(last_order.id))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         if orderFromHtml == None:
             for i in cart:
                 if str(i.user_id) == str(request.user.id):
@@ -906,11 +952,16 @@ def orderInfo(request, oid, uid, lang):
         auth_status = 'success'
         
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         edit = request.POST.get('edit', '')
         editid = request.POST.get('editid', '')
         language = request.POST.get('language', '')
         if edit:
             return redirect('/' + lang + '/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -945,9 +996,17 @@ def success_order(request, uid, lang):
     else: 
         auth_status = 'success'
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         language = request.POST.get('language', '')
         if language:
+            current_user = AuthUser.objects.get(id=request.user.id)
+            current_user.user_language = str(language)
+            current_user.save()
             return redirect('/' + str(language))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
     else:
         template = lang + '/accounts/profilePage/success.html'
         context = {
@@ -998,6 +1057,9 @@ def edit_order_page(request, uid, oid, lang):
     except ValueError:
         user = AuthUser.objects.get(id=str(1))
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         language = request.POST.get('language', '')
         go = request.POST.get('go', '')
         first_name = request.POST.get('first_name', '')
@@ -1019,6 +1081,8 @@ def edit_order_page(request, uid, oid, lang):
                 current_user.user_language = str(language)
                 current_user.save()
                 return redirect('/' + current_user.user_language + '/accounts/' + str(uid) + '/edit-order/' + str(oid))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         if orderFromHtml == None:
             if lang == 'ru':
                 error_message = 'Ошибка: Пустой заказ'

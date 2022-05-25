@@ -96,7 +96,7 @@
 
                             <div class="orderId_block">
                                 <h3 class="">
-                                    Заказ №{{order.id }}
+                                    <a href="/ru/accounts/{{ request.user.id }}/order/{{ order.id }}">Заказ №{{order.id }}</a>
                                 </h3>
                             </div>
                             <div class="st_block">
@@ -125,13 +125,13 @@
                                 </h5>
                             </div>
                             <div class="order_del">
-                                {% if order.confirm == 'done' %}
+                                {% if order.confirm == 'unc' %}
                                     <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                                     <form action='' method="POST" class="form_del">
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='delete' id='delete'
                                                 value='{{ order.id }}'></div>
-                                        <input type='submit' value='&#10060;'>
+                                        <input type='submit' class="delete" value='&#10060;'>
                                     </form>
                                 {% endif %}
                             </div>
@@ -165,7 +165,7 @@
                             <div class="order_num_status">
                                 <div class="orderId_block">
                                     <h3 class="">
-                                        Заказ №{{order.id }}
+                                        <a href="/ru/accounts/{{ request.user.id }}/order/{{ order.id }}">Заказ №{{order.id }}</a>
                                     </h3>
                                 </div>
                                 <div class="st_block">
@@ -199,7 +199,7 @@
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete'
                                             value='{{ order.id }}'></div>
-                                    <input type='submit' value='&#10060;'>
+                                    <input type='submit' class="delete" value='&#10060;'>
                                 </form>
                                 <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>

@@ -18,8 +18,11 @@ y = 4
 
 
 def homePage(request, lang):
-    language = request.POST.get("language", "")
     if request.POST:
+        language = request.POST.get("language", "")
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -28,6 +31,8 @@ def homePage(request, lang):
                 return redirect("/" + current_user.user_language)
             else:
                 return redirect("/" + str(language))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             HttpResponse("404")
     else:
@@ -1062,8 +1067,11 @@ def error404(request, exception):
 
 
 def achievementsPage(request, lang):
-    language = request.POST.get("language", "")
     if request.POST:
+        language = request.POST.get("language", "")
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -1072,6 +1080,8 @@ def achievementsPage(request, lang):
                 return redirect("/" + current_user.user_language + "/achievements/")
             else:
                 return redirect("/" + str(language) + "/achievements/")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             HttpResponse("404")
     else:
@@ -1082,8 +1092,11 @@ def achievementsPage(request, lang):
 
 
 def aboutUsPage(request, lang):
-    language = request.POST.get("language", "")
     if request.POST:
+        language = request.POST.get("language", "")
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -1092,6 +1105,8 @@ def aboutUsPage(request, lang):
                 return redirect("/" + current_user.user_language + "/about/")
             else:
                 return redirect("/" + str(language) + "/about/")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             HttpResponse("404")
     else:
@@ -1102,8 +1117,11 @@ def aboutUsPage(request, lang):
 
 
 def collaborationPage(request, lang):
-    language = request.POST.get("language", "")
     if request.POST:
+        language = request.POST.get("language", "")
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -1112,6 +1130,8 @@ def collaborationPage(request, lang):
                 return redirect("/" + current_user.user_language + "/collaboration/")
             else:
                 return redirect("/" + str(language) + "/collaboration/")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             HttpResponse("404")
     else:
@@ -1122,8 +1142,11 @@ def collaborationPage(request, lang):
 
 
 def guaranteesPage(request, lang):
-    language = request.POST.get("language", "")
     if request.POST:
+        language = request.POST.get("language", "")
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -1132,6 +1155,8 @@ def guaranteesPage(request, lang):
                 return redirect("/" + current_user.user_language + "/guarantees/")
             else:
                 return redirect("/" + str(language) + "/guarantees/")
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         else:
             HttpResponse("404")
     else:
@@ -1195,6 +1220,9 @@ def aboutProductPage(request, id, lang):
 
     #favourites = ShopFavourite.objects.all()
     if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
         cart_add = request.POST.get("add_to_cart", "")
         favourite_add = request.POST.get("add_to_favourite", "")
         first_name = request.POST.get("callme_first_name", "")
@@ -1342,6 +1370,8 @@ def aboutProductPage(request, id, lang):
             return redirect(
                 "/" + str(lang) + "/accounts/" + str(request.user.id) + "/cart"
             )
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
         elif language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)

@@ -94,42 +94,42 @@
 
                             <div class="orderId_block">
                                 <h3 class="">
-                                    Order №{{order.id }}
+                                    <a href="/en/accounts/{{ request.user.id }}/order/{{ order.id }}">Order №{{order.id }}</a></h3>
                                 </h3>
                             </div>
                             <div class="st_block">
                                 {% if order.confirm == 'uc' %}
                                 <h5 class="st_text">
-                                    Order status:<br> In processing
+                                    Status:<br> Processing
                                 </h5>
                                 {% elif order.confirm == 'ac' %}
                                 <h5 class="st_text">
-                                    Order status:<br> Order is accepted
+                                    Status:<br> Order is accepted
                                 </h5>
                                 {% elif order.confirm == 'done' %}
                                 <h5 class="st_text">
-                                    Order status: <br> Completed
+                                    Status: <br> Completed
                                 </h5>
                                 {% elif order.confirm == 'unc' %}
                                 <h5 class="st_text">
-                                    Order status:<br> not confirmed <br> by user
+                                    Status:<br> user <br> must confirm
                                 </h5>
                                 {% endif %}
                             </div>
 
                             <div class="order_price">
                                 <h5 class="">
-                                    Order price:&nbsp;<br>{{ order.сумма_заказа }} UAH
+                                    Price:&nbsp;<br>{{ order.сумма_заказа }} UAH
                                 </h5>
                             </div>
                             <div class="order_del">
-                                {% if order.confirm == 'done' %}
+                                {% if order.confirm == 'unc' %}
                                     <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                                     <form action='' method="POST" class="form_del">
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='delete' id='delete'
                                                 value='{{ order.id }}'></div>
-                                        <input type='submit' value='&#10060;'>
+                                        <input type='submit' class="delete" value='&#10060;'>
                                     </form>
                                 {% endif %}
                             </div>
@@ -162,25 +162,27 @@
                             <div class="order_num_status">
                                 <div class="orderId_block">
                                     <h3 class="">
-                                        Заказ №{{order.id }}
+                                        <a href='/en/accounts/{{ request.user.id }}/order/{{ order.id }}'>
+                                            Order №{{order.id }}
+                                        </a>
                                     </h3>
                                 </div>
                                 <div class="st_block">
                                     {% if order.confirm == 'uc' %}
                                     <h5 class="st_text">
-                                        Статус заказа:<br> В обработке
+                                        Status:<br> Processing
                                     </h5>
                                     {% elif order.confirm == 'ac' %}
                                     <h5 class="st_text">
-                                        Статус заказа:<br> Заказ принят
+                                        Status:<br> Order is accepted
                                     </h5>
                                     {% elif order.confirm == 'done' %}
                                     <h5 class="st_text">
-                                        Статус заказа: <br> Выполнен
+                                        Status: <br> Completed
                                     </h5>
                                     {% elif order.confirm == 'unc' %}
                                     <h5 class="st_text">
-                                        Статус заказа:<br> не подтвержден <br> пользователем
+                                        Status:<br> user <br> must confirm
                                     </h5>
                                     {% endif %}
                                 </div>
@@ -188,7 +190,7 @@
 
                             <div class="order_price">
                                 <h5 class="">
-                                    Сумма заказа:&nbsp;<br>{{ order.сумма_заказа }} UAH
+                                    Price:&nbsp;<br>{{ order.сумма_заказа }} UAH
                                 </h5>
                             </div>
                             <div class="order_del">
@@ -196,7 +198,7 @@
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete'
                                             value='{{ order.id }}'></div>
-                                    <input type='submit' value='&#10060;'>
+                                    <input type='submit' class="delete" value='&#10060;'>
                                 </form>
                                 <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>

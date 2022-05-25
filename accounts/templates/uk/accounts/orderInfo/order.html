@@ -62,7 +62,7 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     <div class="con_order_tit">
-                        <span style="white-space: pre-line">{{ order.order_ru }}</span>
+                        <span style="white-space: pre-line">{{ order.order_uk }}</span>
                     </div>
                     <div class="con_order_info_top">
                         <div class="con_order_privat_info">
@@ -81,16 +81,27 @@
                             {% elif order.confirm == 'done' %}
                             <p>Статус замовлення: Заказ виконан</p>
                             {% endif %}
+
+
                             {% if order.delivery_type == None %}
                             <p>Тип доставки: не обраний</p>
-                            {% else %}
-                            <p>Тип доставки: {{ order.delivery_type }}</p>
+                            {% elif order.delivery_type == "Самовывоз" %}
+                            <p>Тип доставки: Самовивіз</p>
+                            {% elif order.delivery_type == "Нова Пошта" %}
+                            <p>Тип доставки: Нова Пошта</p>
+                            {% elif order.delivery_type == "Укрпошта" %}
+                            <p>Тип доставки: Укрпошта</p>
                             {% endif %}
+
+
                             {% if order.payment_type == None %}
-                            <p>Тип оплаты: не обраний</p>
+                            <p>Тип оплати: не обраний</p>
+                            {% elif order.payment_type == 'Наличный'%}
+                            <p>Тип оплати: Готівкою</p>
                             {% else %}
-                            <p>Тип оплаты: {{ order.payment_type }}</p>
+                            <p>Тип оплати: Безготівковий</p>
                             {% endif %}
+                            
                             {% if order.delivery_type == 'Нова пошта' %}
                             <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
                             <p>Місто: {{ order.city }}</p>
@@ -100,7 +111,7 @@
                             <p>Поштовий індекс: {{ order.ukr_pochta }}</p>
                             <p>Місто: {{ order.city }}</p>
                             <p>Вулиця: {{ order.street }}</p>
-                            <p>Дфм: {{ order.house }}</p>
+                            <p>Дім: {{ order.house }}</p>
                             {% endif %}
                             
                         </div>

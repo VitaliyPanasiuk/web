@@ -34,6 +34,7 @@ class AuthUser(models.Model):
     date_joined = models.DateTimeField()
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
+    user_language = models.CharField(max_length=45, blank=True, null=True)
     
 
     class Meta:
