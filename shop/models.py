@@ -255,7 +255,7 @@ class Продукт(models.Model):
 
 class Image(models.Model):
     image = models.ImageField(upload_to='productInfo/', verbose_name='Изображение')
-    product = models.ForeignKey(Продукт, default=None, related_name='images',on_delete=models.CASCADE)
+    product = models.ForeignKey(Продукт, default=None, related_name='images', on_delete=models.CASCADE)
     class Meta:
         verbose_name_plural = 'Изображения'
         verbose_name = 'Изображение'
