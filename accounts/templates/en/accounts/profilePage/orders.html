@@ -194,12 +194,14 @@
                                 </h5>
                             </div>
                             <div class="order_del">
+                                {% if order.confirm == 'unc' %}
                                 <form action='' method="POST" class="form_del">
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete'
                                             value='{{ order.id }}'></div>
                                     <input type='submit' class="delete" value='&#10060;'>
                                 </form>
+                                {% endif %}
                                 <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>
                         </div>
