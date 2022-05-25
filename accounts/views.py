@@ -119,6 +119,7 @@ def login(request, lang):
     args = {}
     args.update(csrf(request))
     if request.POST:
+        login = request.POST.get('login', '')
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
         language = request.POST.get('language', '')
@@ -136,17 +137,20 @@ def login(request, lang):
                 return redirect('/' + str(language) + '/accounts/login/')
         elif search:
             return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
-        if user is not None:
-            auth.login(request, user)
-            return redirect("/" + str(lang))
-        else:
-            if lang == 'en':
-                args["login_error"] = "Wrong username or password!"
-            elif lang == 'ru':
-                args['login_error'] = 'Неверное имя пользователя или пароль'
-            elif lang == 'uk':
-                args['login_error'] = "Невірне ім'я користувача або пароль"
-            return render(request, '' + str(lang) + "/accounts/auth/failed.html", args)
+        elif login:
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+                current_user = AuthUser.objects.get(id=request.user.id)
+                return redirect("/" + current_user.user_language)
+            else:
+                if lang == 'en':
+                    args["login_error"] = "Wrong username or password!"
+                elif lang == 'ru':
+                    args['login_error'] = 'Неверное имя пользователя или пароль'
+                elif lang == 'uk':
+                    args['login_error'] = "Невірне ім'я користувача або пароль"
+                return render(request, '' + str(lang) + "/accounts/auth/failed.html", args)
 
     else:
         return render(request, '' + str(lang) + "/accounts/auth/login.html", args)
