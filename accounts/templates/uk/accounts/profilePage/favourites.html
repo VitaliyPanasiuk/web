@@ -119,6 +119,10 @@
                   {% endfor %} 
                 </div>
               </div> -->
+            {% if not favourites %}
+              <p>Немає обраних товарів</p>
+            {% endif %}
+
         {% else %}
         <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/'
             style="text-decoration: underline; color: blue !important;">Вернуться на главную!</a></h1>
