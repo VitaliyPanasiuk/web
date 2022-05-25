@@ -47,6 +47,9 @@
         <form action="" method='post'>
           <div class="formbl">
             {% csrf_token %}
+            <div class="reg-tit">
+              <h2>Увійти до акаунту</h2>
+            </div>
             <div class="log_inf">
               <div class="log_lab">
                 <label for='username'>Ім'я користувача</label>
@@ -69,6 +72,7 @@
               
             </div>
             
+           
             
             {% if login_error %}
               <label>{{ login_error }}</label>
@@ -79,7 +83,9 @@
               </div>
 
             </div>
-            
+            Немає аккаунту? Нажміть
+              <a href="/uk/accounts/register"> тут </a>
+            щоб зареєструватися.
           </div>
             
         </form>

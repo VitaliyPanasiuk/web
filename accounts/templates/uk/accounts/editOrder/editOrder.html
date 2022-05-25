@@ -73,7 +73,7 @@
             {% endif %}
             <br>
             <label>Замовлення: </label><div style='display: none;'>
-                <input type="hidden" value='{{ order.заказ }}' name='order'>
+                <input type="hidden" value='{{ order.order_uk }}' name='order'>
             </div>
             <br>
             <p>{{ order.order_uk }}</p>
@@ -99,7 +99,11 @@
             <label>Безготівковий</label><label style="color: red;">Недоступно (в розробці)</label>
             <div id='address' style='display: none;'>
                 <p>Адреса</p>
+                {% if user.nova_pochta != None %}
                 <div id='nova' style='display: none;'><label>Відділення Новой Почты: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                {% else %}
+                <div id='nova' style='display: none;'><label>Відділення Новой Почты: </label><input type='text' name='nova_pochta' value=''></div>
+                {% endif %}
                 <div id='ukr' style='display: none;'><label>Поштовый індекс: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
                 <label>Місто: </label><input type='text' name='city' value='{{ user.city }}'>
                 <label>Вулиця: </label><input type='text' name='street' value='{{ user.street }}'>

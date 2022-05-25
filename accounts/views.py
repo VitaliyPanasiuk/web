@@ -288,7 +288,7 @@ def userCart(request, uid, lang):
         house = models.CharField(max_length=50, blank=True, null=True)
         payment_type = models.CharField(max_length=20, blank=True, null=True)
         delivery_type = models.CharField(max_length=20, blank=True, null=True)
-        nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
+        nova_pochta = models.CharField(max_length=1000, blank=True, null=True, default='')
         ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
         confirm = models.CharField(max_length=500, blank=True, null=True)
         order_uk = models.TextField(max_length=2000, blank=True, null=True)
@@ -296,7 +296,7 @@ def userCart(request, uid, lang):
         order_en = models.TextField(max_length=2000, blank=True, null=True)
 
         class Meta:
-            managed = False
+            managed = True
             db_table = 'shop_order'
 
     # ADD TO CART
@@ -962,6 +962,7 @@ def orderInfo(request, oid, uid, lang):
         edit = request.POST.get('edit', '')
         editid = request.POST.get('editid', '')
         language = request.POST.get('language', '')
+        print(editid)
         if edit:
             return redirect('/' + lang + '/accounts/'+str(request.user.id)+'/edit-order/'+str(editid))
         elif search:
