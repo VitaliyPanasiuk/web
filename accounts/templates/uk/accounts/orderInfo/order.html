@@ -101,7 +101,7 @@
                             {% else %}
                             <p>Тип оплати: Безготівковий</p>
                             {% endif %}
-
+                            
                             {% if order.delivery_type == 'Нова пошта' %}
                             <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
                             <p>Місто: {{ order.city }}</p>
@@ -119,13 +119,13 @@
                     <div class="con_order_info_bot">
                         {% if order.confirm == 'unc' %}
                         <div style="color:red; text-decoration:none;">
-                            <p>Увага! статус замовлення: Не підтверджений користувачем. Будь ласка, заввершіть оформлення замовлення.</p>
+                            <p>Увага! статус замовлення: Не підтверджений користувачем. Будьласка, заввершіть оформлення замовлення.</p>
                         </div>
                         {% endif %}
                         <div class="confirm_btn">
                             {% if order.confirm == 'unc' %}
                             <input type='hidden' name='editid' value='{{ order.id }}'>
-                            <input type="submit" name='edit' id="edit" value='Завершити' readonly>
+                            <input type="confirm_order" name='edit' value='Завершити' readonly>
                             {% endif %}
                         </div>
                     </div>

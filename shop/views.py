@@ -1311,7 +1311,6 @@ def aboutProductPage(request, id, lang):
                     uk_order_item=item_name_uk,
                     image = item_image,
                 )
-                #ToSave.save()
             elif lang == "uk":
                 product = Продукт.objects.get(id=item_id)
                 if int(howMuchToAdd) >= int(round(product.минимальный_заказ_опт, 0)):

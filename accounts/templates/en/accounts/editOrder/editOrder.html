@@ -76,30 +76,30 @@
                 <input type="hidden" value='{{ order.заказ }}' name='order'>
             </div>
             <br>
-            <p>{{ order.order_en }}</p>
+            <p>{{ order.order_ru }}</p>
             <div style='display: none;'>
                 <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
             </div>
             <p>To pay: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
             <p>Type of delivery: </p>
             <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>Pick up</label>
+            <label>Pickup</label>
             <br>
             <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-            <label>Nova Poshta</label>
+            <label>Nova Pochta</label>
             <br>
             <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-            <label>Ukrposhta</label>
+            <label>Ukrpochta</label>
             <br>
             <p>Type of payment: </p>
             <input type="radio" name='typeOfPayment' value='Наличный' checked>
-            <label>By cash</label>
+            <label>Cash</label>
             <br>
             <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
-            <label>By card </label><label style="color: red;">Not available (in development)</label>
+            <label>Cashless</label><label style="color: red;">Not available (in development)</label>
             <div id='address' style='display: none;'>
                 <p>Address</p>
-                <div id='nova' style='display: none;'><label>Nova Poshta office: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                <div id='nova' style='display: none;'><label>Nova Pochta office: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
                 <div id='ukr' style='display: none;'><label>Postcode: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
                 <label>City: </label><input type='text' name='city' value='{{ user.city }}'>
                 <label>Street: </label><input type='text' name='street' value='{{ user.street }}'>
