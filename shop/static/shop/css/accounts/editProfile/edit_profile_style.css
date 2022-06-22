@@ -546,21 +546,21 @@ a {
   min-height: calc(100vh - 123px - 150px);
 }
 
-input[type="submit"] {
+input[type="conf_password"] {
   width: 150px;
-  /* height: 24px; */
+  height: 24px;
   margin: 0 auto;
   text-align: center;
-  /* padding-top: 10px;
+  padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 15px;
-  padding-right: 15px; */
+  padding-right: 15px;
   background: #fff;
   border: 2px solid;
   cursor: pointer;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  /* font-size: 18px; */
+  font-size: 18px;
   -webkit-transition: color 0.5s linear;
   -o-transition: color 0.5s linear;
   transition: color 0.5s linear;
@@ -569,7 +569,7 @@ input[type="submit"] {
   transition: background 0.5s linear;
 }
 
-input[type="submit"]:hover {
+input[type="conf_password"]:hover {
   background: black;
   color: white;
   border: 2px solid;

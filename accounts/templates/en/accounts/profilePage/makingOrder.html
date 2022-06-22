@@ -81,69 +81,55 @@
                 </div>
             </div>
             <div class="order_info_top">
-                <div class='base' style='display:flex; justify-content: space-around'>
-                    <div class="order_privat_info">
-                        <div class="order_fname order_privat_info_items">
-                            <label>Name: </label>
-                            <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter name" required>
-                        </div>
-                        <div class="order_lname order_privat_info_items">
-                            <label>Surname: </label>
-                            <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter surname " required>
-                        </div>
-                        <div class="order_em order_privat_info_items">
-                            <label>Email: </label>
-                            <input type='text' name='email' value='{{ user.email }}'placeholder="Enter email">
-                        </div>
-                        <div class="order_phone order_privat_info_items">
-                            {% if user.phone_number != None %}
-                            <label>Телефон: </label>
-                            <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
-                            {% else %}
-                            <label>Телефон: </label>
-                            <input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
-                            {% endif %}
-                        </div>
+                <div class="order_privat_info">
+                    <div class="order_fname order_privat_info_items">
+                        <label>Name: </label>
+                        <input type='text' name='first_name' value='{{ user.first_name }}' placeholder="Enter name" required>
                     </div>
-                    <div class="order_delivery_pay">
-                        <p>Type of delivery: </p>
-                        <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-                        <label>Pickup</label>
-                        <br>
-                        <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-                        <label>Nova Poshta</label>
-                        <br>
-                        <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-                        <label>Ukrposhta</label>
-                        <br>
-                        <p>Type of payment: </p>
-                        <input type="radio" name='typeOfPayment' value='Наличный' checked>
-                        <label>Cash</label>
-                        <br>
-                        <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
-                        <label>Cashless</label>
-                        <label style="color: red;"> unavailable (in development)</label>
-        
-                        
+                    <div class="order_lname order_privat_info_items">
+                        <label>Surname: </label>
+                        <input type='text' name='last_name' value='{{ user.last_name }}' placeholder="Enter surname " required>
+                    </div>
+                    <div class="order_em order_privat_info_items">
+                        <label>Email: </label>
+                        <input type='text' name='email' value='{{ user.email }}'placeholder="Enter email">
+                    </div>
+                    <div class="order_phone order_privat_info_items">
+                        {% if user.phone_number != None %}
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' value='{{ user.phone_number }}' placeholder="Введите Ваш номер телефона" required>
+                        {% else %}
+                        <label>Телефон: </label>
+                        <input type='text' name='phone_number' placeholder="Введите Ваш номер телефона" required>
+                        {% endif %}
                     </div>
                 </div>
-                <div id='address' style='display: none; text-align: center'>
-                    <p>Адрес</p>
-                    <div id='nova' style='display: none;'>
-                        <label>Nova Poshta department: </label>
-                        <input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'>
-                    </div>
-                    <div id='ukr' style='display: none;'>
-                        <label>Ukrposhta index: </label>
-                        <input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'>
-                    </div>
-                    <div style="margin-top: 10px" class='make-order-address'>
-                        <label >Город: </label>
-                        <input type='text' name='city' value='{{ user.city }}'>
-                        <label>Улица: </label>
-                        <input type='text' name='street' value='{{ user.street }}'>
-                        <label>Дом: </label>
-                        <input type='text' name="house" value='{{ user.house }}'>
+                <div class="order_delivery_pay">
+                    <p>Type of delivery: </p>
+                    <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
+                    <label>Pickup</label>
+                    <br>
+                    <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
+                    <label>Nova Poshta</label>
+                    <br>
+                    <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
+                    <label>Ukrposhta</label>
+                    <br>
+                    <p>Type of payment: </p>
+                    <input type="radio" name='typeOfPayment' value='Наличный' checked>
+                    <label>Cash</label>
+                    <br>
+                    <input type="radio" name='typeOfPayment_NOTWORKING' id='cardpay' value='Безналичный' disabled>
+                    <label>Cashless</label>
+                    <label style="color: red;"> unavailable (in development)</label>
+    
+                    <div id='address' style='display: none;'>
+                        <p>Адрес</p>
+                        <div id='nova' style='display: none;'><label>Nova Poshta department: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                        <div id='ukr' style='display: none;'><label>Ukrposhta index: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
+                        <label>Город: </label><input type='text' name='city' value='{{ user.city }}'>
+                        <label>Улица: </label><input type='text' name='street' value='{{ user.street }}'>
+                        <label>Дом: </label><input type='text' name="house" value='{{ user.house }}'>
                     </div>
                 </div>
             </div>

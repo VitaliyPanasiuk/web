@@ -10,16 +10,11 @@ from requests.exceptions import MissingSchema
 from datetime import datetime
 from django.contrib import messages
 import math
-from .texts import homepage
 
 продукты = Продукт.objects.all()
 
 x = 0
 y = 4
-
-def getTexts():
-    texts = homepage
-    return render(texts)
 
 
 def homePage(request, lang):

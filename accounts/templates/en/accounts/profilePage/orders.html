@@ -233,15 +233,15 @@
                                 </h5>
                             </div>
                             <div class="order_del">
-                                {% comment %} {% if order.confirm == 'done' %} {% endcomment %}
+                                {% if order.confirm == 'done' %}
                                     <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                                     <form action='' method="POST" class="form_del">
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='delete' id='delete'
                                                 value='{{ order.id }}'></div>
-                                        <input type='submit' value='&#10060;'  style="cursor: pointer;">
+                                        <input type='submit' value='&#10060;'>
                                     </form>
-                                {% comment %} {% endif %} {% endcomment %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -306,7 +306,7 @@
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete'
                                             value='{{ order.id }}'></div>
-                                    <input type='submit' value='&#10060;'  style="cursor: pointer;">
+                                    <input type='submit' value='&#10060;'>
                                 </form>
                                 <!-- <img src="{% static '' %}shop\newProf\images\del.png" alt=""> -->
                             </div>

@@ -41625,8 +41625,8 @@ p:not(.u-text-variant) {
 }
 
 .u-btn {
-  /* margin-top: 20px;
-  margin-bottom: 20px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 blockquote {
