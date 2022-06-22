@@ -255,7 +255,7 @@ class Продукт(models.Model):
 
 class Image(models.Model):
     image = models.ImageField(upload_to='productInfo/', verbose_name='Изображение')
-    product = models.ForeignKey(Продукт, default=None, related_name='images',on_delete=models.CASCADE)
+    product = models.ForeignKey(Продукт, default=None, related_name='images', on_delete=models.CASCADE)
     class Meta:
         verbose_name_plural = 'Изображения'
         verbose_name = 'Изображение'
@@ -309,6 +309,7 @@ class ShopCart(models.Model):
     ru_order_item = models.CharField(max_length=500, null=True, blank=True)
     uk_order_item = models.CharField(max_length=500, null=True, blank=True)
     en_order_item = models.CharField(max_length=500, null=True, blank=True)
+    image = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
         db_table = 'shop_cart'

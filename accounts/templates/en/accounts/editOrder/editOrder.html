@@ -56,7 +56,7 @@
     </script>
 </head>
 <body>
-    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% include 'en/accounts/header.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div>
@@ -76,30 +76,30 @@
                 <input type="hidden" value='{{ order.заказ }}' name='order'>
             </div>
             <br>
-            <p>{{ order.order_ru }}</p>
+            <p>{{ order.order_en }}</p>
             <div style='display: none;'>
                 <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
             </div>
             <p>To pay: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
             <p>Type of delivery: </p>
             <input type="radio" name='typeOfDelivery' value='Самовывоз' onclick="pickup();" checked>                
-            <label>Pickup</label>
+            <label>Pick up</label>
             <br>
             <input type="radio" name='typeOfDelivery' value='Нова Пошта' onclick='novapochta();'>
-            <label>Nova Pochta</label>
+            <label>Nova Poshta</label>
             <br>
             <input type="radio" name='typeOfDelivery' value='Укрпошта' onclick='ukrpochta();'>
-            <label>Ukrpochta</label>
+            <label>Ukrposhta</label>
             <br>
             <p>Type of payment: </p>
             <input type="radio" name='typeOfPayment' value='Наличный' checked>
-            <label>Cash</label>
+            <label>By cash</label>
             <br>
             <input type="radio" name='typeOfPayment' id='cardpay' value='Безналичный' disabled>
-            <label>Cashless</label><label style="color: red;">Not available (in development)</label>
+            <label>By card </label><label style="color: red;">Not available (in development)</label>
             <div id='address' style='display: none;'>
                 <p>Address</p>
-                <div id='nova' style='display: none;'><label>Nova Pochta office: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
+                <div id='nova' style='display: none;'><label>Nova Poshta office: </label><input type='text' name='nova_pochta' value='{{ user.nova_pochta }}'></div>
                 <div id='ukr' style='display: none;'><label>Postcode: </label><input type='number' name='ukr_pochta' value='{{ user.ukr_pochta }}'></div>
                 <label>City: </label><input type='text' name='city' value='{{ user.city }}'>
                 <label>Street: </label><input type='text' name='street' value='{{ user.street }}'>
@@ -112,7 +112,7 @@
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'en/footer.html' %}
+    {% include 'en/accounts/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

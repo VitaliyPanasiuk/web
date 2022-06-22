@@ -54,7 +54,7 @@
     </script>
 </head>
 <body>
-    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% include 'en/accounts/header.html' %}
     {% if userId == account %}
     <div>
         <div class="conteiner">
@@ -62,45 +62,56 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     <div class="con_order_tit">
-                        <span style="white-space: pre-line">{{ order.order_ru }}</span>
+                        <span style="white-space: pre-line">{{ order.order_en }}</span>
                     </div>
                     <div class="con_order_info_top">
                         <div class="con_order_privat_info">
-                            <p>Имя: {{ user.first_name }}</p>
-                            <p>Фамилия: {{ user.last_name }}</p>
-                            <p>Почта: {{ user.email }}</p>
-                            <p>Телефон: {{ user.phone_number }}</p>
+                            <p>Name: {{ user.first_name }}</p>
+                            <p>Surname: {{ user.last_name }}</p>
+                            <p>Email: {{ user.email }}</p>
+                            <p>Phone number: {{ user.phone_number }}</p>
                         </div>
                         <div class="con_order_delivery_pay">
                             
                             
                             {% if order.confirm == 'uc' %}
-                            <p>Статус заказа: В обработке</p>
+                            <p>Status: Processing</p>
                             {% elif order.confirm == 'ac' %}
-                            <p>Статус заказа: Подтвержден администратором</p>
+                            <p>Status: Order is accepted</p>
                             {% elif order.confirm == 'done' %}
-                            <p>Статус заказа: Заказ выполнен</p>
+                            <p>Status: Order is completed</p>
                             {% endif %}
+
                             {% if order.delivery_type == None %}
-                            <p>Тип доставки: не выбран</p>
-                            {% else %}
-                            <p>Тип доставки: {{ order.delivery_type }}</p>
+                            <p>Delivery type: None</p>
+                            {% elif order.delivery_type == "Самовывоз" %}
+                            <p>Delivery type: take away by yourself</p>
+                            {% elif order.delivery_type == "Нова Пошта" %}
+                            <p>Delivery type: Nova Poshta</p>
+                            {% elif order.delivery_type == "Укрпошта" %}
+                            <p>Delivery type: Ukrposhta</p>
                             {% endif %}
+
+
                             {% if order.payment_type == None %}
-                            <p>Тип оплаты: не выбран</p>
+                            <p>Payment type: None</p>
+                            {% elif order.payment_type == 'Наличный'%}
+                            <p>Payment type: By cash</p>
                             {% else %}
-                            <p>Тип оплаты: {{ order.payment_type }}</p>
+                            <p>Payment type: By credit/debit card</p>
                             {% endif %}
+
+
                             {% if order.delivery_type == 'Нова пошта' %}
-                            <p>Отделение Новой Почты: {{ order.nova_pochta }}</p>
-                            <p>Город: {{ order.city }}</p>
-                            <p>Улица: {{ order.street }}</p>
-                            <p>Дом: {{ order.house }}</p>
+                            <p>Nova Poshta branch: {{ order.nova_pochta }}</p>
+                            <p>City: {{ order.city }}</p>
+                            <p>Street: {{ order.street }}</p>
+                            <p>House: {{ order.house }}</p>
                             {% elif order.delivery_type == 'Укрпошта' %}
-                            <p>Почтовый индекс: {{ order.ukr_pochta }}</p>
-                            <p>Город: {{ order.city }}</p>
-                            <p>Улица: {{ order.street }}</p>
-                            <p>Дом: {{ order.house }}</p>
+                            <p>Postcode: {{ order.ukr_pochta }}</p>
+                            <p>City: {{ order.city }}</p>
+                            <p>Street: {{ order.street }}</p>
+                            <p>House: {{ order.house }}</p>
                             {% endif %}
                             
                         </div>
@@ -108,13 +119,13 @@
                     <div class="con_order_info_bot">
                         {% if order.confirm == 'unc' %}
                         <div style="color:red; text-decoration:none;">
-                            <p>Внимание! статус заказа: Не подтвержден пользователем. Пожалуйста, завершите оформление заказа.</p>
+                            <p>Attention! Order wasn't confirmed by user. Please complete your order.</p>
                         </div>
                         {% endif %}
                         <div class="confirm_btn">
                             {% if order.confirm == 'unc' %}
                             <input type='hidden' name='editid' value='{{ order.id }}'>
-                            <input type="confirm_order" name='edit' value='Завершить оформление заказа' readonly>
+                            <input type="submit" name='edit' value='Complete order' readonly>
                             {% endif %}
                         </div>
                     </div>
@@ -125,6 +136,6 @@
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'en/accounts/profilePage/includes/footer.html' %}
+    {% include 'en/accounts/footer.html' %}
 </body>
 </html>

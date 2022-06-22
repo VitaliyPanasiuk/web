@@ -1,4 +1,5 @@
-{% load static %} {% block rucontent %}
+{% load static %}
+{% block ukcontent %}
 <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4742"><div class="u-clearfix u-sheet u-sheet-1">
   <h3 class="u-custom-font u-font-montserrat u-headline u-text u-text-default u-text-1">
     <a href="/en">Luxon</a>
@@ -7,10 +8,10 @@
     <form action='' method="POST" id='language'>
       {% csrf_token %}
     <select form="language" name="language" onchange="this.form.submit()">
-      <option value="" disabled="" selected="" style="color:black">Select language</option>
-      <option value="ru" style="color:black">Русский язык</option>
-      <option value="en" style="color:black">English</option>
+      <option value="" disabled="" selected="" style="color:black">Choose language</option>
       <option value="uk" style="color:black">Українська мова</option>
+      <option value="en" style="color:black">English</option>
+      <option value="ru" style="color:black">Русский язык</option>
     </select>
     </form>
   </div>
@@ -35,5 +36,4 @@
     </a>
   </div>
 </div></footer>
-
-  {% endblock %}
+    {% endblock %}

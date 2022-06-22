@@ -55,7 +55,7 @@
     </script>
 </head>
 <body>
-    {% include 'en/accounts/profilePage/includes/navbar.html' %}
+    {% include 'en/accounts/header.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div class="make_order_body">
@@ -158,7 +158,7 @@
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/en' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'ru/accounts/profilePage/includes/footer.html' %}
+    {% include 'en/accounts/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

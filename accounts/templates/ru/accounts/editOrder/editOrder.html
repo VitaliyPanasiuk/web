@@ -56,7 +56,7 @@
     </script>
 </head>
 <body>
-    {% include 'ru/accounts/profilePage/includes/navbar.html' %}
+    {% include 'ru/accounts/header.html' %}
     {% if userId == account %}
     {{ error_message }}
     <div>
@@ -73,7 +73,7 @@
             {% endif %}
             <br>
             <label>Заказ: </label><div style='display: none;'>
-                <input type="hidden" value='{{ order.заказ }}' name='order'>
+                <input type="hidden" value='{{ order.order_ru }}' name='order'>
             </div>
             <br>
             <p>{{ order.order_ru }}</p>
@@ -112,7 +112,7 @@
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'ru/footer.html' %}
+    {% include 'ru/accounts/footer.html' %}
     <script>
         window.onbeforeunload = closingCode;
             function closingCode(){

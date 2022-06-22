@@ -31,66 +31,8 @@
     <meta property="og:description" content="">
     <meta property="og:type" content="website">
   </head>
-  <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-0ff4"><div class="u-clearfix u-sheet u-valign-middle-sm u-sheet-1">
-        <h1 class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-1"><a href='/uk'>Luxon</a></h1>{% if request.user.id %}<a href='/uk/accounts/{{ request.user.id }}'><span class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 55 55" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d50"></use></svg><svg class="u-svg-content" viewBox="0 0 55 55" x="0px" y="0px" id="svg-1d50" style="enable-background:new 0 0 55 55;"><path d="M55,27.5C55,12.337,42.663,0,27.5,0S0,12.337,0,27.5c0,8.009,3.444,15.228,8.926,20.258l-0.026,0.023l0.892,0.752
-	c0.058,0.049,0.121,0.089,0.179,0.137c0.474,0.393,0.965,0.766,1.465,1.127c0.162,0.117,0.324,0.234,0.489,0.348
-	c0.534,0.368,1.082,0.717,1.642,1.048c0.122,0.072,0.245,0.142,0.368,0.212c0.613,0.349,1.239,0.678,1.88,0.98
-	c0.047,0.022,0.095,0.042,0.142,0.064c2.089,0.971,4.319,1.684,6.651,2.105c0.061,0.011,0.122,0.022,0.184,0.033
-	c0.724,0.125,1.456,0.225,2.197,0.292c0.09,0.008,0.18,0.013,0.271,0.021C25.998,54.961,26.744,55,27.5,55
-	c0.749,0,1.488-0.039,2.222-0.098c0.093-0.008,0.186-0.013,0.279-0.021c0.735-0.067,1.461-0.164,2.178-0.287
-	c0.062-0.011,0.125-0.022,0.187-0.034c2.297-0.412,4.495-1.109,6.557-2.055c0.076-0.035,0.153-0.068,0.229-0.104
-	c0.617-0.29,1.22-0.603,1.811-0.936c0.147-0.083,0.293-0.167,0.439-0.253c0.538-0.317,1.067-0.648,1.581-1
-	c0.185-0.126,0.366-0.259,0.549-0.391c0.439-0.316,0.87-0.642,1.289-0.983c0.093-0.075,0.193-0.14,0.284-0.217l0.915-0.764
-	l-0.027-0.023C51.523,42.802,55,35.55,55,27.5z M2,27.5C2,13.439,13.439,2,27.5,2S53,13.439,53,27.5
-	c0,7.577-3.325,14.389-8.589,19.063c-0.294-0.203-0.59-0.385-0.893-0.537l-8.467-4.233c-0.76-0.38-1.232-1.144-1.232-1.993v-2.957
-	c0.196-0.242,0.403-0.516,0.617-0.817c1.096-1.548,1.975-3.27,2.616-5.123c1.267-0.602,2.085-1.864,2.085-3.289v-3.545
-	c0-0.867-0.318-1.708-0.887-2.369v-4.667c0.052-0.52,0.236-3.448-1.883-5.864C34.524,9.065,31.541,8,27.5,8
-	s-7.024,1.065-8.867,3.168c-2.119,2.416-1.935,5.346-1.883,5.864v4.667c-0.568,0.661-0.887,1.502-0.887,2.369v3.545
-	c0,1.101,0.494,2.128,1.34,2.821c0.81,3.173,2.477,5.575,3.093,6.389v2.894c0,0.816-0.445,1.566-1.162,1.958l-7.907,4.313
-	c-0.252,0.137-0.502,0.297-0.752,0.476C5.276,41.792,2,35.022,2,27.5z"></path></svg></span></a>
-  {% else %}
-  <span class="u-icon u-icon-1"><div сlass='imgLogin'><a href='/uk/accounts/login'><img src="{% static '' %}shop/new/images/login.png"></a></div></span>
-  {% endif %}
-        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
-          <div class="menu-collapse u-custom-font u-font-montserrat" style="font-size: 1rem; letter-spacing: 0px; text-transform: uppercase;">
-            <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
-              <svg viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;"><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
-</symbol>
-</defs></svg>
-            </a>
-          </div>
-          <div class="u-custom-menu u-nav-container">
-            <ul class="u-custom-font u-font-montserrat u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/uk" style="padding: 10px 4px;">Головна</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/uk/products" style="padding: 10px 4px;">Каталог</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/uk/about" style="padding: 10px 4px;">Про нас</a>
-</li><li class="u-nav-item"><a class="u-border-2 u-border-active-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-black u-text-grey-90 u-text-hover-palette-2-base" href="/uk/collaboration" style="padding: 10px 4px;">Співробітництво</a>
-</li></ul>
-          </div>
-          <div class="u-custom-menu u-nav-container-collapse">
-            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-              <div class="u-inner-container-layout u-sidenav-overflow">
-                <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/uk" style="padding: 10px 4px;">Головна</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/uk/products" style="padding: 10px 4px;">Каталог</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/uk/about" style="padding: 10px 4px;">Про нас</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/uk/collaboration" style="padding: 10px 4px;">Співробітництво</a>
-</li></ul>
-              </div>
-            </div>
-            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-          </div>
-        </nav>
-        <form action="#" method="get" class="u-border-1 u-border-grey-30 u-search u-search-left u-white u-search-1">
-          <button class="u-search-button" type="submit">
-            <span class="u-search-icon u-spacing-10">
-              <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 56.966 56.966"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-50f1"></use></svg>
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svg-50f1" x="0px" y="0px" viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" class="u-svg-content"><path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"></path></svg>
-            </span>
-          </button>
-          <input class="u-search-input" type="search" name="search" value="" placeholder="Поиск">
-        </form>
-      </div></header>
+  <body class="u-body">
+    {% include 'uk/header.html' %}
     <section class="u-clearfix u-section-1" id="sec-a9d8">
       <div class="u-clearfix u-sheet u-sheet-1">
         <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
@@ -99,10 +41,7 @@
               <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
                 <div class="u-container-layout u-container-layout-1">
                   <div class="u-carousel u-expanded-width-xs u-gallery u-gallery-slider u-layout-carousel u-lightbox u-no-transition u-show-text-on-hover u-gallery-1" id="carousel-d2d5" data-interval="5000" data-u-ride="carousel">
-                    <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
-                      <li data-u-target="#carousel-d2d5" data-u-slide-to="0" class="u-active u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                      <li data-u-target="#carousel-d2d5" data-u-slide-to="1" class="u-grey-70 u-shape-circle" style="width: 10px; height: 10px;"></li>
-                    </ol>
+                    
                     <div class="u-carousel-inner u-gallery-inner" role="listbox">
                       <div class="u-active u-carousel-item u-effect-fade u-gallery-item u-carousel-item-1">
                         <div class="u-back-slide">
@@ -113,18 +52,19 @@
                           <p class="u-gallery-text"></p>
                         </div>
                       </div>
-                      <!--
+                      {% for image in images %}
                       <div class="u-carousel-item u-effect-fade u-gallery-item u-carousel-item-2">
                         <div class="u-back-slide">
-                          <img class="u-back-image u-expanded" src="{% static '' %}shop/newProd/images/2.svg">
+                          <img class="u-back-image u-expanded" src="{{ MEDIA_URL }}{{ image.image }}">
                         </div>
                         <div class="u-align-center u-over-slide u-shading u-valign-bottom u-over-slide-2">
                           <h3 class="u-gallery-heading"></h3>
                           <p class="u-gallery-text"></p>
                         </div>
                       </div>
-                    -->
+                      {% endfor %}
                     </div>
+                    {% if images %}
                     <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-icon-circle u-opacity u-opacity-70 u-spacing-10 u-text-white u-carousel-control-1" href="#carousel-d2d5" role="button" data-u-slide="prev">
                       <span aria-hidden="true">
                         <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
@@ -149,6 +89,7 @@ L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.3
 c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
                       </span>
                     </a>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -156,10 +97,10 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <div class="u-container-layout u-container-layout-2">
                   
                     <h1 class="u-custom-font u-font-montserrat u-text u-text-default u-text-1">{{ продукт.название_позиции_укр }}</h1>
-                    {% if продукт.наличие != "-" %}
+                    {% if продукт.наличие != "-" and продукт.наличие != None %}
                     <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Є в наявності</h5>
                     {% else %}
-                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Нема в наявності</h5>
+                    <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Немає в наявності</h5>
                     {% endif %}
                     {% if  продукт.цена == None %}
                     <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Ціна формується</h5>
@@ -172,7 +113,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                       {% endif %}
                     {% endif %}
                   
-                  
+                {% if user_id != None %}    
+                  {% if продукт.цена != None %}
+                    {% if продукт.наличие != '-' and продукт.наличие != None %}
                   
                     <form action="" name="carty" id="carty" method="POST">
                       {% csrf_token %}
@@ -182,6 +125,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                                               <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
                                               <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                                               <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                                              <div style='display: none;'><input type='text' name='add_image' id='add_image' value='{{ продукт.image }}'></div>
                                               <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
                                               <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">
                                                 <input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="В КОРЗИНУ">
@@ -207,6 +151,14 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <input form='carty' type="number" name="how_much_to_add" id="how_much_to_add" value="1">
                   </div>
                   <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-3">Кількість:</h5>
+                  {% endif %}
+                {% endif %}
+              {% else %}
+                  <p>
+                    <a href="/uk/accounts/login">Увійдіть</a> або <a href="/uk/accounts/register">зареєструйтесь</a>
+                     щоб створити замовлення.
+                  </p>
+              {% endif %}
                 </div>
               </div>
             </div>
@@ -226,9 +178,8 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                             <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
                             <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
                             <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-          <a href="https://nicepage.com/c/medicine-science-html-templates" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
-            <span style="font-size: 0.75rem;">Gередзвоніть </span>
-            <span style="font-size: 0.75rem;">мені</span>
+          <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
+            <input type="submit" name = 'callme_inp_button' style="font-size: 0.75rem; background: none; color: inherit; border: none; padding: 0; cursor: pointer; outline: inherit;" value="ПЕРЕДЗВОНІТЬ МЕНІ">
           </a>
           {% if auth_status == 'success' and user.phone_number %}
           <div class="phone_number">
@@ -253,43 +204,6 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         <p class="u-text u-text-2">{{ продукт.описание_укр }}</p>
       </div>
     </section>
-    
-    
-    <footer class="u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-footer u-grey-80" id="sec-4742"><div class="u-clearfix u-sheet u-sheet-1">
-        <h3 class="u-custom-font u-font-montserrat u-headline u-text u-text-default u-text-1">
-          <a href="/uk">Luxon</a>
-        </h3>
-        <div class="u-clearfix u-custom-html u-white u-custom-html-1">
-          <form action='' method="POST" id='language'>
-            {% csrf_token %}
-          <select form="language" name="language" onchange="this.form.submit()">
-            <option value="" disabled="" selected="" style="color:black">Выберите язык</option>
-            <option value="ru" style="color:black">Русский язык</option>
-            <option value="en" style="color:black">English</option>
-            <option value="uk" style="color:black">Українська мова</option>
-          </select>
-          </form>
-        </div>
-        <div class="u-align-left u-social-icons u-spacing-10 u-social-icons-1">
-          <a class="u-social-url" title="facebook" target="_blank" href=""><span class="u-icon u-social-facebook u-social-icon u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-12f8"></use></svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-12f8"><circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle><path fill="#FFFFFF" d="M73.5,31.6h-9.1c-1.4,0-3.6,0.8-3.6,3.9v8.5h12.6L72,58.3H60.8v40.8H43.9V58.3h-8V43.9h8v-9.2
-            c0-6.7,3.1-17,17-17h12.5v13.9H73.5z"></path></svg></span>
-          </a>
-          <a class="u-social-url" title="twitter" target="_blank" href=""><span class="u-icon u-social-icon u-social-twitter u-icon-2"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e31d"></use></svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-e31d"><circle fill="currentColor" class="st0" cx="56.1" cy="56.1" r="55"></circle><path fill="#FFFFFF" d="M83.8,47.3c0,0.6,0,1.2,0,1.7c0,17.7-13.5,38.2-38.2,38.2C38,87.2,31,85,25,81.2c1,0.1,2.1,0.2,3.2,0.2
-            c6.3,0,12.1-2.1,16.7-5.7c-5.9-0.1-10.8-4-12.5-9.3c0.8,0.2,1.7,0.2,2.5,0.2c1.2,0,2.4-0.2,3.5-0.5c-6.1-1.2-10.8-6.7-10.8-13.1
-            c0-0.1,0-0.1,0-0.2c1.8,1,3.9,1.6,6.1,1.7c-3.6-2.4-6-6.5-6-11.2c0-2.5,0.7-4.8,1.8-6.7c6.6,8.1,16.5,13.5,27.6,14
-            c-0.2-1-0.3-2-0.3-3.1c0-7.4,6-13.4,13.4-13.4c3.9,0,7.3,1.6,9.8,4.2c3.1-0.6,5.9-1.7,8.5-3.3c-1,3.1-3.1,5.8-5.9,7.4
-            c2.7-0.3,5.3-1,7.7-2.1C88.7,43,86.4,45.4,83.8,47.3z"></path></svg></span>
-          </a>
-          <a class="u-social-url" title="instagram" target="_blank" href=""><span class="u-icon u-social-icon u-social-instagram u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-ff75"></use></svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-ff75"><circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle><path fill="#FFFFFF" d="M55.9,38.2c-9.9,0-17.9,8-17.9,17.9C38,66,46,74,55.9,74c9.9,0,17.9-8,17.9-17.9C73.8,46.2,65.8,38.2,55.9,38.2
-            z M55.9,66.4c-5.7,0-10.3-4.6-10.3-10.3c-0.1-5.7,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3C66.2,61.8,61.6,66.4,55.9,66.4z"></path><path fill="#FFFFFF" d="M74.3,33.5c-2.3,0-4.2,1.9-4.2,4.2s1.9,4.2,4.2,4.2s4.2-1.9,4.2-4.2S76.6,33.5,74.3,33.5z"></path><path fill="#FFFFFF" d="M73.1,21.3H38.6c-9.7,0-17.5,7.9-17.5,17.5v34.5c0,9.7,7.9,17.6,17.5,17.6h34.5c9.7,0,17.5-7.9,17.5-17.5V38.8
-            C90.6,29.1,82.7,21.3,73.1,21.3z M83,73.3c0,5.5-4.5,9.9-9.9,9.9H38.6c-5.5,0-9.9-4.5-9.9-9.9V38.8c0-5.5,4.5-9.9,9.9-9.9h34.5
-            c5.5,0,9.9,4.5,9.9,9.9V73.3z"></path></svg></span>
-          </a>
-          <a class="u-social-url" title="linkedin" target="_blank" href=""><span class="u-icon u-social-icon u-social-linkedin u-icon-4"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 112 112" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-2c9c"></use></svg><svg class="u-svg-content" viewBox="0 0 112 112" x="0" y="0" id="svg-2c9c"><circle fill="currentColor" cx="56.1" cy="56.1" r="55"></circle><path fill="#FFFFFF" d="M41.3,83.7H27.9V43.4h13.4V83.7z M34.6,37.9L34.6,37.9c-4.6,0-7.5-3.1-7.5-7c0-4,3-7,7.6-7s7.4,3,7.5,7
-            C42.2,34.8,39.2,37.9,34.6,37.9z M89.6,83.7H76.2V62.2c0-5.4-1.9-9.1-6.8-9.1c-3.7,0-5.9,2.5-6.9,4.9c-0.4,0.9-0.4,2.1-0.4,3.3v22.5
-            H48.7c0,0,0.2-36.5,0-40.3h13.4v5.7c1.8-2.7,5-6.7,12.1-6.7c8.8,0,15.4,5.8,15.4,18.1V83.7z"></path></svg></span>
-          </a>
-        </div>
-      </div></footer>
+    {% include 'uk/footer.html' %}
   </body>
 </html>

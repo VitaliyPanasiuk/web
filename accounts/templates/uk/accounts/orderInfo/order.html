@@ -54,7 +54,7 @@
     </script>
 </head>
 <body>
-    {% include 'uk/accounts/profilePage/includes/navbar.html' %}
+    {% include 'uk/accounts/header.html' %}
     {% if userId == account %}
     <div>
         <div class="conteiner">
@@ -62,7 +62,7 @@
                 <form method="POST" action="">
                     {% csrf_token %}
                     <div class="con_order_tit">
-                        <span style="white-space: pre-line">{{ order.order_ru }}</span>
+                        <span style="white-space: pre-line">{{ order.order_uk }}</span>
                     </div>
                     <div class="con_order_info_top">
                         <div class="con_order_privat_info">
@@ -81,16 +81,27 @@
                             {% elif order.confirm == 'done' %}
                             <p>Статус замовлення: Заказ виконан</p>
                             {% endif %}
+
+
                             {% if order.delivery_type == None %}
                             <p>Тип доставки: не обраний</p>
-                            {% else %}
-                            <p>Тип доставки: {{ order.delivery_type }}</p>
+                            {% elif order.delivery_type == "Самовывоз" %}
+                            <p>Тип доставки: Самовивіз</p>
+                            {% elif order.delivery_type == "Нова Пошта" %}
+                            <p>Тип доставки: Нова Пошта</p>
+                            {% elif order.delivery_type == "Укрпошта" %}
+                            <p>Тип доставки: Укрпошта</p>
                             {% endif %}
+
+
                             {% if order.payment_type == None %}
-                            <p>Тип оплаты: не обраний</p>
+                            <p>Тип оплати: не обраний</p>
+                            {% elif order.payment_type == 'Наличный'%}
+                            <p>Тип оплати: Готівкою</p>
                             {% else %}
-                            <p>Тип оплаты: {{ order.payment_type }}</p>
+                            <p>Тип оплати: Безготівковий</p>
                             {% endif %}
+
                             {% if order.delivery_type == 'Нова пошта' %}
                             <p>Відділення Нової Пошти: {{ order.nova_pochta }}</p>
                             <p>Місто: {{ order.city }}</p>
@@ -100,7 +111,7 @@
                             <p>Поштовий індекс: {{ order.ukr_pochta }}</p>
                             <p>Місто: {{ order.city }}</p>
                             <p>Вулиця: {{ order.street }}</p>
-                            <p>Дфм: {{ order.house }}</p>
+                            <p>Дім: {{ order.house }}</p>
                             {% endif %}
                             
                         </div>
@@ -108,13 +119,13 @@
                     <div class="con_order_info_bot">
                         {% if order.confirm == 'unc' %}
                         <div style="color:red; text-decoration:none;">
-                            <p>Увага! статус замовлення: Не підтверджений користувачем. Будьласка, заввершіть оформлення замовлення.</p>
+                            <p>Увага! статус замовлення: Не підтверджений користувачем. Будь ласка, заввершіть оформлення замовлення.</p>
                         </div>
                         {% endif %}
                         <div class="confirm_btn">
                             {% if order.confirm == 'unc' %}
                             <input type='hidden' name='editid' value='{{ order.id }}'>
-                            <input type="confirm_order" name='edit' value='Завершити' readonly>
+                            <input type="submit" name='edit' id="edit" value='Завершити' readonly>
                             {% endif %}
                         </div>
                     </div>
@@ -125,6 +136,6 @@
     {% else %}
     <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">404<br><a href='/' style="text-decoration: underline; color: blue !important;">Go Back!</a></h1>
     {% endif %}
-    {% include 'uk/accounts/profilePage/includes/footer.html' %}
+    {% include 'uk/accounts/footer.html' %}
 </body>
 </html>
