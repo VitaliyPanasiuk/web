@@ -3,6 +3,20 @@
   margin-bottom: 60px;
 }
 
+
+
+#makeorder-btn {
+  background: none;
+  background-color: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+#makeorder-btn:hover {
+  background-color: black;
+  color: #fff;
+}
+
 .u-section-1 .u-tabs-1 {
   /* min-height: 250px; */
   /* margin-bottom: 60px; */
@@ -301,7 +315,7 @@
 }
 
 .u-section-1 .u-container-layout-10 {
-  padding: 30px 0;
+  margin: 30px 0;
 }
 
 .u-section-1 .u-image-2 {

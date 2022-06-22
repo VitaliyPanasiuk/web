@@ -188,10 +188,10 @@
                     <div class="u-container-layout u-container-layout-9">
                         <div class="u-border-2 u-border-grey-75 u-container-style u-group u-radius-21 u-shape-round u-white u-group-3">
                             <div class="forms_cart">
-                                <form action='' method="POST" class="form_del_cart">
+                                <form action='' method="POST" class="form_del_cart" style="cursor: pointer;">
                                     {% csrf_token %}
                                     <div style='display: none;'><input type='text' name='delete' id='delete' value='{{ item.item }}'></div>
-                                    <input type='submit' value="&#10060;" class="form_cart_input">
+                                    <input type='submit' value="&#10060;" class="form_cart_input" style="cursor: pointer;">
                                 </form>
                             </div>
                             <div class="u-container-layout u-container-layout-10 cart_bl">
@@ -208,14 +208,14 @@
                                     <form action='' method="POST">
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='item_plus' id='item_plus' value='{{ item.item }}'></div>
-                                        <input type='hidden' name='plus' id='plus' value='plus'>
-                                        <input type='submit' value='+' class="form_cart_input_am">
+                                        <input type='hidden' name='plus' id='plus' value='plus' style="cursor: pointer;">
+                                        <input type='submit' value='+' class="form_cart_input_am" style="cursor: pointer;">
                                     </form>
                                     <form action='' method="POST">
                                         {% csrf_token %}
                                         <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
-                                        <input type='hidden' name='minus' id='minus' value='minus'>
-                                        <input type='submit' value='-' class="form_cart_input_am">
+                                        <input type='hidden' name='minus' id='minus' value='minus' style="cursor: pointer;">
+                                        <input type='submit' value='-' class="form_cart_input_am" style="cursor: pointer;">
                                     </form>
                                 </div>
                                 
@@ -244,7 +244,7 @@
                     {% endif %}
                     <form method='POST' action=''>
                         {% csrf_token %}
-                        <input type='submit' name = 'makeorder' value='Make an order'>
+                        <input type='submit' name = 'makeorder' value='Make an order' id = 'makeorder-btn'>
                     </form>
                     
                 {% else %}

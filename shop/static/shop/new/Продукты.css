@@ -1,3 +1,18 @@
+#changePage {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+#changePage p {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.num_page {
+  margin: auto 0;
+}
+
 .u-section-1 {
   min-height: 331px;
   background-image: none;
@@ -197,9 +212,9 @@
 }
 
 .u-btn-1 {
-  position: absolute;
+  /* position: absolute;
   bottom: 20px;
-  left: calc(50% - 77px);
+  left: calc(50% - 77px); */
 }
 
 .u-section-2 .u-btn-1 {
@@ -245,7 +260,7 @@
   transition-duration: 0.5s;
   box-shadow: 2px 0 0 0 rgba(0, 0, 0, 0);
   background-image: none;
-  margin: 29px auto 0 172px;
+  /* margin: 29px auto 0 172px; */
 }
 
 .grey-background {
@@ -261,11 +276,12 @@
   box-shadow: 2px 0 0 0 rgba(0, 0, 0, 0);
   font-size: 1rem;
   background-image: none;
-  margin: -46px 183px 0 auto;
+  /* margin: -46px 183px 0 auto; */
 }
 
 .u-section-3 .u-text-1 {
-  margin: -36px auto 39px;
+  /* margin: -36px auto 39px; */
+  /* margin: 0 auto; */
 }
 
 @media (max-width: 1199px) {
