@@ -246,6 +246,7 @@ class Продукт(models.Model):
     #cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
     #cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
     image = models.FileField(upload_to='products/', blank=True, null=True, verbose_name='Главное изображение')
+    category_name = models.CharField(db_column='category_name', max_length=100, blank=True, null=True)
     
     class Meta:
         db_table = 'shop_product'

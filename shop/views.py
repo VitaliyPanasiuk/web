@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.http.response import Http404
 from .models import AuthUser
 from django.shortcuts import render, redirect
@@ -235,9 +236,13 @@ def productsPage(request, lang):
             template = str(lang) + "/productsPrototype/index.html"
             return render(request, template, context)
         elif findcategory:
-            maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)))/18)
-            #print(maxPage)
-            filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid))[start:end]
+            subOrCat = request.POST.get("subOrCat", "")
+            if subOrCat == "cat":
+                maxPage = math.ceil(len(Продукт.objects.filter(category_name=categoryid))/18)
+                filteredProducts = Продукт.objects.filter(category_name=categoryid)[start:end]
+            else:
+                maxPage = math.ceil(len(Продукт.objects.filter(номер_группы=int(categoryid)))/18)
+                filteredProducts = Продукт.objects.filter(номер_группы=int(categoryid))[start:end]
             context = {
                 "продукты": filteredProducts,
                 "available": "spec",
@@ -564,9 +569,21 @@ def productsPage(request, lang):
             else:
                 return redirect("/" + str(language) + "/products/")
 
-    filteredProducts = Продукт.objects.exclude(наличие="-").exclude(цена=None)[start:end]
+    filteredProducts = Продукт.objects.exclude(наличие="-").exclude(наличие=None).exclude(цена=None)[start:end]
     maxPage = math.ceil(len(Продукт.objects.exclude(наличие="-").exclude(цена=None))/18)
     
+    cats = ShopCategory.objects.all()
+    temp = ShopSubCategory.objects.all()
+
+    '''for product in продукты:
+        for cat in cats:
+            for sub in cat.подкатегория.all():
+                #print(product.номер_группы)
+                if int(sub.subcategory_id) == int(product.номер_группы):
+                    #print("yes")
+                    product.category_name = cat.category_name_ru
+                    product.save()'''
+
     context = {
         "продукты": filteredProducts,
         "available": "yes",
