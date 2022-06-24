@@ -287,10 +287,25 @@
                         </div>
                         
                           <ul class="subcategories" >
+
+
+                            <li class="sub_cat ">
+                              <form method="POST", action="" >
+                                  {% csrf_token %}
+                                  <input type='hidden' name='subOrCat' value='cat'>
+                                  <input type='hidden' name='categoryid' value='{{ i.category_name_ru }}'>
+                                  <a href="#" class="subcat_hr">
+                                    <input type='submit' name='categoryname' value='Показать весь раздел'>
+                                  </a>
+                                  
+                              </form>
+                            </li>
+
                               {% for j in i.подкатегория.all %}
                                   <li class="sub_cat ">
                                     <form method="POST", action="" >
                                         {% csrf_token %}
+                                        <input type='hidden' name='subOrCat' value='sub'>
                                         <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
                                         <a href="#" class="subcat_hr">
                                           <input type='submit' name='categoryname' value='{{ j.subcategory_name_ru }}'>
