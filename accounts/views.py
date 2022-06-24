@@ -1,3 +1,4 @@
+from re import template
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import auth
@@ -33,7 +34,6 @@ def register(request, lang):
         language = request.POST.get('language', '')
         d = datetime.now(pytz.timezone('Europe/Kiev'))
         upper_case = 0
-        lower_case = 0
         number = 0
         if language:
             if request.user.id != None:
@@ -48,15 +48,13 @@ def register(request, lang):
         for i in password2:
             if i.isupper():
                 upper_case += 1
-            elif i.islower():
-                lower_case += 1
             elif i.isdigit():
                 number += 1
         if password1 == password2:
             if len(password2) >= 8:
                 if number > 0 and upper_case > 0:
                             try:
-                                user = AuthUser(username=username, password=make_password(password2, salt=None, hasher='default'), email=email, last_login=d, date_joined=d, is_superuser=0, is_staff=0, is_active=1)
+                                user = AuthUser(username=username, password=make_password(password2, salt=None, hasher='default'), email=email, last_login=d, date_joined=d, is_superuser=0, is_staff=0, is_active=1, user_language=lang)
                                 user.save()
                                 usery = auth.authenticate(username=username, password=password2)
                                 auth.login(request, usery)
@@ -126,7 +124,7 @@ def login(request, lang):
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
         searchText = searchTextRaw.replace(" ", "-")
-        user = auth.authenticate(username=username, password=password)
+        #user = auth.authenticate(username=username, password=password)
         if language:
             if request.user.id != None:
                 current_user = AuthUser.objects.get(id=request.user.id)
@@ -150,7 +148,7 @@ def login(request, lang):
                     args['login_error'] = 'Неверное имя пользователя или пароль'
                 elif lang == 'uk':
                     args['login_error'] = "Невірне ім'я користувача або пароль"
-                return render(request, '' + str(lang) + "/accounts/auth/failed.html", args)
+                return render(request, '' + str(lang) + "/accounts/auth/login.html", args)
 
     else:
         return render(request, '' + str(lang) + "/accounts/auth/login.html", args)
@@ -559,6 +557,63 @@ def userFavourites(request, uid, lang):
         context.update(csrf(request))
         return render(request, template, context)
 
+def deleteAccount(request, lang):
+    template = lang + "/accounts/auth/delete.html"
+    if request.POST:
+        search = request.POST.get("search", "")
+        searchTextRaw = request.POST.get("searchtext", "")
+        searchText = searchTextRaw.replace(" ", "-")
+        yes = request.POST.get("yes", "")
+        no = request.POST.get("no", "")
+        language = request.POST.get("language", "")
+        if yes:
+            password = request.POST.get("password", "")
+            current_user = AuthUser.objects.get(id=request.user.id)
+            if password == "":
+                if lang == 'ru':
+                    context = {
+                    "error_message": "Пустое поле пароль. Попробуйте снова"
+                    }
+                elif lang == 'en':
+                    context = {
+                    "error_message": "Empty password field. Try again"
+                    }
+                elif lang == 'uk':
+                    context = {
+                    "error_message": "Пусте поле паролю. Попробуйте знову"
+                    }
+                return render(request, template, context)
+            if check_password(password=password , encoded=current_user.password) == True:
+                current_user.delete()
+                return redirect("/" + lang)
+            else:
+                if lang == 'ru':
+                    context = {
+                    "error_message": "Вы ввели неправильный пароль. Попробуйте снова"
+                    }
+                elif lang == 'en':
+                    context = {
+                    "error_message": "You entered wrong password. Try again"
+                    }
+                elif lang == 'uk':
+                    context = {
+                    "error_message": "Ви ввели неправильний пароль. Попробуйте знову"
+                    }
+                return render(request, template, context)
+                
+        elif no:
+            return redirect("/" + lang + "/accounts/" + str(request.user.id))
+        elif search:
+            return redirect("/" + str(lang) + "/products/search/?q=" + searchText)
+        elif language:
+            if request.user.id != None:
+                current_user = AuthUser.objects.get(id=request.user.id)
+                current_user.user_language = str(language)
+                current_user.save()
+                return redirect('/' + current_user.user_language + '/accounts/delete')
+    else:
+        
+        return render(request, template)
 
 def editProfilePage(request, uid ,lang):
     if request.user.is_authenticated == False:
@@ -635,13 +690,36 @@ def editPasswordPage(request, uid, lang):
         language = request.POST.get('language', '')
         if check_password(password=old_pwd , encoded=userProfile.password) == True:
             if new_pwd == repeat_new_pwd:
-                username = userProfile.username
-                hashed_pwd = make_password(repeat_new_pwd, salt=None, hasher='default')
-                userProfile.password = hashed_pwd
-                userProfile.save()
-                user = auth.authenticate(username=username, password=repeat_new_pwd)
-                auth.login(request, user)
-                return redirect('/' + lang + '/accounts/'+ str(uid))
+
+                upper_case = 0
+                number = 0
+    
+                for i in new_pwd:
+                    if i.isupper():
+                        upper_case += 1
+                    elif i.isdigit():
+                        number += 1
+
+                if number > 0 and upper_case > 0:
+                    username = userProfile.username
+                    hashed_pwd = make_password(repeat_new_pwd, salt=None, hasher='default')
+                    userProfile.password = hashed_pwd
+                    userProfile.save()
+                    user = auth.authenticate(username=username, password=repeat_new_pwd)
+                    auth.login(request, user)
+                    return redirect('/' + lang + '/accounts/'+ str(uid))
+                else:
+                    if lang == 'ru':
+                        error_code = 'Ваш пароль должен сожержать хотя бы одну цифру и одну заглавную букву'
+                    elif lang == 'en':
+                        error_code = 'Your password must contain at least one number and one capital letter'
+                    elif lang == 'uk':
+                        error_code = 'Ваш пароль повинен містити хоча б одну цифру та одну велику літеру'
+                    context = {
+                    'error_message': error_code,
+                }
+                return render(request, template, context)
+
             else:
                 if lang == 'ru':
                     error_code = 'Новые пароли не совпадают. Повторите попытку'
