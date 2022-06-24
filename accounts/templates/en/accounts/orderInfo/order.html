@@ -125,7 +125,7 @@
                         <div class="confirm_btn">
                             {% if order.confirm == 'unc' %}
                             <input type='hidden' name='editid' value='{{ order.id }}'>
-                            <input type="confirm_order" name='edit' value='Complete order' readonly>
+                            <input type="submit" name='edit' value='Complete order' readonly>
                             {% endif %}
                         </div>
                     </div>
