@@ -1193,3 +1193,19 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.footer_btn{
+  text-align: center;
+  display: flex;
+  justify-content:space-evenly;
+}
+.footer_btn a{
+  color:#000;
+  border: 2px solid #000;
+  padding: 7px 12px;
+  font-size: 14px;
+}
+.footer_btn a:hover{
+  color:#fff;
+  background-color: #000;
+}
