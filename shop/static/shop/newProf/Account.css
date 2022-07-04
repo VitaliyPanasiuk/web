@@ -2,6 +2,9 @@
   /* min-height: 2025px; */
   margin-bottom: 60px;
 }
+.fav-block{
+  display: flex;
+}
 
 .u-section-1 .u-tabs-1 {
   /* min-height: 250px; */
