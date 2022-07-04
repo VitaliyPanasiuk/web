@@ -440,10 +440,10 @@
         </div>
       </div>
     </div>
-    <section class="u-clearfix u-section-3" id="sec-f281">
+    {% comment %} <section class="u-clearfix u-section-3" id="sec-f281">
       {% if maxPage != 0 %}
       <div class="u-clearfix u-sheet u-sheet-1">      
-        {% comment %} <form method="POST" action=''> {% endcomment %}
+        
         <form method="POST" id="changePage" action=''>
           {% csrf_token %}
           {% if page != 1 %}
@@ -468,8 +468,34 @@
           <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
           {% endif %}
       </form>
-        {% comment %} <p class="u-text u-text-default u-text-1">Page {{ page }} of {{ maxPage }}</p> {% endcomment %}
+       
       {% endif %} 
+      </div>
+    </section> {% endcomment %}
+    <section class="u-clearfix u-section-3" id="sec-f281">
+      {% if maxPage != 0 %}
+      <div class="u-clearfix u-sheet u-sheet-1">      
+        <form method="POST" action=''>
+          {% csrf_token %}
+          {% if page != 1 %}
+          <a href="" class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-60 u-btn-1"><input type='submit' style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" name='prevPage' value='Попередня сторінка'></a>
+          {% endif %}
+          {% if page == 1 %}
+              <div style="display: none;"><input type="text" name='page' value="1"></div>
+          {% else %}
+              <div style="display: none;"><input type="text" name='page' value="{{ page }}"></div>
+          {% endif %}
+          <div style="display: none;"><input type="text" name='availableStatus' value="{{ available }}"></div>
+          <div style="display: none;"><input type="text" name='withpriceStatus' value="{{ withprice }}"></div>
+          <div style="display: none;"><input type="text" name='currentCagtegory' value="{{ currentCagtegory }}"></div>
+          {% if maxPage > page %}
+          <a class="u-black u-border-none u-btn u-button-style u-hover-feature u-hover-grey-75 u-btn-2"><input type='submit'style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" name='nextPage' value='Наступна сторінка'></a>
+          {% endif %}
+      </form>
+        <p class="u-text u-text-default u-text-1">Сторінка {{ page }} з {{ maxPage }}</p>
+      {% else %}
+        <p class="u-text u-text-default u-text-1">Тут нічого немає</p>
+      {% endif %}
       </div>
     </section>
     
