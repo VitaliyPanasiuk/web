@@ -1,5 +1,5 @@
-{% load static %} {% load staticencoder %} {% load mathfilters %} {%
-get_media_prefix as MEDIA_URL %}
+{% load static %} {% load staticencoder %} {% load mathfilters %}
+{%get_media_prefix as MEDIA_URL %}
 
 <!DOCTYPE html>
 <html style="font-size: 16px">
@@ -83,33 +83,33 @@ get_media_prefix as MEDIA_URL %}
               <a
                 class="nav-prof"
                 id="link-tab-6e2b"
-                href="/ru/accounts/{{ request.user.id }}/orders"
+                href="/en/accounts/{{ request.user.id }}/orders"
                 role="tab"
                 aria-controls="tab-6e2b"
                 aria-selected="false"
-                >Мои заказы</a
+                >Заказы</a
               >
             </li>
             <li class="u-tab-item" role="presentation">
               <a
                 class="nav-prof"
                 id=""
-                href="/ru/accounts/{{ request.user.id }}/favourites"
+                href="/en/accounts/{{ request.user.id }}/favourites"
                 role="tab"
                 aria-controls="tab-db60"
                 aria-selected="false"
-                >Избранное</a
+                >Избраное</a
               >
             </li>
             <li class="u-tab-item" role="presentation">
               <a
                 class="nav-prof"
                 id="link-tab-b4b2"
-                href="/ru/accounts/{{ request.user.id }}/cart"
+                href="/en/accounts/{{ request.user.id }}/cart"
                 role="tab"
                 aria-controls="tab-b4b2"
                 aria-selected="false"
-                >Моя корзина</a
+                >Корзина</a
               >
             </li>
           </ul>
@@ -166,9 +166,9 @@ get_media_prefix as MEDIA_URL %}
                     </span>
                     <div class="names">
                       <h3 class="u-custom-font u-font-montserrat">
-                        {{ user.first_name }} {% if user.last_name %} {{
-                        currentUser.last_name }} {% else %} {{
-                        currentUser.username }} {% endif %}
+                        {{ user.first_name }} {% if user.last_name %}
+                        {{currentUser.last_name }} {% else %}
+                        {{currentUser.username }} {% endif %}
                       </h3>
                       <h6 class="u-custom-font u-font-montserrat">
                         {{ currentUser.email }}
@@ -176,11 +176,11 @@ get_media_prefix as MEDIA_URL %}
                     </div>
                   </div>
                   <div class="red_but">
-                    <a href="/ru/accounts/{{ user.id }}/edit" class="red_button"
-                      >Редактировать профиль</a
+                    <a href="/en/accounts/{{ user.id }}/edit" class="red_button"
+                      >Изменить профиль</a
                     >
                     <a
-                      href="/ru/accounts/{{ user.id }}/change-password"
+                      href="/en/accounts/{{ user.id }}/change-password"
                       class="red_button red_button2"
                       >Изменить пароль</a
                     >
@@ -202,7 +202,7 @@ get_media_prefix as MEDIA_URL %}
                           <h3
                             class="u-align-center-md u-align-center-sm u-align-center-xs u-align-left-lg u-align-left-xl u-custom-font u-font-montserrat u-text u-text-3"
                           >
-                            Личные данные
+                            Персональные данные
                           </h3>
                           <span class="u-icon u-icon-circle u-icon-2"
                             ><svg
@@ -283,7 +283,7 @@ get_media_prefix as MEDIA_URL %}
                           <h4
                             class="u-align-left u-custom-font u-font-montserrat u-text u-text-default-md u-text-default-sm u-text-default-xs u-text-10"
                           >
-                            Номер телефона:&nbsp;
+                            Номер:&nbsp;
                           </h4>
                           <span class="u-file-icon u-icon u-icon-3"
                             ><img
@@ -298,7 +298,7 @@ get_media_prefix as MEDIA_URL %}
                           <h4
                             class="u-align-left u-custom-font u-font-montserrat u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-12"
                           >
-                            Электронная почта:
+                            Почта:
                           </h4>
                         </div>
                       </div>
@@ -516,7 +516,7 @@ get_media_prefix as MEDIA_URL %}
               404<br /><a
                 href="/"
                 style="text-decoration: underline; color: blue !important"
-                >Вернуться на главную!</a
+                >>Вернуться на главную!</a
               >
             </h1>
             {% endif %}

@@ -1132,7 +1132,7 @@
   background: #fff;
   cursor: pointer;
   border: none;
-  height: 40px;
+  /* height: 40px; */
   width: 40px;
   font-size: 26px;
 }
@@ -1211,4 +1211,17 @@
 .footer_btn a:hover{
   color:#fff;
   background-color: #000;
+}
+
+#form_make_order input{
+  background: #fff;
+  color: #000;
+  padding: 7px 12px;
+  border-radius: 7px ;
+}
+#form_make_order input:hover{
+  background: #000;
+  color: #fff;
+  padding: 7px 12px;
+  border-radius: 7px ;
 }

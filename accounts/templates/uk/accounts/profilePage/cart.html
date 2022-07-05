@@ -94,6 +94,12 @@
                                 <p class="u-align-center u-text u-text-22"> ({{ item.price|mul:currency|mul:item.amount|floatformat:"2" }} UAH)</p>
                                 {% endif %}
                                 <div class="cart_am">
+                                    <form action='' method="POST">
+                                        {% csrf_token %}
+                                        <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
+                                        <input type='hidden' name='minus' id='minus' value='minus'>
+                                        <input type='submit' value='-' class="form_cart_input_am">
+                                    </form>
                                     <p class="u-align-center u-text ">{{ item.amount }} Шт.</p>
                                     <form action='' method="POST">
                                         {% csrf_token %}
@@ -101,12 +107,7 @@
                                         <input type='hidden' name='plus' id='plus' value='plus'>
                                         <input type='submit' value='+' class="form_cart_input_am">
                                     </form>
-                                    <form action='' method="POST">
-                                        {% csrf_token %}
-                                        <div style='display: none;'><input type='text' name='item_minus' id='item_minus' value='{{ item.item }}'></div>
-                                        <input type='hidden' name='minus' id='minus' value='minus'>
-                                        <input type='submit' value='-' class="form_cart_input_am">
-                                    </form>
+                                    
                                 </div>
                                 
 
@@ -132,7 +133,7 @@
                                 </p>
                             {% endfor %}
                     {% endif %}
-                    <form method='POST' action=''>
+                    <form method='POST' id="form_make_order" action=''>
                         {% csrf_token %}
                         <input type='submit' name = 'makeorder' value='Замовити'>
                     </form>
