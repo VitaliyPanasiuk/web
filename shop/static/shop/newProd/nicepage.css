@@ -3,7 +3,19 @@
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2021 Froala Labs
  */
+#carty {
+  width: 150px;
+}
 
+#favy {
+  width: 150px;
+}
+
+.forms-btn {
+  display: flex;
+  justify-content: space-around;
+  justify-content: space-around;
+}
 .fr-clearfix::after {
   clear: both;
   display: block;

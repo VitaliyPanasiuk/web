@@ -118,33 +118,35 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                   
                   
                   
-                    <form action="" name="carty" id="carty" method="POST">
-                      {% csrf_token %}
-                                              <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
-                                              <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
-                                              <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                              <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
-                                              <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                                              <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-                                              <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
-                                              <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">
-                                                <input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="TO CART">
-                                              </a>
-                    </form>
-                    <form action="" id="favy" name="favy" method="POST">
-                      {% csrf_token %}
-                                              <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
-                                              <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
-                                              <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
-                                              <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-2">
-                                                <input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="TO FAVORITES">
-                                              </a>
-                    </form>
+                    <div class="forms-btn">
+                      <form action="" name="carty" id="carty" method="POST">
+                        {% csrf_token %}
+                          <div style='display: none;'><input type='text' name='add_id' id='add_id' value='{{ продукт.id }}'></div>
+                          <div style='display: none;'><input type='text' name='add_name_ru' id='add_name_ru' value='{{ продукт.название_позиции }}'></div>
+                          <div style='display: none;'><input type='text' name='add_name_uk' id='add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                          <div style='display: none;'><input type='text' name='add_name_en' id='add_name_en' value='{{ продукт.name }}'></div>
+                          <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+                          <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+                          <input type='hidden' name='add_to_cart' id='add_to_cart' value='add_to_cart'>
+                          <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-1">
+                            <input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="IN CART">
+                          </a>
+                      </form>
+                      <form action="" id="favy" name="favy" method="POST">
+                        {% csrf_token %}
+                          <div style='display: none;'><input type='text' name='favourite_add_id' id='favourite_add_id' value='{{ продукт.id }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_name_ru' id='favourite_add_name' value='{{ продукт.название_позиции }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_name_uk' id='favourite_add_name_uk' value='{{ продукт.название_позиции_укр }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_name_en' id='favourite_add_name_en' value='{{ продукт.name }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_price' id='favourite_add_price' value='{{ продукт.цена }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_currency' id='favourite_add_currency' value='{{ продукт.валюта }}'></div>
+                          <div style='display: none;'><input type='text' name='favourite_add_image' id='favourite_add_image' value='{{ продукт.image }}'></div>
+                          <input type='hidden' name='add_to_favourite' id='add_to_favourite' value='add_to_favourite'>
+                          <a class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-2">
+                            <input type="submit" style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;" value="TO FAVORITES">
+                          </a>
+                      </form>
+                    </div>
                   
                   
                   <div class="u-clearfix u-custom-html u-custom-html-1">
@@ -160,19 +162,18 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
         <h6 class="u-align-center-xs u-custom-font u-font-montserrat u-text u-text-default u-text-4">Need help from a consultant?&nbsp;<br>We will call you back!
         </h6>
         <form method="POST" action="">
-                            {% csrf_token %}
-                            {% if auth_status == 'success' and user.first_name %}
-                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
-                            <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
-                            {% else %}
-                            <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
-                            {% endif %}
-                            <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
-                            <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
-                            <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
-          <a href="https://nicepage.com/c/medicine-science-html-templates" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
-            <span style="font-size: 0.75rem;">call me </span>
-            <span style="font-size: 0.75rem;">back</span>
+          {% csrf_token %}
+          {% if auth_status == 'success' and user.first_name %}
+          <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='{{ user.first_name }}'></div>
+          <div style='display: none;'><input type='text' name='callme_last_name' id='callme_last_name' value='{{ user.last_name }}'></div>
+          {% else %}
+          <div style='display: none;'><input type='text' name='callme_first_name' id='callme_first_name' value='Неизвестный пользователь'></div>
+          {% endif %}
+          <div style='display: none;'><input type='text' name='add_name' id='add_name' value='{{ продукт.название_позиции }}'></div>
+          <div style='display: none;'><input type='text' name='add_price' id='add_price' value='{{ продукт.цена }}'></div>
+          <div style='display: none;'><input type='text' name='add_currency' id='add_currency' value='{{ продукт.валюта }}'></div>
+          <a href="" class="u-border-2 u-border-black u-btn u-button-style u-custom-font u-font-montserrat u-hover-black u-none u-text-black u-text-hover-white u-btn-3">
+            <input type="submit" name = 'callme_inp_button' style="font-size: 0.75rem; background: none; color: inherit; border: none; padding: 0; cursor: pointer; outline: inherit;" value="CALL ME BACK">
           </a>
           {% if auth_status == 'success' and user.phone_number %}
           <div class="phone_number">
