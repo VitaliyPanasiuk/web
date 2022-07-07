@@ -118,6 +118,7 @@ class ShopCart(models.Model):
     en_order_item = models.CharField(max_length=500, blank=True, null=True)
     ru_order_item = models.CharField(max_length=500, blank=True, null=True)
     uk_order_item = models.CharField(max_length=500, blank=True, null=True)
+    image = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
         managed = False

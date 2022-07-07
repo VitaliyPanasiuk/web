@@ -134,14 +134,16 @@
                     <div style="display: none">
                       <input
                         type="text"
-                        name="delete"
-                        id="delete"
+                        name="itemToDelete"
+                        id="itemToDelete"
                         value="{{ item.item }}"
                       />
                     </div>
                     <input
                       type="submit"
                       value="&#10060;"
+                      name="delete"
+                      id="delete"
                       class="form_cart_input"
                     />
                   </form>
@@ -149,7 +151,7 @@
                 <div class="u-container-layout u-container-layout-10 cart_bl">
                   <img
                     class="u-image u-image-default u-image-2"
-                    src="{%static 'shop/img/cart-left.jpg' %}"
+                    src="{{ MEDIA_URL }}{{ item.image }}"
                     alt=""
                     data-image-width="1600"
                     data-image-height="742"

@@ -328,12 +328,12 @@ def userCart(request, uid, lang):
                     if cartItem.price != currentItem.цена:
                         cartItem.price = currentItem.цена
                         cartItem.save()
-    # DELETE FROM CART
+    
     if request.POST:
         search = request.POST.get("search", "")
         searchTextRaw = request.POST.get("searchtext", "")
         searchText = searchTextRaw.replace(" ", "-")
-        itemToDelete = request.POST.get("delete", "")
+        #itemToDelete = request.POST.get("delete", "")
         itemToDelete = request.POST.get("itemToDelete", "")
         delete = request.POST.get('delete', '')
         addOneMore = request.POST.get("plus", "")
