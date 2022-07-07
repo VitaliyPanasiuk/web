@@ -1,5 +1,4 @@
-{% load static %} {% load staticencoder %} {% load mathfilters %}
-{%get_media_prefix as MEDIA_URL %}
+{% load static %} {% load staticencoder %} {% load mathfilters %} {%get_media_prefix as MEDIA_URL %}
 
 <!DOCTYPE html>
 <html style="font-size: 16px">
@@ -166,9 +165,12 @@
                     </span>
                     <div class="names">
                       <h3 class="u-custom-font u-font-montserrat">
-                        {{ user.first_name }} {% if user.last_name %}
-                        {{currentUser.last_name }} {% else %}
-                        {{currentUser.username }} {% endif %}
+                        {{ user.first_name }} 
+                        {% if user.last_name %} 
+                        {{currentUser.last_name }} 
+                        {% else %} 
+                        {{currentUser.username }}
+                        {% endif %}
                       </h3>
                       <h6 class="u-custom-font u-font-montserrat">
                         {{ currentUser.email }}
@@ -506,8 +508,8 @@
               </div>
             </div>
             <div class="footer_btn">
-              <a href="/en/accounts/logout">Вийти</a>
-              <a href="/en/accounts/delete">Видалити акаунт</a>
+              <a href="/uk/accounts/logout">Вийти</a>
+              <a href="/uk/accounts/delete">Видалити акаунт</a>
             </div>
             {% else %}
             <h1
