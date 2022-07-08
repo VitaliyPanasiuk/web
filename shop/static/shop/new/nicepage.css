@@ -42343,3 +42343,8 @@ html {
 }
 
 /*end-variables base-font-size*/
+@media (max-width: 426px){
+  .u-footer .u-custom-html-1{
+    margin:0;
+  }
+}
