@@ -286,6 +286,7 @@ class Заказ(models.Model):
     order_uk = models.TextField(max_length=2000, blank=True, null=True)
     order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
     order_en = models.TextField(max_length=2000, blank=True, null=True)
+    
 
     class Meta:
         db_table = 'shop_order'
