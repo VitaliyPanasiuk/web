@@ -10,8 +10,7 @@ from .views import (
     guaranteesPage,
     goWithLanguage,
 )
-'''categoryPage,
-    categorySearchPage,'''
+
 
 urlpatterns = [
     path("<str:lang>/", homePage),
@@ -22,8 +21,7 @@ urlpatterns = [
     path("<str:lang>/collaboration/", collaborationPage),
     path("<str:lang>/guarantees/", guaranteesPage),
     path("<str:lang>/products/search/", searchPage),
-    #path("<str:lang>/products/category/<int:id>/", categoryPage),
-    #path("<str:lang>/products/category/<int:id>/search/", categorySearchPage),
+    path("<str:lang>/products/fromStartPage/", searchPage),
     path("", goWithLanguage),
 ]
 

@@ -384,7 +384,7 @@
                             </li>
                               {% for j in i.подкатегория.all %}
                                   <li class="sub_cat ">
-                                    <form method="POST", action="" >
+                                    <form method="POST" action="" >
                                         {% csrf_token %}
                                         <input type='hidden' name='subOrCat' value='sub'>
                                         <input type='hidden' name='categoryid' value='{{ j.subcategory_id }}'>
