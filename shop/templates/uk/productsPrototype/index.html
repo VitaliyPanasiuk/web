@@ -343,6 +343,11 @@
                 <div class="u-container-layout u-valign-top u-container-layout-1">
                   <a href='/uk/product/{{ продукт.id }}'><img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ продукт.image }}" alt="" data-image-width="840" data-image-height="473"></a>
                   <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ продукт.название_позиции_укр }}</h4>
+                  {% if продукт.наличие != '-' and продукт.наличие != None %}
+                   <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Є в наявності</h6>
+                   {% else %}
+                   <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Немає в наявності</h6>
+                   {% endif %}
                   {% if продукт.цена == None or продукт.валюта == None %}
                   <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Ціна формується</h6>
                   {% else %}

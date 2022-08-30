@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Продукт, Заказ, ShopCalls, Image , ShopCategory, ShopSubCategory
+from .models import Продукт, Заказ, ShopCalls, Image , ShopCategory, ShopSubCategory, ShopCurrency
 from django.contrib.admin import site
 site.disable_action('delete_selected')
 
@@ -93,3 +93,10 @@ class productAdmin(admin.ModelAdmin):
     list_display = ('category_name_ru', 'id',)
     exclude = ('id', )
     #inlines = [ShopSubCategoryAdmin]
+    
+@admin.register(ShopCurrency)
+class currencyAdmin(admin.ModelAdmin):
+    actions = ['delete_selected']
+    search_fields = ('date', 'usd_to_uah',)
+    list_display = ('date', 'usd_to_uah',)
+    exclude = ('id', )

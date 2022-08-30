@@ -510,6 +510,9 @@
             <div class="footer_btn">
               <a href="/uk/accounts/logout">Вийти</a>
               <a href="/uk/accounts/delete">Видалити акаунт</a>
+              {% if request.user.is_staff %}
+              <a href="/luxon-admin-panel">Панель керування сайтом</a>
+              {% endif %}
             </div>
             {% else %}
             <h1

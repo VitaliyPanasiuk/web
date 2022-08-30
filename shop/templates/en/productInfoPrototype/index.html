@@ -117,7 +117,9 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     {% endif %}
                   
                   
-                  
+                  {% if request.user.id %}
+                    {% if продукт.цена != None %}
+                      {% if продукт.наличие != '-' and продукт.наличие != None %}
                     <div class="forms-btn">
                       <form action="" name="carty" id="carty" method="POST">
                         {% csrf_token %}
@@ -154,6 +156,13 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                     <input form='carty' type="number" name="how_much_to_add" id="how_much_to_add" value="1">
                   </div>
                   <h5 class="u-custom-font u-font-montserrat u-text u-text-default u-text-3">Amount:</h5>
+                {% endif %}
+                {% endif %}
+                {% else %}
+                  <p>
+                    <a href="/en/accounts/login">Log In</a> or <a href="/en/accounts/register">register</a> to add product to cart
+                  </p>
+                {% endif %}
                 </div>
               </div>
             </div>

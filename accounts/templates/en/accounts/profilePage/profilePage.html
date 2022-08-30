@@ -226,6 +226,9 @@
                                         <div class="footer_btn">
                                             <a href="/en/accounts/logout">Log out</a>
                                             <a href="/en/accounts/delete">Delete account</a>
+                                            {% if request.user.is_staff %}
+                                            <a href="/luxon-admin-panel">Admin panel</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

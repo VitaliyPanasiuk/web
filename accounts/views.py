@@ -140,7 +140,10 @@ def login(request, lang):
             if user is not None:
                 auth.login(request, user)
                 current_user = AuthUser.objects.get(id=request.user.id)
-                return redirect("/" + current_user.user_language)
+                if current_user.user_language != None:
+                    return redirect("/" + current_user.user_language)
+                else:
+                    return redirect("/uk")
             else:
                 if lang == 'en':
                     args["login_error"] = "Wrong username or password!"

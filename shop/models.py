@@ -2,6 +2,7 @@ from django.db import models
 from random import randint
 from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime
 
 #functions
 def random_string():
@@ -156,6 +157,17 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+
+class ShopCurrency(models.Model):
+        date = models.DateTimeField(blank=True, null=True, verbose_name='Дата', default=datetime.datetime.now())
+        usd_to_uah = models.IntegerField(verbose_name='Курс $ к ₴')
+
+        class Meta:
+            db_table = 'shop_currency'
+            verbose_name_plural = "Курсы валют"
+            verbose_name = "Курс валют"
+
 
 class ShopCalls(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)

@@ -43,16 +43,16 @@ INSTALLED_APPS = [
     'accounts',
     'django.contrib.sites',
     'orders',
-    'django_celery_beat',
-    'django_celery_results',
     'mathfilters',
     'django_cleanup',
 ]
 #CELERY SETTINGS
-CELERY_TIMEZONE = "Europe/Kiev"
+'''django_celery_beat',
+    'django_celery_results','''
+'''CELERY_TIMEZONE = "Europe/Kiev"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'''
 
 SITE_ID = 1
 

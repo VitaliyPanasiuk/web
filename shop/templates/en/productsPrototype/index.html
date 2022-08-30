@@ -422,8 +422,13 @@
                 <div class="u-container-layout u-valign-top u-container-layout-1">
                   <a href='/en/product/{{ продукт.id }}'><img class="u-image u-image-default u-image-1" src="{{ MEDIA_URL }}{{ продукт.image }}" alt="" data-image-width="840" data-image-height="473"></a>
                   <h4 class="u-align-center u-custom-font u-font-montserrat u-text u-text-1">{{ продукт.name }}</h4>
+                  {% if продукт.наличие != '-' and продукт.наличие != None %}
+                   <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Available</h6>
+                   {% else %}
+                   <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Unavailable</h6>
+                   {% endif %}
                   {% if продукт.цена == None or продукт.валюта == None %}
-                  <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">The price is formed</h6>
+                  <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-2">Price is forming</h6>
                   {% else %}
                     {% if продукт.скидка > 0 %}
                       <h6 class="u-custom-font u-font-montserrat u-text u-text-custom-color-1 u-text-default u-text-2"><s>{{ продукт.цена|floatformat:2 }} {{ продукт.валюта }}</s>   {{ продукт.цена|discount:продукт.скидка|floatformat:2  }} {{ продукт.валюта }}</h6>
