@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
     <link rel="icon" href="{%  static  'shop/img/logo.png'  %}" type="image/x-icon">
-    <title>Создать заказ</title>
+    <title>Змінити замовлення</title>
     <meta name="keywords" content="INTUITIVE">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
@@ -73,12 +73,12 @@
             {% endif %}
             <br>
             <label>Замовлення: </label><div style='display: none;'>
-                <input type="hidden" value='{{ order.заказ }}' name='order'>
+                <input type="hidden" value='{{ order.order }}' name='order'>
             </div>
             <br>
             <p>{{ order.order_uk }}</p>
             <div style='display: none;'>
-                <input type="hidden" value='{{ order.сумма_заказа }}' name='price'>
+                <input type="hidden" value='{{ order.order_price }}' name='price'>
             </div>
             <p>До сплати: {{ order.сумма_заказа|floatformat:"2" }} UAH</p>
             <p>Тип доставки: </p>

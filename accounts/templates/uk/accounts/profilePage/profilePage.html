@@ -9,8 +9,11 @@
     <meta name="description" content="" />
     <meta name="page_type" content="np-template-header-footer-from-plugin" />
     <title>
-      {% if user.first_name %} Профіль користувача {{ user.first_name }} {% else
-      %} Профіль користувача {{ user.username }} {% endif %}
+      {% if user.first_name %}
+      Профіль користувача {{ user.first_name }}
+      {% else %}
+      Профіль користувача {{ user.username }}
+      {% endif %}
     </title>
     <link
       rel="stylesheet"

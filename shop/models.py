@@ -1,3 +1,5 @@
+from tkinter import CASCADE
+from turtle import hideturtle
 from django.db import models
 from random import randint
 from django.conf import settings
@@ -65,6 +67,8 @@ class AuthPermission(models.Model):
         unique_together = (('content_type', 'codename'),)
 
 
+
+
 class AuthUser(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     password = models.CharField(max_length=128)
@@ -84,6 +88,7 @@ class AuthUser(models.Model):
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
     user_language = models.CharField(max_length=45, blank=True, null=True)
+    total_price = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -164,9 +169,11 @@ class ShopCurrency(models.Model):
         usd_to_uah = models.IntegerField(verbose_name='Курс $ к ₴')
 
         class Meta:
+            managed = False
             db_table = 'shop_currency'
             verbose_name_plural = "Курсы валют"
             verbose_name = "Курс валют"
+
 
 
 class ShopCalls(models.Model):
@@ -216,7 +223,7 @@ class ShopCategory(models.Model):
     def __str__(self):
         return self.category_name_ru
  
-class Продукт(models.Model):
+class Products(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     код_товара = models.CharField(db_column='Код_товара', max_length=25, blank=True, null=True)  # Field name made lowercase.
@@ -238,8 +245,6 @@ class Продукт(models.Model):
     наличие = models.CharField(db_column='Наличие', max_length=2, blank=True, null=True, default='np', choices=AVAILABLE_STATUS)  # Field name made lowercase.
     количество = models.IntegerField(db_column='Количество', blank=True, null=True)  # Field name made lowercase.
     номер_группы = models.IntegerField(db_column='Номер_группы', blank=True, null=True)  # Field name made lowercase.
-    #категория = models.CharField(db_column='Название_группы', max_length=100, blank=True, null=True)
-    #категория = models.ForeignKey(ShopCategory, db_column='Название_группы', max_length=100, blank=True, null=True, on_delete=models.DO_NOTHING)  # Field name made lowercase.
     адрес_подраздела = models.CharField(db_column='Адрес_подраздела', max_length=77, blank=True, null=True)  # Field name made lowercase.
     возможность_поставки = models.IntegerField(db_column='Возможность_поставки', blank=True, null=True)  # Field name made lowercase.
     срок_поставки = models.CharField(db_column='Срок_поставки', max_length=7, blank=True, null=True)  # Field name made lowercase.
@@ -255,61 +260,22 @@ class Продукт(models.Model):
         ])  # Field name made lowercase.
     id_группы_разновидностей = models.CharField(db_column='ID_группы_разновидностей', max_length=30, blank=True, null=True)  # Field name made lowercase.
     личные_заметки = models.CharField(db_column='Личные_заметки', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    #cрок_действия_скидки_от = models.CharField(db_column='Cрок_действия_скидки_от', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    #cрок_действия_скидки_до = models.CharField(db_column='Cрок_действия_скидки_до', max_length=30, blank=True, null=True)  # Field name made lowercase.
     image = models.FileField(upload_to='products/', blank=True, null=True, verbose_name='Главное изображение')
     category_name = models.CharField(db_column='category_name', max_length=100, blank=True, null=True)
     
     class Meta:
         db_table = 'shop_product'
+        verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
     def __str__(self):
         return self.название_позиции
 
 class Image(models.Model):
     image = models.ImageField(upload_to='productInfo/', verbose_name='Изображение')
-    product = models.ForeignKey(Продукт, default=None, related_name='images', on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, default=None, related_name='images', on_delete=models.CASCADE)
     class Meta:
         verbose_name_plural = 'Изображения'
-        verbose_name = 'Изображение'
-
-class Заказ(models.Model):
-    id = models.IntegerField(db_column='id', primary_key=True, null=False,)
-    фамилия = models.CharField(max_length=45)
-    имя = models.CharField(max_length=45)
-    отчество = models.CharField(max_length=45, blank=True, null=True)
-    телефон = models.CharField(max_length=45, blank=True, null=True)
-    почта = models.CharField(max_length=60)
-    заказ = models.TextField(max_length=10000, blank=True, null=True)
-    сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
-    валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
-    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS, verbose_name='Статус оплаты заказа')
-    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус выполнения заказа')
-    дата_заказа = models.DateTimeField(blank=True, null=True)
-    user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
-    city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
-    street = models.CharField(max_length=50, blank=True, null=True, verbose_name='Улица')
-    house = models.CharField(max_length=50, blank=True, null=True, verbose_name='Дом')
-    payment_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип оплаты')
-    delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
-    nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
-    ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
-    confirm = models.CharField(max_length=500, blank=True, null=True, choices=CONFIRM_STATUS, verbose_name='Статус подтверждения заказа')
-    order_uk = models.TextField(max_length=2000, blank=True, null=True)
-    order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
-    order_en = models.TextField(max_length=2000, blank=True, null=True)
-    
-
-    class Meta:
-        db_table = 'shop_order'
-        verbose_name_plural = 'Заказы'
-    def get_actions(self, request):
-        actions = super().get_actions(request)
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
-        return actions
-    def __str__(self):
-        return 'Заказ №' + str(self.id)
+        verbose_name = 'Изображение'    
 
 
 class ShopCart(models.Model):

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'orders',
     'mathfilters',
     'django_cleanup',
+    'fieldsets_with_inlines',
 ]
 #CELERY SETTINGS
 '''django_celery_beat',

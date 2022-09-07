@@ -16,6 +16,13 @@ AVAILABLE_STATUS = (
     ('a', 'Есть в наличии'),
     ('ua', 'Нет в наличии'),
 )
+CONFIRM_STATUS = (
+    ('uc', 'В обработке'),
+    ('unc', 'Заказ не подтвержден пользователем'),
+    ('ac', 'Заказ подтвержден администратором'),
+    ('done', 'Заказ выполнен'),
+)
+
 
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
@@ -35,6 +42,7 @@ class AuthUser(models.Model):
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True)
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True)
     user_language = models.CharField(max_length=45, blank=True, null=True)
+    #cart = models.OneToOneField(UserCart, on_delete=models.CASCADE)
     
 
     class Meta:
@@ -56,7 +64,7 @@ class ShopFavourite(models.Model):
             managed = True
             db_table = "shop_favourite"
 
-class Продукт(models.Model):
+class Products(models.Model):
     название_позиции = models.CharField(db_column='Название_позиции', max_length=98, blank=True, null=True)  # Field name made lowercase.
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
     код_товара = models.CharField(db_column='Код_товара', max_length=25, blank=True, null=True)  # Field name made lowercase.
@@ -101,11 +109,12 @@ class Продукт(models.Model):
     
     class Meta:
         db_table = 'shop_product'
+        verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         managed=False
     def __str__(self):
         return self.название_позиции
-    
+
 
 class ShopCart(models.Model):
     user_id = models.CharField(max_length=45)
@@ -123,6 +132,11 @@ class ShopCart(models.Model):
     class Meta:
         managed = False
         db_table = 'shop_cart'
+        
+
+#REMAKE CART STRUCT
+
+
 
 class ShopCurrency(models.Model):
         date = models.DateTimeField(blank=True, null=True)
@@ -132,20 +146,24 @@ class ShopCurrency(models.Model):
             managed = False
             db_table = 'shop_currency'
 
-class Заказ(models.Model):
+
+
+
+
+class Orders(models.Model):
     id = models.IntegerField(db_column='id', primary_key=True, null=False,)
-    фамилия = models.CharField(max_length=45)
-    имя = models.CharField(max_length=45)
-    отчество = models.CharField(max_length=45, blank=True, null=True)
-    телефон = models.CharField(max_length=45, blank=True, null=True)
-    почта = models.CharField(max_length=60)
-    заказ = models.TextField(max_length=10000, blank=True, null=True)
+    last_name = models.CharField(max_length=45, db_column='фамилия', blank=True, null=True, verbose_name='Фамилия')
+    first_name = models.CharField(max_length=45, db_column='имя', blank=True, null=True, verbose_name='Имя')
+    fathers_name = models.CharField(max_length=45, blank=True, null=True, db_column='отчество', verbose_name='Отчество')
+    phone_number = models.CharField(max_length=45, blank=True, null=True, db_column='телефон', verbose_name='Номер телефона')
+    email = models.CharField(max_length=60, db_column='почта', null=True, blank=True, verbose_name='Email')
+    order = models.TextField(max_length=10000, blank=True, null=True, db_column='заказ', verbose_name='Заказ')
     user_order = models.CharField(max_length=10000, blank=True, null=True)
-    сумма_заказа = models.CharField(max_length=45, blank=True, null=True)
-    валюта_заказа = models.CharField(max_length=45, blank=True, null=True)
-    статус_оплаты = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS)
-    статус_заказа = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, verbose_name='Статус Заказа')
-    дата_заказа = models.DateTimeField(blank=True, null=True)
+    order_price = models.CharField(max_length=45, blank=True, null=True, db_column='сумма_заказа', verbose_name='Сумма заказа')
+    currency = models.CharField(max_length=45, blank=True, null=True, db_column='валюта_заказа', verbose_name='Валюта')
+    payment_status = models.CharField(max_length=45, blank=True, null=False, default='np', choices=PAYMENT_STATUS, db_column='статус_оплаты', verbose_name='Статус оплаты')
+    order_status = models.CharField(max_length=45, blank=True, null=False, default='nd', choices=PROGRESS_STATUS, db_column='статус_заказа', verbose_name='Статус выполнения')
+    order_date = models.DateTimeField(blank=True, null=True, db_column='дата_заказа', verbose_name='Дата и время заказа')
     user_id = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Id пользователя')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
     street = models.CharField(max_length=50, blank=True, null=True, verbose_name='Улица')
@@ -154,19 +172,40 @@ class Заказ(models.Model):
     delivery_type = models.CharField(max_length=20, blank=True, null=True, verbose_name='Тип доставки')
     nova_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Отделение Новой Почты')
     ukr_pochta = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Индекс почтового отеделния')
-    confirm = models.CharField(max_length=500, blank=True, null=True)
+    confirm = models.CharField(max_length=500, blank=True, null=True, choices=CONFIRM_STATUS, verbose_name='Статус подтверждения заказа')
     order_uk = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
     order_ru = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
     order_en = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Заказ')
+    
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'shop_order'
+        verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+
     def get_actions(self, request):
         actions = super().get_actions(request)
         if 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
+        
     def __str__(self):
         return 'Заказ №' + str(self.id)
+
+
+class OrderItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    name_uk = models.CharField(max_length=200)
+    name_en = models.CharField(max_length=200)
+    name_ru = models.CharField(max_length=200, verbose_name='Продукт')
+    amount = models.IntegerField(blank=True, null=True, verbose_name='Количество')
+    price = models.FloatField(blank=True, null=True, verbose_name='Цена (в UAH)')
+    #currency = models.CharField(blank=True, null=True, max_length=5, default="₴")
+    order = models.ForeignKey(Orders, default=None, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'Продукты'
+        verbose_name = 'Продукт'
+    def __str__(self):
+        return ""

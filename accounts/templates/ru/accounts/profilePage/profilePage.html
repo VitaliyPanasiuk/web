@@ -12,8 +12,11 @@
     <meta name="description" content="" />
     <meta name="page_type" content="np-template-header-footer-from-plugin" />
     <title>
-      {% if user.first_name %} Профиль пользователя {{ user.first_name }} {%
-      else %} Профиль пользователя {{ user.username }} {% endif %}
+      {% if user.first_name %}
+      Профиль пользователя {{ user.first_name }} 
+      {% else %}
+      Профиль пользователя {{ user.username }}
+      {% endif %}
     </title>
     <link
       rel="stylesheet"

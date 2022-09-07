@@ -9,8 +9,7 @@
     <meta name="description" content="" />
     <meta name="page_type" content="np-template-header-footer-from-plugin" />
     <title>
-      {% if user.first_name %} Профиль пользователя {{ user.first_name }} {%
-      else %} Профиль пользователя {{ user.username }} {% endif %}
+      Orders
     </title>
     <link
       rel="stylesheet"
@@ -135,7 +134,7 @@
                 <div class="orderId_block">
                   <h3 class="">
                     <a
-                      href="/uk/accounts/{{ request.user.id }}/order/{{ order.id }}"
+                      href="/en/accounts/{{ request.user.id }}/order/{{ order.id }}"
                       >Order №{{order.id }}</a
                     >
                   </h3>
@@ -167,7 +166,7 @@
 
                 <div class="order_price">
                   <h5 class="">
-                    Order price:&nbsp;<br />{{ order.сумма_заказа }} UAH
+                    Order price:&nbsp;<br />{{ order.order_price }} UAH
                   </h5>
                 </div>
                 <div class="order_del">
@@ -213,7 +212,7 @@
                   <div class="orderId_block">
                     <h3 class="">
                       <a
-                        href="/uk/accounts/{{ request.user.id }}/order/{{ order.id }}"
+                        href="/en/accounts/{{ request.user.id }}/order/{{ order.id }}"
                         >Замовлення №{{order.id }}</a
                       >
                     </h3>
@@ -246,7 +245,7 @@
 
                 <div class="order_price">
                   <h5 class="">
-                    Сумма замовлення:&nbsp;<br />{{ order.сумма_заказа }} UAH
+                    Сумма замовлення:&nbsp;<br />{{ order.order_price }} UAH
                   </h5>
                 </div>
                 <div class="order_del">
